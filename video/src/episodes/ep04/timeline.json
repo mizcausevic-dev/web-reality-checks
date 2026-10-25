@@ -7,153 +7,153 @@
     "scene": "engine",
     "t": 6
   },
-  "audio": null,
-  "duration": 104.17,
+  "audio": "ep04/narration.mp3",
+  "duration": 101.84,
   "scenes": [
     {
       "id": "create",
       "start": 0,
-      "end": 8.44,
+      "end": 8.49,
       "sim": "LOCAL FIXTURE · NODE + PGLITE"
     },
     {
       "id": "engine",
-      "start": 8.44,
-      "end": 20.6,
+      "start": 8.49,
+      "end": 20.85,
       "sim": "LOCAL FIXTURE · NODE + PGLITE"
     },
     {
       "id": "memory_vs_disk",
-      "start": 20.6,
-      "end": 33.93,
+      "start": 20.85,
+      "end": 32.31,
       "sim": "LOCAL FIXTURE · NODE + PGLITE"
     },
     {
       "id": "reload",
-      "start": 33.93,
-      "end": 49.23,
+      "start": 32.31,
+      "end": 47.08,
       "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
     },
     {
       "id": "offline",
-      "start": 49.23,
-      "end": 62.56,
+      "start": 47.08,
+      "end": 62.27,
       "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
     },
     {
       "id": "offline_edit",
-      "start": 62.56,
-      "end": 72.36,
+      "start": 62.27,
+      "end": 71.03,
       "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
     },
     {
       "id": "clean_profile",
-      "start": 72.36,
-      "end": 81.78,
+      "start": 71.03,
+      "end": 80.67,
       "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
     },
     {
       "id": "clear_data",
-      "start": 81.78,
-      "end": 93.93,
+      "start": 80.67,
+      "end": 90.63,
       "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
     },
     {
       "id": "end",
-      "start": 93.93,
-      "end": 104.17,
+      "start": 90.63,
+      "end": 101.84,
       "sim": null
     }
   ],
   "captions": [
     {
       "start": 0.6,
-      "end": 4.96,
+      "end": 4.98,
       "text": "Create a note, then search it with SQL. One match."
     },
     {
-      "start": 4.96,
-      "end": 8.44,
+      "start": 4.98,
+      "end": 8.49,
       "text": "A real Postgres engine answered. No server involved."
     },
     {
-      "start": 8.44,
-      "end": 14.2,
+      "start": 8.49,
+      "end": 14.34,
       "text": "PGlite: Postgres compiled to WebAssembly, loaded like an asset."
     },
     {
-      "start": 14.2,
-      "end": 20.6,
+      "start": 14.34,
+      "end": 20.85,
       "text": "Here it ran under Node against a folder on disk."
     },
     {
-      "start": 20.6,
-      "end": 26.95,
+      "start": 20.85,
+      "end": 26.31,
       "text": "Working memory and the data directory are two different places."
     },
     {
-      "start": 26.95,
-      "end": 33.93,
+      "start": 26.31,
+      "end": 32.31,
       "text": "memory:// loses the note on close. The filesystem dir keeps it."
     },
     {
-      "start": 33.93,
-      "end": 40.81,
+      "start": 32.31,
+      "end": 38.96,
       "text": "Browser: idb://video-notes is IndexedDB for this origin and profile."
     },
     {
-      "start": 40.81,
-      "end": 49.23,
+      "start": 38.96,
+      "end": 47.08,
       "text": "Reload, same origin and profile: the note should still be there."
     },
     {
-      "start": 49.23,
-      "end": 56.25,
+      "start": 47.08,
+      "end": 55.07,
       "text": "A service worker precaches the shell and all engine files."
     },
     {
-      "start": 56.25,
-      "end": 62.56,
+      "start": 55.07,
+      "end": 62.27,
       "text": "Same origin, versioned cache. Finish caching before going offline."
     },
     {
-      "start": 62.56,
-      "end": 66.57,
+      "start": 62.27,
+      "end": 65.85,
       "text": "Offline reload and edit: the write goes to IndexedDB."
     },
     {
-      "start": 66.57,
-      "end": 72.36,
+      "start": 65.85,
+      "end": 71.03,
       "text": "If it fails in your browser, report it. Do not film a success."
     },
     {
-      "start": 72.36,
-      "end": 76.4,
+      "start": 71.03,
+      "end": 75.16,
       "text": "Clean profile, same address: no notes."
     },
     {
-      "start": 76.4,
-      "end": 81.78,
+      "start": 75.16,
+      "end": 80.67,
       "text": "Node analogue: a second data dir sees zero."
     },
     {
-      "start": 81.78,
-      "end": 88.17,
+      "start": 80.67,
+      "end": 85.91,
       "text": "Clear site data: the note and the cache are gone."
     },
     {
-      "start": 88.17,
-      "end": 93.93,
+      "start": 85.91,
+      "end": 90.63,
       "text": "The browser owns this storage and may remove it."
     },
     {
-      "start": 93.93,
-      "end": 99.08,
+      "start": 90.63,
+      "end": 96.39,
       "text": "Local persistence is not cloud sync — or a backup."
     },
     {
-      "start": 99.08,
-      "end": 102.17,
+      "start": 96.39,
+      "end": 99.84,
       "text": "One origin, one profile, one device."
     }
   ]

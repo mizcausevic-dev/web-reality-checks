@@ -1,71 +1,71 @@
 1
-00:00:00,600 --> 00:00:04,960
+00:00:00,600 --> 00:00:04,980
 Create a note, then search it with SQL. One match.
 
 2
-00:00:04,960 --> 00:00:08,440
+00:00:04,980 --> 00:00:08,490
 A real Postgres engine answered. No server involved.
 
 3
-00:00:08,440 --> 00:00:14,200
+00:00:08,490 --> 00:00:14,340
 PGlite: Postgres compiled to WebAssembly, loaded like an asset.
 
 4
-00:00:14,200 --> 00:00:20,600
+00:00:14,340 --> 00:00:20,850
 Here it ran under Node against a folder on disk.
 
 5
-00:00:20,600 --> 00:00:26,950
+00:00:20,850 --> 00:00:26,310
 Working memory and the data directory are two different places.
 
 6
-00:00:26,950 --> 00:00:33,930
+00:00:26,310 --> 00:00:32,310
 memory:// loses the note on close. The filesystem dir keeps it.
 
 7
-00:00:33,930 --> 00:00:40,810
+00:00:32,310 --> 00:00:38,960
 Browser: idb://video-notes is IndexedDB for this origin and profile.
 
 8
-00:00:40,810 --> 00:00:49,230
+00:00:38,960 --> 00:00:47,080
 Reload, same origin and profile: the note should still be there.
 
 9
-00:00:49,230 --> 00:00:56,250
+00:00:47,080 --> 00:00:55,070
 A service worker precaches the shell and all engine files.
 
 10
-00:00:56,250 --> 00:01:02,560
+00:00:55,070 --> 00:01:02,270
 Same origin, versioned cache. Finish caching before going offline.
 
 11
-00:01:02,560 --> 00:01:06,570
+00:01:02,270 --> 00:01:05,850
 Offline reload and edit: the write goes to IndexedDB.
 
 12
-00:01:06,570 --> 00:01:12,360
+00:01:05,850 --> 00:01:11,030
 If it fails in your browser, report it. Do not film a success.
 
 13
-00:01:12,360 --> 00:01:16,400
+00:01:11,030 --> 00:01:15,160
 Clean profile, same address: no notes.
 
 14
-00:01:16,400 --> 00:01:21,780
+00:01:15,160 --> 00:01:20,670
 Node analogue: a second data dir sees zero.
 
 15
-00:01:21,780 --> 00:01:28,170
+00:01:20,670 --> 00:01:25,910
 Clear site data: the note and the cache are gone.
 
 16
-00:01:28,170 --> 00:01:33,930
+00:01:25,910 --> 00:01:30,630
 The browser owns this storage and may remove it.
 
 17
-00:01:33,930 --> 00:01:39,080
+00:01:30,630 --> 00:01:36,390
 Local persistence is not cloud sync — or a backup.
 
 18
-00:01:39,080 --> 00:01:42,170
+00:01:36,390 --> 00:01:39,840
 One origin, one profile, one device.

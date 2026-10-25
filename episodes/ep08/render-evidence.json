@@ -1,0 +1,38 @@
+{
+  "file": "episodes/ep08/ep08.mp4",
+  "bytes": 9347719,
+  "duration_s": 103.37,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 103.35,
+  "thumbnail": {
+    "file": "episodes/ep08/thumbnail.png",
+    "size": "1280x720",
+    "source": "THUMB-EP08"
+  },
+  "hero": {
+    "file": "episodes/ep08/hero.png",
+    "size": "1600x900",
+    "source": "HERO-EP08"
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending",
+    "scene_fail",
+    "scene_fix_image",
+    "scene_fix_handler"
+  ]
+}

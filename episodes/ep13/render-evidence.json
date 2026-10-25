@@ -1,0 +1,38 @@
+{
+  "file": "episodes/ep13/ep13.mp4",
+  "bytes": 9765509,
+  "duration_s": 109.6,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 109.6,
+  "thumbnail": {
+    "file": "episodes/ep13/thumbnail.png",
+    "size": "1280x720",
+    "source": "THUMB-EP13"
+  },
+  "hero": {
+    "file": "episodes/ep13/hero.png",
+    "size": "1600x900",
+    "source": "HERO-EP13"
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending",
+    "scene_public_fail",
+    "scene_fix",
+    "scene_retest_scan"
+  ]
+}

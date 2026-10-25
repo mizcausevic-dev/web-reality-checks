@@ -1,0 +1,36 @@
+{
+  "file": "episodes/ep03/ep03.mp4",
+  "bytes": 9885270,
+  "duration_s": 119.53,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 119.52,
+  "thumbnail": {
+    "file": "episodes/ep03/thumbnail.png",
+    "size": "1280x720",
+    "source": "THUMB-EP03"
+  },
+  "hero": {
+    "file": "episodes/ep03/hero.png",
+    "size": "1600x900",
+    "source": "HERO-EP03"
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending",
+    "scene_verify"
+  ]
+}

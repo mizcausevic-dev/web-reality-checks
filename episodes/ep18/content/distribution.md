@@ -10,7 +10,7 @@ All numbers and outcomes below come from the local synthetic fixture in `fixture
 2. `Every Signature Was Valid. The Record Was Still Wrong.` (54) : the surprising part for engineers; valid is not the same as latest.
 3. `Delivery Order Is Not Business Order` (36) : the closing line as a thesis; short and quotable.
 4. `Webhooks: Verify Bytes, Dedup by Constraint, Skip by Version` (60) : names the three repair steps, so search intent around webhook handling lands here.
-5. `A Late Webhook Set a Paying Customer to Past Due` (47) : the business symptom; works for product and founder viewers.
+5. `A Late Webhook Set a Paying Customer to Past Due` (48) : the business symptom; works for product and founder viewers.
 6. `Six Deliveries, One Event. What Should Happen?` (46) : the concurrency scene as a question; invites the viewer to answer before the reveal.
 
 ### Description
@@ -52,25 +52,25 @@ Everything here runs on a deliberately built local fixture with a fictional prov
 
 ### Post 1: engineers
 
-Three webhooks about one subscription. Delivered v1, v3, then v2 late. Every signature valid. Final record: past due on starter, for a customer who is active on pro.
+Three webhooks, one subscription. Delivered v1, v3, then v2 late. Every signature valid. Final record: past due on starter, for a customer active on pro.
 
-Episode 18 of Web Reality Checks. The naive receiver verified signatures correctly and still got it wrong, because it applied events in arrival order.
+Episode 18 of Web Reality Checks. The naive receiver verified correctly and still got it wrong: it applied events in arrival order.
 
-The corrected receiver, in order:
+The corrected receiver:
 
-1. Verify HMAC-SHA256 over the delivery timestamp and the RAW body bytes, with crypto.timingSafeEqual, before JSON.parse. A body signed over a reserialization but sent as different bytes: 401.
+1. HMAC-SHA256 over delivery timestamp + RAW body bytes, timingSafeEqual, before JSON.parse. Signed over a reserialization: 401.
 
-2. Enforce a 300 s delivery-timestamp tolerance. Valid signature, 301 s old: 401. Valid is not fresh.
+2. 300 s tolerance. Valid signature, 301 s old: 401. Valid is not fresh.
 
-3. Insert the event under UNIQUE (provider, event_id). The constraint is the dedup decision, not a lookup. A retry is fresh and correctly signed and still a duplicate: 200, no second apply.
+3. Insert under UNIQUE (provider, event_id). The constraint is the dedup decision. A retry is fresh, signed and still a duplicate: 200, no second apply.
 
-4. Apply the snapshot only if version > stored. Late v2 after v3: recorded as stale, not applied.
+4. Apply only if version > stored. Late v2 after v3: stale, not applied.
 
-Record and state in one transaction. 200 only after commit. Failed commit: 503, nothing changed.
+Record + state in one transaction. 200 only after commit. Failed commit: 503.
 
-Retest: v1, v3, v2, v3 retry gives applied, applied, stale, duplicate. Six concurrent deliveries of one event: 1 applied, 5 duplicate, 1 record. Replay of all six shuffled: state digest unchanged. 14 tests, 14 pass, with a known-positive control.
+Retest: applied, applied, stale, duplicate. Six concurrent deliveries: 1 applied, 5 duplicate, 1 record. Replay all six shuffled: digest unchanged. 14 tests, 14 pass, with a control.
 
-Scope: version skipping is safe here only because this fictional provider sends full snapshots. Deltas need every event. The fixture touches only its own database; external side effects need extra coordination.
+Scope: version skipping is safe only because this fictional provider sends full snapshots; deltas need every event. Local DB only; side effects need extra coordination.
 
 Fixture, tests, video: github.com/mizcausevic-dev/web-reality-checks
 
@@ -78,22 +78,22 @@ Fixture, tests, video: github.com/mizcausevic-dev/web-reality-checks
 
 ### Post 2: non-technical leaders
 
-A customer upgraded to pro and paid. An hour later your system says past due. The billing provider says active. Nobody touched anything.
+A customer upgraded to pro and paid. An hour later your system says past due. The billing provider says active. Nobody touched it.
 
-Episode 18 of Web Reality Checks reproduces this on a local fixture with a fictional provider. Three updates about one subscription are sent in order: trial, past due, active on pro. They arrive out of order, with the "past due" message landing last. The flawed receiver files each message as it arrives, so an old truth overwrites the current one. Every message was authentic.
+Episode 18 of Web Reality Checks reproduces this on a local fixture with a fictional provider. Three updates about one subscription go out in order: trial, past due, active on pro. They arrive out of order, "past due" last. The flawed receiver files each as it lands, so an old truth overwrites the current one. All real messages.
 
-Think of bank statements arriving by mail. If Monday's late statement lands on top of Tuesday's and you file whichever came last, your folder is wrong and every page in it is real.
+Bank statements by mail: Monday's late statement lands on Tuesday's, you file whichever came last, and your folder is wrong though every page is real.
 
-The fix: check the seal before reading, keep one copy of each statement, and never let a lower-numbered page replace a higher one. That last step only works because each statement shows the whole account, which is a promise this fictional provider makes and real ones do not all make.
+Fix: check the seal, keep one copy of each statement, never let a lower-numbered page replace a higher one. That works only because each statement shows the whole account, a promise real providers may not make.
 
-Five questions for your team or vendor:
-1. When two updates about the same record arrive out of order, which one wins?
-2. When the same notification arrives twice, what stops us acting twice?
-3. Does the provider promise a version number and full state per message?
-4. Do we say "received" before or after we have saved our side?
-5. Does the notification also send emails or charges, and what keeps those from firing twice?
+Five questions to ask:
+1. Two updates about one record arrive out of order: which wins?
+2. The same notification arrives twice: what stops us acting twice?
+3. Does the provider promise a version number and full state each time?
+4. Do we say "received" before or after saving?
+5. Does it also send emails or charges? What stops those firing twice?
 
-Synthetic fixture, fictional provider. Video and write-ups: github.com/mizcausevic-dev/web-reality-checks
+Synthetic fixture, fictional provider: github.com/mizcausevic-dev/web-reality-checks
 
 #ProductManagement #SaaS #Leadership
 
@@ -109,7 +109,7 @@ Synthetic fixture, fictional provider. Video and write-ups: github.com/mizcausev
 
 5/ Step three: let the database decide. UNIQUE (provider, event_id). The second arrival violates it, rolls back, gets 200 duplicate so the provider stops retrying. No check-then-insert race: six concurrent deliveries of one event gave 1 applied, 5 duplicate, 1 record.
 
-6/ Step four: version, not timestamp. v2 arrives after v3; stored is 3, so v2 is stale: recorded, not applied. Safe ONLY because this fictional provider sends full snapshots. For deltas, every event matters. Real providers do not universally promise snapshots or monotonic versions.
+6/ Step four: version, not timestamp. v2 arrives after v3; stored is 3, so v2 is stale: recorded, not applied. Safe ONLY because this fictional provider sends full snapshots. For deltas, every event matters. Real providers do not all promise snapshots or monotonic versions.
 
 7/ Record + state in one transaction. 200 only after commit. Simulated commit failure: 503, state digest unchanged, no record. Replay all six deliveries shuffled: six 200s, all duplicate, digest identical before and after. 14 tests, 14 pass, with a known-positive control.
 

@@ -8,21 +8,21 @@ Medium tags (5): Webhooks, Distributed Systems, Node.js, Software Engineering, A
 
 ![Subscription sub_alpha is active on the pro plan at version 3; a late delivery of version 2 arrives with a valid signature and the naive receiver overwrites the record to past_due on the starter plan](../hero.png)
 
-The subscription was active on the pro plan. Then a correctly signed webhook arrived, the receiver applied it, and the record said past due on the starter plan. Nothing was forged and nothing failed: the receiver did what it was built to do, which was to apply every verified event in the order it arrived.
+The subscription was active on the pro plan. Then a correctly signed webhook arrived, the receiver applied it, and the record said past due on the starter plan. Nothing was forged and nothing failed: the receiver applied every verified event in the order it arrived, as built.
 
 This is episode eighteen of Web Reality Checks: the gap between the order a resource changed and the order the notifications reached you, shown on a local fixture with a fictional provider, then repaired and retested. Every number below comes from that local synthetic fixture.
 
 ## What actually happens
 
-A provider creates events in a definite sequence. In the fixture, subscription `sub_alpha` goes through three versions: v1 `trialing / starter`, v2 `past_due / starter`, v3 `active / pro`. That is creation order, the order the business cares about.
+A provider creates events in a definite sequence. In the fixture, subscription `sub_alpha` goes through v1 `trialing / starter`, v2 `past_due / starter`, v3 `active / pro`. That is creation order, the order the business cares about.
 
-Delivery order is separate. Each event is an HTTP POST made by some worker, retried on failure, possibly in parallel with other workers. The fixture delivers v1, then v3, then v2 late. Retries and parallel delivery do this routinely, so a receiver that applies events in arrival order will sometimes write an older state over a newer one. The naive receiver here ends on version 2, `past_due / starter`. Every signature it checked was valid. Signature verification answers "did the provider send these bytes?" and nothing else.
+Delivery order is separate. Each event is an HTTP POST made by some worker, retried on failure, possibly in parallel with other workers. The fixture delivers v1, then v3, then v2 late. Retries and parallel delivery do this routinely, so a receiver that applies events in arrival order will sometimes write an older state over a newer one. The naive receiver here ends on version 2, `past_due / starter`, with every signature valid. Signature verification answers "did the provider send these bytes?" and nothing else.
 
 Two more properties follow. A provider that retries sends the same event more than once, each time with a fresh delivery timestamp and therefore a fresh signature, so a retry is valid, fresh and still a duplicate. And `event_ts` cannot sort this out: it reflects the provider's clock at creation, says nothing about whether you have already seen a later version, and clock skew makes it unreliable as an ordering key. Ordering has to come from something the provider commits to per resource, here a monotonically increasing `version`.
 
 ## The fixture
 
-`fixtures/ep18-webhooks/` is a loopback-only Node 22 fixture. A fictional provider, SubHub, emits `{event_id, subscription_id, type, snapshot, version, event_ts}` events. Every event carries the full subscription snapshot, not a delta, and `version` increases by one per subscription. Those guarantees belong to this fictional provider; real providers do not universally offer them, and the fixture says so in its source.
+`fixtures/ep18-webhooks/` is a loopback-only Node 22 fixture. A fictional provider, SubHub, emits `{event_id, subscription_id, type, snapshot, version, event_ts}` events. Every event carries the full subscription snapshot, not a delta, and `version` increases by one per subscription. Those guarantees belong to this fictional provider; real providers do not universally offer them.
 
 Each delivery is signed over the delivery timestamp and the exact body bytes:
 
@@ -47,7 +47,7 @@ export const verifySignature = (secret, tsHeader, rawBody, sigHeader) => {
 };
 ```
 
-Then it checks `|now - ts| <= 300` seconds against an injectable clock, and only then calls `JSON.parse` and `validateEvent`. The store, `db.mjs`, uses `node:sqlite` when it loads and an in-process backend with the same transaction and `UNIQUE` semantics otherwise; `db.kind` reports which, and here it was `sqlite`. The decision logic lives in one transaction:
+Then it checks `|now - ts| <= 300` seconds against an injectable clock, and only then calls `JSON.parse` and `validateEvent`. The store, `db.mjs`, uses `node:sqlite` when it loads and an in-process backend with the same transaction and `UNIQUE` semantics otherwise (`db.kind` reports which; here, `sqlite`). The decision logic is one transaction:
 
 ```js
 be.begin();
@@ -71,7 +71,7 @@ The `webhook_events` table carries `UNIQUE (provider, event_id)`. Dedup is that 
 
 ## The test that proves it
 
-`node --test fixtures/ep18-webhooks/test.mjs` runs fourteen tests and reports `# tests 14  # pass 14  # fail 0` (local synthetic fixture). The receiver clock is fixed at `1768000000` so freshness tests never sleep. The test names:
+`node --test fixtures/ep18-webhooks/test.mjs` reports `# tests 14  # pass 14  # fail 0` (local synthetic fixture). The receiver clock is fixed at `1768000000` so freshness tests never sleep. The test names:
 
 - `valid signature + fresh timestamp -> 200, state applied`
 - `tampered body (one byte changed after signing) -> 401, nothing stored`
@@ -94,11 +94,11 @@ The control gives the rest their meaning. It delivers v1, v3, v2 to the naive re
 
 ## The repair
 
-Verification does not change. The naive receiver already verified correctly; the bug was in processing. The repair is four decisions, in order.
+Verification does not change; the naive receiver already verified correctly, and the bug was in processing. The repair is four decisions, in order.
 
 Trust the bytes first. Verify the HMAC over the timestamp and the raw body with `crypto.timingSafeEqual`, before `JSON.parse`. A tampered body or a wrong secret gets 401 and nothing is stored.
 
-Then check freshness, which the signature does not establish. The delivery timestamp must be within 300 seconds of the receiver's clock. A valid signature 301 seconds old gets 401 with `age_s: 301, tolerance_s: 300`; 300 seconds exactly is accepted. The tolerance is about the delivery, not the event.
+Then check freshness, which the signature does not establish. The delivery timestamp must be within 300 seconds of the receiver's clock. A valid signature 301 seconds old gets 401 with `age_s: 301, tolerance_s: 300`; 300 exactly is accepted. The tolerance is about the delivery, not the event.
 
 Then let the database decide uniqueness. Inserting the event record under `UNIQUE (provider, event_id)` either succeeds or throws. A throw means "already handled": roll back and return 200 with outcome `duplicate`, so the provider stops retrying. Tolerance does not replace this step; a retry inside the window is fresh, correctly signed and still a duplicate.
 
@@ -122,15 +122,15 @@ The brief and the fixture README draw these lines.
 
 - Version-based skipping is safe here only because every event carries the full snapshot. For incremental events (deltas, "add one seat", "charge X") every intermediate operation may matter, and skipping older ones is not safe.
 - The full-snapshot and monotonic-version guarantees belong to this fictional provider. Real providers do not universally offer them. Read the documented contract.
-- No external side effects are performed. The transaction covers the local database only. A receiver that sends an email, charges a card or publishes to a queue needs additional coordination, such as an outbox pattern or idempotent downstream operations, which this fixture does not demonstrate.
+- No external side effects are performed; the transaction covers the local database only. A receiver that sends an email, charges a card or publishes to a queue needs additional coordination, such as an outbox pattern or idempotent downstream operations, which this fixture does not demonstrate.
 - The commit failure and the receiver clock are simulated. Not tested: secret rotation, provider-side retry scheduling, multi-process concurrency against a shared database, event-record retention. The signing scheme and secret are fixture-only; the fixture binds 127.0.0.1 on an ephemeral port.
 
 ## Launch checklist
 
 1. Signature verification runs over the raw request bytes, before any parsing or reserialization, with a constant-time compare from a maintained cryptographic library.
-2. A delivery-timestamp tolerance is enforced and tested at the boundary; the team knows it establishes freshness, not uniqueness.
-3. Deduplication is a database uniqueness constraint on provider and event ID, not check-then-insert, and a concurrent-delivery test proves exactly one apply.
-4. Ordering uses a provider-committed per-resource version, not the event timestamp, and the provider's contract for it is written down.
+2. A delivery-timestamp tolerance is enforced and tested at the boundary; it establishes freshness, not uniqueness.
+3. Deduplication is a database uniqueness constraint on provider and event ID, not check-then-insert; a concurrent-delivery test proves exactly one apply.
+4. Ordering uses a provider-committed per-resource version, not the event timestamp, and that contract is written down.
 5. Before adopting version skipping, confirm the provider's events are full snapshots. If they are deltas, design to apply every one.
 6. Event record and state change commit in one transaction; 2xx only after commit; a failed commit returns non-2xx so the provider retries.
 7. Verified duplicates and stale versions return 2xx and are recorded with their outcome.
