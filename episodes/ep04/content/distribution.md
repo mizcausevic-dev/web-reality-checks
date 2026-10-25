@@ -55,18 +55,18 @@ Everything here runs on a deliberately built local fixture with one synthetic no
 
 A real Postgres engine answered a SQL query inside a web page. No server. Then the only question that matters: where did the row go?
 
-Episode 4 of Web Reality Checks: a notes app on PGlite 0.5.11, Postgres compiled to WebAssembly. The constructor takes one string and that string is the whole persistence story. memory:// is in-memory. A path under Node is real files. idb://video-notes in a browser is IndexedDB, keyed to this origin and this profile.
+Episode 4 of Web Reality Checks: a notes app on PGlite 0.5.11, Postgres compiled to WebAssembly. The constructor takes one string and that string is the whole persistence story. memory:// is in-memory. A Node path is real files. idb://video-notes in a browser is IndexedDB, keyed to origin and profile.
 
 Executed under Node (synthetic fixture): close and reopen the same data dir, count 1. Different dir, 0. memory:// after close, 0. Delete the dir, 0. Six tests, six pass. The one I would not ship without: the known-positive control. If memory:// kept the row, the persistence test would pass for the wrong reason.
 
 Three decisions in the fixture:
 1. relaxedDurability is refused by the code, not just left off.
 2. Every write is awaited before the UI logs "create → id 1."
-3. The service worker precaches all 19 same-origin assets with cache.addAll under a versioned name.
+3. The service worker precaches all 19 same-origin assets.
 
-Not executed: anything in a browser. IndexedDB persistence, offline reload, clean profile, clear site data are a written checklist, labelled on screen as not run here. If a step fails in your browser, report it.
+Not executed: anything in a browser. IndexedDB persistence, offline reload, clean profile, clear site data are a written checklist, labelled on screen as not run here.
 
-Local persistence is not cloud sync and not a backup. One origin, one profile, one device.
+Not cloud sync, not a backup: one origin, one profile, one device.
 
 github.com/mizcausevic-dev/web-reality-checks
 
@@ -76,15 +76,15 @@ github.com/mizcausevic-dev/web-reality-checks
 
 "Your notes are saved." Saved where? In this episode the honest answer is: in this browser, on this device, until the browser decides otherwise.
 
-Episode 4 of Web Reality Checks puts a full database engine inside a web page. No server, no account. A note survives a reload. That is real, and it is the smallest possible version of "saved."
+Episode 4 of Web Reality Checks puts a full database engine inside a web page. A note survives a reload. That is real, and it is the smallest possible version of "saved."
 
-Think of a notebook in a hotel room safe. The safe is real and it locks. It is also in one room, the hotel owns it, and nobody copies the pages. Open the same app on your phone: a different room, an empty safe. Clear your browser data: housekeeping emptied the drawer. In the fixture, a second storage location saw zero notes (synthetic fixture).
+Think of a notebook in a hotel room safe. The safe is real and it locks. It is also in one room, the hotel owns it, and nobody copies the pages. Open the same app on your phone: a different room, an empty safe. In the fixture, a second storage location saw zero notes.
 
-A demo cannot show this. It is one person, one browser, one machine, for a few minutes.
+A demo shows one person, one browser, one machine, for a few minutes.
 
 Five questions for your team or vendor:
 1. Where exactly does the data live, and what is it keyed to?
-2. What happens when the user clears browser data or the browser runs low on space?
+2. What happens when the user clears browser data?
 3. Is there a test proving the in-memory version loses data?
 4. Does "saved" light up before or after the write completes?
 5. Was offline behavior tested in a real, named browser, with results recorded?

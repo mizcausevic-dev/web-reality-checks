@@ -103,7 +103,7 @@ Synthetic data, no real directory. github.com/mizcausevic-dev/web-reality-checks
 
 1/ A directory says 10,000 listings. We built one with exactly that many synthetic rows, planted known problems, ran five checks. The count hid everything. 3,875 issues. 3,303 flagged listings. 1,038 "dead" websites on open businesses. Episode 5 of Web Reality Checks. Thread.
 
-2/ Flags overlap. One row can be a duplicate candidate, carry a stale verification date and have a timed-out site at once. Issues: 3,875. Listings with issues: 3,303. 485 rows had two flags, 42 had three, one had four. Sum the columns and you invent 572 listings that do not exist.
+2/ Flags overlap. One row can be a duplicate candidate, carry a stale verification date and have a timed-out site at once. Issues: 3,875. Listings with issues: 3,303. 485 rows had two flags, 42 had three, one had four. Sum the columns and you invent 572 listings.
 
 3/ Five checks on the public rows only: completeness, duplicate candidates, URL syntax, website availability, verification age. Website checks hit a local mock keyed by hostname. 8,922 mock calls, 0 real. The checker never reads ground truth; a test scans its source to prove it.
 

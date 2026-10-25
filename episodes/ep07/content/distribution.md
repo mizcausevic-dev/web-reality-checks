@@ -59,42 +59,42 @@ The deployed bundle was calling http://127.0.0.1:41073/health. On the developer'
 
 Episode 7 of Web Reality Checks. One string literal, placed by the build tool.
 
-The source reads import.meta.env.VITE_API_BASE_URL. Vite's vite:define plugin replaces that expression with JSON.stringify(value) at build time. The fixture's inspection script opens dist/assets/index-*.js and finds the loopback URL inside it, and finds no import.meta.env at all.
+Vite's vite:define plugin swaps import.meta.env.VITE_API_BASE_URL for JSON.stringify(value) at build time, so dist/assets/index-*.js holds the loopback URL and no import.meta.env.
 
-The instinctive repair: set VITE_API_BASE_URL on the static host. We did. GET /__host-env confirmed the host process saw the new value. The served asset still contained the original URL and the dist/ hash was identical before and after. A static host serves bytes. It does not rebuild.
+The instinctive repair, setting VITE_API_BASE_URL on the static host, changed nothing: GET /__host-env showed the new value, the served asset kept the original URL, the dist/ hash was identical. A static host serves bytes. It does not rebuild.
 
-The real repair: rebuild with a reachable URL. New hashed asset, new literal, old URL gone, GET /health 200.
+The real repair: rebuild with a reachable URL. New hash, old URL gone, GET /health 200.
 
-Three things I would push on any team:
+Three things to push for:
 
-1. Treat every VITE_ value as public. It ships to every visitor in plain text.
-2. Add a post-build grep of dist/ for localhost and 127.0.0.1. Fail the pipeline on a hit.
-3. Report the real error. A refused connection has no response and therefore no CORS header to be missing. Do not label it CORS.
+1. Treat every VITE_ value as public: it ships in plain text.
+2. Add a post-build grep of dist/ for localhost and 127.0.0.1.
+3. Report the real error. A refused connection has no response, so no CORS header can be missing.
 
-Scope: 9 tests, 9 pass, vite 8.3.5 pinned, loopback only. The remote-browser failure was NOT reproduced in an isolated browser; the fixture models it with a Node fetch (TypeError, ECONNREFUSED) and the video labels that scene a conceptual simulation. Synthetic fixture, not a finding about any product.
+Scope: 9 tests, 9 pass, vite 8.3.5 pinned, loopback only. The remote-browser failure was NOT reproduced in a browser; a Node fetch models it and the video labels that scene a conceptual simulation. Synthetic fixture.
 
-Video, fixture, tests: github.com/mizcausevic-dev/web-reality-checks
+github.com/mizcausevic-dev/web-reality-checks
 
 #Vite #FrontendDevelopment #DevOps
 
 ### Post 2: non-technical leaders
 
-The product worked in the demo and failed for every customer on launch day. Then the team changed the setting that should have fixed it, and nothing changed.
+The product worked in the demo and failed for every customer on launch day. The team changed the setting that should have fixed it. Nothing changed.
 
-Episode 7 of Web Reality Checks reproduces both events on a local fixture.
+Episode 7 of Web Reality Checks reproduces both on a local fixture.
 
-When a website is built, the build tool fills in blanks, including "where is the API?" The value present at that moment is printed into the finished files. On the developer's laptop it was the laptop's own address, and on that one machine it worked. On everyone else's machine the same address points at their own computer, where there is nothing to answer.
+A website build fills in blanks, including "where is the API?" Whatever value is present then is printed into the finished files. Here it was the developer's laptop address. On every other machine that address points at the visitor's own computer, where nothing answers.
 
-Think of a brochure printed with the internal phone extension. Changing the number on the warehouse wall does not reprint the brochures. The fixture measured exactly that: the hosting server was given the right address, confirmed it saw it, and kept serving the identical old file. Only a rebuild produced a working one.
+Think of a brochure printed with an internal phone extension. Changing the number on the warehouse wall does not reprint the brochures. In the fixture, the host got the right address and still served the identical old file. Only a rebuild fixed it.
 
 Five questions before launch:
-1. Does the frontend learn the API address at build time or at load time? "Not sure" is the worrying answer.
-2. If build time, where is the production value set, and does the deployed build run with it?
-3. Is there an automated check that fails the build if the files contain localhost?
-4. Has anyone opened the deployed product from a machine that is not a developer's?
-5. Is there any secret in the frontend's build-time configuration? If so, it is already public.
+1. Does the frontend learn the API address at build time or at load time?
+2. If build time, where is the production value set?
+3. Does an automated check fail the build if the files contain localhost?
+4. Has anyone opened the deployed product from a non-developer machine?
+5. Is any secret in the frontend's build-time configuration? It is already public.
 
-Synthetic fixture, no real product. The remote-browser scene is a labeled simulation. Video and write-ups: github.com/mizcausevic-dev/web-reality-checks
+Synthetic fixture. The remote-browser scene is a labeled simulation. github.com/mizcausevic-dev/web-reality-checks
 
 #ProductManagement #Leadership #SoftwareDelivery
 

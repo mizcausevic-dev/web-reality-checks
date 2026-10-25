@@ -72,7 +72,7 @@ Availability: result 200 only on ready. Another user asking for the job gets 404
 
 The repair is in the UI: four statuses, each sourced from the component that measures it, no invented processing bar.
 
-8 tests, 8 pass, including a known-positive control showing a label-trusting policy would have accepted the PNG. Synthetic fixture, loopback only, labeled 400 ms artificial pacing, browser uploader not executed.
+8 tests, 8 pass, including a known-positive control showing a label-trusting policy would have accepted the PNG. Synthetic fixture, loopback only, labeled 400 ms pacing, browser uploader not executed.
 
 Video, fixture, tests: github.com/mizcausevic-dev/web-reality-checks
 
