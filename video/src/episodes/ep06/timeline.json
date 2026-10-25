@@ -1,0 +1,172 @@
+{
+  "n": 6,
+  "title": "Prompt to answer",
+  "fullTitle": "What Happens Between Your Prompt and the Answer?",
+  "slug": "prompt-to-answer",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep06/narration.mp3",
+  "duration": 110.8,
+  "scenes": [
+    {
+      "id": "ask",
+      "start": 0,
+      "end": 11.11,
+      "sim": "SIMULATED MODEL RESPONSE"
+    },
+    {
+      "id": "assemble",
+      "start": 11.11,
+      "end": 22.73
+    },
+    {
+      "id": "toolcall",
+      "start": 22.73,
+      "end": 34.67,
+      "sim": "SIMULATED MODEL RESPONSE"
+    },
+    {
+      "id": "validate",
+      "start": 34.67,
+      "end": 45.17
+    },
+    {
+      "id": "scope",
+      "start": 45.17,
+      "end": 59.47
+    },
+    {
+      "id": "query",
+      "start": 59.47,
+      "end": 69.86
+    },
+    {
+      "id": "result",
+      "start": 69.86,
+      "end": 78.35,
+      "sim": "SIMULATED MODEL RESPONSE"
+    },
+    {
+      "id": "answer",
+      "start": 78.35,
+      "end": 87.41,
+      "sim": "SIMULATED MODEL RESPONSE"
+    },
+    {
+      "id": "fail",
+      "start": 87.41,
+      "end": 98.96,
+      "sim": "SIMULATED MODEL RESPONSE"
+    },
+    {
+      "id": "end",
+      "start": 98.96,
+      "end": 110.8,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 5.38,
+      "text": "\"How many open support tickets are high priority?\" → 5"
+    },
+    {
+      "start": 5.38,
+      "end": 11.11,
+      "text": "Between question and number sit several parts. The model is only one."
+    },
+    {
+      "start": 11.11,
+      "end": 18.08,
+      "text": "The application assembles: system message, question, one tool definition."
+    },
+    {
+      "start": 18.08,
+      "end": 22.73,
+      "text": "countTickets(status, priority). Nothing else is offered."
+    },
+    {
+      "start": 22.73,
+      "end": 28.39,
+      "text": "The model does not answer. It requests the tool."
+    },
+    {
+      "start": 28.39,
+      "end": 34.67,
+      "text": "countTickets({status: \"open\", priority: \"high\"}) — the request, not private reasoning."
+    },
+    {
+      "start": 34.67,
+      "end": 40.2,
+      "text": "Validate against the schema: tool offered? values allowed? nothing extra?"
+    },
+    {
+      "start": 40.2,
+      "end": 45.17,
+      "text": "Unknown tool or unexpected key: refused before anything runs."
+    },
+    {
+      "start": 45.17,
+      "end": 53.11,
+      "text": "Data scope comes from the session, never from the model."
+    },
+    {
+      "start": 53.11,
+      "end": 59.47,
+      "text": "A model-supplied accountId is rejected, and ignored anyway."
+    },
+    {
+      "start": 59.47,
+      "end": 65.18,
+      "text": "The tool runs: narrow, read-only. Two filters + the session's org."
+    },
+    {
+      "start": 65.18,
+      "end": 69.86,
+      "text": "No SQL. The model never touches the data store."
+    },
+    {
+      "start": 69.86,
+      "end": 75.52,
+      "text": "Structured result: { count: 5 } returns to the application, then to the model."
+    },
+    {
+      "start": 75.52,
+      "end": 78.35,
+      "text": "One opaque request id links every step."
+    },
+    {
+      "start": 78.35,
+      "end": 81.23,
+      "text": "Final answer embeds the computed count: 5."
+    },
+    {
+      "start": 81.23,
+      "end": 87.41,
+      "text": "13 open high-priority tickets exist across all orgs; this user sees only their own 5."
+    },
+    {
+      "start": 87.41,
+      "end": 94.34,
+      "text": "Tool failure: one bounded retry (safe only because the tool is read-only)."
+    },
+    {
+      "start": 94.34,
+      "end": 98.96,
+      "text": "Still failing: honest message, no count. Nothing invented."
+    },
+    {
+      "start": 98.96,
+      "end": 103.26,
+      "text": "One application design, not every AI request."
+    },
+    {
+      "start": 103.26,
+      "end": 108.8,
+      "text": "The model requests the tool. The application controls execution."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "label": "SIMULATED ANALYTICS · LOCAL COLLECTOR",
+  "pageMode": "corrected",
+  "count": 3,
+  "events": [
+    {
+      "seq": 1,
+      "event": "page_view",
+      "category": "analytics_optional",
+      "module": "analytics.sim",
+      "consentState": "accepted",
+      "pageMode": "corrected",
+      "clientId": "cid_31bc41de",
+      "ts": "2026-10-25T09:00:00.028Z"
+    },
+    {
+      "seq": 2,
+      "event": "interaction",
+      "category": "analytics_optional",
+      "module": "analytics.sim",
+      "consentState": "accepted",
+      "pageMode": "corrected",
+      "clientId": "cid_31bc41de",
+      "ts": "2026-10-25T09:00:00.042Z"
+    },
+    {
+      "seq": 3,
+      "event": "interaction",
+      "category": "analytics_optional",
+      "module": "analytics.sim",
+      "consentState": "accepted",
+      "pageMode": "corrected",
+      "clientId": "cid_31bc41de",
+      "ts": "2026-10-25T09:00:00.056Z"
+    }
+  ]
+}

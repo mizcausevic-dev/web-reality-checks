@@ -1,0 +1,172 @@
+{
+  "n": 15,
+  "title": "Paid once, two orders",
+  "fullTitle": "You Clicked Pay Once. Why Did the App Create Two Orders?",
+  "slug": "idempotency",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep15/narration.mp3",
+  "duration": 103.93,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 10.69
+    },
+    {
+      "id": "commit",
+      "start": 10.69,
+      "end": 19.96
+    },
+    {
+      "id": "lost",
+      "start": 19.96,
+      "end": 32.66
+    },
+    {
+      "id": "retry",
+      "start": 32.66,
+      "end": 42.6
+    },
+    {
+      "id": "dup",
+      "start": 42.6,
+      "end": 48.62
+    },
+    {
+      "id": "fix",
+      "start": 48.62,
+      "end": 69.01
+    },
+    {
+      "id": "retest",
+      "start": 69.01,
+      "end": 78.13
+    },
+    {
+      "id": "count",
+      "start": 78.13,
+      "end": 88.5
+    },
+    {
+      "id": "end",
+      "start": 88.5,
+      "end": 103.93,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 5.64,
+      "text": "One tap on Pay. Two orders in the database."
+    },
+    {
+      "start": 5.64,
+      "end": 10.69,
+      "text": "The app treated every request as a new intention."
+    },
+    {
+      "start": 10.69,
+      "end": 16.06,
+      "text": "The first request reaches the server. The database commits order 1."
+    },
+    {
+      "start": 16.06,
+      "end": 19.96,
+      "text": "From the server's view, the work is done."
+    },
+    {
+      "start": 19.96,
+      "end": 24.04,
+      "text": "The response is lost after the commit (controlled fault)."
+    },
+    {
+      "start": 24.04,
+      "end": 29.94,
+      "text": "The client sees a network error and cannot know if the order exists."
+    },
+    {
+      "start": 29.94,
+      "end": 32.66,
+      "text": "No network gives you exactly-once delivery."
+    },
+    {
+      "start": 32.66,
+      "end": 34.41,
+      "text": "The client retries."
+    },
+    {
+      "start": 34.41,
+      "end": 42.6,
+      "text": "Disabling the button would not help: this is a retry, not a double click."
+    },
+    {
+      "start": 42.6,
+      "end": 46.9,
+      "text": "The vulnerable endpoint has no memory of the first request."
+    },
+    {
+      "start": 46.9,
+      "end": 48.62,
+      "text": "Two attempts, two orders."
+    },
+    {
+      "start": 48.62,
+      "end": 54.18,
+      "text": "Fix: one Idempotency-Key per checkout attempt, reused on retries."
+    },
+    {
+      "start": 54.18,
+      "end": 60.98,
+      "text": "Scoped to the session user and operation; fingerprint of validated fields."
+    },
+    {
+      "start": 60.98,
+      "end": 69.01,
+      "text": "Order + key record in ONE transaction; UNIQUE makes the first writer win."
+    },
+    {
+      "start": 69.01,
+      "end": 73.16,
+      "text": "Retest: commit, lose the response, retry with the same key."
+    },
+    {
+      "start": 73.16,
+      "end": 78.13,
+      "text": "The second request finds the stored record and returns the original result."
+    },
+    {
+      "start": 78.13,
+      "end": 80.02,
+      "text": "Two attempts, one order."
+    },
+    {
+      "start": 80.02,
+      "end": 85.2,
+      "text": "Same key, different payload: 422. Five concurrent, one key: one order."
+    },
+    {
+      "start": 85.2,
+      "end": 88.5,
+      "text": "Two separate purchases need two separate keys."
+    },
+    {
+      "start": 88.5,
+      "end": 92.53,
+      "text": "A new request is not always a new intention."
+    },
+    {
+      "start": 92.53,
+      "end": 97.01,
+      "text": "Limits: the transaction does not cover an external payment provider."
+    },
+    {
+      "start": 97.01,
+      "end": 101.93,
+      "text": "Expired key records let a late enough retry count as new."
+    }
+  ]
+}

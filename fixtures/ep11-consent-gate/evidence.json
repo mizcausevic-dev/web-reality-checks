@@ -1,0 +1,330 @@
+{
+  "generatedAt": "2026-10-25T08:13:36.861Z",
+  "collector": {
+    "label": "SIMULATED ANALYTICS · LOCAL COLLECTOR",
+    "base": "http://127.0.0.1:<ephemeral>",
+    "policy": "raw recorder; stores whatever reaches it; no filtering"
+  },
+  "policy": {
+    "states": [
+      "no_choice",
+      "rejected",
+      "accepted",
+      "withdrawn"
+    ],
+    "transitions": {
+      "no_choice": [
+        "rejected",
+        "accepted"
+      ],
+      "accepted": [
+        "withdrawn"
+      ],
+      "rejected": [],
+      "withdrawn": []
+    },
+    "optionalAllowedOnlyIn": "accepted",
+    "gatedPaths": [
+      "init",
+      "track",
+      "flush"
+    ],
+    "onWithdraw": "remove optional listeners, clear unsent optional queue; already-sent requests are not recalled"
+  },
+  "runs": {
+    "flawed": {
+      "label": "flawed: Reject optional, then browse",
+      "mode": "flawed",
+      "storedPreference": {
+        "state": "rejected",
+        "updatedAt": "2026-10-25T09:00:00.007Z"
+      },
+      "actions": [
+        {
+          "action": "load()",
+          "consentState": "no_choice",
+          "bannerVisible": true,
+          "analyticsInitialized": true,
+          "listeners": 2,
+          "unsentQueue": 1,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "rejectOptional()",
+          "consentState": "rejected",
+          "bannerVisible": false,
+          "analyticsInitialized": true,
+          "listeners": 2,
+          "unsentQueue": 1,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "interact + flush()",
+          "consentState": "rejected",
+          "bannerVisible": false,
+          "analyticsInitialized": true,
+          "listeners": 2,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 3
+        },
+        {
+          "action": "reload: load() with stored rejection",
+          "consentState": "rejected",
+          "bannerVisible": false,
+          "analyticsInitialized": true,
+          "listeners": 2,
+          "unsentQueue": 1,
+          "optionalRequestsReceived": 3
+        },
+        {
+          "action": "flush()",
+          "consentState": "rejected",
+          "bannerVisible": false,
+          "analyticsInitialized": true,
+          "listeners": 2,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 4
+        }
+      ],
+      "optionalRequestsReceived": 4,
+      "collectorLog": [
+        {
+          "seq": 1,
+          "event": "page_view",
+          "category": "analytics_optional",
+          "module": "analytics.sim",
+          "consentState": "no_choice",
+          "pageMode": "flawed",
+          "clientId": "cid_31bc41de",
+          "ts": "2026-10-25T09:00:00.000Z"
+        },
+        {
+          "seq": 2,
+          "event": "interaction",
+          "category": "analytics_optional",
+          "module": "analytics.sim",
+          "consentState": "rejected",
+          "pageMode": "flawed",
+          "clientId": "cid_31bc41de",
+          "ts": "2026-10-25T09:00:00.014Z"
+        },
+        {
+          "seq": 3,
+          "event": "interaction",
+          "category": "analytics_optional",
+          "module": "analytics.sim",
+          "consentState": "rejected",
+          "pageMode": "flawed",
+          "clientId": "cid_31bc41de",
+          "ts": "2026-10-25T09:00:00.021Z"
+        },
+        {
+          "seq": 4,
+          "event": "page_view",
+          "category": "analytics_optional",
+          "module": "analytics.sim",
+          "consentState": "rejected",
+          "pageMode": "flawed",
+          "clientId": "cid_31bc41de",
+          "ts": "2026-10-25T09:00:00.000Z"
+        }
+      ]
+    },
+    "correctedReject": {
+      "label": "corrected: no choice → reject → reload",
+      "mode": "corrected",
+      "storedPreference": {
+        "state": "rejected",
+        "updatedAt": "2026-10-25T09:00:00.014Z"
+      },
+      "actions": [
+        {
+          "action": "load()",
+          "consentState": "no_choice",
+          "bannerVisible": true,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "interact + flush() (no choice yet)",
+          "consentState": "no_choice",
+          "bannerVisible": true,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "rejectOptional()",
+          "consentState": "rejected",
+          "bannerVisible": false,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "interact + flush()",
+          "consentState": "rejected",
+          "bannerVisible": false,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "reload: load() with stored rejection",
+          "consentState": "rejected",
+          "bannerVisible": false,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "interact + flush()",
+          "consentState": "rejected",
+          "bannerVisible": false,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 0
+        }
+      ],
+      "optionalRequestsReceived": 0,
+      "collectorLog": []
+    },
+    "correctedAccept": {
+      "label": "corrected: accept → withdraw",
+      "mode": "corrected",
+      "storedPreference": {
+        "state": "withdrawn",
+        "updatedAt": "2026-10-25T09:00:00.084Z"
+      },
+      "actions": [
+        {
+          "action": "load()",
+          "consentState": "no_choice",
+          "bannerVisible": true,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "acceptOptional()",
+          "consentState": "accepted",
+          "bannerVisible": false,
+          "analyticsInitialized": true,
+          "listeners": 2,
+          "unsentQueue": 1,
+          "optionalRequestsReceived": 0
+        },
+        {
+          "action": "interact + flush()",
+          "consentState": "accepted",
+          "bannerVisible": false,
+          "analyticsInitialized": true,
+          "listeners": 2,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 3
+        },
+        {
+          "action": "interact (queued, not yet sent)",
+          "consentState": "accepted",
+          "bannerVisible": false,
+          "analyticsInitialized": true,
+          "listeners": 2,
+          "unsentQueue": 1,
+          "optionalRequestsReceived": 3
+        },
+        {
+          "action": "openSettings() + withdrawOptional()",
+          "consentState": "withdrawn",
+          "bannerVisible": false,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 3
+        },
+        {
+          "action": "interact + flush()",
+          "consentState": "withdrawn",
+          "bannerVisible": false,
+          "analyticsInitialized": false,
+          "listeners": 0,
+          "unsentQueue": 0,
+          "optionalRequestsReceived": 3
+        }
+      ],
+      "optionalRequestsReceived": 3,
+      "collectorLog": [
+        {
+          "seq": 1,
+          "event": "page_view",
+          "category": "analytics_optional",
+          "module": "analytics.sim",
+          "consentState": "accepted",
+          "pageMode": "corrected",
+          "clientId": "cid_31bc41de",
+          "ts": "2026-10-25T09:00:00.028Z"
+        },
+        {
+          "seq": 2,
+          "event": "interaction",
+          "category": "analytics_optional",
+          "module": "analytics.sim",
+          "consentState": "accepted",
+          "pageMode": "corrected",
+          "clientId": "cid_31bc41de",
+          "ts": "2026-10-25T09:00:00.042Z"
+        },
+        {
+          "seq": 3,
+          "event": "interaction",
+          "category": "analytics_optional",
+          "module": "analytics.sim",
+          "consentState": "accepted",
+          "pageMode": "corrected",
+          "clientId": "cid_31bc41de",
+          "ts": "2026-10-25T09:00:00.056Z"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "flawed": {
+      "optionalRequestsReceived": 4,
+      "byConsentState": {
+        "no_choice": 1,
+        "rejected": 3,
+        "accepted": 0,
+        "withdrawn": 0
+      }
+    },
+    "corrected": {
+      "noChoice": 0,
+      "rejected": 0,
+      "reloadWithStoredRejection": 0,
+      "accepted": 3,
+      "afterWithdraw": 3,
+      "unsentDroppedOnWithdraw": 1,
+      "listenersAfterWithdraw": 0,
+      "byConsentState": {
+        "no_choice": 0,
+        "rejected": 0,
+        "accepted": 3,
+        "withdrawn": 0
+      }
+    }
+  },
+  "notes": [
+    "Analytics here is SIMULATED and posts only to a loopback collector. No real analytics or advertising service was contacted.",
+    "The simulated module identifies the visitor with an in-memory client id; no cookie exists in this fixture. Tracking does not require cookies.",
+    "The collector is same-origin (\"first-party\") to the simulated page. First-party does not make a request necessary or exempt from the choice.",
+    "Withdrawal stops future optional requests. It does not delete data already collected, and a request that already reached the collector cannot be cancelled.",
+    "This is a technical fixture, not a legal compliance certification."
+  ]
+}

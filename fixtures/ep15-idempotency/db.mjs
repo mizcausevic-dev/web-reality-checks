@@ -93,7 +93,7 @@ export const createDb = () => {
     countOrders: (userId) => Number(countOrders.get(userId).n),
     listOrders: (userId) => listOrders.all(userId),
     hasIdempotencyRecord: (userId, operation, key) => !!getIdem.get(userId, operation, key),
-    clear: () => sql.exec('DELETE FROM idempotency; DELETE FROM orders;'),
+    clear: () => sql.exec('DELETE FROM idempotency; DELETE FROM orders; DELETE FROM sqlite_sequence;'),
     close: () => sql.close(),
   };
 };

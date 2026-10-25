@@ -7,7 +7,7 @@
     {
       "id": "fail",
       "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
-      "narration": "One edit to the A record for example dot test. Moments later, one client still loads the site and the other cannot connect. Same domain, two results.",
+      "narration": "One edit to the A record for example dot test. Moments later, one client still loads the site and the other cannot connect.",
       "captions": [
         "One A-record edit. One client connects, the other cannot.",
         "Same domain, same minute, two different results."
@@ -16,7 +16,7 @@
     {
       "id": "layers",
       "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
-      "narration": "Two steps hide inside that failure. Resolution: the client asks its resolver for an address. Connection: it tries to reach that address. Resolution succeeded every time. It returned the wrong destination.",
+      "narration": "Two steps hide in that failure. Resolution: the client asks its resolver for an address. Connection: it tries to reach that address. Resolution succeeded every time. It returned the wrong destination.",
       "captions": [
         "Step one: resolve the name. Step two: connect to the address.",
         "Resolution succeeded. It returned the wrong destination."

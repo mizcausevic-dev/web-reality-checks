@@ -1,0 +1,47 @@
+{
+  "label": "SIMULATED ANALYTICS · LOCAL COLLECTOR",
+  "pageMode": "flawed",
+  "count": 4,
+  "events": [
+    {
+      "seq": 1,
+      "event": "page_view",
+      "category": "analytics_optional",
+      "module": "analytics.sim",
+      "consentState": "no_choice",
+      "pageMode": "flawed",
+      "clientId": "cid_31bc41de",
+      "ts": "2026-10-25T09:00:00.000Z"
+    },
+    {
+      "seq": 2,
+      "event": "interaction",
+      "category": "analytics_optional",
+      "module": "analytics.sim",
+      "consentState": "rejected",
+      "pageMode": "flawed",
+      "clientId": "cid_31bc41de",
+      "ts": "2026-10-25T09:00:00.014Z"
+    },
+    {
+      "seq": 3,
+      "event": "interaction",
+      "category": "analytics_optional",
+      "module": "analytics.sim",
+      "consentState": "rejected",
+      "pageMode": "flawed",
+      "clientId": "cid_31bc41de",
+      "ts": "2026-10-25T09:00:00.021Z"
+    },
+    {
+      "seq": 4,
+      "event": "page_view",
+      "category": "analytics_optional",
+      "module": "analytics.sim",
+      "consentState": "rejected",
+      "pageMode": "flawed",
+      "clientId": "cid_31bc41de",
+      "ts": "2026-10-25T09:00:00.000Z"
+    }
+  ]
+}
