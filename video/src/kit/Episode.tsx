@@ -9,6 +9,8 @@ export type Cue = {start: number; end: number; text: string};
 export type Timeline = {
   n: number;
   title: string;
+  tag?: string; // optional tag text replacing the episode number (launch videos)
+  kicker?: string; // optional hero/thumbnail kicker replacing "Episode NN"
   audio?: string | null; // path under public/, e.g. "ep01/narration.mp3"
   duration: number; // seconds
   scenes: SceneDef[];
@@ -39,7 +41,7 @@ export const makeEpisode = (tl: Timeline, scenes: Record<string, React.FC<SceneP
             </Sequence>
           );
         })}
-        <EpisodeTag n={tl.n} title={tl.title} />
+        <EpisodeTag n={tl.n} title={tl.title} label={tl.tag} />
         {sim && <SimTag label={sim} />}
         {cue && <Caption text={cue.text} o={cueO} />}
         {tl.audio && <Audio src={staticFile(tl.audio)} />}
