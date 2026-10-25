@@ -20,8 +20,8 @@
 // so a rerun resumes instead of uploading twice. Requires Node 22+. No dependencies.
 import fs from 'node:fs';
 import path from 'node:path';
-import http from 'node:http';
 import crypto from 'node:crypto';
+import http from 'node:http';
 import {spawn, spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {Readable} from 'node:stream';
@@ -117,6 +117,7 @@ function finish(meta) {
   for (const f of [meta.file, meta.thumb, meta.captions].filter(Boolean)) if (!ex(f)) meta.violations.push(`missing file ${f}`);
   return meta;
 }
+export const metaHash = (f, category) => crypto.createHash('sha256').update(JSON.stringify([f.title, f.description, f.tags, String(category)])).digest('hex').slice(0, 16);
 export function plannedUnits(meta, o) {
   return (meta.thumb ? 50 : 0) + (o.playlist ? 50 : 0) + (o.captions && meta.captions ? 400 : 0);
 }
@@ -366,10 +367,12 @@ async function main() {
       let res = await putFile(s.session, path.join(ROOT, f.file), size);
       if (res.expired) { s.session = await startSession(f, o, size); saveState(state); res = await putFile(s.session, path.join(ROOT, f.file), size); }
       if (!res.id) throw new Error(`${f.id}: upload finished without a video id`);
-      s.videoId = res.id; s.title = f.title; delete s.session; saveState(state);
+      s.videoId = res.id; s.title = f.title; s.metaHash = metaHash(f, o.category); delete s.session; saveState(state);
       console.log(`${f.id} uploaded (${o.privacy}): https://youtu.be/${s.videoId}`);
     } else console.log(`${f.id} already uploaded: https://youtu.be/${s.videoId}`);
-    if (o.retitle && s.title !== f.title) { budget(50); await updateSnippet(s.videoId, f, o); s.title = f.title; saveState(state); console.log(`${f.id} title updated: ${f.title}`); }
+    // --retitle also re-sends description, tags and category when they changed since the last upload or update
+    // (videos.update replaces the whole snippet). Films recorded before metaHash existed are compared by title only.
+    if (o.retitle && (s.title !== f.title || (s.metaHash && s.metaHash !== metaHash(f, o.category)))) { budget(50); await updateSnippet(s.videoId, f, o); s.title = f.title; s.metaHash = metaHash(f, o.category); saveState(state); console.log(`${f.id} metadata updated: ${f.title}`); }
     if (f.thumb && !s.thumbnail) { budget(50); await setThumbnail(s.videoId, path.join(ROOT, f.thumb)); s.thumbnail = true; saveState(state); }
     if (o.playlist && !s.playlistItemId) { budget(50); const pid = await ensurePlaylist(state, o); s.playlistItemId = await addToPlaylist(pid, s.videoId); saveState(state); }
     if (o.publish && !s.published) { budget(50); await setVisibility(s.videoId, 'public', o); s.published = true; saveState(state); console.log(`${f.id} is now PUBLIC: https://youtu.be/${s.videoId}`); }

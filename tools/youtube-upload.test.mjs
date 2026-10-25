@@ -329,3 +329,33 @@ test('ids: two-letter prefixes and ranges expand, a bad id is refused', () => {
   assert.deepEqual(expandIds('ep29..ep30,series'), ['ep29', 'ep30', 'series']);
   assert.throws(() => buildFilm('x1'), /unsupported id/);
 });
+
+test('--retitle re-sends the snippet when only the description changed, and only once', async () => {
+  const sr = fs.mkdtempSync(path.join(os.tmpdir(), 'series-'));
+  try {
+    const dp = path.join(sr, 'episodes', 'ff01', 'content', 'distribution.md');
+    fs.mkdirSync(path.dirname(dp), {recursive: true});
+    const md = fs.readFileSync(path.join(ROOT, 'episodes', 'ep15', 'content', 'distribution.md'), 'utf8');
+    fs.writeFileSync(dp, md);
+    fs.writeFileSync(path.join(sr, 'episodes', 'ff01', 'ff01.mp4'), Buffer.alloc(2048, 1));
+    fs.writeFileSync(path.join(sr, 'episodes', 'ff01', 'thumbnail.png'), Buffer.alloc(256, 2));
+    fs.writeFileSync(path.join(sr, 'episodes', 'ff01', 'captions.srt'), '1\n00:00:00,000 --> 00:00:01,000\nHi\n');
+    const st = path.join(tmp, 'series-state3.json');
+    const base = ['--root', sr, '--ids', 'ff01', '--upload', '--retitle', '--expect-channel', '@KGTest'];
+    assert.equal((await run(base, env({YOUTUBE_STATE_FILE: st}))).status, 0);
+    log.length = 0;
+    assert.equal((await run(base, env({YOUTUBE_STATE_FILE: st}))).status, 0);
+    assert.equal(log.filter((l) => l.m === 'PUT' && l.p.startsWith('/youtube/v3/videos')).length, 0, 'unchanged copy sends nothing');
+    fs.writeFileSync(dp, md.replace('One tap on Pay.', 'One tap on Pay, edited.'));
+    log.length = 0;
+    const r = await run(base, env({YOUTUBE_STATE_FILE: st}));
+    assert.equal(r.status, 0, r.stderr);
+    const puts = log.filter((l) => l.m === 'PUT' && l.p.startsWith('/youtube/v3/videos'));
+    assert.equal(puts.length, 1);
+    assert.match(puts[0].json.snippet.description, /edited/);
+    assert.ok(puts[0].json.snippet.title && puts[0].json.snippet.tags.length && puts[0].json.snippet.categoryId, 'full snippet is re-sent');
+    log.length = 0;
+    await run(base, env({YOUTUBE_STATE_FILE: st}));
+    assert.equal(log.filter((l) => l.m === 'PUT' && l.p.startsWith('/youtube/v3/videos')).length, 0);
+  } finally { fs.rmSync(sr, {recursive: true, force: true}); }
+});
