@@ -1,0 +1,324 @@
+{
+  "generatedAt": "2026-10-25T07:57:59.999Z",
+  "model": "SIMULATED DNS MODEL · NO REAL NETWORK",
+  "domain": "example.test",
+  "intendedIp": "192.0.2.10",
+  "wrongIp": "192.0.2.20",
+  "ttl": 60,
+  "simplifications": [
+    "no serve-stale",
+    "no prefetch / pre-expiry refresh",
+    "no browser DNS cache",
+    "no operating-system DNS cache",
+    "no negative caching",
+    "A record only (AAAA not modelled)",
+    "connect stage is a string comparison against the intended IP",
+    "TLS and HTTP are not modelled",
+    "record TTL is distinct from any website-content cache lifetime"
+  ],
+  "authoritativeChanges": [
+    {
+      "t": 0,
+      "value": "192.0.2.10",
+      "ttl": 60
+    },
+    {
+      "t": 10,
+      "value": "192.0.2.20",
+      "ttl": 60
+    },
+    {
+      "t": 30,
+      "value": "192.0.2.10",
+      "ttl": 60
+    }
+  ],
+  "cacheWrites": [
+    {
+      "t": 0,
+      "resolver": "A",
+      "answer": "192.0.2.10",
+      "ttl": 60,
+      "expiresAt": 60
+    },
+    {
+      "t": 15,
+      "resolver": "B",
+      "answer": "192.0.2.20",
+      "ttl": 60,
+      "expiresAt": 75
+    },
+    {
+      "t": 60,
+      "resolver": "A",
+      "answer": "192.0.2.10",
+      "ttl": 60,
+      "expiresAt": 120
+    },
+    {
+      "t": 75,
+      "resolver": "B",
+      "answer": "192.0.2.10",
+      "ttl": 60,
+      "expiresAt": 135
+    }
+  ],
+  "snapshots": {
+    "0": {
+      "t": 0,
+      "authoritative": {
+        "name": "example.test",
+        "type": "A",
+        "value": "192.0.2.10",
+        "ttl": 60
+      },
+      "resolverA": {
+        "status": "fresh",
+        "answer": "192.0.2.10",
+        "ttlRemaining": 60,
+        "cachedAt": 0,
+        "expiresAt": 60
+      },
+      "resolverB": {
+        "status": "empty",
+        "answer": null,
+        "ttlRemaining": null
+      }
+    },
+    "10": {
+      "t": 10,
+      "authoritative": {
+        "name": "example.test",
+        "type": "A",
+        "value": "192.0.2.20",
+        "ttl": 60
+      },
+      "resolverA": {
+        "status": "fresh",
+        "answer": "192.0.2.10",
+        "ttlRemaining": 50,
+        "cachedAt": 0,
+        "expiresAt": 60
+      },
+      "resolverB": {
+        "status": "empty",
+        "answer": null,
+        "ttlRemaining": null
+      }
+    },
+    "15": {
+      "t": 15,
+      "authoritative": {
+        "name": "example.test",
+        "type": "A",
+        "value": "192.0.2.20",
+        "ttl": 60
+      },
+      "resolverA": {
+        "status": "fresh",
+        "answer": "192.0.2.10",
+        "ttlRemaining": 45,
+        "cachedAt": 0,
+        "expiresAt": 60
+      },
+      "resolverB": {
+        "status": "fresh",
+        "answer": "192.0.2.20",
+        "ttlRemaining": 60,
+        "cachedAt": 15,
+        "expiresAt": 75
+      }
+    },
+    "20": {
+      "t": 20,
+      "authoritative": {
+        "name": "example.test",
+        "type": "A",
+        "value": "192.0.2.20",
+        "ttl": 60
+      },
+      "resolverA": {
+        "status": "fresh",
+        "answer": "192.0.2.10",
+        "ttlRemaining": 40,
+        "cachedAt": 0,
+        "expiresAt": 60
+      },
+      "resolverB": {
+        "status": "fresh",
+        "answer": "192.0.2.20",
+        "ttlRemaining": 55,
+        "cachedAt": 15,
+        "expiresAt": 75
+      }
+    },
+    "30": {
+      "t": 30,
+      "authoritative": {
+        "name": "example.test",
+        "type": "A",
+        "value": "192.0.2.10",
+        "ttl": 60
+      },
+      "resolverA": {
+        "status": "fresh",
+        "answer": "192.0.2.10",
+        "ttlRemaining": 30,
+        "cachedAt": 0,
+        "expiresAt": 60
+      },
+      "resolverB": {
+        "status": "fresh",
+        "answer": "192.0.2.20",
+        "ttlRemaining": 45,
+        "cachedAt": 15,
+        "expiresAt": 75
+      }
+    },
+    "60": {
+      "t": 60,
+      "authoritative": {
+        "name": "example.test",
+        "type": "A",
+        "value": "192.0.2.10",
+        "ttl": 60
+      },
+      "resolverA": {
+        "status": "fresh",
+        "answer": "192.0.2.10",
+        "ttlRemaining": 60,
+        "cachedAt": 60,
+        "expiresAt": 120
+      },
+      "resolverB": {
+        "status": "fresh",
+        "answer": "192.0.2.20",
+        "ttlRemaining": 15,
+        "cachedAt": 15,
+        "expiresAt": 75
+      }
+    },
+    "75": {
+      "t": 75,
+      "authoritative": {
+        "name": "example.test",
+        "type": "A",
+        "value": "192.0.2.10",
+        "ttl": 60
+      },
+      "resolverA": {
+        "status": "fresh",
+        "answer": "192.0.2.10",
+        "ttlRemaining": 45,
+        "cachedAt": 60,
+        "expiresAt": 120
+      },
+      "resolverB": {
+        "status": "fresh",
+        "answer": "192.0.2.10",
+        "ttlRemaining": 60,
+        "cachedAt": 75,
+        "expiresAt": 135
+      }
+    }
+  },
+  "events": [
+    {
+      "t": 0,
+      "client": "clientA",
+      "resolver": "A",
+      "cacheHit": false,
+      "answer": "192.0.2.10",
+      "ttlRemaining": 60,
+      "connect": "ok"
+    },
+    {
+      "t": 15,
+      "client": "clientB",
+      "resolver": "B",
+      "cacheHit": false,
+      "answer": "192.0.2.20",
+      "ttlRemaining": 60,
+      "connect": "failed"
+    },
+    {
+      "t": 20,
+      "client": "clientA",
+      "resolver": "A",
+      "cacheHit": true,
+      "answer": "192.0.2.10",
+      "ttlRemaining": 40,
+      "connect": "ok"
+    },
+    {
+      "t": 20,
+      "client": "clientB",
+      "resolver": "B",
+      "cacheHit": true,
+      "answer": "192.0.2.20",
+      "ttlRemaining": 55,
+      "connect": "failed"
+    },
+    {
+      "t": 30,
+      "client": "clientA",
+      "resolver": "A",
+      "cacheHit": true,
+      "answer": "192.0.2.10",
+      "ttlRemaining": 30,
+      "connect": "ok"
+    },
+    {
+      "t": 30,
+      "client": "clientB",
+      "resolver": "B",
+      "cacheHit": true,
+      "answer": "192.0.2.20",
+      "ttlRemaining": 45,
+      "connect": "failed"
+    },
+    {
+      "t": 60,
+      "client": "clientA",
+      "resolver": "A",
+      "cacheHit": false,
+      "answer": "192.0.2.10",
+      "ttlRemaining": 60,
+      "connect": "ok"
+    },
+    {
+      "t": 60,
+      "client": "clientB",
+      "resolver": "B",
+      "cacheHit": true,
+      "answer": "192.0.2.20",
+      "ttlRemaining": 15,
+      "connect": "failed"
+    },
+    {
+      "t": 75,
+      "client": "clientB",
+      "resolver": "B",
+      "cacheHit": false,
+      "answer": "192.0.2.10",
+      "ttlRemaining": 60,
+      "connect": "ok"
+    },
+    {
+      "t": 75,
+      "client": "clientA",
+      "resolver": "A",
+      "cacheHit": true,
+      "answer": "192.0.2.10",
+      "ttlRemaining": 45,
+      "connect": "ok"
+    }
+  ],
+  "summary": {
+    "totalQueries": 10,
+    "failedConnections": 4,
+    "resolutionFailures": 0,
+    "resolverARecoveredAt": 60,
+    "resolverBRecoveredAt": 75
+  }
+}

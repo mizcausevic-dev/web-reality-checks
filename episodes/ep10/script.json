@@ -1,0 +1,81 @@
+{
+  "n": 10,
+  "slug": "dns-caches",
+  "title": "One DNS record",
+  "fullTitle": "I Changed One DNS Record and Broke My Website",
+  "scenes": [
+    {
+      "id": "fail",
+      "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
+      "narration": "One edit to the A record for example dot test. Moments later, one client still loads the site and the other cannot connect. Same domain, two results.",
+      "captions": [
+        "One A-record edit. One client connects, the other cannot.",
+        "Same domain, same minute, two different results."
+      ]
+    },
+    {
+      "id": "layers",
+      "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
+      "narration": "Two steps hide inside that failure. Resolution: the client asks its resolver for an address. Connection: it tries to reach that address. Resolution succeeded every time. It returned the wrong destination.",
+      "captions": [
+        "Step one: resolve the name. Step two: connect to the address.",
+        "Resolution succeeded. It returned the wrong destination."
+      ]
+    },
+    {
+      "id": "compare",
+      "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
+      "narration": "Three copies of one answer. The authority now says dot twenty, the wrong address. Resolver A cached dot ten before the edit and trusts it for sixty seconds. Resolver B asked after the edit and cached dot twenty.",
+      "captions": [
+        "Authoritative: .20 (wrong). Resolver A: .10, cached before the edit.",
+        "Resolver B asked after the edit and cached .20 for 60 seconds."
+      ]
+    },
+    {
+      "id": "restore",
+      "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
+      "narration": "At thirty seconds the source is corrected back to dot ten. Client A still connects. Client B still fails. Fixing the record changed nothing for a cache already full.",
+      "captions": [
+        "t=30: authoritative record restored to .10.",
+        "Client B still fails. The fix changed nothing for a full cache."
+      ]
+    },
+    {
+      "id": "stale",
+      "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
+      "narration": "Resolver B stored the wrong answer at fifteen with a sixty second TTL, so it expires at seventy five. Lowering the TTL now does not shorten that. Expiry pushes nothing; it only allows the next question.",
+      "captions": [
+        "Cached at t=15 with TTL 60: expires at t=75, whatever you change now.",
+        "Expiry permits a new lookup. It pushes nothing."
+      ]
+    },
+    {
+      "id": "expire",
+      "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
+      "narration": "Advance the clock. At sixty, resolver A's entry has aged out and its next query fetches dot ten. At seventy five, resolver B's bad entry lapses, and because a client asks, it fetches the corrected record.",
+      "captions": [
+        "t=60: resolver A refreshes on its next query.",
+        "t=75: resolver B's bad entry lapses; the next query fetches .10."
+      ]
+    },
+    {
+      "id": "recovery",
+      "sim": "SIMULATED DNS MODEL · NO REAL NETWORK",
+      "narration": "Ten queries. Zero resolution failures. Four failed connections, all to the wrong address. Resolver A recovered at sixty, resolver B at seventy five. No single propagation time. Real networks add browser caches, system caches and AAAA records this model omits.",
+      "captions": [
+        "10 queries, 0 resolution failures, 4 failed connections.",
+        "Resolver A recovered at t=60, resolver B at t=75. No single propagation time.",
+        "Not modelled: browser and OS caches, serve-stale, prefetch, AAAA."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "Fixing the source does not erase every cached answer. And a record TTL says nothing about how long your pages are cached. That is a separate clock.",
+      "captions": [
+        "Fixing the source does not erase every cached answer.",
+        "Record TTL is not content-cache lifetime. Separate clocks."
+      ]
+    }
+  ]
+}
