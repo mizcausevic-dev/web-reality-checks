@@ -1,0 +1,17 @@
+{
+  "n": 1,
+  "slug": "ai-app-authorization",
+  "title": "Is it safe to launch?",
+  "fullTitle": "Your AI-Built App Works. Is It Safe to Launch?",
+  "scenes": [
+    {"id": "demo", "sim": null, "narration": "Demo complete. The interface is polished, the buttons work, and every screen looks finished. None of that tells you whether the server checks who is allowed to see what.", "captions": ["Demo complete. Every screen looks finished.", "None of that tells you whether the server checks who may see what."]},
+    {"id": "layers", "narration": "Peel the interface back and there are four layers: the browser, a server-side session that knows who you are, the API that answers requests, and the database that holds every project.", "captions": ["Four layers: browser, session, API, database."]},
+    {"id": "alice_ok", "narration": "Alice signs in. The server creates a session for her and she asks for her own project, one thousand and one. Two hundred OK. So far, correct.", "captions": ["Alice requests her own project. 200 OK."]},
+    {"id": "bob_request", "narration": "Now a controlled test. Still signed in as Alice, we request project two thousand and two. That one belongs to Bob.", "captions": ["Controlled test: Alice requests Bob's project, 2002."]},
+    {"id": "leak", "narration": "The vulnerable endpoint returns it. Two hundred OK, with Bob's private data in the body. Alice was authenticated, so the server assumed she was authorised.", "captions": ["The vulnerable endpoint returns Bob's project. 200 OK.", "Authenticated was mistaken for authorised."]},
+    {"id": "freeze", "narration": "Freeze on the gate. It asks one question: does a user exist? It never asks the second question: does this user own this resource? That missing condition is the entire bug.", "captions": ["The gate asks: does a user exist?", "It never asks: does this user own this resource?"]},
+    {"id": "fix", "narration": "The repair is a scoped query. Resolve the user on the server, then look up the project by its ID and the owner's ID together. If nothing matches, return four oh four, whether the project is missing or simply not hers.", "captions": ["Fix: resolve the user on the server, query by id AND owner.", "No match: 404, whether absent or not hers."]},
+    {"id": "retest", "narration": "Retest the same scenario. Alice's own project: two hundred. Bob's project: four oh four. And flipping the client's user ID, or any interface state, changes nothing, because the server never trusted it.", "captions": ["Retest: Alice's project 200. Bob's project 404.", "Client-side identity claims change nothing."]},
+    {"id": "end", "sim": null, "narration": "This fixes one read path, not the whole application. Writes, lists, and exports each need the same test. A working interface is not an authorisation test.", "captions": ["This fixes one read path, not the whole app.", "A working interface is not an authorization test."]}
+  ]
+}

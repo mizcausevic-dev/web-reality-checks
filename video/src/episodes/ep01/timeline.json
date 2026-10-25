@@ -1,0 +1,138 @@
+{
+  "n": 1,
+  "title": "Is it safe to launch?",
+  "fullTitle": "Your AI-Built App Works. Is It Safe to Launch?",
+  "slug": "ai-app-authorization",
+  "hero": {
+    "scene": "leak",
+    "t": 6
+  },
+  "audio": "ep01/narration.mp3",
+  "duration": 98.81,
+  "scenes": [
+    {
+      "id": "demo",
+      "start": 0,
+      "end": 9.84,
+      "sim": null
+    },
+    {
+      "id": "layers",
+      "start": 9.84,
+      "end": 22.18
+    },
+    {
+      "id": "alice_ok",
+      "start": 22.18,
+      "end": 31.91
+    },
+    {
+      "id": "bob_request",
+      "start": 31.91,
+      "end": 39.48
+    },
+    {
+      "id": "leak",
+      "start": 39.48,
+      "end": 50.06
+    },
+    {
+      "id": "freeze",
+      "start": 50.06,
+      "end": 61.39
+    },
+    {
+      "id": "fix",
+      "start": 61.39,
+      "end": 74.52
+    },
+    {
+      "id": "retest",
+      "start": 74.52,
+      "end": 87.3
+    },
+    {
+      "id": "end",
+      "start": 87.3,
+      "end": 98.81,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 3.52,
+      "text": "Demo complete. Every screen looks finished."
+    },
+    {
+      "start": 3.52,
+      "end": 9.84,
+      "text": "None of that tells you whether the server checks who may see what."
+    },
+    {
+      "start": 9.84,
+      "end": 22.18,
+      "text": "Four layers: browser, session, API, database."
+    },
+    {
+      "start": 22.18,
+      "end": 31.91,
+      "text": "Alice requests her own project. 200 OK."
+    },
+    {
+      "start": 31.91,
+      "end": 39.48,
+      "text": "Controlled test: Alice requests Bob's project, 2002."
+    },
+    {
+      "start": 39.48,
+      "end": 45.99,
+      "text": "The vulnerable endpoint returns Bob's project. 200 OK."
+    },
+    {
+      "start": 45.99,
+      "end": 50.06,
+      "text": "Authenticated was mistaken for authorised."
+    },
+    {
+      "start": 50.06,
+      "end": 55.02,
+      "text": "The gate asks: does a user exist?"
+    },
+    {
+      "start": 55.02,
+      "end": 61.39,
+      "text": "It never asks: does this user own this resource?"
+    },
+    {
+      "start": 61.39,
+      "end": 69.27,
+      "text": "Fix: resolve the user on the server, query by id AND owner."
+    },
+    {
+      "start": 69.27,
+      "end": 74.52,
+      "text": "No match: 404, whether absent or not hers."
+    },
+    {
+      "start": 74.52,
+      "end": 81.97,
+      "text": "Retest: Alice's project 200. Bob's project 404."
+    },
+    {
+      "start": 81.97,
+      "end": 87.3,
+      "text": "Client-side identity claims change nothing."
+    },
+    {
+      "start": 87.3,
+      "end": 92.33,
+      "text": "This fixes one read path, not the whole app."
+    },
+    {
+      "start": 92.33,
+      "end": 96.81,
+      "text": "A working interface is not an authorization test."
+    }
+  ]
+}

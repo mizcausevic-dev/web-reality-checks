@@ -1,0 +1,31 @@
+{
+  "file": "episodes/ep01/ep01.mp4",
+  "bytes": 7264149,
+  "duration_s": 98.8,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 98.81,
+  "thumbnail": {
+    "file": "episodes/ep01/thumbnail.png",
+    "at_s": 10.34
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending",
+    "scene_fix",
+    "scene_retest"
+  ]
+}

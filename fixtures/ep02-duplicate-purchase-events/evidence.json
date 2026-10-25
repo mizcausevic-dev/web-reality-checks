@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-10-25T07:57:27.599Z",
+  "collector": {
+    "label": "LOCAL EVENT COLLECTOR — NOT GA4",
+    "base": "http://127.0.0.1:<ephemeral>",
+    "dedup": "none — raw envelopes stored verbatim"
+  },
+  "order": {
+    "transaction_id": "T-20261025-0001",
+    "value": 149,
+    "currency": "USD",
+    "items": [
+      {
+        "item_id": "SKU-4471",
+        "quantity": 1
+      }
+    ]
+  },
+  "emitters": {
+    "app": "app.purchaseHandler",
+    "tag": "tagManager.purchaseTrigger",
+    "mount": "ConfirmationComponent.onMount"
+  },
+  "runs": {
+    "flawed": {
+      "label": "flawed: one completed order",
+      "mode": "flawed",
+      "purchaseListenersOnBus": 2,
+      "actions": [
+        {
+          "action": "completeOrder(T-20261025-0001)",
+          "receivedSoFar": 3
+        }
+      ],
+      "receivedCount": 3,
+      "envelopes": [
+        {
+          "seq": 1,
+          "event": "purchase",
+          "transaction_id": "T-20261025-0001",
+          "emitter": "app.purchaseHandler",
+          "ts": "2026-10-25T09:00:00.000Z"
+        },
+        {
+          "seq": 2,
+          "event": "purchase",
+          "transaction_id": "T-20261025-0001",
+          "emitter": "tagManager.purchaseTrigger",
+          "ts": "2026-10-25T09:00:00.007Z"
+        },
+        {
+          "seq": 3,
+          "event": "purchase",
+          "transaction_id": "T-20261025-0001",
+          "emitter": "ConfirmationComponent.onMount",
+          "ts": "2026-10-25T09:00:00.021Z"
+        }
+      ],
+      "byEmitter": {
+        "app.purchaseHandler": 1,
+        "tagManager.purchaseTrigger": 1,
+        "ConfirmationComponent.onMount": 1
+      }
+    },
+    "corrected": {
+      "label": "corrected: same action, then remount the confirmation component twice",
+      "mode": "corrected",
+      "purchaseListenersOnBus": 1,
+      "actions": [
+        {
+          "action": "completeOrder(T-20261025-0001)",
+          "receivedSoFar": 1
+        },
+        {
+          "action": "remountConfirmation()",
+          "receivedSoFar": 1
+        },
+        {
+          "action": "remountConfirmation()",
+          "receivedSoFar": 1
+        }
+      ],
+      "receivedCount": 1,
+      "envelopes": [
+        {
+          "seq": 1,
+          "event": "purchase",
+          "transaction_id": "T-20261025-0001",
+          "emitter": "app.purchaseHandler",
+          "ts": "2026-10-25T09:00:00.000Z"
+        }
+      ],
+      "byEmitter": {
+        "app.purchaseHandler": 1,
+        "tagManager.purchaseTrigger": 0,
+        "ConfirmationComponent.onMount": 0
+      }
+    }
+  },
+  "notes": [
+    "Three received envelopes are three raw emissions, not three GA4 conversions; this collector is not GA4 and applies no deduplication.",
+    "GA4 documents purchase deduplication using matching transaction_id for web data streams; that applies to purchase, not to all event types, and is not reproduced here.",
+    "The corrected run demonstrates one emitter in the tested scenario only. It does not establish exactly-once delivery across reloads, devices, retries or distributed systems.",
+    "Order-level idempotency (replaying the same completion action) is a separate design concern and is not implemented (see test.mjs LIMIT test)."
+  ]
+}

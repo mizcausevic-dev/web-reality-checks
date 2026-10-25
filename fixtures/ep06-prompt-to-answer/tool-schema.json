@@ -1,0 +1,14 @@
+{
+  "name": "countTickets",
+  "description": "Count support tickets visible to the current user, filtered by status and priority. Read-only. The data scope (organisation) is supplied by the application from the authenticated session, never by the model.",
+  "readOnly": true,
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "status": {"type": "string", "enum": ["open", "pending", "closed"]},
+      "priority": {"type": "string", "enum": ["low", "normal", "high"]}
+    },
+    "required": ["status", "priority"],
+    "additionalProperties": false
+  }
+}

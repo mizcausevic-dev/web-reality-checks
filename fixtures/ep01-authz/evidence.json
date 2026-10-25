@@ -1,0 +1,79 @@
+{
+  "generatedAt": "2026-10-25T07:44:23.987Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "log": [
+    {
+      "label": "session",
+      "note": "server-side session for Alice established via test harness; cookie is opaque"
+    },
+    {
+      "label": "unauthenticated",
+      "request": "GET /projects/p_1001",
+      "status": 401,
+      "body": {
+        "error": "unauthenticated"
+      }
+    },
+    {
+      "label": "alice reads own (vulnerable endpoint)",
+      "request": "GET /vuln/projects/p_1001",
+      "status": 200,
+      "body": {
+        "endpoint": "vulnerable",
+        "authenticatedAs": "u_alice",
+        "project": {
+          "id": "p_1001",
+          "ownerId": "u_alice",
+          "name": "Alice private roadmap",
+          "notes": "alice-only"
+        }
+      }
+    },
+    {
+      "label": "alice reads bob (vulnerable endpoint)",
+      "request": "GET /vuln/projects/p_2002",
+      "status": 200,
+      "body": {
+        "endpoint": "vulnerable",
+        "authenticatedAs": "u_alice",
+        "project": {
+          "id": "p_2002",
+          "ownerId": "u_bob",
+          "name": "Bob private budget",
+          "notes": "bob-only"
+        }
+      }
+    },
+    {
+      "label": "alice reads own (corrected endpoint)",
+      "request": "GET /projects/p_1001",
+      "status": 200,
+      "body": {
+        "endpoint": "corrected",
+        "authenticatedAs": "u_alice",
+        "project": {
+          "id": "p_1001",
+          "ownerId": "u_alice",
+          "name": "Alice private roadmap",
+          "notes": "alice-only"
+        }
+      }
+    },
+    {
+      "label": "alice reads bob (corrected endpoint)",
+      "request": "GET /projects/p_2002",
+      "status": 404,
+      "body": {
+        "error": "not found"
+      }
+    },
+    {
+      "label": "alice reads bob with spoofed client identity (corrected)",
+      "request": "GET /projects/p_2002?user=u_bob",
+      "status": 404,
+      "body": {
+        "error": "not found"
+      }
+    }
+  ]
+}
