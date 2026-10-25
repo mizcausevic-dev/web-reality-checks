@@ -12,7 +12,6 @@
 - Executed: `node --test fixtures/ep30-scheduled-job-twice/test.mjs` → `# tests 17  # pass 17  # fail 0` (3 consecutive runs, plus 6 parallel runs, all green; includes a known-positive control for the flaw).
 - Executed: `node fixtures/ep30-scheduled-job-twice/demo.mjs` → `evidence.json`: flawed 2 rows; corrected 1 row (`committed` + `already-committed`); SIGKILL after insert → 0 rows visible while open, 0 after, 1 after retry; 30 ms busy timeout with a third connection holding the write lock → `retryable-busy`, 0 rows; `reports.ref` violation → `constraint-violation`, 0 rows; in-process Boolean across two processes → 2 rows.
 - Observed: numbers on screen (2 rows, 1 row, 7 source rows / 12325 cents) are copied from `evidence.json`. Which worker wins varies per run, so the video does not name a winner.
-- Blocked / not executed: no audio generated and no video rendered by the episode builder; `video/src/episodes/ep30/timeline.json` is a `--no-audio` placeholder (estimated timing) to be rebuilt by the orchestrator.
 
 ## Accuracy checklist (from the brief)
 - Not exactly-once execution: stated in the final scene and in the fixture README.
@@ -37,3 +36,9 @@ node tools/render.mjs ep30 --concurrency 2
 - WAL mode, local file, one database. Other journal modes, network filesystems and other databases are not tested. No timing claims.
 - The video does not claim any specific scheduler duplicates runs; it forces two invocations.
 - Scope of the fix: one committed row per logical run. Retry scheduling, leases and external side-effect coordination are out of scope.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep30/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep30 → episodes/ep30/ep30.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 105.67 s, 8385850 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

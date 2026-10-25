@@ -43,6 +43,6 @@ node tools/render.mjs ep24 --concurrency 2
 
 ## Render evidence
 - Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep24/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
-- Executed: node tools/render.mjs ep24 → episodes/ep24/ep24.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 99.6 s, 8528594 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Executed: node tools/render.mjs ep24 → episodes/ep24/ep24.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 99.6 s, 8472639 bytes). Thumbnail and hero are rendered as Remotion stills.
 - Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
 - Observed: inspection stills in frames/ were reviewed for clipping and overlap.
