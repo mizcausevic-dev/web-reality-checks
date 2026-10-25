@@ -1,0 +1,61 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:03.150
+The demo went perfectly. Every screen loaded.
+
+2
+00:00:03.150 --> 00:00:07.530
+So why start a launch review with questions the demo cannot answer?
+
+3
+00:00:07.530 --> 00:00:11.730
+A demo shows one person doing everything right.
+
+4
+00:00:11.730 --> 00:00:18.550
+It never shows someone else's data, a retried payment, or a stale "Live".
+
+5
+00:00:18.550 --> 00:00:25.070
+Each question becomes a short film.
+
+6
+00:00:25.070 --> 00:00:29.420
+Flaw, control, repair, retest.
+
+7
+00:00:29.420 --> 00:00:34.160
+Pay once, lose the response, retry: 2 attempts, 2 orders.
+
+8
+00:00:34.160 --> 00:00:37.470
+After the repair: 2 attempts, 1 order.
+
+9
+00:00:37.470 --> 00:00:41.530
+A Live label over a ten-minute-old reading.
+
+10
+00:00:41.530 --> 00:00:46.180
+The label described the page, not the measurement.
+
+11
+00:00:46.180 --> 00:00:53.400
+Five arcs become ten questions for any team or vendor.
+
+12
+00:00:53.400 --> 00:00:56.580
+Not an audit. Not a certification.
+
+13
+00:00:56.580 --> 00:01:00.280
+Synthetic fixtures. Every episode states its limits.
+
+14
+00:01:00.280 --> 00:01:04.670
+Clone the fixtures. Run the tests.
+
+15
+00:01:04.670 --> 00:01:07.600
+The repository, linked below.

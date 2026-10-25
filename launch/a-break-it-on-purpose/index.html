@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Break It on Purpose: Known-Positive Controls for Web Bugs</title>
+<meta name="description" content="A test-first way to explain a web bug, prove your fix test can fail, and review AI-generated patches. Three runnable fixtures, plain Node, no framework req">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/launch/a-break-it-on-purpose/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Break It on Purpose: Known-Positive Controls for Web Bugs"><meta property="og:description" content="A test-first way to explain a web bug, prove your fix test can fail, and review AI-generated patches. Three runnable fixtures, plain Node, no framework req"><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/launch/a-break-it-on-purpose/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/launch/a-break-it-on-purpose/images/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Break It on Purpose: Known-Positive Controls for Web Bugs"><meta name="twitter:description" content="A test-first way to explain a web bug, prove your fix test can fail, and review AI-generated patches. Three runnable fixtures, plain Node, no framework req"><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/launch/a-break-it-on-purpose/images/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap"><article class="prose">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / For engineers and ai-assisted builders</p>
+<h1 id="break-it-on-purpose-known-positive-controls-for-web-bugs">Break It on Purpose: Known-Positive Controls for Web Bugs</h1>
+<p><em>A test-first way to explain a web bug, prove your fix test can fail, and review AI-generated patches. Three runnable fixtures, plain Node, no framework required.</em></p>
+<p><img loading="lazy" decoding="async" src="images/hero.png" alt="Break it on purpose: node --test output from episode 15 with the known-positive control highlighted" /></p>
+<p>A passing test only means something if the same test could have failed. Fixes, including AI-generated patches, too often ship without anyone checking that.</p>
+<p>The missing check is a <strong>known-positive control</strong>: a test asserting that the bug is visible in the flawed code, so the test that later passes on the repaired code is evidence, not decoration. Web Reality Checks is a library of {{EPISODES}} short narrated films, each backed by a runnable local fixture with regression tests, and nearly every one is built around that idea. This is the engineer's tour: the method, three episodes from three different arcs, how to run them with <code>node --test</code>, and how to fork one for your own stack.</p>
+<h2 id="what-is-a-known-positive-control">What is a known-positive control?</h2>
+<p>In a laboratory, a positive control is a sample you know should trigger the assay. If the assay stays blank on it, the assay is broken, and a blank on your real sample means nothing.</p>
+<p>A known-positive control does the same job in a regression suite. You keep the flawed variant of the code next to the repaired one, and you write a test that runs your scenario against the flawed variant and requires the bug to appear. Only then does the matching test on the repaired variant carry weight.</p>
+<p>The reason is mechanical. A fix test usually asserts the good outcome: one order, a 404, an honest label. Those assertions pass for many wrong reasons: the scenario never reached the code path, the seed data hid the bug, the harness swallowed an error. If you never watched the same scenario fail against the flaw, you cannot tell "fixed" from "never tested."</p>
+<p>The assertion message in the episode 1 and episode 15 controls reads: "the flaw must be observable or the fix test proves nothing." Nearly every fixture test file in the repository contains at least one control, and the flawed endpoints are never meant to be deployed.</p>
+<h2 id="flaw-control-repair-retest">Flaw, Control, Repair, Retest</h2>
+<p>Every episode follows four moves.</p>
+<ol type="1">
+<li><strong>Flaw.</strong> Reproduce the failure on a loopback fixture with synthetic data.</li>
+<li><strong>Control.</strong> Prove the test can fail: run the scenario against the flawed code and assert the bug shows up.</li>
+<li><strong>Repair.</strong> Apply the smallest change that fixes the demonstrated path, and write down its limits.</li>
+<li><strong>Retest.</strong> Run the same schedule of events against the repaired code and read the real numbers from <code>evidence.json</code>.</li>
+</ol>
+<p>"Same schedule" matters: if the retest sends a different sequence of requests than the flaw run, green may only mean you stopped poking the sore spot.</p>
+<p><img loading="lazy" decoding="async" src="images/diagram-loop.png" alt="Flaw, Control, Repair, Retest with episode 15: 2 attempts make 2 orders, then 1 order after the repair" /></p>
+<h2 id="episode-15-one-tap-two-orders-duplicates--ordering">Episode 15: one tap, two orders (Duplicates &amp; ordering)</h2>
+<p><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep15/content/article-technical.md">Episode 15</a> asks why a single tap on Pay created two orders. Nobody double-clicked. The first request reached the server and committed. The response was lost on the way back, so the client saw a network error and retried. From the server's side, the retry was a brand-new request.</p>
+<p>The fixture makes that ambiguity reproducible with three lines. A request header tells the server to commit the write and then destroy the socket:</p>
+<pre class="js"><code>const respond = (req, res, code, body, headers) =&gt; {
+  if (req.headers[&#39;x-fault&#39;] === &#39;lose-response&#39;) { res.socket?.destroy(); return; } // commit happened; response lost
+  json(res, code, body, headers);
+};</code></pre>
+<p>Here is the control. It sends the lost-response scenario to the vulnerable endpoint and requires the duplicate:</p>
+<pre class="js"><code>test(&#39;KNOWN-POSITIVE CONTROL: lost response + retry on the vulnerable endpoint creates TWO orders&#39;, async () =&gt; {
+  const c = await loginAs(&#39;alice&#39;);
+  const {r, attempts} = await withRetry((i) =&gt; post(&#39;/vuln/orders&#39;, c, ORDER, i === 0 ? {&#39;x-fault&#39;: &#39;lose-response&#39;} : {}));
+  assert.ok(attempts[0].networkError, &#39;first attempt must fail at the network level (response lost after commit)&#39;);
+  assert.equal(r.status, 201);
+  assert.equal(attempts.length, 2);
+  assert.equal(db.countOrders(&#39;u_alice&#39;), 2, &#39;the flaw must be observable or the fix test proves nothing&#39;);
+});</code></pre>
+<p>Two attempts, two orders, from <code>evidence.json</code>. Disabling the Pay button would not help: the second request is a retry after an error, not a double click. <a href="https://developer.mozilla.org/en-US/docs/Glossary/Idempotent">MDN's glossary</a> defines an idempotent method as one where making several identical requests has the same effect on the server as making one, and notes that POST is not guaranteed to be idempotent. The fixture must add that property itself.</p>
+<p><img loading="lazy" decoding="async" src="../../episodes/ep15/frames/scene_dup.png" alt="Real frame from episode 15: two attempts, two committed orders" /></p>
+<p>The repair is an <code>Idempotency-Key</code> header, one key per checkout attempt, reused on every retry. The server scopes the key to the session user and the operation, never to a client-supplied user id. It stores a fingerprint of the validated fields. And it puts the guarantee in the database, where a race cannot step around it:</p>
+<pre class="sql"><code>CREATE TABLE idempotency (
+  user_id     TEXT NOT NULL,
+  operation   TEXT NOT NULL,
+  key         TEXT NOT NULL,
+  fingerprint TEXT NOT NULL,
+  status      INTEGER NOT NULL,
+  body        TEXT NOT NULL,
+  order_id    INTEGER NOT NULL REFERENCES orders(id),
+  created_at  TEXT NOT NULL,
+  UNIQUE (user_id, operation, key)
+);</code></pre>
+<p>The order row and this record commit in one transaction. A writer that loses a race hits the constraint, rolls back its own order insert, and receives the stored result. Check-then-insert would lose that race: two requests both read "no record" and both insert.</p>
+<p><img loading="lazy" decoding="async" src="images/diagram-request-flow.png" alt="Episode 15 request flow: commit, lost response, retry answered from the stored record" /></p>
+<p>Retest, same schedule: commit, lose the response, retry with the same key. Two attempts, <strong>one</strong> order, and the retry carries <code>Idempotent-Replayed: true</code>. The same key with <code>qty</code> changed from 1 to 3 returns 422 and leaves the count at 1. Five concurrent requests with one key produce one order. Two real purchases with two keys produce two. The suite reports <code># pass 13 # fail 0</code>.</p>
+<p>One policy is a choice: concurrent requests with the same key wait for the first writer. An immediate 409 would be equally valid; <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/409">MDN describes 409 Conflict</a> as a request that conflicts with the current state of the target resource.</p>
+<p>What it does not prove: the transaction covers the local database, not an external payment provider, which needs its own idempotency key and reconciliation. Expired key records would let a late retry count as new. Nothing here gives exactly-once delivery; it makes repetition safe, not impossible.</p>
+<h2 id="episode-1-the-interface-that-works-and-leaks-trust--access">Episode 1: the interface that works and leaks (Trust &amp; access)</h2>
+<p><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep01/content/article-technical.md">Episode 1</a> is the smallest case. Two synthetic users, Alice and Bob, own one private project each. The vulnerable endpoint asks whether a user is signed in, then returns the project by id. It never asks whether that user owns it.</p>
+<p>The entire difference between flaw and repair is one lookup: by project id alone, or by project id and owner id. The control is the test most teams skip:</p>
+<pre class="js"><code>test(&#39;KNOWN-POSITIVE CONTROL: vulnerable endpoint returns Bob\&#39;s project to Alice&#39;, async () =&gt; {
+  const c = await loginAs(&#39;alice&#39;);
+  const r = await get(&#39;/vuln/projects/p_2002&#39;, {cookie: c});
+  assert.equal(r.status, 200, &#39;the flaw must be observable or the fix test proves nothing&#39;);
+  assert.equal((await r.json()).project.ownerId, &#39;u_bob&#39;);
+});</code></pre>
+<p>Retest: Alice reads her own project, 200. Bob's project on the corrected endpoint returns 404, and so does the same request with <code>?user=u_bob</code> and an <code>X-User-Id</code> header, because the server never reads either. Seven tests, seven pass. The 404 for both "absent" and "not yours" is a deliberate policy documented in the fixture, not a universal rule.</p>
+<p>Limit: this repairs one read path. Writes, lists and exports each need the same test, and the fixture's session harness is not production authentication.</p>
+<p><img loading="lazy" decoding="async" src="../../episodes/ep01/frames/scene_retest.png" alt="Real frame from episode 1: Alice gets 200, Bob&#39;s project gets 404" /></p>
+<h2 id="episode-17-live-on-ten-minute-old-data-delivery--freshness">Episode 17: "Live" on ten-minute-old data (Delivery &amp; freshness)</h2>
+<p><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep17/content/article-technical.md">Episode 17</a> shows a control needs no server. The fixture is a simulated pipeline on one shared clock that tests advance by hand: no sockets, no real waiting. A collector samples a source every 600 seconds, an API serves the latest sample, and a dashboard polls every 30.</p>
+<p>The flawed label is kept as code, solely as a control:</p>
+<pre class="js"><code>export const naiveStatus = ({nowMs, lastPoll}) =&gt; {
+  if (!lastPoll) return {label: &#39;Connecting…&#39;, updatedSecondsAgo: null};
+  if (!lastPoll.ok) return {label: &#39;Offline&#39;, updatedSecondsAgo: null};
+  return {label: &#39;Live&#39;, updatedSecondsAgo: Math.floor((nowMs - lastPoll.at) / 1000)};
+};</code></pre>
+<p>It measures time since the last poll, so every successful poll resets "updated N s ago" to zero. The test asserts that bug in the loop over all 19 polls before the collector samples again. Every poll returns 200, every naive label says Live, and the real measurement age climbs from 30 to 570 seconds.</p>
+<p>The repair separates two questions. Measurement age comes from <code>sourceObservedAt</code> only; connection status comes from the last poll only. Connected and stale can both be true. Polling every 5 seconds instead of 30 gives 119 polls instead of 19 and the same age of 570 seconds, because the collector still sampled once. The 300-second stale threshold is this fixture's policy, not a standard.</p>
+<p>Limit: one shared clock. Skew between real machines is not modeled.</p>
+<p><img loading="lazy" decoding="async" src="../../episodes/ep17/frames/scene_fail.png" alt="Real frame from episode 17: Live, updated 0 s ago, on a 600 s old measurement" /></p>
+<h2 id="run-a-fixture-in-two-minutes">Run a fixture in two minutes</h2>
+<p>You need Node 22 or newer. Fixtures are plain ES modules with no npm install unless an episode requires a library. Node's <a href="https://nodejs.org/api/test.html">built-in test runner</a> is documented as stable, and <code>node --test</code> exits with code 1 if any test fails, so it fits CI.</p>
+<pre><code>git clone https://github.com/mizcausevic-dev/web-reality-checks.git
+cd web-reality-checks
+node --test fixtures/ep15-idempotency/test.mjs
+node fixtures/ep15-idempotency/demo.mjs</code></pre>
+<p>The first command runs the tests. The second reruns the scenario and writes <code>evidence.json</code>. Node prints an <code>ExperimentalWarning</code> for <code>node:sqlite</code>; the fixture README says that is expected.</p>
+<p>Now break something. Copy the fixture to a scratch folder and delete the <code>UNIQUE</code> line from the schema in <code>db.mjs</code>. In my run, 12 of the 13 tests still passed, including the lost-response retest and the five-concurrent-request test, because the pre-read and the in-flight map cover them. The one failure was the DB-layer test that skips the pre-read. The only test that noticed the missing constraint was the one written to expose it.</p>
+<h2 id="fork-a-fixture-for-your-own-stack">Fork a fixture for your own stack</h2>
+<p>The repository ships no framework ports, so this is how I would approach one, not a feature.</p>
+<ul>
+<li>Keep the shape: flawed and repaired variants side by side, a <code>test.mjs</code> where the control comes first, a <code>demo.mjs</code> that writes <code>evidence.json</code>.</li>
+<li>Port the scenario, the oracle and the fault injector before the repair. The scenario is the request sequence. The oracle is what you count: rows, statuses, SQL statements. The injector makes the bad thing happen on demand, as the <code>x-fault</code> header does.</li>
+<li>Do not write the repair until the control fails on your flawed variant. If it passes, your scenario is not reaching the bug.</li>
+<li>Take identity from the server session, never from a client-supplied field. Both server fixtures above test that a spoofed id is ignored.</li>
+<li>Write the limits in the README as you go.</li>
+</ul>
+<p>Express, Fastify, Django or Rails change only the thin handler layer. The control, the oracle and the evidence file carry over.</p>
+<h2 id="using-controls-to-review-ai-generated-code">Using controls to review AI-generated code</h2>
+<p>These fixtures are deliberately constructed; none claims an AI tool produced a particular vulnerability. The method still fits AI-assisted work for a structural reason: a test written by the same process that wrote the patch tends to agree with the patch. It confirms what the code does, not what the bug was.</p>
+<p>Before you accept a generated fix, ask for five things.</p>
+<ol type="1">
+<li>The flawed variant, kept in the repo and labeled.</li>
+<li>A control test that fails the way the bug fails, with a message saying why it exists.</li>
+<li>The smallest repair, with the assumptions it relies on written down.</li>
+<li>A retest that replays the same scenario against the repaired code.</li>
+<li>A short list of what the fix does not cover.</li>
+</ol>
+<p>If the assistant cannot produce a flawed variant that trips the control, it has not understood the bug yet.</p>
+<h2 id="what-exists-today-and-what-it-does-not-claim">What exists today, and what it does not claim</h2>
+<p>What exists: {{EPISODES}} episodes in {{ARCS}} arcs (Trust &amp; access, Duplicates &amp; ordering, Data lifecycle, Delivery &amp; freshness, Experience &amp; speed). Each has a fixture, a test suite, a demo that writes <code>evidence.json</code>, and a README stating its limits. {{TESTS}} fixture tests pass in total, and the films run {{RUNTIME}} combined. Code is MIT licensed; narration audio and rendered video are all rights reserved.</p>
+<p>What is demonstrated and what is not: results shown from fixtures are executed output. Some scenes are labeled conceptual illustrations, such as the TLS leg in episode 3 and all of episode 20. Episode 17 runs on a simulated clock, not real waiting.</p>
+<p>What it does not claim: this is not an audit and not a certification. It makes no finding about any real product or company. A repair fixes the demonstrated path only. The repository contains no roadmap, so nothing further is promised.</p>
+<h2 id="start-here">Start here</h2>
+<p>Pick a failure you have shipped. Duplicates: start at <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep15/content/article-technical.md">episode 15</a>, then <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep18/content/article-technical.md">episode 18</a> on webhooks that arrive twice and out of order. Access: <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep01/content/article-technical.md">episode 1</a>, then <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep13/content/article-technical.md">episode 13</a> on API keys in JavaScript. Quotas and retries: <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep16/content/article-technical.md">episode 16</a>. Watch the films in the <a href="../../index.html#episodes">Watch the films on this site</a>. Read, clone and run the fixtures at <a href="https://github.com/mizcausevic-dev/web-reality-checks">github.com/mizcausevic-dev/web-reality-checks</a>.</p>
+<blockquote>
+<p>This episode uses a deliberately constructed local fixture with synthetic data. Nothing here is a finding about a real product or company. Fixture, tests and video source: github.com/mizcausevic-dev/web-reality-checks</p>
+</blockquote>
+<p>Miz Causevic, Kinetic Gain LLC</p>
+
+<hr><h2>Watch and test yourself</h2>
+<div class="links" style="font-size:17px"><a href="../../episodes/cm01/index.html">Watch the 1m 06s launch film</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/launch/a-break-it-on-purpose/social.md">Social copy</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/launch/a-break-it-on-purpose/seo.md">SEO notes</a></div>
+</article></div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

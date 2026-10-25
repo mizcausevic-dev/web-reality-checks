@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:06.240
+One A-record edit. One client connects, the other cannot.
+
+2
+00:00:06.240 --> 00:00:10.630
+Same domain, same minute, two different results.
+
+3
+00:00:10.630 --> 00:00:17.430
+Step one: resolve the name. Step two: connect to the address.
+
+4
+00:00:17.430 --> 00:00:21.750
+Resolution succeeded. It returned the wrong destination.
+
+5
+00:00:21.750 --> 00:00:28.270
+Authoritative: .20 (wrong). Resolver A: .10, cached before the edit.
+
+6
+00:00:28.270 --> 00:00:36.100
+Resolver B asked after the edit and cached .20 for 60 seconds.
+
+7
+00:00:36.100 --> 00:00:39.800
+t=30: authoritative record restored to .10.
+
+8
+00:00:39.800 --> 00:00:47.190
+Client B still fails. The fix changed nothing for a full cache.
+
+9
+00:00:47.190 --> 00:00:56.380
+Cached at t=15 with TTL 60: expires at t=75, whatever you change now.
+
+10
+00:00:56.380 --> 00:01:02.040
+Expiry permits a new lookup. It pushes nothing.
+
+11
+00:01:02.040 --> 00:01:08.350
+t=60: resolver A refreshes on its next query.
+
+12
+00:01:08.350 --> 00:01:17.030
+t=75: resolver B's bad entry lapses; the next query fetches .10.
+
+13
+00:01:17.030 --> 00:01:21.140
+10 queries, 0 resolution failures, 4 failed connections.
+
+14
+00:01:21.140 --> 00:01:27.830
+Resolver A recovered at t=60, resolver B at t=75. No single propagation time.
+
+15
+00:01:27.830 --> 00:01:32.460
+Not modelled: browser and OS caches, serve-stale, prefetch, AAAA.
+
+16
+00:01:32.460 --> 00:01:37.800
+Fixing the source does not erase every cached answer.
+
+17
+00:01:37.800 --> 00:01:42.560
+Record TTL is not content-cache lifetime. Separate clocks.

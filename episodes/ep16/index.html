@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>It's being rate-limited: Episode 16 | Web Reality Checks</title>
+<meta name="description" content="Your App Isn't Broken. It's Being Rate-Limited.. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep16/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="It's being rate-limited: Episode 16 | Web Reality Checks"><meta property="og:description" content="Your App Isn't Broken. It's Being Rate-Limited.. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep16/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep16/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="It's being rate-limited: Episode 16 | Web Reality Checks"><meta name="twitter:description" content="Your App Isn't Broken. It's Being Rate-Limited.. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep16/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 16</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep16.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep16.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#a78bfa">Episode 16 · Experience &amp; speed</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Your App Isn't Broken. It's Being Rate-Limited.</h1>
+<div><span class="badge ok">1m 50s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="11.28"><b>00:11</b><span>window</span></button></li><li><button type="button" data-t="26.62"><b>00:26</b><span>retry loop</span></button></li><li><button type="button" data-t="37.2"><b>00:37</b><span>debounce</span></button></li><li><button type="button" data-t="48.69"><b>00:48</b><span>stale</span></button></li><li><button type="button" data-t="61.95"><b>01:01</b><span>abort</span></button></li><li><button type="button" data-t="72.67"><b>01:12</b><span>retry after</span></button></li><li><button type="button" data-t="85.35"><b>01:25</b><span>compare</span></button></li><li><button type="button" data-t="97.37"><b>01:37</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep16.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep16-rate-limit">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep16/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep16/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep16/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep16/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> A client can exceed an API's request budget; coordinate the requests (debounce, sequence guard, abort, bounded Retry-After wait) instead of retrying immediately.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep16-rate-limit/</code> — a loopback-only Node 22 search API (<code>GET /search?q=</code>) behind a <strong>fixed-window</strong> limiter: 5 allowed requests per 10 s, keyed by a <strong>server-established synthetic test identity</strong> (<code>GET /login/:name</code>, opaque cookie; a harness, not production authentication). The limiter takes an injectable clock.</li>
+<li>Deliberate policies: rejected requests <strong>do not consume allowance</strong>; <code>Retry-After</code> is <strong>integer delta-seconds until the window edge, rounded up, never 0</strong>; shorter prefixes answer slower so out-of-order arrival is observable.</li>
+<li><code>client-flawed.mjs</code>: request per keystroke, immediate retry on 429 (bounded to 3 per keystroke so tests terminate), no stale guard, no abort.</li>
+<li><code>client-corrected.mjs</code>: 250 ms debounce; per-request sequence number (a response is applied only if still the latest); <code>AbortController</code> on the obsolete in-flight request; <code>Retry-After</code> parsed (seconds or HTTP-date), rounded <strong>up</strong>, at most <strong>one</strong> retry of the still-current query; scheduled retry cancelled when the query changes; fallback delay when the header is missing.</li>
+<li>Both clients are driven through the <strong>identical scripted typing sequence</strong> (<code>postgres</code>, one character per 80 ms) by the same harness.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep16-rate-limit/test.mjs</code> → <code># tests 17  # pass 17  # fail 0</code> (includes two known-positive controls asserting the flawed client is rate-limited on immediate retry and renders stale results; limiter boundary tests on a manual clock: 5th allowed, 6th rejected, reset exactly at the window edge, rejections not counted, Retry-After rounding).</li>
+<li>Executed: <code>node fixtures/ep16-rate-limit/demo.mjs</code> → <code>evidence.json</code>, <code>request-log-flawed.json</code>, <code>request-log-corrected.json</code>:
+<ul>
+<li>A. flawed, scripted typing: <strong>17 requests</strong> (8 keystrokes + 9 immediate retries), <strong>12 × 429</strong>, 5 × 200, 5 stale renders, final UI showed results for <code>"p"</code> while the input read <code>postgres</code>.</li>
+<li>B. corrected, same typing: <strong>1 request</strong>, <strong>0 × 429</strong>, results for <code>"postgres"</code>.</li>
+<li>B2. corrected, paused typing: 2 requests, 1 aborted by the client, 1 abort observed in the server log, 0 stale renders.</li>
+<li>C. corrected, window pre-exhausted: first request 429 with <code>Retry-After: 3</code> at 7 725 virtual ms → retry at 10 889 ms → 200; exactly one retry.</li>
+</ul></li>
+<li>Observed: all <code>ms</code> values are <strong>virtual fixture time</strong> (scaled clock, 10 virtual ms per real ms); event order and counts are what the tests assert, not millisecond positions.</li>
+<li>Predicted (not executed): behaviour in a real browser. <code>fetch</code>/<code>AbortController</code> here are Node's.</li>
+<li>Blocked: no narration audio generated and no MP4 rendered by the builder; the orchestrator does both and fills <code>render-evidence.json</code>. <code>video/src/episodes/ep16/timeline.json</code> currently comes from <code>build-timeline.mjs ep16 --no-audio</code> and must be rebuilt once <code>video/public/ep16/narration.mp3</code> exists.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep16    # from narration audio in video/public/ep16/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep16 --concurrency 2</code></pre>
+<p>Type-check: <code>cd video &amp;&amp; npx tsc --noEmit</code> (passes).</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Fixed-window accounting is this fixture's design</strong>, not every API's. Sliding windows, token buckets, per-route limits and shared limits are out of scope.</li>
+<li><strong>Retry-After is not guaranteed</strong> on real 429 responses. The header may be <strong>delta-seconds or an HTTP-date</strong>; this fixture emits seconds (the client parses both, but the HTTP-date path is not exercised end-to-end).</li>
+<li><strong>A browser abort does not prove the server stopped processing</strong> or did not count the request. The fixture server logs the abort and stops its synthetic work as a courtesy; the sequence guard is what keeps the rendered result correct.</li>
+<li><strong>Debouncing does not replace server-side rate limiting</strong>; it lowers the client's rate.</li>
+<li><strong>Do not reuse this retry policy for state-changing requests</strong> without an idempotency mechanism (see EP15).</li>
+<li>The <strong>shared test identity is a harness</strong>, not production authentication.</li>
+<li>The flawed client's immediate-retry loop is bounded only so the tests terminate; real flawed clients may have no bound.</li>
+<li>Scene 1's keystroke→request animation runs slower than the fixture's 80 ms spacing for legibility; the counts it displays are the fixture's. Scene 7's ruler positions use the recorded virtual-ms values.</li>
+</ul>
+<h2 id="orchestrator-note-observed-during-production">Orchestrator note (observed during production)</h2>
+<ul>
+<li>Observed: <code>node --test fixtures/ep16-rate-limit/test.mjs</code> passed 17/17 on three consecutive runs on an idle 2-vCPU box, and failed 1/17 once while a video render saturated both cores. The limiter and typing tests run on a scaled virtual clock, so heavy CPU contention can shift one timing assertion. Run the suite on an idle machine; a single failure under load is a scheduling artefact, not a limiter defect.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep16/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep16 → episodes/ep16/ep16.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.27 s, 9507725 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep15/index.html">← Episode 15: Paid once, two orders</a></span><span><a href="../ep17/index.html">Episode 17: Live, ten minutes old →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

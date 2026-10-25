@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How many are wrong?: Episode 05 | Web Reality Checks</title>
+<meta name="description" content="Your Directory Has 10,000 Listings. How Many Are Wrong?. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep05/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="How many are wrong?: Episode 05 | Web Reality Checks"><meta property="og:description" content="Your Directory Has 10,000 Listings. How Many Are Wrong?. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep05/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep05/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How many are wrong?: Episode 05 | Web Reality Checks"><meta name="twitter:description" content="Your Directory Has 10,000 Listings. How Many Are Wrong?. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep05/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 05</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep05.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep05.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#3dd6f5">Episode 05 · Data lifecycle</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Your Directory Has 10,000 Listings. How Many Are Wrong?</h1>
+<div><span class="badge ok">1m 43s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>counter</span></button></li><li><button type="button" data-t="10.23"><b>00:10</b><span>overlap</span></button></li><li><button type="button" data-t="27.59"><b>00:27</b><span>checks</span></button></li><li><button type="button" data-t="41.02"><b>00:41</b><span>counts</span></button></li><li><button type="button" data-t="55.27"><b>00:55</b><span>fail timeout</span></button></li><li><button type="button" data-t="68.45"><b>01:08</b><span>queue</span></button></li><li><button type="button" data-t="78.3"><b>01:18</b><span>decision</span></button></li><li><button type="button" data-t="90.77"><b>01:30</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep05.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep05-directory-quality">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep05/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep05/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep05/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep05/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Listing quantity and evidence-backed data quality are different measurements; a flag from an automated check is a lead to investigate, never a verdict.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep05-directory-quality/</code> — plain Node 22 ESM, zero dependencies. <code>generate.mjs</code> uses its own seeded PRNG (mulberry32, seed <code>20261025</code>) to build <strong>exactly 10,000 synthetic listings</strong> (<code>listings.json</code>, ~3.1 MB, one row per line) and a <strong>separate</strong> <code>ground-truth.json</code> with overlapping seeded defects: duplicates, malformed URLs, missing required fields, old verification timestamps, changed addresses, simulated closures.</li>
+<li><code>check.mjs</code> runs five checks on the public rows only: completeness, duplicate candidates, URL syntax, website availability, verification age. Website checks go to an <strong>in-process mock responder keyed by hostname pattern</strong> (<code>*.ok.test</code>, <code>*.slow.test</code>, <code>*.down.test</code>, <code>*.nx.test</code>, <code>*.gone.test</code>); zero real network calls. The checker has no file or network access and never reads ground truth (asserted by a test that scans its source).</li>
+<li><code>lastCheckedAt</code>, <code>lastChangedAt</code>, <code>lastVerifiedAt</code> are three separate fields with three meanings; a re-check updates only the first.</li>
+<li>Deliberate policies: unique flagged listings and total issue instances are reported as two numbers and never summed; a failed website check routes to review as a lead, not a closure; <code>stale_verification</code> is age, not error; deterministic fixes (missing field, malformed URL) do not enter the review queue on their own. Full policy in <code>fixtures/ep05-directory-quality/review-rules.md</code>.</li>
+<li><code>evaluate()</code> compares checker output with ground truth <strong>after</strong> checking, reporting detected vs missed per seeded class.</li>
+<li>All data is synthetic: invented names, 555 phone numbers, reserved <code>.test</code> hostnames. Persistent on-screen tag: <code>SYNTHETIC DATASET · SEEDED</code>.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep05-directory-quality/test.mjs</code> → <code># tests 17  # pass 17  # fail 0</code> (includes two known-positive controls: failed website checks occur on businesses that are open in ground truth; some seeded defects are missed and reported as missed).</li>
+<li>Executed: <code>node fixtures/ep05-directory-quality/demo.mjs</code> → <code>inspection-results.json</code>, <code>review-queue.json</code>, <code>evidence.json</code>:
+<ul>
+<li>10,000 listings · <strong>3,875 issue instances</strong> · <strong>3,303 distinct flagged listings</strong> · 6,697 clean.</li>
+<li>Per code (instances = listings, since each code fires at most once per listing): site_unreachable 1,136 · stale_verification 921 · duplicate_candidate 636 (318 pairs) · edited_since_verified 525 · missing_required 300 · malformed_url 231 · site_gone 126.</li>
+<li>Flags per flagged listing: 1 → 2,775 · 2 → 485 · 3 → 42 · 4 → 1.</li>
+<li>Seeded vs detected vs missed: duplicate 640/636/4 · malformed_url 250/231/19 · missing_required 300/300/0 · stale_verification 900/900/0 · changed_address 400/210/190 · closed 350/224/126.</li>
+<li>Review queue 2,901 entries (one per listing). Failed website checks on businesses that are open in ground truth: <strong>1,038</strong>. Mock responder calls 8,922; real network calls 0.</li>
+<li>Example (scene 5–7): <code>L00070 "Copper Framing Co."</code>, <code>copper-framing-co.slow.test</code> → timeout; ground truth: open (only label <code>stale_verification</code>). Decision <code>keep_listing_schedule_recheck</code> by <code>reviewer-synthetic-01</code> at <code>2026-10-25T09:14:00Z</code>; <code>lastCheckedAt</code> 2026-10-13 → 2026-10-25, <code>lastVerifiedAt</code> unchanged (2023-01-20).</li>
+</ul></li>
+<li>Observed: every on-screen number in <code>video/src/episodes/ep05/Scenes.tsx</code> is a constant in the <code>EV</code> object at the top of that file, copied from <code>inspection-results.json</code> / <code>evidence.json</code>. If the fixture is regenerated with a different seed, refresh <code>EV</code>.</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → clean.</li>
+<li>Blocked (by spec, orchestrator's job): narration audio, MP4 render, <code>render-evidence.json</code>, thumbnail. <code>video/src/episodes/ep05/timeline.json</code> currently holds a <code>--no-audio</code> estimate only so the project type-checks; rebuild it from real narration before rendering.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep05      # from video/public/ep05/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep05 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Everything is simulated: the dataset is generated, website responses come from a local mock, the reviewer is synthetic. Detection rates (e.g. 190 of 400 moved businesses missed) are properties of this seeded dataset and this checker, not of any real directory.</li>
+<li>Not tested: real HTTP behaviour (redirects, TLS errors, bot blocks, parked domains), fuzzy duplicate matching, shared phone lines across genuinely different businesses (which would create false duplicate candidates), any persistence or workflow beyond the JSON files.</li>
+<li>Accuracy bullets from the brief, each reflected on screen / in narration: data and results labelled synthetic (corner tag, every "Observed from" line); old verification date is not proof of error (scenes 5, 7); HTTP failure is not proof of closure (scenes 5, 8); last checked / last changed / last verified shown as separate fields (scenes 3, 5, 7); unique flagged listings reported separately from issue instances and explicitly not summed (scene 4); checker does not read ground truth (scene 3, test); detected vs missed per seeded class shown (scene 8).</li>
+<li>Scene timing in <code>timeline.json</code> is a word-count heuristic snapped to detected silences once real audio exists; not forced alignment.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep05/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep05 → episodes/ep05/ep05.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.67 s, 9442629 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep04/index.html">← Episode 04: A database in the page</a></span><span><a href="../ep06/index.html">Episode 06: Prompt to answer →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

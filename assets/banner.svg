@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 380" width="1280" height="380" role="img" aria-labelledby="t d">
-<title id="t">Web Reality Checks</title><desc id="d">27 short technical films, each backed by a runnable local fixture and regression tests. Flaw, control, repair, retest.</desc>
+<title id="t">Web Reality Checks</title><desc id="d">30 short technical films, each backed by a runnable local fixture and regression tests. Flaw, control, repair, retest.</desc>
 <defs>
 <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b0c10"/><stop offset="1" stop-color="#101a22"/></linearGradient>
 <linearGradient id="fl" x1="0" x2="1"><stop offset="0" stop-color="#f5533d"/><stop offset=".35" stop-color="#f5b63d"/><stop offset=".7" stop-color="#3dd6f5"/><stop offset="1" stop-color="#5fe08a"/></linearGradient>
@@ -20,7 +20,7 @@
 <text x="64" y="86" class="f" font-size="16" font-weight="700" letter-spacing="6" fill="#3dd6f5">WEB REALITY CHECKS</text>
 <text x="64" y="156" class="f" font-size="58" font-weight="800" letter-spacing="-1.5" fill="#f3ede3">Break it on purpose.</text>
 <text x="64" y="222" class="f" font-size="58" font-weight="800" letter-spacing="-1.5" fill="#f3ede3">Prove the fix.</text>
-<text x="64" y="272" class="f" font-size="20" fill="#9a978f">27 short technical films. Each one backed by a runnable local fixture,</text>
+<text x="64" y="272" class="f" font-size="20" fill="#9a978f">30 short technical films. Each one backed by a runnable local fixture,</text>
 <text x="64" y="300" class="f" font-size="20" fill="#9a978f">regression tests, narration, captions and a plain-language write-up.</text>
 <g class="m" font-size="14" fill="#5e5c57"><text x="64" y="342">synthetic data · loopback only · every on-screen number comes from evidence.json</text></g>
 <g transform="translate(760 120)">

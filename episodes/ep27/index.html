@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Results jump backward: Episode 27 | Web Reality Checks</title>
+<meta name="description" content="You Typed 'React.' Why Did Results for 'Re' Come Back?. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep27/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Results jump backward: Episode 27 | Web Reality Checks"><meta property="og:description" content="You Typed 'React.' Why Did Results for 'Re' Come Back?. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep27/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep27/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Results jump backward: Episode 27 | Web Reality Checks"><meta name="twitter:description" content="You Typed 'React.' Why Did Results for 'Re' Come Back?. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep27/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 27</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep27.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep27.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5b63d">Episode 27 · Duplicates &amp; ordering</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">You Typed 'React.' Why Did Results for 'Re' Come Back?</h1>
+<div><span class="badge ok">1m 43s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="12.2"><b>00:12</b><span>order</span></button></li><li><button type="button" data-t="23.78"><b>00:23</b><span>late</span></button></li><li><button type="button" data-t="34.24"><b>00:34</b><span>guard</span></button></li><li><button type="button" data-t="45.75"><b>00:45</b><span>retest</span></button></li><li><button type="button" data-t="55.15"><b>00:55</b><span>discard</span></button></li><li><button type="button" data-t="65.09"><b>01:05</b><span>failure</span></button></li><li><button type="button" data-t="74.36"><b>01:14</b><span>paths</span></button></li><li><button type="button" data-t="90.82"><b>01:30</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep27.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep27-stale-search-responses">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep27/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep27/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep27/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep27/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Responses can arrive out of order; an older response can overwrite newer search state unless the client checks which request is current.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep27-stale-search-responses/</code> — a <strong>simulated controller</strong>: a framework-free state machine (query, results, error, loading, generation) driven by a mock API whose responses are released one by one by the test. Every scene carries the persistent tag <code>SIMULATED CONTROLLER · NOT BROWSER EVIDENCE</code>. No browser, DOM, framework, network, or timer was involved.</li>
+<li>Flawed variant renders every arriving response (known-positive control: results for <code>re</code> overwrite results for <code>react</code>). Corrected variant uses a request-generation guard in the success, error and finally paths; <code>clear()</code> and <code>dispose()</code> invalidate pending generations; superseded requests can optionally be aborted.</li>
+<li>Deliberate policies: abort is an optimisation and the final state is identical without it; an <code>AbortError</code> is never shown as a user-facing error; the guard uses its own local counter, not server request ids.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep27-stale-search-responses/test.mjs</code> → <code># tests 22</code>, <code># pass 22</code>, <code># fail 0</code>.</li>
+<li>Executed: <code>node fixtures/ep27-stale-search-responses/demo.mjs</code> → <code>evidence.json</code> with five scenarios (stale success, stale failure, loading, cleared, disposed), each with the exact release schedule and flawed/corrected state timelines, plus an abort comparison. Key values shown in the video: flawed final = query <code>react</code> with results for <code>re</code>; corrected final = results for <code>react</code>, discards <code>success, finally</code>; stale failure → flawed error <code>network error (simulated)</code>, corrected none and discards <code>error, finally</code>; loading → flawed <code>false</code>, corrected <code>true</code>; cleared → flawed shows results for <code>re</code>, corrected none; disposed → 2 writes after dispose (flawed) vs 0 (corrected); final state identical with and without abort.</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors.</li>
+<li>Executed: <code>node tools/build-timeline.mjs ep27 --no-audio</code> → provisional <code>timeline.json</code> and <code>captions.srt</code> (word-count estimate, to be rebuilt from real narration).</li>
+<li>Predicted: how a browser UI framework would behave with this logic follows from the state machine; it was not run in a browser.</li>
+<li>Blocked: no narration audio, no render (orchestrator fills <code>render-evidence.json</code>). No MP4 is claimed.</li>
+</ul>
+<h2 id="accuracy-bullets">Accuracy bullets</h2>
+<ul>
+<li>Guard applied in success, error and finally paths (scenes <code>guard</code>, <code>discard</code>, <code>failure</code>).</li>
+<li>An older finally cannot clear the current loading state (<code>discard</code>, variant panel).</li>
+<li>Aborted obsolete requests are not shown as user-facing errors; abort is an optimisation, not the only correctness mechanism (<code>paths</code>; tests).</li>
+<li>Aborting a browser request does not prove server execution stopped (<code>paths</code>; narration).</li>
+<li>Debouncing alone does not guarantee response order (<code>paths</code>; narration).</li>
+<li>Server request ids are not assumed to be globally ordered (<code>guard</code>, <code>end</code>; test with unordered opaque ids).</li>
+<li>Local UI concurrency control, not a general distributed-ordering solution (<code>end</code>).</li>
+<li>Scene <code>paths</code> is an addition to the brief's eight scenes; it carries clear, dispose, abort and debounce.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep27      # needs video/public/ep27/narration.mp3 (or add --no-audio)
+node tools/gen-root.mjs
+node tools/render.mjs ep27 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Entirely simulated: the controller and mock API are not a recording of a real browser or server. The search UI drawn in the video is a plain illustrative box.</li>
+<li>Not tested: real fetch/abort semantics, server behaviour, framework lifecycles, retries, caching.</li>
+<li>Caption/scene timing in the provisional timeline is a word-count heuristic; the orchestrator re-aligns to real audio.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep26/index.html">← Episode 26: One page, 101 queries</a></span><span><a href="../ep28/index.html">Episode 28: Hidden is not denied →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

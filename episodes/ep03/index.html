@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What Sign In does: Episode 03 | Web Reality Checks</title>
+<meta name="description" content="Watch What Happens When You Click 'Sign In'. 1m 59s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep03/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="What Sign In does: Episode 03 | Web Reality Checks"><meta property="og:description" content="Watch What Happens When You Click 'Sign In'. 1m 59s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep03/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep03/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="What Sign In does: Episode 03 | Web Reality Checks"><meta name="twitter:description" content="Watch What Happens When You Click 'Sign In'. 1m 59s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep03/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 03</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep03.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep03.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5533d">Episode 03 · Trust &amp; access</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Watch What Happens When You Click 'Sign In'</h1>
+<div><span class="badge ok">1m 59s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>click</span></button></li><li><button type="button" data-t="12"><b>00:12</b><span>lanes</span></button></li><li><button type="button" data-t="21.57"><b>00:21</b><span>https</span></button></li><li><button type="button" data-t="33.38"><b>00:33</b><span>verify</span></button></li><li><button type="button" data-t="45.89"><b>00:45</b><span>fresh session</span></button></li><li><button type="button" data-t="57.29"><b>00:57</b><span>cookie</span></button></li><li><button type="button" data-t="71.91"><b>01:11</b><span>request</span></button></li><li><button type="button" data-t="82.14"><b>01:22</b><span>authz</span></button></li><li><button type="button" data-t="93.36"><b>01:33</b><span>logout</span></button></li><li><button type="button" data-t="109.41"><b>01:49</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep03.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep03-sign-in-session">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep03/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep03/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep03/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep03/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> One implementation of sign-in — email/password over HTTPS, a salted password hash, and an opaque cookie that identifies a server-side session — where the password, the session id and the authorisation decision are three different objects and none becomes another.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep03-sign-in-session/</code> — a loopback-only Node 22 app on <code>express</code> 4.22.3 with <code>argon2</code> 0.41.1 (argon2id, random salt) for password hashing, <code>express-session</code> 1.19.0 (MemoryStore, opaque signed <code>sid</code> cookie) for sessions, and <code>csrf-csrf</code> 3.1.0 (+ <code>cookie-parser</code> 1.4.7) double-submit tokens on <code>POST /login</code> and <code>POST /logout</code>.</li>
+<li>Two synthetic users: <code>alice@example.test</code> (member) and <code>carol@example.test</code> (admin).</li>
+<li>Deliberate policies: <code>req.session.regenerate()</code> after a successful <code>argon2.verify</code> (pre-auth id destroyed, fresh id issued); cookie <code>HttpOnly; Secure; SameSite=Lax; Path=/</code> with <strong>no <code>Domain</code></strong> (host-only); <code>GET /logout</code> → 405; <code>/admin/audit</code> checks session validity (401) and then, separately, <code>role === 'admin'</code> (403); logout destroys the server-side record and sends <code>Expires=Thu, 01 Jan 1970</code>; unknown user and wrong password share one 401 body.</li>
+<li><code>createApp({regenerateOnLogin: false})</code> builds the flawed variant used only as a known-positive control in the tests.</li>
+<li><strong>TLS was not executed.</strong> There is no trusted local CA in this environment, so the server runs plain HTTP on <code>127.0.0.1</code> with <code>app.set('trust proxy', 1)</code> and <code>cookie.secure = true</code>; the test client sends <code>X-Forwarded-Proto: https</code>, which makes <code>express-session</code> issue the <code>Secure</code> cookie. The HTTPS leg in the video is a labelled conceptual illustration (<code>sim: "CONCEPTUAL ILLUSTRATION"</code>), and the rest of the episode carries the persistent tag <code>LOCAL FIXTURE · TLS LEG CONCEPTUAL</code>.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>cd fixtures/ep03-sign-in-session &amp;&amp; node --test test.mjs</code> → <code># tests 12  # pass 12  # fail 0</code> (includes a known-positive control: without <code>regenerate()</code> the pre-auth session id survives login).</li>
+<li>Executed: <code>node fixtures/ep03-sign-in-session/demo.mjs</code> → <code>evidence.json</code>: wrong password <strong>401</strong>; correct password <strong>200</strong> with <code>Set-Cookie sid=&lt;opaque id&gt;; Path=/; Expires=…; HttpOnly; Secure; SameSite=Lax</code>, <code>hasDomainAttribute: false</code>; session id <strong>changed: true</strong>; replay of pre-auth cookie after login <strong>401</strong>; <code>GET /me</code> with cookie <strong>200</strong> (<code>u_alice</code>, <code>member</code>); <code>GET /admin/audit</code> anonymous <strong>401</strong>, alice <strong>403</strong> (<code>required: admin, actual: member</code>), carol <strong>200</strong>; <code>POST /login</code> without CSRF header <strong>403</strong>; <code>GET /logout</code> <strong>405</strong>; <code>POST /logout</code> without CSRF header <strong>403</strong>; <code>POST /logout</code> with token <strong>200</strong>, <code>cookieExpired: true</code>; replay after logout <strong>401</strong>; request without <code>X-Forwarded-Proto: https</code> → <code>sessionCookieIssued: false</code>. Hash: <code>$argon2id$v=19$m=65536,t=3,p=4$…</code>, 97 chars, <code>differ: true</code>, <code>containsPassword: false</code>.</li>
+<li>Verified: <code>cd video &amp;&amp; npx tsc --noEmit</code> passes with <code>video/src/episodes/ep03/*</code>.</li>
+<li>Executed: <code>node tools/build-timeline.mjs ep03 --no-audio</code> → <code>video/src/episodes/ep03/timeline.json</code> (estimated 104.6 s, no audio; to be rebuilt by the orchestrator once narration exists).</li>
+<li>Blocked: real HTTPS handshake, certificate validation, and a browser's <code>Secure</code>/<code>HttpOnly</code>/<code>SameSite</code> enforcement — no trusted local CA and no browser were available. Attributes were verified on the <code>Set-Cookie</code> header only.</li>
+<li>Not executed: narration audio and MP4 render (orchestrator fills <code>render-evidence.json</code>).</li>
+<li>The session ids shown on screen (<code>IXbv8tHA…</code>, <code>KCWMieVO…</code>) are the first eight characters of the ids recorded in <code>evidence.json</code> for one run; they are random and differ on every run.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd fixtures/ep03-sign-in-session &amp;&amp; npm install --no-audit --no-fund &amp;&amp; node --test test.mjs &amp;&amp; node demo.mjs
+cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep03      # needs video/public/ep03/narration.mp3 (or add --no-audio)
+node tools/gen-root.mjs
+node tools/render.mjs ep03 --concurrency 2</code></pre>
+<h2 id="security-requirements--where-each-is-covered">Security requirements → where each is covered</h2>
+<div class="tw"><table>
+<thead>
+<tr class="header">
+<th>Requirement</th>
+<th>Narration / on-screen</th>
+<th>Fixture</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hashing is not reversible encryption</td>
+<td>scene <code>verify</code> (gate: "One way" pass, "Reversible encryption" struck)</td>
+<td><code>argon2.hash/verify</code>; test 1</td>
+</tr>
+<tr class="even">
+<td>Fresh session id after authentication</td>
+<td>scene <code>fresh_session</code></td>
+<td><code>session.regenerate()</code>; tests 3–4</td>
+</tr>
+<tr class="odd">
+<td>Cookie scope set deliberately, host-only preferred</td>
+<td>scene <code>cookie</code> ("Path=/ · no Domain")</td>
+<td>no <code>domain</code> option; test 5</td>
+</tr>
+<tr class="even">
+<td>HttpOnly limits ordinary JS access, not every session attack</td>
+<td>scene <code>cookie</code>, caption</td>
+<td>attribute asserted; browser behaviour not tested</td>
+</tr>
+<tr class="odd">
+<td>SameSite is defence in depth, not complete CSRF protection</td>
+<td>scenes <code>cookie</code>, <code>logout</code></td>
+<td><code>csrf-csrf</code> on login and logout; tests 9–10</td>
+</tr>
+<tr class="even">
+<td>Framework CSRF protection on login and logout</td>
+<td>scene <code>logout</code></td>
+<td><code>doubleCsrfProtection</code> middleware; tests 9–10</td>
+</tr>
+<tr class="odd">
+<td>No GET for state-changing operations</td>
+<td>scene <code>logout</code> ("GET /logout → 405")</td>
+<td>test 11</td>
+</tr>
+<tr class="even">
+<td>HTTPS does not protect a compromised browser or server</td>
+<td>scene <code>https</code></td>
+<td>n/a (TLS not executed)</td>
+</tr>
+<tr class="odd">
+<td>One implementation, not all sign-in systems</td>
+<td>scenes <code>click</code>, <code>end</code></td>
+<td>README</td>
+</tr>
+<tr class="even">
+<td>Secure-cookie exchange not faked</td>
+<td>scene <code>https</code> tagged CONCEPTUAL ILLUSTRATION; sim tag everywhere else</td>
+<td>test 6 shows the cookie is withheld on non-HTTPS</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>The HTTPS leg is illustrated, not measured. Nothing was encrypted in this environment.</li>
+<li><code>MemoryStore</code> is for the loopback fixture only; it is not a production session store.</li>
+<li><code>HttpOnly</code> and <code>SameSite</code> are browser-enforced; the fixture proves the attributes are set, not what a browser does with them.</li>
+<li>Not covered: rate limiting, lockout, MFA, password reset, remember-me, idle timeout, concurrent sessions, token-based/OAuth/OIDC/passkey sign-in.</li>
+<li>Correct cookie attributes, a fresh session id and CSRF tokens address the demonstrated concerns only; the application is not claimed to be fully secure.</li>
+<li>Timeline durations in <code>timeline.json</code> are a word-count estimate until real narration audio is supplied.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep03/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep03 → episodes/ep03/ep03.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 119.53 s, 9885270 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep02/index.html">← Episode 02: Three purchase events</a></span><span><a href="../ep04/index.html">Episode 04: A database in the page →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

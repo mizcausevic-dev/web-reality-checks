@@ -1,0 +1,57 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:05.350
+Click 'Reject optional'. The banner goes away.
+
+2
+00:00:05.350 --> 00:00:12.140
+The simulated analytics module keeps sending: 4 requests in total.
+
+3
+00:00:12.140 --> 00:00:18.640
+Four parts: consent UI, preference store, analytics module, collector.
+
+4
+00:00:18.640 --> 00:00:26.590
+The collector is local and simulated. No real service is contacted.
+
+5
+00:00:26.590 --> 00:00:34.890
+The buttons write the preference. Nothing executing ever reads it.
+
+6
+00:00:34.890 --> 00:00:44.030
+No cookie is needed for this: an in-memory ID is enough.
+
+7
+00:00:44.030 --> 00:00:51.450
+A consent state machine drives one gate: open only in 'accepted'.
+
+8
+00:00:51.450 --> 00:01:00.900
+init, track and flush each check the gate. Withdraw removes listeners, clears the queue.
+
+9
+00:01:00.900 --> 00:01:08.720
+No choice 0 · Rejected 0 · Reload with stored rejection 0.
+
+10
+00:01:08.720 --> 00:01:15.240
+Accepted 3 · Withdraw: unsent event dropped, count stays 3.
+
+11
+00:01:15.240 --> 00:01:24.120
+Flawed: 4 requests, 3 marked 'rejected'. Corrected: 3, all 'accepted'.
+
+12
+00:01:24.120 --> 00:01:32.120
+Stopping future requests does not delete data already collected.
+
+13
+00:01:32.120 --> 00:01:38.420
+First-party does not mean necessary or exempt. Not a legal certification.
+
+14
+00:01:38.420 --> 00:01:44.150
+The button is a promise. The requests show the implementation.

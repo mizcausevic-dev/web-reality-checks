@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:05.660
+The panel says Live, updated 0 s ago.
+
+2
+00:00:05.660 --> 00:00:11.990
+The measurement was observed ten minutes ago. Both are true.
+
+3
+00:00:11.990 --> 00:00:17.430
+Source, collector, API, browser: four timelines.
+
+4
+00:00:17.430 --> 00:00:26.490
+Collector samples every 10 min. Browser polls every 30 s.
+
+5
+00:00:26.490 --> 00:00:32.970
+19 polls, 19 × 200 OK, before the collector samples again.
+
+6
+00:00:32.970 --> 00:00:37.680
+Every response carries the same reading, collectedAt 00:00:00.
+
+7
+00:00:37.680 --> 00:00:40.620
+Response freshness: served just now.
+
+8
+00:00:40.620 --> 00:00:46.510
+Measurement freshness: observed at 00:00:00. Live reports only the first.
+
+9
+00:00:46.510 --> 00:00:53.930
+Fix: measurement age from sourceObservedAt; connection from the last poll.
+
+10
+00:00:53.930 --> 00:00:59.130
+Connected and stale can both be true.
+
+11
+00:00:59.130 --> 00:01:05.600
+Advance the shared clock. The source value does not change.
+
+12
+00:01:05.600 --> 00:01:09.480
+Polls succeed. Nothing resets the age.
+
+13
+00:01:09.480 --> 00:01:16.610
+30 s, 60 s … 330 s: past this fixture's 300 s stale policy, still 200 OK.
+
+14
+00:01:16.610 --> 00:01:20.800
+Five minutes is this dashboard's policy, not a universal rule.
+
+15
+00:01:20.800 --> 00:01:28.110
+Collector down: API still 200, age 1200 s, connection green.
+
+16
+00:01:28.110 --> 00:01:36.890
+API down: 503. Last value kept with an explicit warning. Nothing invented.
+
+17
+00:01:36.890 --> 00:01:41.430
+Freshly fetched does not mean freshly observed.
+
+18
+00:01:41.430 --> 00:01:48.560
+Polling faster or a WebSocket delivers the same old reading sooner.

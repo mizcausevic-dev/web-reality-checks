@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dates moved back a day: Episode 22 | Web Reality Checks</title>
+<meta name="description" content="Your Deadline Moved Back a Day. Nobody Edited It.. 1m 29s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep22/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Dates moved back a day: Episode 22 | Web Reality Checks"><meta property="og:description" content="Your Deadline Moved Back a Day. Nobody Edited It.. 1m 29s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep22/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep22/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Dates moved back a day: Episode 22 | Web Reality Checks"><meta name="twitter:description" content="Your Deadline Moved Back a Day. Nobody Edited It.. 1m 29s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep22/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 22</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep22.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep22.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#3dd6f5">Episode 22 · Data lifecycle</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Your Deadline Moved Back a Day. Nobody Edited It.</h1>
+<div><span class="badge ok">1m 29s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="7.34"><b>00:07</b><span>string</span></button></li><li><button type="button" data-t="17.91"><b>00:17</b><span>utc</span></button></li><li><button type="button" data-t="27.84"><b>00:27</b><span>leak</span></button></li><li><button type="button" data-t="41.66"><b>00:41</b><span>split</span></button></li><li><button type="button" data-t="51.55"><b>00:51</b><span>fix</span></button></li><li><button type="button" data-t="63.46"><b>01:03</b><span>retest</span></button></li><li><button type="button" data-t="75.48"><b>01:15</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep22.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep22-date-only-timezones">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep22/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep22/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep22/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep22/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> A calendar date and a timestamp carry different information; an unnecessary date-to-instant conversion can change the displayed calendar date.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep22-date-only-timezones/</code> — pure functions plus a tiny HTML renderer (no server). Deadline <code>"2026-01-15"</code> (date-only) and meeting <code>"2026-01-15T15:00:00Z"</code> (instant), shown in <code>UTC</code>, <code>America/New_York</code>, <code>Asia/Tokyo</code>.</li>
+<li>Flawed path: <code>new Date("2026-01-15")</code> (UTC midnight) formatted with <code>Intl.DateTimeFormat</code> per zone. Corrected path: validated calendar-date string rendered directly.</li>
+<li>Deliberate policies: real calendar-date validation (not just shape); UTC-<code>Z</code> instants only; named IANA zones only (fixed offsets refused); January-only demo so no DST ambiguity.</li>
+<li>Temporal is <strong>not</strong> assumed: <code>typeof Temporal</code> is <code>undefined</code> on the installed Node v22.23.4, and it is not used.</li>
+<li>Video visual mechanic: calendar tiles = date-only values; points on a shared UTC timeline (with each zone's local-day bands) = instants. Every date, time and offset on screen is imported from <code>evidence.json</code>.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep22-date-only-timezones/test.mjs</code> → <code># tests 15</code>, <code># pass 15</code>, <code># fail 0</code> (also with <code>TZ</code> unset, <code>UTC</code>, <code>America/New_York</code>, <code>Asia/Tokyo</code>).</li>
+<li>Executed: <code>node fixtures/ep22-date-only-timezones/demo.mjs</code> → <code>evidence.json</code>: flawed <code>2026-01-15 / 2026-01-14 / 2026-01-15</code>; corrected <code>2026-01-15</code> in all three; event <code>15:00 / 10:00 / 00:00 on 2026-01-16</code>; explicit-zone output identical under five machine <code>TZ</code> values.</li>
+<li>Observed: New York flawed date is <code>2026-01-14</code> (19:00), computed by <code>Intl.DateTimeFormat</code> in the test itself.</li>
+<li>Observed (this engine only): <code>new Date("2026-02-30")</code> rolls over to <code>2026-03-02</code> instead of failing.</li>
+<li>Not executed: audio, render, MP4. None exists yet; the orchestrator renders and fills <code>render-evidence.json</code>.</li>
+</ul>
+<h2 id="accuracy-items-and-where-they-are-covered">Accuracy items and where they are covered</h2>
+<ul>
+<li>Validate calendar dates, not shape: narration (scene <code>fix</code>), tests, on-screen rejects.</li>
+<li>Not all date-string formats parse alike: narration (scene <code>utc</code>), on-screen note, control test.</li>
+<li>Named IANA zones; fixed offset is not a zone: narration + end card (New York UTC-05:00 / UTC-04:00 from evidence).</li>
+<li>Recurring local schedules need zone rules; DST kept out of the demo: narration + end card.</li>
+<li>No "add twelve hours" fix: narration (<code>fix</code>), on-screen Kiritimati result, test.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep22    # from narration audio in video/public/ep22/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep22 --concurrency 2</code></pre>
+<p>Note: <code>video/src/episodes/ep22/timeline.json</code> and <code>episodes/ep22/captions.srt</code> currently come from a <code>--no-audio</code> run (estimated timing) so type-checking works; rebuild from the real narration.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Computed in Node 22 / V8 only; browsers and other engines were not tested.</li>
+<li>Daylight-saving transitions and recurring local-time schedules are explained, not demonstrated or tested.</li>
+<li>The scene visuals are an illustrative layout driven by fixture output, not a screenshot of a real task app.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep21/index.html">← Episode 21: Deleted, still showing</a></span><span><a href="../ep23/index.html">Episode 23: Two tabs, one document →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

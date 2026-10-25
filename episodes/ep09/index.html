@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Try it without a mouse: Episode 09 | Web Reality Checks</title>
+<meta name="description" content="This Form Looks Finished. Try Using It Without a Mouse.. 1m 32s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep09/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Try it without a mouse: Episode 09 | Web Reality Checks"><meta property="og:description" content="This Form Looks Finished. Try Using It Without a Mouse.. 1m 32s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep09/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep09/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Try it without a mouse: Episode 09 | Web Reality Checks"><meta name="twitter:description" content="This Form Looks Finished. Try Using It Without a Mouse.. 1m 32s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep09/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 09</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep09.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep09.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#a78bfa">Episode 09 · Experience &amp; speed</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">This Form Looks Finished. Try Using It Without a Mouse.</h1>
+<div><span class="badge ok">1m 32s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>polished</span></button></li><li><button type="button" data-t="8.52"><b>00:08</b><span>keyboard</span></button></li><li><button type="button" data-t="14.47"><b>00:14</b><span>fail</span></button></li><li><button type="button" data-t="30.98"><b>00:30</b><span>fix native</span></button></li><li><button type="button" data-t="44.74"><b>00:44</b><span>fix labels</span></button></li><li><button type="button" data-t="55.33"><b>00:55</b><span>errors</span></button></li><li><button type="button" data-t="67.67"><b>01:07</b><span>retest</span></button></li><li><button type="button" data-t="78.78"><b>01:18</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep09.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep09-keyboard-form">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep09/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep09/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep09/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep09/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> A polished screenshot cannot establish keyboard usability; a <code>&lt;div&gt;</code> submit button, removed outlines, placeholder-only labels and unassociated errors all look fine until the mouse is taken away.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep09-keyboard-form/flawed/index.html</code> — registration form (name, email, password, submit) that is not keyboard-operable: <code>&lt;div onclick&gt;</code> submit outside any <code>&lt;form&gt;</code>, <code>* { outline: none }</code>, placeholders as the only labels, error text shown by class and never associated.</li>
+<li><code>fixtures/ep09-keyboard-form/corrected/index.html</code> — native <code>&lt;form&gt;</code> + <code>&lt;button type="submit"&gt;</code>, <code>&lt;label for&gt;</code> on every input, <code>:focus-visible</code> outline, DOM order = visual order, <code>aria-invalid="true"</code> + <code>aria-describedby</code> (error id appended to the existing hint) set after validation fails, values preserved, focus moved once to the first invalid field.</li>
+<li><code>audit.mjs</code> — zero-dependency static audit (tiny HTML parser written in the file + <code>node:</code> builtins). Writes <code>audit-results.json</code>. The flawed version is the known positive.</li>
+<li><code>demo.mjs</code> — keyboard-journey model over the static DOM; writes <code>evidence.json</code>.</li>
+<li><code>test.mjs</code> — 15 <code>node:test</code> tests including known-positive controls.</li>
+<li><code>keyboard-test-checklist.md</code> — manual Tab / Shift+Tab / Enter / Space checklist for a real browser.</li>
+<li>Deliberate policies: <code>novalidate</code> so the fixture's own messages are tested; focus moves once, only on a submit attempt; errors clear on <code>input</code> once valid; no ARIA roles on native controls; <code>role="status"</code> on the generic success line is the only ARIA added.</li>
+<li>No positive <code>tabindex</code> anywhere. Synthetic data only (<code>Dana Okafor</code>, <code>dana.okafor@example.test</code>).</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep09-keyboard-form/test.mjs</code> → <code># tests 15  # pass 15  # fail 0</code>.</li>
+<li>Executed: <code>node fixtures/ep09-keyboard-form/audit.mjs</code> → <code>audit-results.json</code>: flawed <strong>3 / 11 checks pass</strong> (fails: labelled inputs 0/3, placeholder-only 3, outline:none ×2, no :focus-visible, no <code>&lt;form&gt;</code>, submit not keyboard-operable, Enter does not submit, errors not associable); corrected <strong>11 / 11 pass</strong> (tab order <code>name → email → password → button[type=submit]</code>, 0 dangling <code>aria-describedby</code>, 0 positive tabindex).</li>
+<li>Executed: <code>node fixtures/ep09-keyboard-form/demo.mjs</code> → <code>evidence.json</code>: flawed — 3 tab stops, submit unreachable, Enter in a field → nothing, Tab leaves the form, Enter/Space → nothing. Corrected — 4 tab stops; Enter in password field submits; <code>email</code> and <code>password</code> rejected with <code>aria-invalid="true"</code>, <code>aria-describedby="email-error"</code> / <code>"password-hint password-error"</code>; focus → <code>#email</code>; values preserved; after correction Tab → button → Space → accepted; 7 keystrokes (Tab Tab Tab Enter Tab Tab Space) excluding typing.</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → clean.</li>
+<li>Executed: <code>node tools/build-timeline.mjs ep09 --no-audio</code> → provisional <code>timeline.json</code> (94.76 s estimated, 8 scenes, 16 captions). Rebuild from real narration when audio exists.</li>
+<li>Blocked: no browser in this environment, so focus visibility, tab order and Enter/Space behaviour are modelled from markup and HTML semantics, not captured from a rendered page. <code>demo.mjs</code> and the video label this.</li>
+<li>Blocked: no screen reader available. The <code>label for</code>, <code>aria-describedby</code>, <code>aria-invalid</code> and <code>role=status</code> associations are implemented; what any browser + screen-reader pair announces was <strong>not verified</strong> and is not claimed.</li>
+<li>Blocked (by spec): no narration audio generated, no MP4 rendered here; the orchestrator fills <code>render-evidence.json</code>.</li>
+</ul>
+<h2 id="video-notes">Video notes</h2>
+<ul>
+<li>All scenes except <code>end</code> carry the persistent tag <code>ILLUSTRATIVE RECREATION · KEYBOARD TEST</code>. The form is re-created with plain <code>Box</code> chrome at <code>127.0.0.1 · &lt;variant&gt;/index.html</code>; it is not a real product.</li>
+<li>Visual mechanic: keystroke overlay (Tab / Enter / Space chips, latest lit, with a result under each), a restrained cyan spotlight marking the true focus position, cyan label→control connectors tagged <code>for="…"</code>, red error→control connectors tagged <code>describedby</code>.</li>
+<li>The accessibility-tree panel in <code>fix_labels</code> is labelled <strong>SIMPLIFIED</strong> and derived from the markup.</li>
+<li>Every number shown (3 vs 4 tab stops, 0/3 vs 3/3 labelled, 2 vs 0 outline:none, 7 keystrokes, 3/11 vs 11/11 checks, 15 tests) comes from <code>evidence.json</code> / <code>audit-results.json</code> / the executed test run.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep09    # from narration audio in video/public/ep09/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep09 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Keyboard testing is not accessibility compliance.</strong> Contrast, motion, timing, cognitive load, touch targets and the rest of WCAG were not assessed. The narration and end card say so.</li>
+<li><strong>Screen-reader behaviour is unverified.</strong> Associations are implemented, announcements were not tested. Only report announcements after testing with a named browser + screen reader (e.g. "Firefox + NVDA").</li>
+<li><strong>No rendered browser.</strong> The static audit is regex-level analysis of inline CSS/script and can miss <code>box-shadow</code> focus styles, external stylesheets or dynamically inserted markup. Confirm with <code>keyboard-test-checklist.md</code> in a real browser.</li>
+<li>The repair covers this one form. Modals, custom selects, date pickers and multi-step flows each need their own keyboard test.</li>
+<li>The flawed version is a hand-built teaching fixture, not derived from any real product.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep09/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep09 → episodes/ep09/ep09.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 92.87 s, 7965079 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep08/index.html">← Episode 08: Why it feels slow</a></span><span><a href="../ep10/index.html">Episode 10: One DNS record →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

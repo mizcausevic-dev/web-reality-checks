@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Still the old version?: Episode 12 | Web Reality Checks</title>
+<meta name="description" content="Your Website Updated. Why Am I Still Seeing the Old Version?. 1m 40s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep12/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Still the old version?: Episode 12 | Web Reality Checks"><meta property="og:description" content="Your Website Updated. Why Am I Still Seeing the Old Version?. 1m 40s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep12/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep12/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Still the old version?: Episode 12 | Web Reality Checks"><meta name="twitter:description" content="Your Website Updated. Why Am I Still Seeing the Old Version?. 1m 40s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep12/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 12</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep12.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep12.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#5fe08a">Episode 12 · Delivery &amp; freshness</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Your Website Updated. Why Am I Still Seeing the Old Version?</h1>
+<div><span class="badge ok">1m 40s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="14.97"><b>00:14</b><span>layers</span></button></li><li><button type="button" data-t="29.81"><b>00:29</b><span>waiting</span></button></li><li><button type="button" data-t="45.39"><b>00:45</b><span>notice</span></button></li><li><button type="button" data-t="61.4"><b>01:01</b><span>activate</span></button></li><li><button type="button" data-t="74.57"><b>01:14</b><span>verify</span></button></li><li><button type="button" data-t="87.87"><b>01:27</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep12.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep12-sw-update">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep12/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep12/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep12/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep12/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> An open page can stay controlled by an older service worker, served from that worker's own Cache Storage, while the updated worker sits installed and waiting; deployment and client activation are different events.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep12-sw-update/</code> — two same-origin builds (<code>build1/</code> blue "Build 1", <code>build2/</code> green "Build 2"), each with <code>index.html</code>, <code>app.js</code>, <code>styles.css</code> and a generated <code>sw.js</code> at the stable URL <code>/sw.js</code>; <code>sw.template.js</code> + <code>generate-sw.mjs</code> produce the two byte-different workers with versioned precache names <code>wrc-ep12-v1</code> / <code>wrc-ep12-v2</code>.</li>
+<li>Worker policy: <code>install</code> precaches into this build's cache and never calls <code>skipWaiting()</code>; <code>activate</code> deletes only caches that start with <code>wrc-ep12-</code> and are not the current one (runs only once the previous worker is redundant; other apps' caches untouched), then <code>clients.claim()</code> so a first-install page becomes controlled — <code>clients.claim()</code> is part of the deliberate activation strategy and is not what deletes caches; <code>message {type:'SKIP_WAITING'}</code> → <code>self.skipWaiting()</code>.</li>
+<li>Page policy: registers <code>/sw.js</code>; a button calls <code>registration.update()</code>; <code>registration.waiting</code> (or an installing worker reaching <code>installed</code>) while the page already has a controller → "Update available" with an Approve button; Approve posts <code>SKIP_WAITING</code>; <code>controllerchange</code> handler with a <code>refreshing</code> guard reloads exactly once. <strong>Explicit approval is this app's policy, not a browser requirement.</strong></li>
+<li><code>serve.mjs</code> binds 127.0.0.1, <code>--build 1|2</code> selects the folder served at <code>/</code>, <code>/sw.js</code> is sent with <code>Cache-Control: no-cache</code>, app assets with <code>no-store</code> so the HTTP cache stays out of the experiment. HTTP cache and service-worker Cache Storage are two different stores and the episode keeps them apart.</li>
+<li><code>sw-lifecycle-sim.mjs</code> is a deterministic model of the registration state machine (installing / waiting / active / controller) that runs the real <code>sw.js</code> and the real <code>app.js</code> logic block in Node. It is how the decision logic and the single-reload guard are tested without a browser.</li>
+<li><code>browser-test-checklist.md</code> holds the ten-step UPDATE FLOW for one controlled tab, the multi-tab implications and the unsaved-work risk.</li>
+<li>Persistent sim tag on every lifecycle scene: <code>SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED</code>.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep12-sw-update/test.mjs</code> → <code># tests 14  # pass 14  # fail 0</code> (byte-different <code>sw.js</code>; distinct precache names; activate cleanup keeps only the current <code>wrc-ep12-*</code> cache and spares foreign caches; a known-positive control showing an unversioned cache name leaves nothing to clean; <code>SKIP_WAITING</code> handled and other messages ignored; first install claims with no notice; byte-identical script → no update; Build 2 waits behind Build 1 with the page still controlled by Build 1 and both caches present; approval → activation → <code>wrc-ep12-v1</code> deleted → <code>controllerchange</code> → one reload; guard ignores a second event; server build switching and <code>no-cache</code> on <code>/sw.js</code>).</li>
+<li>Executed: <code>node fixtures/ep12-sw-update/demo.mjs</code> → <code>fixtures/ep12-sw-update/evidence.json</code>: model steps 1–2 (Build 1 active, controller, cache <code>wrc-ep12-v1</code>), 3–4 (server → Build 2, tab unchanged), 5–7 (Build 2 <code>installed</code>/waiting, notice <code>true</code>, caches <code>wrc-ep12-v1, wrc-ep12-v2</code>), 8–9 (<code>SKIP_WAITING</code> → Build 2 active, controller Build 2, caches <code>[wrc-ep12-v2]</code>, <code>reloads: 1</code>, second <code>controllerchange</code> <code>ignored</code>). Real loopback server: <code>/</code> → <code>Build 1</code> then <code>Build 2</code> after switching; <code>/sw.js</code> <code>Cache-Control: no-cache</code>, <code>const BUILD = 1;</code> vs <code>2</code>, 2502 bytes each, byte-different.</li>
+<li>Observed (in the Remotion scenes): all displayed values are constants copied from <code>evidence.json</code> into <code>EV</code> at the top of <code>Scenes.tsx</code>.</li>
+<li>Predicted: scene durations in <code>video/src/episodes/ep12/timeline.json</code> were generated with <code>--no-audio</code> (word-count estimate, 104.17 s). The orchestrator regenerates them from real narration.</li>
+<li><strong>Blocked: the real browser service-worker lifecycle was not executed</strong> (no browser in the build environment). <code>install</code>/<code>activate</code>/<code>controllerchange</code> events, the actual reload and DevTools states are depicted from the Node model and labelled illustrative. Manual verification: <code>cd fixtures/ep12-sw-update &amp;&amp; node generate-sw.mjs &amp;&amp; node serve.mjs --build 1</code>, then follow <code>browser-test-checklist.md</code> steps 1–10 (open tab → confirm controller → keep open → <code>curl /__set-build/2</code> → click Check for update → observe waiting worker and both caches → "Update available" → Approve → one reload → Build 2, only <code>wrc-ep12-v2</code> left).</li>
+<li>Blocked: no narration generated, no MP4 rendered, no frames inspected (orchestrator steps). <code>render-evidence.json</code> is not present.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep12      # needs video/public/ep12/narration.mp3 (or add --no-audio)
+node tools/gen-root.mjs
+node tools/render.mjs ep12 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>One cause, not every cause.</strong> A page can also be stale because of HTTP caching (<code>Cache-Control</code>, ETags), CDN or proxy caches, DNS, or a deployment that never actually published. None of those is a service-worker problem and the episode says so.</li>
+<li>HTTP cache ≠ Cache Storage. The fixture disables the HTTP cache for app assets so the only cache under study is the worker's.</li>
+<li>Explicit approval before <code>skipWaiting()</code> is this app's update policy. Browsers permit a worker to call <code>skipWaiting()</code> during install and take over at once; many apps do.</li>
+<li>An update belongs to the registration and can affect every open tab: approval in one tab activates the worker for all controlled tabs and, with this handler, reloads all of them. The main demonstration uses one controlled tab; multi-tab behaviour and unsaved-work risk are documented in the checklist, not executed.</li>
+<li>Old assets are deleted only during the new worker's <code>activate</code>, by prefix, after the previous worker is redundant. <code>clients.claim()</code> is not the mechanism that deletes caches.</li>
+<li>No lifecycle event was faked as a browser capture and no <code>controllerchange</code> reload loop is possible: one guard per document, one reload.</li>
+<li>The model omits <code>updateViaCache</code>, imported scripts, scope rules, the browser's 24-hour byte-check and navigation-triggered update checks, and multiple registrations. The fetch handler is a minimal cache-first strategy for demonstration, not a production caching policy.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep12/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep12 → episodes/ep12/ep12.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 100.4 s, 8671291 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep11/index.html">← Episode 11: Reject All, then what?</a></span><span><a href="../ep13/index.html">Episode 13: Is that key a leak? →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

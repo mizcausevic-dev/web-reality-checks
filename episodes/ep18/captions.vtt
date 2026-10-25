@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:06.840
+Active on pro. Then an older update arrives: past due.
+
+2
+00:00:06.840 --> 00:00:13.700
+Every signature was valid. The receiver applied events in arrival order.
+
+3
+00:00:13.700 --> 00:00:21.710
+Creation order: v1, v2, v3. Delivery order: v1, v3, then v2 late.
+
+4
+00:00:21.710 --> 00:00:29.720
+Retries and parallel workers do this. Timestamps alone do not order events.
+
+5
+00:00:29.720 --> 00:00:38.280
+Verify HMAC over timestamp + RAW body bytes, before parsing.
+
+6
+00:00:38.280 --> 00:00:45.990
+Tampered body: 401. Valid signature, 301 s old: 401.
+
+7
+00:00:45.990 --> 00:00:50.270
+Valid does not mean fresh.
+
+8
+00:00:50.270 --> 00:00:56.880
+A legitimate retry is fresh and correctly signed.
+
+9
+00:00:56.880 --> 00:01:04.320
+UNIQUE (provider, event_id): second arrival rolled back, 200 duplicate.
+
+10
+00:01:04.320 --> 00:01:13.220
+v2 arrives after v3. Stored version 3: v2 is stale, not applied.
+
+11
+00:01:13.220 --> 00:01:19.900
+Safe only because each event carries a full snapshot.
+
+12
+00:01:19.900 --> 00:01:25.430
+Replay all six, shuffled: six 200s, all duplicate.
+
+13
+00:01:25.430 --> 00:01:34.420
+Record + state in ONE transaction. 200 only after commit. Failed commit: 503.
+
+14
+00:01:34.420 --> 00:01:36.270
+Final state unchanged: active.
+
+15
+00:01:36.270 --> 00:01:40.420
+Six concurrent deliveries: one applied, five duplicate, one record.
+
+16
+00:01:40.420 --> 00:01:45.170
+Delivery order is not business order.
+
+17
+00:01:45.170 --> 00:01:49.920
+External side effects need extra coordination.

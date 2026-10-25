@@ -1,0 +1,89 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:05.640
+One tap on Pay. Two orders in the database.
+
+2
+00:00:05.640 --> 00:00:10.690
+The app treated every request as a new intention.
+
+3
+00:00:10.690 --> 00:00:16.060
+The first request reaches the server. The database commits order 1.
+
+4
+00:00:16.060 --> 00:00:19.960
+From the server's view, the work is done.
+
+5
+00:00:19.960 --> 00:00:24.040
+The response is lost after the commit (controlled fault).
+
+6
+00:00:24.040 --> 00:00:29.940
+The client sees a network error and cannot know if the order exists.
+
+7
+00:00:29.940 --> 00:00:32.660
+No network gives you exactly-once delivery.
+
+8
+00:00:32.660 --> 00:00:34.410
+The client retries.
+
+9
+00:00:34.410 --> 00:00:42.600
+Disabling the button would not help: this is a retry, not a double click.
+
+10
+00:00:42.600 --> 00:00:46.900
+The vulnerable endpoint has no memory of the first request.
+
+11
+00:00:46.900 --> 00:00:48.620
+Two attempts, two orders.
+
+12
+00:00:48.620 --> 00:00:54.180
+Fix: one Idempotency-Key per checkout attempt, reused on retries.
+
+13
+00:00:54.180 --> 00:01:00.980
+Scoped to the session user and operation; fingerprint of validated fields.
+
+14
+00:01:00.980 --> 00:01:09.010
+Order + key record in ONE transaction; UNIQUE makes the first writer win.
+
+15
+00:01:09.010 --> 00:01:13.160
+Retest: commit, lose the response, retry with the same key.
+
+16
+00:01:13.160 --> 00:01:18.130
+The second request finds the stored record and returns the original result.
+
+17
+00:01:18.130 --> 00:01:20.020
+Two attempts, one order.
+
+18
+00:01:20.020 --> 00:01:25.200
+Same key, different payload: 422. Five concurrent, one key: one order.
+
+19
+00:01:25.200 --> 00:01:28.500
+Two separate purchases need two separate keys.
+
+20
+00:01:28.500 --> 00:01:32.530
+A new request is not always a new intention.
+
+21
+00:01:32.530 --> 00:01:37.010
+Limits: the transaction does not cover an external payment provider.
+
+22
+00:01:37.010 --> 00:01:41.930
+Expired key records let a late enough retry count as new.

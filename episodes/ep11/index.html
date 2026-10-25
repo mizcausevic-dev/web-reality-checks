@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reject All, then what?: Episode 11 | Web Reality Checks</title>
+<meta name="description" content="I Clicked 'Reject All.' What Did the Website Actually Do?. 1m 46s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep11/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Reject All, then what?: Episode 11 | Web Reality Checks"><meta property="og:description" content="I Clicked 'Reject All.' What Did the Website Actually Do?. 1m 46s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep11/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep11/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Reject All, then what?: Episode 11 | Web Reality Checks"><meta name="twitter:description" content="I Clicked 'Reject All.' What Did the Website Actually Do?. 1m 46s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep11/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 11</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep11.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep11.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#a78bfa">Episode 11 · Experience &amp; speed</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">I Clicked 'Reject All.' What Did the Website Actually Do?</h1>
+<div><span class="badge ok">1m 46s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="12.14"><b>00:12</b><span>layers</span></button></li><li><button type="button" data-t="26.59"><b>00:26</b><span>gap</span></button></li><li><button type="button" data-t="44.03"><b>00:44</b><span>fix</span></button></li><li><button type="button" data-t="60.9"><b>01:00</b><span>retest</span></button></li><li><button type="button" data-t="75.24"><b>01:15</b><span>logs</span></button></li><li><button type="button" data-t="92.12"><b>01:32</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep11.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep11-consent-gate">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep11/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep11/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep11/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep11/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> A consent banner's appearance does not prove the application follows the choice; only the requests show the implementation, and an explicit consent state machine must gate every emission path.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep11-consent-gate/</code> — a Node 22 simulated page (no browser) with Accept optional / Reject optional / Settings / Withdraw as function calls, a JSON-file preference store that simulates reload in the same browser context, a simulated optional analytics module and a loopback collector labelled <code>SIMULATED ANALYTICS · LOCAL COLLECTOR</code>.</li>
+<li><code>page-flawed.mjs</code>: the banner stores the choice correctly; <code>analytics.init()</code> runs on <code>load()</code> and <code>init</code>/<code>track</code>/<code>flush</code> never read the preference.</li>
+<li><code>page-corrected.mjs</code>: state machine <code>no_choice → rejected | accepted</code>, <code>accepted → withdrawn</code>; one policy (<code>optionalAllowed = state === 'accepted'</code>); the gate is checked on init, track and flush; withdrawal removes optional listeners and clears the unsent queue; a stored rejection keeps the gate shut after reload.</li>
+<li>Deliberate policies: no optional requests before a choice or after rejection; optional analytics begins only after acceptance; withdrawal stops <strong>new</strong> emissions only; the stored preference may remain; already-sent requests are never shown as recoverable.</li>
+<li>The flaw was constructed by hand for this fixture. No real website is depicted or accused.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep11-consent-gate/test.mjs</code> → <code># tests 10  # pass 10  # fail 0</code> (two known-positive controls assert the flawed page emits after rejection, before any choice, and after a reload with stored rejection).</li>
+<li>Executed: <code>node fixtures/ep11-consent-gate/demo.mjs</code> → <code>evidence.json</code>: flawed run <strong>4</strong> optional requests (1 <code>no_choice</code>, 3 <code>rejected</code>); corrected no-choice <strong>0</strong>, rejected <strong>0</strong>, reload-with-stored-rejection <strong>0</strong>, accepted <strong>3</strong>, after withdraw <strong>3</strong> (unchanged), 1 unsent event dropped, 0 listeners left. <code>collector-log-flawed.json</code> (4 events) and <code>collector-log-corrected.json</code> (3 events, all <code>accepted</code>) are the real collector contents and are what the <code>logs</code> scene displays.</li>
+<li>Observed: <code>cd video &amp;&amp; npx tsc --noEmit</code> passes for <code>src/episodes/ep11/*</code>.</li>
+<li>Predicted: scene durations in <code>video/src/episodes/ep11/timeline.json</code> were produced with <code>--no-audio</code> (word-count estimate, 101.4 s). They will be rebuilt from the real narration by the orchestrator.</li>
+<li>Blocked: narration audio, MP4 render, frame inspection and <code>render-evidence.json</code> are produced by the orchestrator, not here. No MP4 is claimed.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep11      # needs video/public/ep11/narration.mp3 (or add --no-audio)
+node tools/gen-root.mjs
+node tools/render.mjs ep11 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated vs measured: the page, banner, store, analytics module and "reload" are in-process simulations; the request counts are measured from the real loopback collector during <code>demo.mjs</code>. Nothing was captured from a browser or a real site.</li>
+<li>Tracking can occur without cookies: the module identifies the visitor with an in-memory id; no cookie exists in the fixture.</li>
+<li>First-party does not automatically mean necessary or exempt: the collector is same-origin to the simulated page and its requests are still optional.</li>
+<li>Stopping future requests does not delete previously collected data; the 3 requests sent while accepted remain in the collector after withdrawal.</li>
+<li>Already-sent requests are not cancellable; the fix only prevents new ones.</li>
+<li>Not a legal compliance certification. The fixture shows a technical mechanism, not conformity with any regulation.</li>
+<li>No real analytics or advertising service was contacted.</li>
+<li>Not tested: multiple consent categories, necessary-request classification, re-consent after rejection, consent expiry, cross-device state, third-party scripts or tag managers, network loss or retries, late-flush/withdraw races, server-side deletion.</li>
+</ul>
+<h2 id="consent-gate-checklist">Consent-gate checklist</h2>
+<ol type="1">
+<li>Model consent as explicit states with named transitions, not a boolean read once at boot.</li>
+<li>One policy function decides whether optional work is allowed; every emission path (init, queue, send) calls it at the time it runs.</li>
+<li>Do not initialise optional modules before the state allows it; loading a script is already a request.</li>
+<li>On withdrawal, remove listeners and drop unsent events; do not promise to recall what was sent.</li>
+<li>Persist the choice and honour a stored rejection on reload before anything optional runs.</li>
+<li>Prove it with a collector: count requests per state, and keep a known-positive control that fails on the flawed build.</li>
+</ol>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep11/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep11 → episodes/ep11/ep11.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.17 s, 8884931 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep10/index.html">← Episode 10: One DNS record</a></span><span><a href="../ep12/index.html">Episode 12: Still the old version? →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

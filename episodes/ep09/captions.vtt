@@ -1,0 +1,65 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:04.560
+A registration form. It looks finished.
+
+2
+00:00:04.560 --> 00:00:08.520
+A screenshot would sign it off.
+
+3
+00:00:08.520 --> 00:00:11.490
+Take the mouse away. Keyboard only.
+
+4
+00:00:11.490 --> 00:00:14.470
+Press Tab. Where does focus go?
+
+5
+00:00:14.470 --> 00:00:20.470
+Focus moves, but nothing shows it: outline none.
+
+6
+00:00:20.470 --> 00:00:30.980
+The submit button is a div. Tab skips it. Enter and Space do nothing.
+
+7
+00:00:30.980 --> 00:00:39.240
+Repair one: a native form and a native button.
+
+8
+00:00:39.240 --> 00:00:44.740
+Focus-visible: a ring you can see.
+
+9
+00:00:44.740 --> 00:00:50.030
+Repair two: persistent labels, connected with label for.
+
+10
+00:00:50.030 --> 00:00:55.330
+Accessibility tree (simplified): every input has a name.
+
+11
+00:00:55.330 --> 00:01:00.810
+Invalid data: errors linked with aria-describedby and aria-invalid.
+
+12
+00:01:00.810 --> 00:01:07.670
+Values preserved. Focus moves once, to the first invalid field.
+
+13
+00:01:07.670 --> 00:01:15.310
+Same journey, corrected form: Tab Tab Tab Enter Tab Tab Space.
+
+14
+00:01:15.310 --> 00:01:18.780
+Accepted. Seven keystrokes, no mouse.
+
+15
+00:01:18.780 --> 00:01:25.190
+A screenshot cannot show whether a form is operable.
+
+16
+00:01:25.190 --> 00:01:30.880
+Keyboard test, not an audit. Announcements not verified.

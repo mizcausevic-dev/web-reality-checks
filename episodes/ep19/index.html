@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What did the server send?: Episode 19 | Web Reality Checks</title>
+<meta name="description" content="The Browser Shows Your Page. What Does the Server Send?. 1m 47s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep19/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="What did the server send?: Episode 19 | Web Reality Checks"><meta property="og:description" content="The Browser Shows Your Page. What Does the Server Send?. 1m 47s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep19/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep19/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="What did the server send?: Episode 19 | Web Reality Checks"><meta name="twitter:description" content="The Browser Shows Your Page. What Does the Server Send?. 1m 47s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep19/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 19</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep19.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep19.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#5fe08a">Episode 19 · Delivery &amp; freshness</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">The Browser Shows Your Page. What Does the Server Send?</h1>
+<div><span class="badge ok">1m 47s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>identical</span></button></li><li><button type="button" data-t="9.11"><b>00:09</b><span>raw</span></button></li><li><button type="button" data-t="29.63"><b>00:29</b><span>populate</span></button></li><li><button type="button" data-t="48.06"><b>00:48</b><span>nojs</span></button></li><li><button type="button" data-t="66.37"><b>01:06</b><span>present</span></button></li><li><button type="button" data-t="80.37"><b>01:20</b><span>pipeline</span></button></li><li><button type="button" data-t="97.58"><b>01:37</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep19.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep19-initial-html">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep19/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep19/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep19/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep19/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Two pages can look identical after JavaScript runs while their initial HTTP responses contain different amounts of meaningful content; the initial HTML and the eventual DOM are different artefacts.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep19-initial-html/</code> — one synthetic article (<code>article.json</code>, a fictional harbour tide clock) statically generated by <code>build.mjs</code> into two variants: <strong>CSR</strong> (<code>/csr/article/</code>: an application shell plus <code>/csr/app.js</code>, which fetches <code>/article.json</code> and inserts the article) and <strong>SSG</strong> (<code>/ssg/article/</code>: the article in the HTML, no script).</li>
+<li>Both variants share <code>&lt;title&gt;</code>, <code>&lt;meta name="description"&gt;</code>, <code>&lt;meta name="robots"&gt;</code>, heading structure, ordinary <code>&lt;a href&gt;</code> links and article text, and are built from the same <code>renderArticle()</code> function; only <em>when</em> the article enters the document differs.</li>
+<li><code>server.mjs</code> — loopback static server, exact paths only, <code>301</code> to the trailing-slash form, explicit <strong>404 for every missing route, no SPA fallback</strong> (a dev server's "index.html for everything" would hide route errors behind a 200 shell).</li>
+<li><code>inspect.mjs</code> — raw HTTP fetch of both routes (<code>captures/raw-*.html</code>) and rendered-DOM capture via the Remotion-bundled headless Chrome driven over the DevTools protocol, with JavaScript enabled and disabled in a fresh profile (<code>captures/dom-*.html</code>, <code>inspection-results.json</code>).</li>
+<li>Deliberate robots decision: both variants carry <code>&lt;meta name="robots" content="noindex"&gt;</code> (value from <code>article.json</code>), and the 404 page sends <code>X-Robots-Tag: noindex</code>. This is a local teaching fixture and must not enter an index if deployed by mistake.</li>
+<li>No hydration is shipped: a static article with no client interactivity has nothing to re-attach.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep19-initial-html/test.mjs</code> → <code># tests 11  # pass 11  # fail 0  # skipped 0</code> (includes a known-positive control asserting the raw CSR HTML lacks the article text, headings and links; the two DOM tests skip, not fail, if the bundled Chrome is absent).</li>
+<li>Executed: <code>node fixtures/ep19-initial-html/demo.mjs</code> → <code>fixtures/ep19-initial-html/evidence.json</code>:
+<ul>
+<li>raw CSR: 200, 727 bytes, 0/6 paragraphs, 0/198 article words, 0 h1, 0 h2, 0 links, 1 script tag, "Loading article…" shell.</li>
+<li>raw SSG: 200, 2520 bytes, 6/6 paragraphs, 198/198 words, 1 h1, 4 h2, 3 links, 0 script tags.</li>
+<li>DOM CSR (JS on): 6/6 paragraphs, 4 h2, 3 links, <code>data-rendered-by="client-js"</code>, requested <code>/article.json</code>. DOM SSG (JS on): 6/6, 4 h2, 3 links.</li>
+<li>DOM CSR (JS off): 0/6 paragraphs, 0 links, shell only. DOM SSG (JS off): 6/6, 4 h2, 3 links.</li>
+<li>Missing routes <code>/csr/missing/</code>, <code>/ssg/missing/</code>: 404 on both, no shell served.</li>
+<li>Identical title, description and <code>robots=noindex</code> on both raw responses; SSG hrefs equal <code>article.json</code> hrefs; the CSR data file carries the same hrefs.</li>
+</ul></li>
+<li>Executed: rendered-DOM capture with <code>chrome-headless-shell</code> (HeadlessChrome/157.0.8080.0, Remotion bundle) launched as <code>--headless=new --no-sandbox --no-zygote --disable-gpu --disable-dev-shm-usage --no-proxy-server --user-data-dir=&lt;tmp&gt; --remote-debugging-port=0 about:blank</code>, then CDP <code>Target.createTarget</code> → (<code>Emulation.setScriptExecutionDisabled</code> for JS-off) → <code>Page.navigate</code> → <code>Page.loadEventFired</code> + 1.5 s settle → <code>Runtime.evaluate(document.documentElement.outerHTML)</code>. Plain <code>--dump-dom</code> hung in this container, so the DevTools protocol was used instead; the saved captures are in <code>fixtures/ep19-initial-html/captures/dom-*.html</code>.</li>
+<li>Observed: <code>episodes/ep19/captions.srt</code> and <code>video/src/episodes/ep19/timeline.json</code> were generated with <code>--no-audio</code> (estimated speech duration 101.96 s, total 104.56 s) so the composition type-checks; the orchestrator regenerates them from real narration.</li>
+<li>Not executed: narration audio, MP4 render, frame inspection (orchestrator). <code>render-evidence.json</code> is filled by the orchestrator.</li>
+<li>The browser pages shown in scenes 1, 3 and 4 are illustrative recreations drawn with the kit's plain <code>Box</code> chrome; the numbers on them come from <code>evidence.json</code>. Scene 6 (crawl / render / index / rank) is labelled <code>CONCEPTUAL ILLUSTRATION</code> and measures nothing.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep19    # from narration audio in video/public/ep19/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep19 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>A plain HTTP fetch is not a complete search-engine rendering test. A browser with JavaScript disabled is not a Googlebot simulator; <strong>Google can execute JavaScript</strong>.</li>
+<li>Static generation does not guarantee indexing or rankings. Server-rendered pages can still enter a rendering stage. Nothing here measures crawling, indexing or ranking; no rendering delays, indexing timelines or Search Console results are claimed or simulated.</li>
+<li>The DOM captures establish how <strong>this</strong> headless Chrome handled <strong>these</strong> pages after a fixed settle; not how every crawler handles the page.</li>
+<li>Hydration was not implemented because the static page has no client interactivity; a page with interactivity would need a different comparison.</li>
+<li>Measurement is string/regex counting of known synthetic content, not a DOM parser. Loopback only; no HTTPS; no real network; no caching behaviour tested.</li>
+<li>Caption timing in the generated SRT is proportional to word count (heuristic alignment, not forced alignment).</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep19/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep19 → episodes/ep19/ep19.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 107.2 s, 9447060 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep18/index.html">← Episode 18: Webhook arrived twice</a></span><span><a href="../ep20/index.html">Episode 20: What HTTPS still shows →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

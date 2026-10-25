@@ -1,0 +1,81 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:07.440
+Wrong password: 401. Right password: 200 and one cookie.
+
+2
+00:00:07.440 --> 00:00:12.000
+One implementation, not every sign-in system.
+
+3
+00:00:12.000 --> 00:00:17.850
+Browser · HTTPS · server · user database · session store.
+
+4
+00:00:17.850 --> 00:00:21.570
+Three objects: password, session id, authorisation decision.
+
+5
+00:00:21.570 --> 00:00:26.000
+Credentials travel inside the encrypted connection.
+
+6
+00:00:26.000 --> 00:00:33.380
+HTTPS protects transit, not a compromised endpoint. Illustrated, not executed.
+
+7
+00:00:33.380 --> 00:00:40.200
+Stored: a salted argon2id hash, not the password. One way, not reversible.
+
+8
+00:00:40.200 --> 00:00:45.890
+Observed: two hashes of the same password differ; both verify.
+
+9
+00:00:45.890 --> 00:00:51.590
+Success: regenerate. Pre-auth id destroyed, fresh id created.
+
+10
+00:00:51.590 --> 00:00:57.290
+Observed: old id replayed after login → 401.
+
+11
+00:00:57.290 --> 00:01:03.560
+Set-Cookie: sid=<opaque>; HttpOnly; Secure; SameSite=Lax; Path=/ — no Domain.
+
+12
+00:01:03.560 --> 00:01:11.910
+HttpOnly limits ordinary JS access. It does not stop every session attack.
+
+13
+00:01:11.910 --> 00:01:17.290
+GET /me + cookie → store lookup → 200, u_alice.
+
+14
+00:01:17.290 --> 00:01:22.140
+The cookie identifies a session. It carries no permission.
+
+15
+00:01:22.140 --> 00:01:26.350
+Two checks: session valid? then permitted?
+
+16
+00:01:26.350 --> 00:01:33.360
+Observed: no cookie 401 · member 403 · admin 200.
+
+17
+00:01:33.360 --> 00:01:39.930
+POST /logout with CSRF token: record destroyed, cookie expired.
+
+18
+00:01:39.930 --> 00:01:49.410
+Observed: GET /logout 405 · no token 403 · replay after logout 401.
+
+19
+00:01:49.410 --> 00:01:53.250
+The cookie identifies a session. The server enforces access.
+
+20
+00:01:53.250 --> 00:01:57.520
+One implementation. Memory store not for production. TLS leg illustrated.

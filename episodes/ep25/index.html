@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Can you restore it?: Episode 25 | Web Reality Checks</title>
+<meta name="description" content="Your Backup Says 'Successful.' Can You Actually Restore It?. 1m 40s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep25/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Can you restore it?: Episode 25 | Web Reality Checks"><meta property="og:description" content="Your Backup Says 'Successful.' Can You Actually Restore It?. 1m 40s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep25/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep25/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Can you restore it?: Episode 25 | Web Reality Checks"><meta name="twitter:description" content="Your Backup Says 'Successful.' Can You Actually Restore It?. 1m 40s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep25/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 25</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep25.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep25.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#3dd6f5">Episode 25 · Data lifecycle</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Your Backup Says 'Successful.' Can You Actually Restore It?</h1>
+<div><span class="badge ok">1m 40s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>success</span></button></li><li><button type="button" data-t="11.05"><b>00:11</b><span>question</span></button></li><li><button type="button" data-t="24.26"><b>00:24</b><span>restore</span></button></li><li><button type="button" data-t="41.5"><b>00:41</b><span>checks</span></button></li><li><button type="button" data-t="55.55"><b>00:55</b><span>values</span></button></li><li><button type="button" data-t="66.91"><b>01:06</b><span>fail</span></button></li><li><button type="button" data-t="88"><b>01:28</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep25.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep25-restore-tests">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep25/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep25/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep25/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep25/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Creating a backup artifact and recovering usable application data are different outcomes; only a restore plus validation tells you which you have.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep25-restore-tests/</code> — a synthetic SQLite shop (12 customers, 40 orders, <code>user_version</code> 3) with foreign keys ON for application connections, backed up with Python's <code>sqlite3.Connection.backup()</code> (Online Backup API) from a quiescent WAL-mode source.</li>
+<li>The backup is copied to a fresh temp path and validated: <code>integrity_check</code> (<code>ok</code>), <code>foreign_key_check</code> (no rows), schema version, tables, record counts, selected known values, and the application's real order-total query.</li>
+<li>The source is never overwritten or opened by the validator; the restored copy holds the backup's data, not later source writes (source 41 orders, backup 40).</li>
+<li>Deliberately invalid artifacts (non-SQLite file, orphan order with unchanged counts, wrong value with unchanged counts, missing table, wrong schema version) fail with a structured result and never crash validation.</li>
+<li>Do-not-copy-only-the-main-file: a control shows a main-file-only copy of a live WAL database fails validation.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep25-restore-tests/test.mjs</code> → <code># tests 16 / # pass 16 / # fail 0</code>.</li>
+<li>Executed: <code>node fixtures/ep25-restore-tests/demo.mjs</code> → <code>evidence.json</code>: backup ok (20480 bytes, 5 pages); good backup passes all eight checks; orphan artifact passes <code>integrity_check</code> and counts (12 / 40) but fails <code>foreign_key_check</code>; wrong-value artifact passes integrity, foreign-key and count checks but fails <code>known_values</code> and <code>order_totals_query</code> (Hugo Placeholder 19911 expected, 20011 found); non-SQLite file fails at <code>restore_open</code> with <code>DatabaseError: file is not a database</code>.</li>
+<li>Measured on this machine only: backup and restore durations (about a millisecond on a 20 KB file) are in <code>evidence.json</code>; they are not shown in the video and are not recovery-time claims.</li>
+<li>Predicted / Blocked: none. Narration audio and MP4 are not generated by this build step; <code>video/src/episodes/ep25/timeline.json</code> was produced with <code>--no-audio</code> (estimated timing) and must be rebuilt from real audio.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep25    # from narration audio in video/public/ep25/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep25 --concurrency 2</code></pre>
+<h2 id="accuracy-items-and-where-they-appear">Accuracy items and where they appear</h2>
+<ul>
+<li>integrity_check does not replace foreign_key_check: scenes <code>checks</code> and <code>fail</code> (narration + on-screen "Why both checks", card B).</li>
+<li>Record counts alone do not establish recovery: scenes <code>values</code> and <code>fail</code> (cards B and C keep 12 / 40).</li>
+<li>Unmistakably invalid fixture, no assumed truncation error: scene <code>fail</code>, "built by explicit edits, not by random truncation".</li>
+<li>Validation failure handled without crashing: scene <code>fail</code> card A (structured result, exit 1).</li>
+<li>Restore duration: not shown in the video.</li>
+<li>No recovery-time or recovery-point guarantees; external files, object storage, secrets, infrastructure out of scope: scene <code>end</code>.</li>
+<li>Restored copy contains the backup's data, not later source writes: scene <code>restore</code> (41 vs 40 orders).</li>
+<li>Online Backup API, not a main-file copy of a live WAL database: scene <code>restore</code>.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>One tiny synthetic database; real corruption modes are not simulated.</li>
+<li>Scene timings follow the narration audio proportionally (heuristic alignment, not forced alignment).</li>
+<li>All on-screen numbers are copied from <code>evidence.json</code>; the 12-row totals table repeats the validator's <code>order_totals</code> output.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep24/index.html">← Episode 24: Someone else's name</a></span><span><a href="../ep26/index.html">Episode 26: One page, 101 queries →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

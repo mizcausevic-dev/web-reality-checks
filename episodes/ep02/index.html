@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Three purchase events: Episode 02 | Web Reality Checks</title>
+<meta name="description" content="One Click. Three Purchase Events. Here’s What Went Wrong.. 1m 52s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep02/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Three purchase events: Episode 02 | Web Reality Checks"><meta property="og:description" content="One Click. Three Purchase Events. Here’s What Went Wrong.. 1m 52s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep02/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep02/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Three purchase events: Episode 02 | Web Reality Checks"><meta name="twitter:description" content="One Click. Three Purchase Events. Here’s What Went Wrong.. 1m 52s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep02/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 02</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep02.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep02.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5b63d">Episode 02 · Duplicates &amp; ordering</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">One Click. Three Purchase Events. Here’s What Went Wrong.</h1>
+<div><span class="badge ok">1m 52s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="12.48"><b>00:12</b><span>rewind</span></button></li><li><button type="button" data-t="21.84"><b>00:21</b><span>emitters</span></button></li><li><button type="button" data-t="37.2"><b>00:37</b><span>inspect</span></button></li><li><button type="button" data-t="49.58"><b>00:49</b><span>problem</span></button></li><li><button type="button" data-t="69.83"><b>01:09</b><span>choose</span></button></li><li><button type="button" data-t="76.96"><b>01:16</b><span>fix</span></button></li><li><button type="button" data-t="86.87"><b>01:26</b><span>retest</span></button></li><li><button type="button" data-t="92.86"><b>01:32</b><span>count</span></button></li><li><button type="button" data-t="107.82"><b>01:47</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep02.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep02-duplicate-purchase-events">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep02/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep02/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep02/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep02/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> One completed purchase can trigger multiple event emitters; raw event duplication and platform reporting are separate questions.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep02-duplicate-purchase-events/</code> — a purchase-confirmation "page" simulated in Node 22 (an in-process event bus, no browser) plus a loopback-only <strong>local event collector</strong> (<code>127.0.0.1</code>, ephemeral port) that records envelopes <code>{event, transaction_id, emitter, ts}</code> verbatim with <strong>no deduplication</strong>.</li>
+<li>One synthetic completed order, one stable <code>transaction_id</code> (<code>T-20261025-0001</code>), generated <strong>per order, never per emission</strong>.</li>
+<li>Three deliberately configured emission paths: <code>app.purchaseHandler</code> (application purchase-completion handler), <code>tagManager.purchaseTrigger</code> (simulated tag-manager listener on the same bus), <code>ConfirmationComponent.onMount</code> (confirmation-component mount handler).</li>
+<li><strong>Flawed mode</strong>: all three emit for one order → 3 envelopes; remounting the component emits a 4th.</li>
+<li><strong>Corrected mode</strong>: <code>app.purchaseHandler</code> is the single authoritative emitter; the tag-manager purchase trigger is removed; the component only renders, so remounting emits nothing.</li>
+<li>Deliberate policy: the collector is labelled <code>LOCAL EVENT COLLECTOR — NOT GA4</code> in every response and is used as the persistent on-screen sim tag for every scene that shows collector output. It does not reproduce GA4's internal logic.</li>
+<li>Deterministic: fixed-epoch clock (+7 ms per tick), no randomness, no wall-clock reads.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep02-duplicate-purchase-events/test.mjs</code> → <code># tests 8  # pass 8  # fail 0</code> (Node v22.23.4). Includes a known-positive control asserting the flawed page emits 3 envelopes for one order, and a documented-LIMIT test asserting that replaying the same completion action still emits again (deliberately not fixed).</li>
+<li>Executed: <code>node fixtures/ep02-duplicate-purchase-events/demo.mjs</code> → <code>fixtures/ep02-duplicate-purchase-events/evidence.json</code>: flawed run <code>receivedCount: 3</code> (emitters <code>app.purchaseHandler</code> @ <code>09:00:00.000Z</code>, <code>tagManager.purchaseTrigger</code> @ <code>.007Z</code>, <code>ConfirmationComponent.onMount</code> @ <code>.021Z</code>, all <code>event: purchase</code>, all <code>transaction_id: T-20261025-0001</code>); corrected run <code>completeOrder → 1</code>, <code>remountConfirmation() ×2 → 1</code>, <code>receivedCount: 1</code>, emitter <code>app.purchaseHandler</code>, <code>purchaseListenersOnBus: 1</code>.</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors in <code>src/episodes/ep02/</code> (checked with a placeholder <code>timeline.json</code> from <code>build-timeline.mjs ep02 --no-audio</code>; the orchestrator regenerates it from real audio).</li>
+<li>Observed: every number shown in <code>video/src/episodes/ep02/Scenes.tsx</code> (3, 1, the three emitter names, the three timestamps, the per-action counts) is copied from <code>evidence.json</code>.</li>
+<li>Blocked: no narration audio generated, no MP4 rendered, no inspection frames — the orchestrator does those and fills <code>render-evidence.json</code>.</li>
+<li>Predicted: narration is 258 words; at the builder's 2.55 words/s estimate that is ≈101 s speech, ≈104 s total with lead/tail. Actual timing comes from the generated audio.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep02      # needs video/public/ep02/narration.mp3 (or add --no-audio)
+node tools/gen-root.mjs
+node tools/render.mjs ep02 --concurrency 2</code></pre>
+<p>Fonts: the renderer uses Inter and DejaVu Sans Mono if installed; otherwise system fallbacks.</p>
+<h2 id="accuracy-from-the-brief-each-is-stated-in-narrationon-screen-text">Accuracy (from the brief; each is stated in narration/on-screen text)</h2>
+<ul>
+<li>Three received envelopes are <strong>raw emissions, not three GA4 conversions</strong> (scenes <code>fail</code>, <code>problem</code>, <code>end</code>).</li>
+<li>GA4 documents purchase deduplication using matching <code>transaction_id</code> <strong>for web data streams</strong> (scene <code>problem</code>).</li>
+<li>That covers the <code>purchase</code> event; transaction IDs are <strong>not</strong> implied to deduplicate all event types (scene <code>problem</code>).</li>
+<li>One <code>transaction_id</code> <strong>per order, not per emission</strong> (fixture, test 7, scene <code>inspect</code>).</li>
+<li>No promise of <strong>exactly-once delivery</strong> across reloads, devices, retries or distributed systems (scenes <code>count</code>, <code>end</code>).</li>
+<li>Robust <strong>order-level idempotency</strong> is a separate design concern, not implemented; the LIMIT test documents it (scene <code>count</code>).</li>
+<li>The simulation is <strong>not a reproduction of GA4's internal logic</strong>; the collector is a plain recorder (sim tag on every collector scene; scenes <code>problem</code>, <code>end</code>).</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated: the page, the tag-manager listener, the component lifecycle and the collector are all in-process Node code. No real browser, tag manager, GA4 or Measurement Protocol was used. The "checkout" and "confirmation" panels in scenes <code>rewind</code> are labelled illustrative and mimic no product.</li>
+<li>Measured: only the counts and envelopes in <code>evidence.json</code>, from the two scripted runs.</li>
+<li>Not tested: network loss, retries, offline queues, page reload, back/forward cache, multiple tabs, multiple devices, server-side order verification, what any analytics platform would report.</li>
+<li>Scope of the fix: one owner per business event in the tested scenario. It does not make the analytics pipeline correct in general and does not provide idempotency.</li>
+<li>The event-ownership checklist is in <code>fixtures/ep02-duplicate-purchase-events/README.md</code>.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep02/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep02 → episodes/ep02/ep02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 112.4 s, 9964178 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep01/index.html">← Episode 01: Is it safe to launch?</a></span><span><a href="../ep03/index.html">Episode 03: What Sign In does →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

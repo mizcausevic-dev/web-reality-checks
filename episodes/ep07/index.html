@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why is production broken?: Episode 07 | Web Reality Checks</title>
+<meta name="description" content="It Works Locally. Why Is Production Broken?. 1m 36s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep07/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Why is production broken?: Episode 07 | Web Reality Checks"><meta property="og:description" content="It Works Locally. Why Is Production Broken?. 1m 36s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep07/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep07/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Why is production broken?: Episode 07 | Web Reality Checks"><meta name="twitter:description" content="It Works Locally. Why Is Production Broken?. 1m 36s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep07/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 07</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep07.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep07.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#5fe08a">Episode 07 · Delivery &amp; freshness</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">It Works Locally. Why Is Production Broken?</h1>
+<div><span class="badge ok">1m 36s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>local ok</span></button></li><li><button type="button" data-t="7.71"><b>00:07</b><span>remote fail</span></button></li><li><button type="button" data-t="18.37"><b>00:18</b><span>follow loopback</span></button></li><li><button type="button" data-t="29.66"><b>00:29</b><span>bundle</span></button></li><li><button type="button" data-t="42.69"><b>00:42</b><span>host env</span></button></li><li><button type="button" data-t="51.62"><b>00:51</b><span>still old</span></button></li><li><button type="button" data-t="60.03"><b>01:00</b><span>fix</span></button></li><li><button type="button" data-t="71.44"><b>01:11</b><span>retest</span></button></li><li><button type="button" data-t="79.14"><b>01:19</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep07.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep07-vite-env-localhost">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep07/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep07/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep07/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep07/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> A frontend API address embedded at build time (<code>import.meta.env.VITE_API_BASE_URL</code>) can point a deployed client at its own localhost; changing an environment variable on the static host cannot rewrite the bundle, only a rebuild can.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep07-vite-env-localhost/</code> — a minimal real Vite (<code>8.3.5</code>, pinned, lockfile committed) frontend whose <code>src/main.js</code> reads the literal <code>import.meta.env.VITE_API_BASE_URL</code> and fetches <code>${base}/health</code>, printing the status or the actual error name and message.</li>
+<li><code>api.mjs</code> — loopback API, <code>GET /health → 200 {"ok":true}</code>. CORS is configured <strong>deliberately</strong> via an allowlist of the static-host origin so that CORS is not the failure.</li>
+<li><code>static-host.mjs</code> — serves <code>dist/</code> on loopback. <code>--inject-env URL</code> sets <code>VITE_API_BASE_URL</code> in the <em>host process</em> at runtime (visible at <code>/__host-env</code>) to show it cannot change the already-built files.</li>
+<li><code>inspect-bundle.mjs</code> — greps <code>dist/assets/*.js</code> for the embedded URL, confirms no literal <code>import.meta.env</code> remains, hashes the files → <code>built-value-inspection.json</code>.</li>
+<li><code>topology.md</code> — the four boundaries (developer machine, static host, API host, remote browser) and how each is realised on one loopback.</li>
+<li>Deliberate policies: rebuild is the one repair shown; runtime configuration is named as an optional alternative and <strong>not implemented</strong>. Errors are reported by their real name (<code>TypeError</code>, <code>ECONNREFUSED</code>), never blanket-labelled "CORS".</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep07-vite-env-localhost/test.mjs</code> → <code># tests 9  # pass 9  # fail 0</code> (includes a known-positive control: the embedded localhost URL, fetched where no API listens, fails with <code>TypeError: fetch failed</code>, cause <code>ECONNREFUSED</code>).</li>
+<li>Executed: <code>node fixtures/ep07-vite-env-localhost/demo.mjs</code> → <code>evidence.json</code>: local success <code>GET http://127.0.0.1:41073/health → 200</code> with <code>Access-Control-Allow-Origin: http://127.0.0.1:39285</code>; bundle <code>assets/index-PKkaHDlY.js</code> (1061 bytes) contains <code>http://127.0.0.1:41073</code> and no <code>import.meta.env</code>; host started with <code>--inject-env http://127.0.0.1:42741</code> → host env shows the new value, served JS still contains the original URL, <code>dist/</code> hash identical before/after; rebuild with <code>VITE_API_BASE_URL=http://127.0.0.1:42741</code> → new asset <code>index-BLHWur4n.js</code> contains the new URL, old URL absent, <code>GET /health → 200</code>.</li>
+<li>Verified (read from the installed package): <code>node_modules/vite/dist/node/index.d.ts</code> lines 3606–3609 (<code>envPrefix</code>, default <code>'VITE_'</code>, "exposed to your client source code via import.meta.env"); <code>node_modules/vite/dist/node/chunks/node.js</code> <code>loadEnv()</code> (~line 6103: <code>.env</code>, <code>.env.local</code>, <code>.env.&lt;mode&gt;</code>, <code>.env.&lt;mode&gt;.local</code>; prefix filter; <code>process.env</code> wins) and the <code>vite:define</code> plugin (~lines 17080–17140: <code>import.meta.env.&lt;KEY&gt;</code> → <code>JSON.stringify(value)</code> define replacement at bundle time).</li>
+<li><strong>Blocked / not reproduced:</strong> the remote-browser failure was <strong>NOT</strong> reproduced in an isolated browser. No separate machine, verified-isolated container, or headless browser was available. Scenes <code>remote_fail</code> and <code>follow_loopback</code> carry the persistent tag <code>REMOTE CLIENT · CONCEPTUAL SIMULATION</code>. The executed stand-in is a Node <code>fetch</code> to the bundle's loopback port after the developer's API was stopped (<code>TypeError: fetch failed</code>, <code>ECONNREFUSED</code>). The browser strings shown (<code>TypeError: Failed to fetch</code>, <code>net::ERR_CONNECTION_REFUSED</code>) are stated from browser behaviour, not captured.</li>
+<li>Observed-from-fixture notes appear on screen in every executed scene (<code>local_ok</code>, <code>bundle</code>, <code>host_env</code>, <code>still_old</code>, <code>fix</code>, <code>retest</code>).</li>
+<li>Predicted: none. No timings or percentages are claimed.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep07    # from narration audio in video/public/ep07/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep07 --concurrency 2</code></pre>
+<p><code>video/src/episodes/ep07/timeline.json</code> currently holds a <code>--no-audio</code> placeholder (estimated 104.56 s); the orchestrator regenerates it from real narration. No MP4 is claimed to exist; <code>render-evidence.json</code> is filled by the orchestrator.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated vs measured: build-time replacement, bundle contents, host-env-does-not-rewrite, rebuild and retest are <strong>measured</strong> on one loopback. The remote client is <strong>conceptual</strong> (see above). CORS success is measured with a Node fetch carrying an <code>Origin</code> header, not a browser's preflight.</li>
+<li><code>index.html</code> was never loaded in a browser; the bundle is verified by inspection and by fetching the URL it contains.</li>
+<li>Only <code>--mode development</code> builds are exercised (so <code>.env.development</code> is the file under test; <code>.env.production.example</code> is a template). Production mode differs in which <code>.env.*</code> files load and in minification, not in the replacement mechanism.</li>
+<li>The fix is scoped to the demonstrated problem: rebuild with the right value where the build runs. Runtime configuration (a <code>/config.json</code> fetched at start-up, or server-injected <code>window.__CONFIG__</code>) is a valid alternative design and is deliberately not half-implemented here.</li>
+<li><code>VITE_</code>-prefixed values are public client configuration shipped to every visitor; the episode says never to put a secret in one. It does not audit the fixture for other leaks.</li>
+<li>No HTTPS, no real hostnames, no deploy pipeline, no containers.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep07/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep07 → episodes/ep07/ep07.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 96.4 s, 8792016 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep06/index.html">← Episode 06: Prompt to answer</a></span><span><a href="../ep08/index.html">Episode 08: Why it feels slow →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weird websites, explained: Launch film | Web Reality Checks</title>
+<meta name="description" content="Why Do Websites Do Weird Things? Five Glitches in One Minute. 1m 03s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/cm03/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Weird websites, explained: Launch film | Web Reality Checks"><meta property="og:description" content="Why Do Websites Do Weird Things? Five Glitches in One Minute. 1m 03s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/cm03/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/cm03/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Weird websites, explained: Launch film | Web Reality Checks"><meta name="twitter:description" content="Why Do Websites Do Weird Things? Five Glitches in One Minute. 1m 03s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/cm03/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / Launch film</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="cm03.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="cm03.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#5fe08a">Launch film</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Why Do Websites Do Weird Things? Five Glitches in One Minute</h1>
+<div><span class="badge ok">1m 03s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>hook</span></button></li><li><button type="button" data-t="5.14"><b>00:05</b><span>problem</span></button></li><li><button type="button" data-t="16.12"><b>00:16</b><span>method</span></button></li><li><button type="button" data-t="28.83"><b>00:28</b><span>proof</span></button></li><li><button type="button" data-t="39.88"><b>00:39</b><span>range</span></button></li><li><button type="button" data-t="47.83"><b>00:47</b><span>limits</span></button></li><li><button type="button" data-t="56.23"><b>00:56</b><span>cta</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="cm03.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="../../launch/c-weird-websites/index.html">Read the launch article</a></div>
+<h2 style="margin-top:44px">About this film</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>What it is.</strong> A 55 to 75 second promotional trailer for the general-audience article in <code>launch/c-weird-websites/</code>. Narration is about 171 words in seven scenes (hook, problem, method, proof, range, limits, cta). Script: <code>script.json</code> (n 103, tag "Launch film", kicker "Official trailer").</p>
+<h2 id="evidence-used">Evidence used</h2>
+<ul>
+<li>Real frames and thumbnails from rendered episodes 12 and 15, copied to <code>video/public/launch/c-*.png</code> and cropped on screen. Counts "2 attempts, 2 orders" and "2 attempts, 1 order" and "# pass 13 # fail 0" come from <code>fixtures/ep15-idempotency/evidence.json</code> and its <code>node --test</code> run.</li>
+<li>Conceptual cards for episodes 21, 22 and 24 use values copied from those fixtures' <code>evidence.json</code> and carry the label "Conceptual card".</li>
+<li>Scene labels: "FOOTAGE FROM EPISODE 15", "PROMOTIONAL FILM", "CONCEPTUAL ILLUSTRATION".</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs cm03        # from video/public/cm03/narration.mp3, or add --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs cm03 --concurrency 2</code></pre>
+<h2 id="limits">Limits</h2>
+<ul>
+<li>The committed <code>timeline.json</code> was generated with <code>--no-audio</code> (word-count estimate, about 70 s). The orchestrator rebuilds it from the real narration; scene timings will shift and scene components are written to scale to <code>dur</code>.</li>
+<li>No audio and no video were generated for this package. No MP4 exists yet.</li>
+<li>Episodes 21, 22 and 24 had no rendered frames when this package was built, so no real footage of them is used.</li>
+<li>Episode 12's lifecycle is a model, not a browser capture, and the film does not claim otherwise.</li>
+</ul>
+</div>
+
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

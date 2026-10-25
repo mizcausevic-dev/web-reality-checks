@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:03.940
+A test goes green. Is the bug fixed?
+
+2
+00:00:03.940 --> 00:00:07.700
+Only if that same test could have gone red.
+
+3
+00:00:07.700 --> 00:00:10.410
+One tap on Pay, two orders.
+
+4
+00:00:10.410 --> 00:00:14.920
+The response was lost, and the retry counted as new.
+
+5
+00:00:14.920 --> 00:00:18.530
+A fix test that never failed proves nothing.
+
+6
+00:00:18.530 --> 00:00:22.890
+Flaw: reproduce it on a local fixture.
+
+7
+00:00:22.890 --> 00:00:26.630
+Control: prove the test can fail.
+
+8
+00:00:26.630 --> 00:00:31.620
+Repair: the smallest change. Retest: the same schedule.
+
+9
+00:00:31.620 --> 00:00:35.330
+Episode 15: the control reports 2 attempts, 2 orders.
+
+10
+00:00:35.330 --> 00:00:40.280
+After the repair: 2 attempts, 1 order. 13 of 13 tests pass.
+
+11
+00:00:40.280 --> 00:00:43.910
+Episode 1: Alice asks for Bob's project.
+
+12
+00:00:43.910 --> 00:00:47.030
+200 before the repair. 404 after.
+
+13
+00:00:47.030 --> 00:00:48.940
+Duplicates, access, stale data.
+
+14
+00:00:48.940 --> 00:00:51.800
+Local fixtures, Node's built-in test runner.
+
+15
+00:00:51.800 --> 00:00:55.610
+Each one says what it does not prove.
+
+16
+00:00:55.610 --> 00:00:59.420
+Break it on purpose. Then fix it.
+
+17
+00:00:59.420 --> 00:01:04.310
+The repository, linked below. Clone it, fork a fixture.

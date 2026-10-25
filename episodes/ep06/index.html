@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prompt to answer: Episode 06 | Web Reality Checks</title>
+<meta name="description" content="What Happens Between Your Prompt and the Answer?. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep06/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Prompt to answer: Episode 06 | Web Reality Checks"><meta property="og:description" content="What Happens Between Your Prompt and the Answer?. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep06/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep06/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Prompt to answer: Episode 06 | Web Reality Checks"><meta name="twitter:description" content="What Happens Between Your Prompt and the Answer?. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep06/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 06</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep06.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep06.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#a78bfa">Episode 06 · Experience &amp; speed</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">What Happens Between Your Prompt and the Answer?</h1>
+<div><span class="badge ok">1m 50s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>ask</span></button></li><li><button type="button" data-t="11.11"><b>00:11</b><span>assemble</span></button></li><li><button type="button" data-t="22.73"><b>00:22</b><span>toolcall</span></button></li><li><button type="button" data-t="34.67"><b>00:34</b><span>validate</span></button></li><li><button type="button" data-t="45.17"><b>00:45</b><span>scope</span></button></li><li><button type="button" data-t="59.47"><b>00:59</b><span>query</span></button></li><li><button type="button" data-t="69.86"><b>01:09</b><span>result</span></button></li><li><button type="button" data-t="78.35"><b>01:18</b><span>answer</span></button></li><li><button type="button" data-t="87.41"><b>01:27</b><span>fail</span></button></li><li><button type="button" data-t="98.96"><b>01:38</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep06.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep06-prompt-to-answer">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep06/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep06/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep06/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep06/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> In a tool-using assistant the model only <em>requests</em> a tool; the application validates the request, decides the data scope, executes a narrow read-only function, and controls retries and failure messages. Observable steps only; no private reasoning depicted.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep06-prompt-to-answer/</code> — a dependency-free Node 22 application (<code>app.mjs</code>) answering "How many open support tickets are high priority?" against a seeded synthetic dataset (<code>tickets.json</code>, 120 tickets, 3 orgs, seed 20260625).</li>
+<li><strong>The model is a deterministic mock</strong> (<code>mock-model.mjs</code>). No real model API was called or authorised. Every model scene carries the persistent tag <code>SIMULATED MODEL RESPONSE</code>.</li>
+<li>One tool is offered, <code>countTickets(status, priority)</code>, defined in <code>tool-schema.json</code> (<code>additionalProperties: false</code>, enum values only). The application validates the model's tool call with a tiny built-in JSON-schema validator before anything executes.</li>
+<li>Data scope (<code>orgId</code>) is resolved from the server-side session, never from the model: the schema rejects a model-supplied <code>accountId</code>, <code>stripScopeClaims</code> ignores scope-like keys regardless, and the tool refuses to run without an application-supplied scope.</li>
+<li>The tool is a two-filter in-memory count. There is no SQL or query-language path.</li>
+<li>Retry policy: one bounded retry on a simulated transient error, <strong>only</strong> because the tool is read-only and idempotent. After the retry fails the application returns a failure message with no count and does not ask the model again, so no number can be fabricated.</li>
+<li>Opaque request ids (<code>req_</code> + 12 hex) link every trace step; the trace holds no tokens or user ids (tested).</li>
+<li>This is <strong>one application design</strong>, not a description of every AI request.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep06-prompt-to-answer/test.mjs</code> → <code># tests 13  # pass 13  # fail 0</code> (includes a known-positive control: trusting a model-supplied <code>accountId</code> as scope would return org_globex's 6 instead of org_acme's 5).</li>
+<li>Executed: <code>node fixtures/ep06-prompt-to-answer/demo.mjs</code> → <code>evidence.json</code> + <code>trace.json</code>:
+<ul>
+<li><code>happy</code>: ok, <strong>count 5</strong>, 12 trace steps, 2 model calls, 1 tool call; answer "There are 5 open high-priority support tickets in your organisation."</li>
+<li><code>scope_probe</code> (model emits <code>accountId: "org_globex"</code>): refused, <code>invalid_tool_call</code>, 0 tool calls.</li>
+<li><code>retry</code> (1 simulated transient error): ok, count 5, 2 tool calls, one <code>retry.scheduled</code> step.</li>
+<li><code>failure</code> (2 simulated transient errors): ok false, <code>tool_unavailable</code>, count null, 2 tool calls, 1 model call, answer contains no digits.</li>
+<li>Dataset: open+high by org — org_acme 5, org_globex 6, org_initech 2; 13 across all orgs. The video shows 5 vs 13.</li>
+</ul></li>
+<li>Measured-in-fixture: <code>totalMsMeasuredInFixture</code> values in <code>evidence.json</code> are <code>process.hrtime</code> deltas around a local mock and an in-memory filter (about 0.07–1.1 ms). They are <strong>not</strong> shown in the video and say nothing about real model latency.</li>
+<li>Verified: <code>cd video &amp;&amp; npx tsc --noEmit</code> reports no errors in <code>src/episodes/ep06/*</code>. All ten scene components server-render at t = 0…9 s with no element below y = 920.</li>
+<li>Not executed: narration audio, render, thumbnail — the orchestrator does these and fills <code>render-evidence.json</code>. <code>video/src/episodes/ep06/timeline.json</code> was generated with <code>--no-audio</code> for type-checking only and should be regenerated from the real narration.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep06    # from narration audio in video/public/ep06/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep06 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated model throughout. Real models can return malformed, multiple, or no tool calls, or ignore tool results; only the mock's variants (<code>unknown_tool</code>, <code>bad_args</code>, <code>smuggle_scope</code>) are exercised.</li>
+<li>No measured model or network timings exist and none are shown.</li>
+<li>No state-changing tools are implemented, so idempotency-key handling is described, not demonstrated. Retry safety for create/update/charge tools differs and is stated in narration, on screen, and in the fixture README.</li>
+<li>No streaming, concurrency, cancellation, rate limiting, or real session establishment (EP03 covers sessions).</li>
+<li>The assistant window in scene 1 is an illustrative <code>Box</code>, not a real product UI.</li>
+<li>Scene boundaries from <code>build-timeline.mjs</code> are a word-count/silence heuristic, not forced alignment.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep06/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep06 → episodes/ep06/ep06.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.8 s, 9661007 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep05/index.html">← Episode 05: How many are wrong?</a></span><span><a href="../ep07/index.html">Episode 07: Why is production broken? →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

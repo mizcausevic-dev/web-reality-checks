@@ -1,0 +1,57 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:06.350
+Backup reports success: a file exists, the call returned no error.
+
+2
+00:00:06.350 --> 00:00:11.050
+Nothing has been opened. Nothing has been read back.
+
+3
+00:00:11.050 --> 00:00:15.180
+Established: a file was written.
+
+4
+00:00:15.180 --> 00:00:24.260
+Not yet shown: it opens, the links hold, the numbers match.
+
+5
+00:00:24.260 --> 00:00:33.660
+Restore into a fresh path. The source is never overwritten or opened.
+
+6
+00:00:33.660 --> 00:00:41.500
+The copy holds the backup's data, not later source writes.
+
+7
+00:00:41.500 --> 00:00:47.650
+integrity_check → ok.  foreign_key_check → no rows.
+
+8
+00:00:47.650 --> 00:00:55.550
+Different questions. Passing one does not answer the other.
+
+9
+00:00:55.550 --> 00:00:59.970
+12 customers, 40 orders. Known values match.
+
+10
+00:00:59.970 --> 00:01:06.910
+The app's real order-total query: 12 of 12 totals as expected.
+
+11
+00:01:06.910 --> 00:01:17.450
+Invalid artifacts fail validation with a structured result, not a crash.
+
+12
+00:01:17.450 --> 00:01:28.000
+Same counts can still hide an orphan or a wrong value.
+
+13
+00:01:28.000 --> 00:01:35.040
+One small synthetic database. No recovery-time or recovery-point claim.
+
+14
+00:01:35.040 --> 00:01:38.950
+The restore is the test.

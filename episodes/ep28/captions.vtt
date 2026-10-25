@@ -1,0 +1,61 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:04.960
+The member's page has no publish button.
+
+2
+00:00:04.960 --> 00:00:09.330
+Yet the member's request published an announcement.
+
+3
+00:00:09.330 --> 00:00:12.760
+Controlled test: valid member session, valid CSRF token.
+
+4
+00:00:12.760 --> 00:00:17.050
+We send the request the hidden button would have sent.
+
+5
+00:00:17.050 --> 00:00:22.330
+Flawed endpoint: 201 Created. Count goes from 1 to 2.
+
+6
+00:00:22.330 --> 00:00:27.080
+It checked the session and the token, not permission.
+
+7
+00:00:27.080 --> 00:00:37.590
+Authentication: who is this? CSRF: did it come from our page?
+
+8
+00:00:37.590 --> 00:00:42.370
+Authorization: may this user publish?
+
+9
+00:00:42.370 --> 00:00:48.850
+Fix: check the server-side permission before any write.
+
+10
+00:00:48.850 --> 00:00:56.140
+A role sent by the browser is never read.
+
+11
+00:00:56.140 --> 00:01:02.840
+Same request: 403 PERMISSION_DENIED. Count stays at 2.
+
+12
+00:01:02.840 --> 00:01:08.710
+A bad CSRF token fails differently: EBADCSRFTOKEN.
+
+13
+00:01:08.710 --> 00:01:15.820
+Administrator: 201 Created. Count becomes 3.
+
+14
+00:01:15.820 --> 00:01:20.870
+A function-level check, not an object-ownership check.
+
+15
+00:01:20.870 --> 00:01:29.520
+The browser can hide the action. Only the server can deny it.

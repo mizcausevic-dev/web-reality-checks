@@ -1,0 +1,61 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:05.890
+Deployment complete. The server sends Build 2.
+
+2
+00:00:05.890 --> 00:00:14.970
+The open tab still shows Build 1. One cause, not every cause.
+
+3
+00:00:14.970 --> 00:00:19.920
+Page, active worker, waiting worker, Cache Storage.
+
+4
+00:00:19.920 --> 00:00:29.810
+Cache Storage is not the HTTP cache. Each build has its own versioned cache.
+
+5
+00:00:29.810 --> 00:00:37.230
+Same URL, different bytes: a new worker installs, then waits.
+
+6
+00:00:37.230 --> 00:00:45.390
+The old worker still controls the page and serves Build 1.
+
+7
+00:00:45.390 --> 00:00:49.600
+registration.waiting exists: show "Update available".
+
+8
+00:00:49.600 --> 00:00:58.030
+Explicit approval is this app's policy, not a browser requirement.
+
+9
+00:00:58.030 --> 00:01:01.400
+Approve → postMessage SKIP_WAITING.
+
+10
+00:01:01.400 --> 00:01:06.950
+Activate: delete only wrc-ep12-v1, keep wrc-ep12-v2. controllerchange fires.
+
+11
+00:01:06.950 --> 00:01:14.570
+A guard reloads once. A second event is ignored. No loop.
+
+12
+00:01:14.570 --> 00:01:21.220
+After one reload: Build 2, green. One cache left.
+
+13
+00:01:21.220 --> 00:01:27.870
+Browser steps not captured here; see the manual checklist.
+
+14
+00:01:27.870 --> 00:01:31.560
+Deployment and client activation are different events.
+
+15
+00:01:31.560 --> 00:01:38.400
+An update affects every tab on the registration. Unsaved work is at risk.

@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:04.760
+The bar says 100%. The file is not ready.
+
+2
+00:00:04.760 --> 00:00:09.380
+Nothing is wrong with the bar. It measured something else.
+
+3
+00:00:09.380 --> 00:00:16.460
+Four stages: transfer, acceptance, processing, availability.
+
+4
+00:00:16.460 --> 00:00:23.530
+The bar only showed the first.
+
+5
+00:00:23.530 --> 00:00:29.460
+XHR upload events: loaded / total, only if lengthComputable.
+
+6
+00:00:29.460 --> 00:00:34.080
+Those are request-body bytes, multipart overhead included.
+
+7
+00:00:34.080 --> 00:00:40.010
+An 82-byte file travelled as a 232-byte request body.
+
+8
+00:00:40.010 --> 00:00:47.170
+After the last byte, the response arrives separately: 202 Accepted + job ID.
+
+9
+00:00:47.170 --> 00:00:52.670
+Accepted means stored and queued, not processed. Result now: 409.
+
+10
+00:00:52.670 --> 00:00:59.850
+Polling the authorised status endpoint: accepted → ready.
+
+11
+00:00:59.850 --> 00:01:08.830
+Only then does the result open. Another user gets 404.
+
+12
+00:01:08.830 --> 00:01:14.400
+Same flow, different file: 100% transferred, 202 Accepted.
+
+13
+00:01:14.400 --> 00:01:21.350
+The worker finds bad rows. Job failed, with a reason.
+
+14
+00:01:21.350 --> 00:01:25.530
+The bar had still said 100%.
+
+15
+00:01:25.530 --> 00:01:30.500
+Replace the single bar with four statuses.
+
+16
+00:01:30.500 --> 00:01:36.180
+Processing is a plain state: no invented percentage.
+
+17
+00:01:36.180 --> 00:01:39.730
+Parsing is not malware scanning.
+
+18
+00:01:39.730 --> 00:01:44.070
+Bytes transferred is not the same as work completed.

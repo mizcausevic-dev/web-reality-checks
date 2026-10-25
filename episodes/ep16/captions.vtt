@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:06.250
+Eight keystrokes, eight requests. Then 429: Too Many Requests.
+
+2
+00:00:06.250 --> 00:00:11.280
+Nothing is broken. The app is being rate-limited.
+
+3
+00:00:11.280 --> 00:00:17.850
+Fixed window: 5 allowed per 10 s, per identity.
+
+4
+00:00:17.850 --> 00:00:26.620
+The sixth gets 429 + Retry-After. Rejected requests are not counted here.
+
+5
+00:00:26.620 --> 00:00:31.600
+Immediate retry: the window hasn't moved. Rejected again.
+
+6
+00:00:31.600 --> 00:00:37.200
+Observed: 8 keystrokes → 17 requests, 12 × 429.
+
+7
+00:00:37.200 --> 00:00:44.090
+Debounce: send only after 250 ms of no typing.
+
+8
+00:00:44.090 --> 00:00:48.690
+Same 8 keystrokes → 1 request.
+
+9
+00:00:48.690 --> 00:00:52.880
+Responses can arrive out of order.
+
+10
+00:00:52.880 --> 00:01:01.950
+A sequence number: apply a response only if it is still the latest.
+
+11
+00:01:01.950 --> 00:01:05.780
+AbortController cancels the obsolete request.
+
+12
+00:01:05.780 --> 00:01:12.670
+An abort does not prove the server stopped processing.
+
+13
+00:01:12.670 --> 00:01:19.010
+Retry-After: round up, wait, retry the current query at most once.
+
+14
+00:01:19.010 --> 00:01:25.350
+Query changed? Cancel the retry. Real 429s may omit the header.
+
+15
+00:01:25.350 --> 00:01:31.360
+Flawed: 17 requests, 12 × 429, results for "p".
+
+16
+00:01:31.360 --> 00:01:37.370
+Corrected: 1 request, 0 × 429, results for "postgres".
+
+17
+00:01:37.370 --> 00:01:41.720
+Coordinate the work. Don't just repeat it faster.
+
+18
+00:01:41.720 --> 00:01:48.250
+Debouncing is not server-side limiting. Don't reuse this retry policy for writes.

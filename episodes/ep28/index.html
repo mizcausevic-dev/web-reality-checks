@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hidden is not denied: Episode 28 | Web Reality Checks</title>
+<meta name="description" content="I Hid the Admin Button. The Admin Action Still Worked.. 1m 31s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep28/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Hidden is not denied: Episode 28 | Web Reality Checks"><meta property="og:description" content="I Hid the Admin Button. The Admin Action Still Worked.. 1m 31s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep28/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep28/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Hidden is not denied: Episode 28 | Web Reality Checks"><meta name="twitter:description" content="I Hid the Admin Button. The Admin Action Still Worked.. 1m 31s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep28/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 28</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep28.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep28.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5533d">Episode 28 · Trust &amp; access</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">I Hid the Admin Button. The Admin Action Still Worked.</h1>
+<div><span class="badge ok">1m 31s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="9.33"><b>00:09</b><span>setup</span></button></li><li><button type="button" data-t="17.05"><b>00:17</b><span>leak</span></button></li><li><button type="button" data-t="27.08"><b>00:27</b><span>layers</span></button></li><li><button type="button" data-t="42.37"><b>00:42</b><span>fix</span></button></li><li><button type="button" data-t="56.14"><b>00:56</b><span>retest</span></button></li><li><button type="button" data-t="68.71"><b>01:08</b><span>admin</span></button></li><li><button type="button" data-t="75.82"><b>01:15</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep28.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep28-hidden-admin-button">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep28/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep28/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep28/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep28/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Client-side visibility is an interface decision; a privileged action needs a server-side permission check, resolved from trusted state before any side effect.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep28-hidden-admin-button/</code> - a loopback-only Express app on an ephemeral port with <code>node:sqlite</code> storage: a synthetic administrator (<code>u_admin</code>) and member (<code>u_member</code>), a server-side session table, a server-side role/permission store, and one harmless action (publish a synthetic announcement).</li>
+<li>Flawed route <code>POST /vuln/announcements</code>: authenticate, CSRF, insert. Corrected route <code>POST /announcements</code>: authenticate, CSRF, <strong>permission</strong>, insert.</li>
+<li>The UI render function hides the publish button from the member in <strong>both</strong> versions; a test asserts the button is absent.</li>
+<li>CSRF uses <code>csrf-csrf</code> 3.1.0 (same pin as the EP03 fixture): a maintained library, not hand-rolled. Express has no built-in CSRF protection.</li>
+<li>Deliberate policies: 401 for no session (before CSRF), 403 <code>EBADCSRFTOKEN</code> for CSRF failure, 403 <code>PERMISSION_DENIED</code> for authorization failure; permission read from the store at request time; browser-submitted role fields never read.</li>
+<li><strong>Scope:</strong> function-level permission checks, not object-level ownership.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep28-hidden-admin-button/test.mjs</code> -&gt; <code># tests 12</code>, <code># pass 12</code>, <code># fail 0</code> (includes a known-positive control: the member publishes through the flawed endpoint with a valid session and valid CSRF token).</li>
+<li>Executed: <code>node fixtures/ep28-hidden-admin-button/demo.mjs</code> -&gt; <code>evidence.json</code>: flawed member publish 201 (count 1 to 2); corrected member 403 <code>PERMISSION_DENIED</code> (count 2 to 2); forged role claim 403; bad CSRF token 403 <code>EBADCSRFTOKEN</code>; no session 401 on both routes; administrator on the corrected route 201 (count 2 to 3).</li>
+<li>Observed: database announcement counts are read directly from the sqlite store after each request, not inferred from responses.</li>
+<li>Executed: <code>video/src/episodes/ep28/timeline.json</code> and <code>captions.srt</code> were generated with <code>--no-audio</code> (word-count estimate only). They must be rebuilt from the real narration.</li>
+<li>Not executed: narration audio, video render, inspection frames. No MP4 is claimed to exist; the orchestrator renders and fills <code>render-evidence.json</code>.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd fixtures/ep28-hidden-admin-button &amp;&amp; npm install --no-audit --no-fund &amp;&amp; node --test test.mjs &amp;&amp; node demo.mjs
+cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep28    # from narration audio in video/public/ep28/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep28 --concurrency 2</code></pre>
+<h2 id="accuracy-checklist-brief---where-it-appears">Accuracy checklist (brief -&gt; where it appears)</h2>
+<ul>
+<li>Loopback only: fixture binds 127.0.0.1; on-screen note in <code>setup</code> and <code>end</code>.</li>
+<li>Browser-submitted role is not authority: <code>fix</code> scene, narration, test 9.</li>
+<li>CSRF failure must not masquerade as authorization: all authorization tests use a valid session and valid token; <code>setup</code> scene; narration "valid CSRF token".</li>
+<li>Authentication vs CSRF vs authorization distinguished: <code>layers</code> and <code>retest</code> scenes, test 7 and 8.</li>
+<li>Database state verified after rejected requests: <code>retest</code> scene (count 2 to 2), tests 3, 5, 7.</li>
+<li>401 for unauthenticated, consistently: test 5 (both endpoints, three variants).</li>
+<li>Function-level, not object ownership: narration and <code>end</code> scene, fixture README.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated: the "member" and "administrator" are a cookie-jar test client; no real browser, no real cross-site request, no HTTPS (cookies are not <code>Secure</code>). The on-screen "page" is an illustration of the render function's output, not a screenshot.</li>
+<li>Sign-in is a test harness (<code>/_fixture/login/:user</code>); sessions have no expiry or rotation.</li>
+<li>Only the publish route is covered. Every other privileged route needs its own check and test. The application is not claimed to be fully secure.</li>
+<li>The flawed endpoint is hand-constructed and must never be deployed.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep27/index.html">← Episode 27: Results jump backward</a></span><span></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

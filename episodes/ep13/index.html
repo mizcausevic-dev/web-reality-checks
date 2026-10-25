@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Is that key a leak?: Episode 13 | Web Reality Checks</title>
+<meta name="description" content="That API Key Is in Your JavaScript. Is That Always a Leak?. 1m 49s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep13/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Is that key a leak?: Episode 13 | Web Reality Checks"><meta property="og:description" content="That API Key Is in Your JavaScript. Is That Always a Leak?. 1m 49s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep13/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep13/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Is that key a leak?: Episode 13 | Web Reality Checks"><meta name="twitter:description" content="That API Key Is in Your JavaScript. Is That Always a Leak?. 1m 49s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep13/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 13</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep13.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep13.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5533d">Episode 13 · Trust &amp; access</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">That API Key Is in Your JavaScript. Is That Always a Leak?</h1>
+<div><span class="badge ok">1m 49s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>inspect leak</span></button></li><li><button type="button" data-t="9.58"><b>00:09</b><span>ask</span></button></li><li><button type="button" data-t="21.84"><b>00:21</b><span>public fail</span></button></li><li><button type="button" data-t="32.27"><b>00:32</b><span>secret ok</span></button></li><li><button type="button" data-t="39.58"><b>00:39</b><span>fix</span></button></li><li><button type="button" data-t="54.72"><b>00:54</b><span>reject</span></button></li><li><button type="button" data-t="62.29"><b>01:02</b><span>allow</span></button></li><li><button type="button" data-t="77.32"><b>01:17</b><span>retest scan</span></button></li><li><button type="button" data-t="90.44"><b>01:30</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep13.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep13-api-key-capability">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep13/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep13/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep13/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep13/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Classify a credential by what it authorises, not by its name or prefix: a public identifier names something, a secret grants capability.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep13-api-key-capability/</code> — a loopback-only Node 22 fixture with three parts: a <strong>mock upstream</strong> (fictional vendor: <code>GET /public/:projectId</code> open to anyone; <code>POST /privileged</code> requires <code>Authorization: Bearer SERVER_SECRET_TOKEN</code>), an <strong>application backend</strong> (test-harness sessions, two synthetic users <code>u_mara</code> maintainer / <code>u_vik</code> viewer, role check, a one-entry operation allow-list, upstream call made with the secret from backend-only config, response re-shaped), and two static browser bundles.</li>
+<li>Two synthetic values: <code>PUBLIC_PROJECT_ID = proj_pub_7f3a21</code> (an identifier) and <code>SERVER_SECRET_TOKEN = srv_secret_SYNTHETIC_…</code> (a bearer credential). Neither models any real vendor's format or policy.</li>
+<li><code>bundle-flawed/</code> embeds <strong>both</strong> values (JS constant and inline HTML env block) and calls the upstream directly from the browser. <code>bundle-corrected/</code> embeds only the identifier and asks the backend for the one privileged operation.</li>
+<li><code>inspect-artifacts.mjs</code> scans <code>.js/.mjs/.cjs/.html/.json/.map</code> for credential-like strings (fixture secret prefix, <code>Bearer &lt;token&gt;</code> literals, private-key blocks, <code>secret|token|key|password: "&lt;long high-entropy value&gt;"</code>), reports redacted values, and runs a <strong>known-positive control</strong> against the flawed bundle before it will report on anything else.</li>
+<li>Deliberate policies: upstream 401 (no bearer) vs 403 (wrong bearer); backend 401 (no session) vs 403 (role) vs 400 (operation not on the allow-list), kept distinct so the video can show which check fired. The backend never forwards a client-supplied operation, project id or credential. <code>delete_project</code> exists at the upstream so the secret is visibly more powerful than the single operation the backend exposes.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep13-api-key-capability/test.mjs</code> → <code># tests 16  # pass 16  # fail 0</code>. Includes known-positive controls: the synthetic secret <strong>does</strong> authorise the privileged operation (200); the scanner <strong>does</strong> find the planted secret in both <code>app.js</code> and <code>index.html</code>; the served flawed bundle <strong>does</strong> contain the secret; the upstream <strong>would</strong> perform <code>delete_project</code> for the secret-holder.</li>
+<li>Executed: <code>node fixtures/ep13-api-key-capability/demo.mjs</code> → <code>evidence.json</code>. Upstream: public id as bearer <strong>403</strong>, no credential 401, secret <strong>200</strong> (rotate_webhook and delete_project). Backend: unauthenticated <strong>401</strong>, viewer <strong>403</strong>, maintainer <strong>200</strong> (exactly 1 upstream call, made by the backend; <code>secretInResponse: false</code> across all 5 backend responses), over-broad <code>delete_project</code> <strong>400</strong> with no upstream call. Scanner: flawed bundle <strong>2 secret-like</strong> + 2 identifier-like; corrected bundle <strong>0 secret-like</strong> + 2 identifier-like, after the control run.</li>
+<li>Executed: <code>node tools/build-timeline.mjs ep13 --no-audio</code> → provisional <code>video/src/episodes/ep13/timeline.json</code> (estimated 109.7 s from a 2.55 words/s rate; to be rebuilt from real narration audio by the orchestrator). Narration: 258 words.</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> passes for <code>src/episodes/ep13/*</code> (at the time of writing, unrelated in-progress episodes from other builders may show their own errors).</li>
+<li>Predicted: scene durations in <code>Scenes.tsx</code> are tuned for roughly 7–14 s per scene; the orchestrator's audio-aligned timeline will set the real values.</li>
+<li>Blocked (not done here, by spec): narration audio, render, <code>render-evidence.json</code>, thumbnail, git.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep13      # from narration audio in video/public/ep13/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep13 --concurrency 2</code></pre>
+<h2 id="accuracy-bullets-from-the-brief--where-they-appear">Accuracy bullets from the brief → where they appear</h2>
+<div class="tw"><table>
+<thead>
+<tr class="header">
+<th>brief bullet</th>
+<th>narration</th>
+<th>on screen</th>
+<th>fixture</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A value is not safe merely because it is named PUBLIC</td>
+<td><code>inspect_leak</code>, <code>public_fail</code></td>
+<td>scene 1 amber line; scene 3 "tested fact, not a promise"</td>
+<td>capability test: public id as bearer → 403</td>
+</tr>
+<tr class="even">
+<td>Some browser-exposed vendor keys intentionally grant limited capability; this fixture does not establish another provider's policy</td>
+<td><code>end</code></td>
+<td>end card</td>
+<td>fixture README</td>
+</tr>
+<tr class="odd">
+<td>CORS is not authentication or authorisation</td>
+<td><code>end</code></td>
+<td>end card</td>
+<td>nothing in the fixture relies on CORS; the harness is not a browser</td>
+</tr>
+<tr class="even">
+<td>Moving a secret to a backend does not make an unrestricted proxy safe</td>
+<td><code>fix</code>, <code>allow</code></td>
+<td>scene 5 "NOT ENOUGH ON ITS OWN"; scene 7 <code>delete_project</code> → 400</td>
+<td>allow-list test + control that the upstream would allow it</td>
+</tr>
+<tr class="odd">
+<td>Inspect JavaScript, HTML, configuration payloads, and source maps if produced</td>
+<td><code>retest_scan</code></td>
+<td>scene 8 "Scanned" / "Source maps" boxes</td>
+<td>scanner extensions <code>.js/.html/.json/.map</code>; <code>/config</code> payload tested</td>
+</tr>
+<tr class="even">
+<td>Absence from tested assets does not prove every leak is closed</td>
+<td><code>retest_scan</code>, <code>end</code></td>
+<td>scene 8 amber line; end card</td>
+<td>scanner CLI note; README</td>
+</tr>
+<tr class="odd">
+<td>Removing a leaked production secret does not revoke copies; rotation is a separate response</td>
+<td><code>end</code></td>
+<td>end card amber line</td>
+<td>README (rotation not implemented)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Simulated, not measured against anything real.</strong> The upstream is a fictional vendor on loopback. No real credential, provider, format, TLS or network is involved.</li>
+<li><strong>No real browser executes the bundles.</strong> The bundles are static artefacts that are served and scanned; browser behaviour is implied from the code. The video's bundle view is an illustrative code panel.</li>
+<li><strong>Scan scope.</strong> The scanner is heuristic and covers the files in the two bundle folders plus the <code>/config</code> payload. It found no source map because this build produced none. It does not scan server-rendered pages, logs, caches, third-party scripts, build caches or source-control history.</li>
+<li><strong>Repair scope.</strong> The backend exposes one operation to one role. Production backends also need rate limiting, audit logging, and real authentication; the session mechanism here is a test harness.</li>
+<li><strong>Rotation is not implemented.</strong> The fixture shows removal from the bundle; it states, but does not demonstrate, that a real leaked secret would additionally require revocation or rotation at the issuer.</li>
+<li>The flawed bundle must never be deployed; everything binds to 127.0.0.1 on ephemeral ports.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep13/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep13 → episodes/ep13/ep13.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 109.6 s, 9765509 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep12/index.html">← Episode 12: Still the old version?</a></span><span><a href="../ep14/index.html">Episode 14: Uploaded, not ready →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

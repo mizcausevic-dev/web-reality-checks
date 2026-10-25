@@ -1,0 +1,73 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:06.540
+One completed order. Three received purchase envelopes.
+
+2
+00:00:06.540 --> 00:00:12.480
+Same event, same transaction ID, three senders.
+
+3
+00:00:12.480 --> 00:00:21.840
+Rewind: one click, one completed order, one confirmation screen.
+
+4
+00:00:21.840 --> 00:00:29.520
+Three emitters: app handler, tag-manager trigger, component mount.
+
+5
+00:00:29.520 --> 00:00:37.200
+Each sent its own envelope to the collector.
+
+6
+00:00:37.200 --> 00:00:43.390
+event: purchase ×3 · transaction_id: identical ×3
+
+7
+00:00:43.390 --> 00:00:49.580
+emitter: three sources · ts: milliseconds apart
+
+8
+00:00:49.580 --> 00:00:54.080
+Several components claim ownership of one business event.
+
+9
+00:00:54.080 --> 00:01:01.950
+3 raw envelopes ≠ 3 GA4 conversions. GA4 documents purchase dedup by transaction_id (web).
+
+10
+00:01:01.950 --> 00:01:09.830
+That covers purchase, not every event. It hides duplication; it does not fix it.
+
+11
+00:01:09.830 --> 00:01:16.960
+One authoritative emitter: the handler that runs when the order completes.
+
+12
+00:01:16.960 --> 00:01:21.910
+Remove the tag-manager trigger. Remove the mount-handler emission.
+
+13
+00:01:21.910 --> 00:01:26.870
+The component still renders. It no longer reports.
+
+14
+00:01:26.870 --> 00:01:32.860
+Retest: complete the same order, then remount the component twice.
+
+15
+00:01:32.860 --> 00:01:36.260
+Received: 1 envelope, from app.purchaseHandler.
+
+16
+00:01:36.260 --> 00:01:43.060
+Tested scenario only. Not exactly-once across reloads, retries or devices.
+
+17
+00:01:43.060 --> 00:01:47.820
+Order-level idempotency is a separate design concern.
+
+18
+00:01:47.820 --> 00:01:50.390
+Fix the emitters. Then verify the reporting.

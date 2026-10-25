@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What HTTPS still shows: Episode 20 | Web Reality Checks</title>
+<meta name="description" content="HTTPS Encrypts Your Request. What Can the Network Still See?. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep20/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="What HTTPS still shows: Episode 20 | Web Reality Checks"><meta property="og:description" content="HTTPS Encrypts Your Request. What Can the Network Still See?. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep20/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep20/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="What HTTPS still shows: Episode 20 | Web Reality Checks"><meta name="twitter:description" content="HTTPS Encrypts Your Request. What Can the Network Still See?. 1m 50s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep20/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 20</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep20.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep20.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#5fe08a">Episode 20 · Delivery &amp; freshness</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">HTTPS Encrypts Your Request. What Can the Network Still See?</h1>
+<div><span class="badge ok">1m 50s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>navigate</span></button></li><li><button type="button" data-t="16.11"><b>00:16</b><span>dns</span></button></li><li><button type="button" data-t="30.65"><b>00:30</b><span>address</span></button></li><li><button type="button" data-t="42.86"><b>00:42</b><span>sni</span></button></li><li><button type="button" data-t="49.62"><b>00:49</b><span>serverhello</span></button></li><li><button type="button" data-t="56.07"><b>00:56</b><span>certificate</span></button></li><li><button type="button" data-t="66.77"><b>01:06</b><span>request</span></button></li><li><button type="button" data-t="78.04"><b>01:18</b><span>ends</span></button></li><li><button type="button" data-t="92.79"><b>01:32</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep20.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep20-https-visibility">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep20/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep20/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep20/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep20/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> TLS encrypts the HTTP content of a request, but the connection still travels with metadata a passive observer can read: the DNS question (with plain DNS), destination IP and port, timing and volume, and, without ECH, the SNI hostname.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep20-https-visibility/</code> — a <strong>labelled conceptual illustration</strong>, not a capture. Every scene carries the persistent tag <code>CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED</code>. No DNS, TCP, TLS or HTTP traffic was generated, observed or recorded; the environment has no isolated network or trusted HTTPS, and the brief forbids fabricating captures.</li>
+<li><code>visibility-matrix.json</code> — hand-authored from protocol specifications (RFC 8446, RFC 6066, RFC 9110, RFC 1035, WHATWG URL): 11 rows × 3 views (browser / passive observer / TLS endpoint), each cell <code>visible | encrypted | not-sent</code> with a one-line reason and the scope assumption it depends on; plus ECH / encrypted-DNS / CDN-termination variants and the brief's accuracy bullets as ids.</li>
+<li><code>url-parts.mjs</code> — the only executed behaviour: WHATWG <code>URL</code> parsing of <code>https://example.test/account?tab=billing#history</code> into resolution name, request target (path + query) and fragment, proving the fragment is absent from the request target.</li>
+<li><code>scope-notes.md</code>, <code>accuracy-checklist.md</code> — the assumptions behind every cell and the scene-by-scene mapping of every ACCURACY / SCOPE / EXAMPLE bullet.</li>
+<li>Deliberate policy: the three views show visibility <strong>separately for names, addresses, timing and content</strong>. The observer column never displays readable HTTP content or a readable TLS 1.3 certificate; those are drawn as hatched ciphertext blocks whose widths are shapes, not measurements.</li>
+<li><code>192.0.2.10</code> on screen is an RFC 5737 documentation address used as a label.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep20-https-visibility/test.mjs</code> → <code># tests 18  # pass 18  # fail 0</code> (URL splitting with a known-positive control; matrix schema; observer-never-sees-content/certificate invariants; variant consistency; checklist covers every accuracy id under a real scene; every script scene tagged; scope-notes content).</li>
+<li>Executed: <code>node fixtures/ep20-https-visibility/demo.mjs</code> → <code>evidence.json</code>: resolution name <code>example.test</code>, port <code>443</code>, request line <code>GET /account?tab=billing HTTP/1.1</code>, fragment <code>#history</code>, <code>fragmentInRequestTarget: false</code>. Observer tally over the matrix: 5 visible (DNS question, destination IP, port, timing/volume, SNI), 5 encrypted (TLS 1.3 certificate, method/path/query, headers, cookies, body), 1 not-sent (URL fragment). Browser: 11 visible. Endpoint: 9 visible, 2 not-sent (DNS question, URL fragment).</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors in <code>src/episodes/ep20/</code>.</li>
+<li>Executed: <code>node tools/build-timeline.mjs ep20 --no-audio</code> → provisional <code>video/src/episodes/ep20/timeline.json</code> and <code>episodes/ep20/captions.srt</code> (word-count estimate, 104.56 s; to be rebuilt by the orchestrator from real narration audio).</li>
+<li>Predicted: DNS, TCP, TLS handshake and HTTP behaviour as drawn follow from the cited specifications under the stated scope; none of it was observed on a network.</li>
+<li>Blocked: no packet capture, no real TLS session, no narration audio, no render (orchestrator fills <code>render-evidence.json</code>).</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep20      # needs video/public/ep20/narration.mp3 (or add --no-audio)
+node tools/gen-root.mjs
+node tools/render.mjs ep20 --concurrency 2</code></pre>
+<h2 id="accuracy-bullets-all-reflected-on-screen-or-in-narration-mapping-in-fixturesep20-https-visibilityaccuracy-checklistmd">Accuracy bullets (all reflected on screen or in narration; mapping in <code>fixtures/ep20-https-visibility/accuracy-checklist.md</code>)</h2>
+<ul>
+<li>Observer is never depicted reading encrypted HTTP content (scenes <code>certificate</code>, <code>request</code>).</li>
+<li>TLS 1.3 server certificate is never depicted as plaintext on the wire (<code>serverhello</code>, <code>certificate</code>); on-screen note that TLS 1.2 differed.</li>
+<li>Without ECH, SNI can reveal the requested hostname (<code>sni</code>).</li>
+<li>DNS visibility depends on transport and observer position (<code>dns</code>, <code>end</code>).</li>
+<li>Destination IP does not necessarily identify one unique website (<code>address</code>, <code>end</code>).</li>
+<li>Record lengths and timing are observable but do not reveal exact content by themselves (<code>address</code>, <code>request</code>).</li>
+<li>ECH protects the inner ClientHello; it does not hide all metadata (<code>sni</code> footnote, <code>end</code>).</li>
+<li>Encrypted DNS does not hide destination IP addresses (<code>end</code>).</li>
+<li>A CDN terminating TLS is an endpoint for that connection; onward connections are separate (<code>ends</code>).</li>
+<li>HTTPS does not prevent phishing, compromised endpoints, or server logging (<code>ends</code>, <code>end</code>).</li>
+<li>No packet captures fabricated; persistent tag on every scene, explicit "no traffic captured" notes (<code>navigate</code>, <code>address</code>, <code>serverhello</code>, <code>end</code>).</li>
+<li>Scope (TLS 1.3 over TCP, plain DNS, no VPN/proxy, no ECH, no resumption/0-RTT, trusted browser and endpoint, passive on-path observer) is stated on screen in <code>navigate</code> and <code>end</code> and is not presented as every modern browser connection.</li>
+<li>Example URL: hostname used for resolution and connection setup; path and query in the request; fragment not in the request target; page JavaScript could separately transmit a fragment but that is outside the illustrated request (<code>navigate</code>, <code>dns</code>, <code>request</code>, <code>ends</code>).</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Entirely conceptual. Nothing about the drawn record sizes, timings, certificate fields or key agreement is measured; they are schematic.</li>
+<li>Not covered: HTTP/3 over QUIC, TLS 1.2, session resumption, 0-RTT, OCSP, client certificates, traffic-analysis attacks beyond the statement that sizes and timing alone do not reveal exact content.</li>
+<li>The illustrative browser chrome in <code>navigate</code> is a plain <code>Box</code>, labelled illustrative; it mimics no product.</li>
+<li>Caption timing in the provisional timeline is a word-count heuristic; the orchestrator re-aligns to real audio.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep20/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep20 → episodes/ep20/ep20.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.33 s, 10721034 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep19/index.html">← Episode 19: What did the server send?</a></span><span><a href="../ep21/index.html">Episode 21: Deleted, still showing →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why Do Websites Do Weird Things? Five Glitches, Explained With Everyda</title>
+<meta name="description" content="A double charge, a page that will not update, someone else's name on your screen, a date one day early, and a deleted thing that still shows up. Each one r">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/launch/c-weird-websites/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Why Do Websites Do Weird Things? Five Glitches, Explained With Everyda"><meta property="og:description" content="A double charge, a page that will not update, someone else's name on your screen, a date one day early, and a deleted thing that still shows up. Each one r"><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/launch/c-weird-websites/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/launch/c-weird-websites/images/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Why Do Websites Do Weird Things? Five Glitches, Explained With Everyda"><meta name="twitter:description" content="A double charge, a page that will not update, someone else's name on your screen, a date one day early, and a deleted thing that still shows up. Each one r"><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/launch/c-weird-websites/images/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap"><article class="prose">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / For everyone else</p>
+<h1 id="why-do-websites-do-weird-things-five-glitches-explained-with-everyday-objects">Why Do Websites Do Weird Things? Five Glitches, Explained With Everyday Objects</h1>
+<p><em>A double charge, a page that will not update, someone else's name on your screen, a date one day early, and a deleted thing that still shows up. Each one reproduced on a laptop. No code required.</em></p>
+<p><img loading="lazy" decoding="async" src="images/hero.png" alt="Five everyday website glitches paired with everyday objects: a double charge, an old page, a wrong name, a date off by one, a deleted record that still shows" /></p>
+<p>You tapped Pay once, saw an error, tapped again, and now there are two orders. You deleted a contact and it still turns up in search.</p>
+<p>If you have ever asked "why do websites do weird things?", the short answer is that a website is not one thing. It is a chain of helpers, and each helper keeps its own copy of the truth. Weirdness appears when two copies disagree, or when a message gets lost between helpers. Below are five weird moments, one everyday object for each, and what happened when we rebuilt each one on a laptop and tested it.</p>
+<h2 id="the-short-answer-why-websites-do-weird-things">The short answer: why websites do weird things</h2>
+<p>Three words will come up.</p>
+<ul>
+<li>A <strong>server</strong> is the computer that answers when your phone or laptop asks for something.</li>
+<li>A <strong>database</strong> is that server's filing cabinet, where the official records live.</li>
+<li>A <strong>cache</strong> is a saved copy kept close by so answers come back faster, like a sticky note.</li>
+</ul>
+<p>Speed is why copies exist, and stale copies cause most of the strangeness below.</p>
+<p>This article comes from <strong>Web Reality Checks</strong>, a library of {{EPISODES}} short narrated films by Miz Causevic, Kinetic Gain LLC. Each film builds a tiny pretend app with made-up people, makes it misbehave on purpose, proves the check can fail, applies the smallest fix, and runs the same check again. The method has four steps: <strong>Flaw, Control, Repair, Retest.</strong> The films fall into {{ARCS}} groups. These five stories come from four.</p>
+<p><img loading="lazy" decoding="async" src="images/diagram-chain.png" alt="Map of the chain of copies behind a website and where each glitch lives" /></p>
+<h2 id="1-tapped-pay-once-got-two-orders-episode-15">1. Tapped Pay once, got two orders (Episode 15)</h2>
+<p><strong>The object: a phone order to a pizza place.</strong> You give your order, the line goes dead, and you cannot tell whether they heard you. You call back and order again. Two pizzas arrive.</p>
+<p>In our pretend shop, the customer taps Pay once. The server saves the order, then we cut the connection before the "success" message can travel back. On screen that looks like an error, so the app tries again, as the message suggests. The flawed shop has no memory of attempt one, so it writes down order number two.</p>
+<p>The numbers come from the local test fixture. In the flawed version, two attempts produced <strong>two orders</strong>. In the repaired version, two attempts produced <strong>one order</strong>, and so did five identical requests sent at the same moment.</p>
+<p><strong>Why the fix works:</strong> every attempt carries a ticket number, and the server writes the ticket down together with the order. When the same ticket comes back, the server returns the original confirmation instead of making a new order. This idea is called an <em>idempotency key</em>, and payment services such as Stripe use it. <a href="https://docs.stripe.com/api/idempotent_requests">Stripe's documentation</a> describes it as a way to retry requests "without accidentally performing the same operation twice." Two separate purchases get two tickets and two orders, which is right. If someone reuses a ticket but changes the order from one item to three, the fixed server refuses instead of guessing.</p>
+<p>Why not just grey out the Pay button? Because the second request was not an impatient thumb. It was a retry after an error, which an app, a refresh, or a second tab can send for you. So after an error on a payment page, check your email or order history before trying again.</p>
+<p><img loading="lazy" decoding="async" src="images/diagram-retry.png" alt="One tap, a lost reply and a retry: two orders without a ticket number, one order with it" /></p>
+<p>Full episode: <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep15/content/article-technical.md">You Clicked Pay Once. Why Did the App Create Two Orders?</a></p>
+<h2 id="2-the-site-updated-but-you-still-see-the-old-one-episode-12">2. The site updated, but you still see the old one (Episode 12)</h2>
+<p><strong>The object: a shift handover at a shop.</strong> A new manager arrives but waits at the door until the old manager's shift ends. Customers who walked in earlier are still served by the old manager.</p>
+<p>Some websites install a small helper inside your browser, a <em>service worker</em>, that keeps a saved copy of the site so it opens quickly. When the site changes, the browser installs the new helper, but the new one does not take over at once. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers">MDN, the web developers' reference, explains</a> that a new version "is only activated when there are no longer any pages loaded that are still using the old service worker." A tab left open all week counts as a page still using the old one.</p>
+<p>In our pretend site, Build 1 is a blue page and Build 2 is a green one. After we published Build 2, the server served Build 2 while the open tab still showed Build 1. The page showed an "Update available" notice, and only after approval did Build 2 take over.</p>
+<p>The film labels this carefully. The browser lifecycle here is a <strong>model</strong> running the real helper code in Node, not a recording of a real browser, and it covers <strong>one</strong> cause of stale pages. A saved copy in the browser's ordinary cache, or on a delivery network, are different causes with different fixes. If a site looks out of date and you have several tabs of it open, closing all of them and reopening is a reasonable first step, not a cure for everything.</p>
+<p>Full episode: <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep12/content/article-technical.md">Your Website Updated. Why Am I Still Seeing the Old Version?</a></p>
+<h2 id="3-someone-elses-name-on-your-screen-episode-24">3. Someone else's name on your screen (Episode 24)</h2>
+<p><strong>The object: a hotel front desk with one welcome letter.</strong> The first guest of the day gets a letter that says "Welcome back, Alice." The clerk, trying to be efficient, files that single letter under "Welcome letter" and hands the same one to the next guest, Bob.</p>
+<p>Alice and Bob each signed in correctly. The sign-in was never the problem. The page was saved for reuse under a label that said only <code>/dashboard</code>, a label with no person in it. Alice loaded her page first. When Bob asked for his, the app answered from the saved copy. Bob saw "Welcome back, Alice" and her email address (all synthetic).</p>
+<p>You might expect a polite instruction to stop this. We tested that. In the flawed app we added the header <code>Cache-Control: private, no-store</code>, which tells caches not to share the page. Bob still got Alice's page, because the app's own saving code never read the header. <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control">MDN</a> notes that personalized content without <code>private</code> "can be stored in a shared cache and end up being reused for multiple users."</p>
+<p>The repair stopped sharing that personal page and emptied the old saved copy. In the retest, four requests alternated between Alice and Bob, and each person saw only their own name. One limit: the repair changes later pages only. A page that already reached a screen cannot be called back.</p>
+<p>This cache was written for the fixture. It is not a delivery network, and the film does not claim real services do this by default. If you ever see another person's details on a site, take a screenshot, log out, and report it: that is a bug on their side.</p>
+<p>Full episode: <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep24/content/article-technical.md">Why Did This Dashboard Show Someone Else's Name?</a></p>
+<h2 id="4-a-date-that-moved-back-one-day-episode-22">4. A date that moved back one day (Episode 22)</h2>
+<p><strong>The object: a birthday versus a flight.</strong> A birthday on March 3 is a square on the wall calendar, the same square in every country. A flight departure is a precise moment that people in different time zones read on different clocks.</p>
+<p>Trouble starts when software turns a calendar square into a moment. In our pretend task, the deadline was "2026-01-15", a date with no time. A common programming habit reads that as midnight at the zero line of the world's clocks (UTC, which matches London time in winter). <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date">MDN notes</a> that date-only strings like this are "interpreted as a UTC time." The page then shows that moment on the viewer's clock, and midnight in London is 7 p.m. the evening before in New York.</p>
+<p>The flawed page showed the deadline as January 15 for UTC, <strong>January 14</strong> for New York, and January 15 for Tokyo. Tokyo looked fine only because it is ahead of UTC, so the same moment is already morning of the 15th there. The repaired page treats the deadline as a calendar date and never turns it into a moment, so it showed January 15 in all three places.</p>
+<p>A meeting is different. A 15:00 UTC meeting correctly showed as 10:00 in New York and as midnight starting January 16 in Tokyo. A moment may land on different dates in different places. A deadline may not. The shortcut "add twelve hours" still fails in a zone 14 hours ahead of UTC (Kiritimati), where the test shows January 16.</p>
+<p><img loading="lazy" decoding="async" src="images/diagram-date.png" alt="The same deadline shown on three clocks: wrong in New York when read as a moment, right when kept as a date" /></p>
+<p>Full episode: <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep22/content/article-technical.md">Your Deadline Moved Back a Day. Nobody Edited It.</a></p>
+<h2 id="5-deleted-but-still-showing-episode-21">5. Deleted, but still showing (Episode 21)</h2>
+<p><strong>The object: a library card catalogue.</strong> A librarian removes a book from the shelf. The little card for it is still in the drawer, and a printed list from last week is still in your hand.</p>
+<p>In our pretend contact directory, one record lives in the main table, a second copy sits in a search list, a third in the saved results of recent searches, and a fourth on the screen of someone who already loaded results. The flawed delete removed only the main record. Asking for that contact directly returned "not found" (a 404), but search still returned it, with or without a saved query.</p>
+<p>The repair treats deleting as a small job list, not one click. In a single step the server removes the main record and writes down "clean up the copies." A background worker then removes the search entry and clears the saved results. In our test, the first attempt hit an injected failure on the saved results, so the job stayed unfinished and the stale search still appeared. The second attempt finished it. After three failures in a row, the job was marked <strong>failed</strong> and raised an alert instead of pretending it worked.</p>
+<p>The open results page stayed as it was until refreshed, shown with a simulated browser. Backups, logs, exports and other companies' copies are not covered, so this is not a privacy-erasure method. If something still shows days after you deleted it, tell the site, because a cleanup job may be stuck.</p>
+<p>Full episode: <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep21/content/article-technical.md">I Deleted the Record. Why Is It Still Showing Up?</a></p>
+<h2 id="a-pocket-guide-to-the-five-symptoms">A pocket guide to the five symptoms</h2>
+<div class="tw"><table>
+<thead>
+<tr class="header">
+<th>What you see</th>
+<th>The usual suspect</th>
+<th>Everyday object</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Two orders from one tap</td>
+<td>A retry the server could not recognize</td>
+<td>Pizza call, line dropped</td>
+</tr>
+<tr class="even">
+<td>Old version after an update</td>
+<td>A helper in your browser still serving the old copy</td>
+<td>Manager waiting at the door</td>
+</tr>
+<tr class="odd">
+<td>Another person's name</td>
+<td>A saved page shared between people</td>
+<td>One welcome letter for every guest</td>
+</tr>
+<tr class="even">
+<td>Date a day off</td>
+<td>A calendar date treated as a moment</td>
+<td>Birthday versus flight</td>
+</tr>
+<tr class="odd">
+<td>Deleted but visible</td>
+<td>Copies that were not cleaned up</td>
+<td>Card catalogue drawer</td>
+</tr>
+</tbody>
+</table></div>
+<p>A rule of thumb, not a diagnosis: each film shows one cause, and a symptom can have others.</p>
+<h2 id="who-it-is-for-and-how-it-works">Who it is for and how it works</h2>
+<p>It serves shoppers who want to know what to tell support, owners deciding what to ask a developer, and builders who want a test they can run. Every film follows the four steps above. A <em>known-positive control</em>, the second step, proves the test can catch the problem, like testing a smoke detector with a candle. A screen that looks right is not proof the system behind it is right.</p>
+<h2 id="what-exists-today-and-what-it-does-not-claim">What exists today, and what it does not claim</h2>
+<ul>
+<li><strong>Demonstrated:</strong> each fixture is a small program that runs on your own computer, listens only to that computer, and has automated tests that pass. The numbers quoted here come from those runs. The repository's {{TESTS}} passing tests and {{RUNTIME}} of film are counted by the release process.</li>
+<li><strong>Conceptual or simulated:</strong> the browser lifecycle in Episode 12 is a model, the open browser in Episode 21 is simulated, and the cache in Episode 24 is custom code written for the test.</li>
+<li><strong>Not claimed:</strong> none of this is an audit of a real product or company, or a certification. Each fix covers the one problem shown, and nothing here says how often these glitches happen in the wild.</li>
+<li><strong>Planned:</strong> the repository publishes no roadmap, so nothing further is promised.</li>
+</ul>
+<h2 id="watch-read-and-run-it">Watch, read and run it</h2>
+<p>Watch the playlist: <a href="../../index.html#episodes">Watch the films on this site</a>. Read the code and run the tests in the open <a href="https://github.com/mizcausevic-dev/web-reality-checks">repository</a>. Each fixture runs with <code>node --test</code>.</p>
+<p>Related episodes: <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep02/content/article-technical.md">One Click. Three Purchase Events. Here's What Went Wrong.</a> shows one purchase triggering three separate analytics events, and <a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep17/content/article-technical.md">Your Dashboard Says 'Live.' Its Data Is Ten Minutes Old.</a> covers another label that hides how old the data is.</p>
+<blockquote>
+<p>This episode uses a deliberately constructed local fixture with synthetic data. Nothing here is a finding about a real product or company. Fixture, tests and video source: github.com/mizcausevic-dev/web-reality-checks</p>
+</blockquote>
+<p>Weird websites are usually ordinary software doing exactly what it was told, one copy at a time.</p>
+<p>Miz Causevic, Kinetic Gain LLC</p>
+
+<hr><h2>Watch and test yourself</h2>
+<div class="links" style="font-size:17px"><a href="../../episodes/cm03/index.html">Watch the 1m 03s launch film</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/launch/c-weird-websites/social.md">Social copy</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/launch/c-weird-websites/seo.md">SEO notes</a></div>
+</article></div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

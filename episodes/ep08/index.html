@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why it feels slow: Episode 08 | Web Reality Checks</title>
+<meta name="description" content="Why This Beautiful Website Feels Slow. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep08/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Why it feels slow: Episode 08 | Web Reality Checks"><meta property="og:description" content="Why This Beautiful Website Feels Slow. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep08/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep08/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Why it feels slow: Episode 08 | Web Reality Checks"><meta name="twitter:description" content="Why This Beautiful Website Feels Slow. 1m 43s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep08/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 08</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep08.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep08.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#a78bfa">Episode 08 · Experience &amp; speed</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Why This Beautiful Website Feels Slow</h1>
+<div><span class="badge ok">1m 43s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="9.82"><b>00:09</b><span>timelines</span></button></li><li><button type="button" data-t="22.51"><b>00:22</b><span>hero request</span></button></li><li><button type="button" data-t="36.62"><b>00:36</b><span>handler work</span></button></li><li><button type="button" data-t="51.43"><b>00:51</b><span>fix image</span></button></li><li><button type="button" data-t="65.08"><b>01:05</b><span>fix handler</span></button></li><li><button type="button" data-t="77.12"><b>01:17</b><span>results</span></button></li><li><button type="button" data-t="92.94"><b>01:32</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep08.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep08-feels-slow">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep08/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep08/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep08/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep08/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Visual polish, loading speed and interaction responsiveness are three different things; an oversized hero image slows the loading timeline and an expensive synchronous click handler slows the interaction timeline, and fixing one does nothing for the other.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep08-feels-slow/</code> — two visually equivalent static pages served from a loopback-only Node 22 server (<code>serve.mjs</code>, 127.0.0.1, ephemeral port, <code>Cache-Control: no-store</code>).</li>
+<li><strong>before/</strong>: a 4000×2250 lossless PNG hero (12,173,721 bytes) for a 1600 px slot, plus a click handler that does an O(n²) nested scan over a seeded 20,000-item catalogue, synchronously.</li>
+<li><strong>after/</strong>: the same picture as a 1600×900 WebP (17,004 bytes), plus an O(n) histogram handler with identical output (digest <code>ec44c9fd</code>).</li>
+<li>Both images are generated deterministically by <code>make-assets.mjs</code> (Python PIL + numpy via <code>child_process</code>); no third-party assets. Data is seeded (Mulberry32, seed 8). Synthetic only.</li>
+<li>Deliberate policy: the hero is above the fold and is the expected largest contentful element, so it is <strong>not</strong> lazy-loaded in either variant (<code>fetchpriority="high"</code>, intrinsic <code>width</code>/<code>height</code>).</li>
+<li>Deliberate policy: the repaired handler is still synchronous; the cost is removed by a cheaper algorithm, not hidden by a spinner, timeout or animation.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep08-feels-slow/test.mjs</code> → <code># tests 7  # pass 7  # fail 0</code> (includes a known-positive control asserting the before handler is slow, &gt; 100 ms, and the after handler is faster with the same digest; asserts no <code>loading="lazy"</code> on the hero in either page).</li>
+<li>Executed: <code>node fixtures/ep08-feels-slow/demo.mjs</code> → <code>fixtures/ep08-feels-slow/evidence.json</code>: hero bytes before <strong>12,173,721</strong> / after <strong>17,004</strong>; handler CPU time in Node, 7 runs each, median before <strong>4253.02 ms</strong> (raw 4299.32 · 4921.91 · 4253.02 · 3555.42 · 3288.51 · 3891.63 · 4488.83) / after <strong>1.40 ms</strong> (raw 9.24 · 1.35 · 1.31 · 29.84 · 1.35 · 1.4 · 21.4); equal outputs <code>true</code>. Environment: Node v22.23.4, linux x64, 2 vCPU shared container.</li>
+<li>Label carried by every handler number on screen and in the fixture: <strong>fixture-measured handler CPU time in Node, NOT browser INP</strong>.</li>
+<li>Label carried by every byte figure: file bytes served by the loopback fixture, not a transfer time and not LCP.</li>
+<li>Observed: no LCP figure, no Event Timing figure and no INP figure appear anywhere in the video, because none were measured.</li>
+<li><strong>Blocked: browser lab measurement (LCP for loading; Event Timing for the scripted click).</strong> No browser was available in this environment. Exact procedure for Miz to run locally, from <code>fixtures/ep08-feels-slow/test-conditions.md</code>:
+<ol type="1">
+<li><code>node fixtures/ep08-feels-slow/make-assets.mjs</code> once, then <code>node fixtures/ep08-feels-slow/serve.mjs 4508</code>.</li>
+<li>One browser build (record <code>chrome://version</code>), fresh profile or extensions off; same machine on mains power.</li>
+<li>Viewport pinned to 1600×900 CSS px, DPR 1.</li>
+<li>One CPU throttle for every trial (e.g. DevTools 4×), one network preset for every trial (e.g. Fast 3G); never mixed.</li>
+<li>Cold = "Disable cache" on + hard reload per trial. Warm = cache enabled, <code>no-store</code> removed from <code>serve.mjs</code> for that run (documented deviation), one discarded priming load, then measure. Report cold and warm as separate tables.</li>
+<li>Record an initial Performance trace per variant first; confirm the LCP element is the hero <code>&lt;img&gt;</code> and the long task on click is inside <code>relatedCounts</code> before quoting numbers.</li>
+<li>≥5 trials per variant per condition; report the median; keep every raw value.</li>
+<li>LCP via <code>PerformanceObserver({type:'largest-contentful-paint', buffered:true})</code>; interaction via <code>PerformanceObserver({type:'event', durationThreshold:16})</code> on the single scripted click, reported as a <strong>lab measurement of one scripted interaction</strong>, not a field INP assessment; TBT is not a substitute.</li>
+<li>Add results under a <code>browserLab</code> key in <code>evidence.json</code> with the conditions, then the Blocked lines above become Executed.</li>
+</ol></li>
+<li>Timeline: <code>video/src/episodes/ep08/timeline.json</code> was built with <code>--no-audio</code> (word-count estimate, 103.78 s). The orchestrator rebuilds it from real narration; scene boundaries will then snap to detected silences (heuristic, not forced alignment).</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep08      # from video/public/ep08/narration.mp3, or add --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep08 --concurrency 2</code></pre>
+<p>No MP4, audio or thumbnail is claimed by this README; the orchestrator renders and fills <code>render-evidence.json</code>.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Nothing in a browser was measured.</strong> Byte size is a file property and Node CPU time is a proxy for the click's main-thread work; neither is a user-perceived latency. The video says so on screen (persistent sim tag <code>LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT</code>) and states that loading and interaction are different tests.</li>
+<li>On loopback without throttling even 12 MB arrives in milliseconds; the loading comparison only becomes meaningful under the throttled conditions in <code>test-conditions.md</code>.</li>
+<li>The page mock in scene 1 is an illustrative <code>Box</code> drawing labelled ILLUSTRATIVE, not a browser capture.</li>
+<li>Raw Node timings vary by roughly ±20 % between runs in the shared container; the median is quoted and the raw list is kept. Re-running <code>demo.mjs</code> yields different absolute values; the video quotes the recorded <code>evidence.json</code>.</li>
+<li>One image and one handler were corrected. Fonts, CSS, scripts and other interactions were not examined. No claim is made about the page's overall performance.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep08/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep08 → episodes/ep08/ep08.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.37 s, 9347719 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep07/index.html">← Episode 07: Why is production broken?</a></span><span><a href="../ep09/index.html">Episode 09: Try it without a mouse →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

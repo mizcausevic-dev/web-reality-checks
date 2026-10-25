@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Break it on purpose: Launch film | Web Reality Checks</title>
+<meta name="description" content="Break It on Purpose: Prove the Test Can Fail. 1m 06s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/cm01/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Break it on purpose: Launch film | Web Reality Checks"><meta property="og:description" content="Break It on Purpose: Prove the Test Can Fail. 1m 06s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/cm01/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/cm01/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Break it on purpose: Launch film | Web Reality Checks"><meta name="twitter:description" content="Break It on Purpose: Prove the Test Can Fail. 1m 06s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/cm01/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / Launch film</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="cm01.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="cm01.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#3dd6f5">Launch film</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Break It on Purpose: Prove the Test Can Fail</h1>
+<div><span class="badge ok">1m 06s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>hook</span></button></li><li><button type="button" data-t="7.7"><b>00:07</b><span>problem</span></button></li><li><button type="button" data-t="18.53"><b>00:18</b><span>method</span></button></li><li><button type="button" data-t="31.62"><b>00:31</b><span>proof</span></button></li><li><button type="button" data-t="40.28"><b>00:40</b><span>access</span></button></li><li><button type="button" data-t="47.03"><b>00:47</b><span>range</span></button></li><li><button type="button" data-t="55.61"><b>00:55</b><span>cta</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="cm01.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="../../launch/a-break-it-on-purpose/index.html">Read the launch article</a></div>
+<h2 style="margin-top:44px">About this film</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>What it is.</strong> A 55 to 75 second trailer for engineers and AI-assisted builders. Idea: a green test only means something if the same test could have gone red (the known-positive control). Written plan: <code>launch/a-break-it-on-purpose/commercial.md</code>. Script: <code>script.json</code> (157 narrated words, 7 scenes: <code>hook</code>, <code>problem</code>, <code>method</code>, <code>proof</code>, <code>access</code>, <code>range</code>, <code>cta</code>).</p>
+<h2 id="evidence-and-sources">Evidence and sources</h2>
+<ul>
+<li>Real product frames (copied into <code>video/public/launch/</code>, prefix <code>a-</code>): <code>episodes/ep01/frames/scene_retest.png</code>, <code>episodes/ep15/frames/scene_fail.png</code>, <code>episodes/ep15/frames/scene_retest.png</code>, and the thumbnails of episodes 01, 15 and 17.</li>
+<li>Numbers shown (2 → 2, 2 → 1, 13 of 13 tests; 200 → 404, 7 of 7 tests; 13, 7 and 12 pass lines) come from <code>fixtures/ep15-idempotency/evidence.json</code>, <code>fixtures/ep01-authz/evidence.json</code> and the executed <code>node --test</code> runs. Executed 2026-10-25: ep15 <code># pass 13 # fail 0</code>, ep01 <code># pass 7 # fail 0</code>, ep17 <code># pass 12 # fail 0</code>.</li>
+<li>Conceptual: the four-panel method scene (<code>method</code>, tag CONCEPTUAL ILLUSTRATION). Promotional: the call-to-action card.</li>
+<li>Persistent tag per scene: <code>FOOTAGE FROM EPISODE NN</code> where real frames are on screen, <code>CONCEPTUAL ILLUSTRATION</code>, or <code>PROMOTIONAL FILM</code>.</li>
+</ul>
+<h2 id="build-and-render-orchestrator">Build and render (orchestrator)</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs cm01        # from video/public/cm01/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs cm01 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><code>video/src/episodes/cm01/timeline.json</code> was generated with <code>--no-audio</code> (word-count estimate, about 64 s). No narration audio was generated and no MP4 was rendered by the builder; the orchestrator rebuilds the timeline from real narration.</li>
+<li>Real frames are cropped from 1920x1080 stills and scaled; they were not re-rendered.</li>
+<li>The trailer does not claim the repairs cover anything beyond the demonstrated paths.</li>
+</ul>
+</div>
+
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

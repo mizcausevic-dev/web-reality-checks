@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One DNS record: Episode 10 | Web Reality Checks</title>
+<meta name="description" content="I Changed One DNS Record and Broke My Website. 1m 44s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep10/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="One DNS record: Episode 10 | Web Reality Checks"><meta property="og:description" content="I Changed One DNS Record and Broke My Website. 1m 44s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep10/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep10/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="One DNS record: Episode 10 | Web Reality Checks"><meta name="twitter:description" content="I Changed One DNS Record and Broke My Website. 1m 44s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep10/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 10</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep10.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep10.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#5fe08a">Episode 10 · Delivery &amp; freshness</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">I Changed One DNS Record and Broke My Website</h1>
+<div><span class="badge ok">1m 44s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="10.63"><b>00:10</b><span>layers</span></button></li><li><button type="button" data-t="21.75"><b>00:21</b><span>compare</span></button></li><li><button type="button" data-t="36.1"><b>00:36</b><span>restore</span></button></li><li><button type="button" data-t="47.19"><b>00:47</b><span>stale</span></button></li><li><button type="button" data-t="62.04"><b>01:02</b><span>expire</span></button></li><li><button type="button" data-t="77.03"><b>01:17</b><span>recovery</span></button></li><li><button type="button" data-t="92.46"><b>01:32</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep10.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep10-dns-caches">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep10/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep10/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep10/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep10/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> An incorrect authoritative A record sends <em>new</em> lookups to the wrong IPv4 address, while different resolver caches temporarily hold different answers for different lengths of time; fixing the source does not erase what is already cached.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep10-dns-caches/</code> — a zero-dependency Node 22 state machine with a <strong>virtual clock</strong> (<code>sim.at(t)</code>): one authoritative A record for <code>example.test</code>, two recursive resolver caches (A, B) with TTL expiry, two clients each bound to one resolver, and a simplified connect stage that succeeds only when the resolved address equals the intended origin <code>192.0.2.10</code>. The wrong address is <code>192.0.2.20</code>. Both are RFC 5737 documentation addresses held as strings; nothing opens a socket.</li>
+<li><code>runSequence()</code> performs the brief's deterministic sequence as actions on the clock (query t=0, bad edit t=10, resolver B miss t=15, both clients t=20, restore t=30, queries at t=30/60/75). Expiry is computed as <code>t &gt;= expiresAt</code>; an expired entry stays until the next query replaces it. No scripted countdowns.</li>
+<li>Deliberate policy: the connect stage is a comparison against the intended IP. It stands in for TCP connect only; TLS and HTTP are out of scope for the model and are handled by the checklist instead.</li>
+<li>Persistent sim tag on every simulated scene: <code>SIMULATED DNS MODEL · NO REAL NETWORK</code>.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep10-dns-caches/test.mjs</code> → <code># tests 13  # pass 13  # fail 0</code> (state assertions at t=0, 10, 15, 20, 30, 60, 75; a known-positive control asserting the wrong address is actually served and cached at t=15; TTL-lowering-not-retroactive; expiry-does-not-push; independent recovery times; clock monotonicity; evidence shape).</li>
+<li>Executed: <code>node fixtures/ep10-dns-caches/demo.mjs</code> → <code>fixtures/ep10-dns-caches/evidence.json</code>: 10 queries, <strong>0 resolution failures</strong>, 4 failed connections (all to 192.0.2.20), resolver A recovered at t=60, resolver B at t=75. Per-query rows <code>{t, client, resolver, cacheHit, answer, ttlRemaining, connect}</code>; snapshots at each assertion time; authoritative change log; cache-write log.</li>
+<li>Observed (in the Remotion scenes): all values are constants copied from <code>evidence.json</code> (<code>EVENTS</code>, <code>WRITES</code>, <code>AUTH</code>, <code>SUMMARY</code> at the top of <code>Scenes.tsx</code>); the board state at any virtual time is derived from those constants, not hand-placed.</li>
+<li>Predicted: scene durations in <code>video/src/episodes/ep10/timeline.json</code> were generated with <code>--no-audio</code> (word-count estimate). The orchestrator regenerates them from real narration.</li>
+<li>Blocked: no narration generated, no MP4 rendered, no frames inspected (orchestrator steps). <code>render-evidence.json</code> is not present.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep10      # needs video/public/ep10/narration.mp3 (or add --no-audio)
+node tools/gen-root.mjs
+node tools/render.mjs ep10 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated model, not a measurement of any resolver software. Not modelled: serve-stale, prefetch / pre-expiry refresh, browser DNS cache, operating-system stub cache, negative caching, resolver TTL clamping, multiple authoritative servers or primary→secondary propagation delay, CNAME chains, round-robin.</li>
+<li>A record only. Real investigations must also check <strong>AAAA</strong>; an IPv6-capable client may never consult the A record that was fixed.</li>
+<li>"Resolution succeeded, destination wrong": every query in the run returned <code>NOERROR</code> with an address. The wrong answer is not a resolution failure and the video never calls it one.</li>
+<li>Lowering the authoritative TTL after an answer was cached does not shorten that entry (<code>expiresAt = cachedAt + ttlAtFetch</code>). Only later lookups inherit the new TTL. Tested.</li>
+<li>TTL expiry permits a new lookup; it pushes nothing to resolvers or clients. Tested (an expired entry sits untouched until queried).</li>
+<li>Record TTL is distinct from website-content cache lifetimes (<code>Cache-Control</code>, CDN TTLs). The fixture says nothing about content caching.</li>
+<li>Recovery at t=60 and t=75 is a property of <em>this</em> sequence (each cache's fetch time + its stored TTL + when it was next asked). It is not a general "propagation time"; real incidents do not recover within one fixed global interval.</li>
+<li>Connectivity, TLS and HTTP are not simulated; <code>fixtures/ep10-dns-caches/diagnostic-checklist.md</code> separates DNS resolution, connectivity, TLS and HTTP for real investigations.</li>
+</ul>
+<h2 id="diagnostic-checklist-summary">Diagnostic checklist (summary)</h2>
+<p>Full version: <code>fixtures/ep10-dns-caches/diagnostic-checklist.md</code>.</p>
+<ol type="1">
+<li><strong>DNS resolution</strong> — query the authority directly, then each resolver users rely on; compare answers <em>and</em> remaining TTLs; check AAAA as well as A; record the TTL in force when the bad answer was cached; do not quote a single propagation time.</li>
+<li><strong>Connectivity</strong> — TCP connect to the <em>resolved</em> address; test the intended address explicitly with <code>--resolve</code>; firewall rules; test from the client's network.</li>
+<li><strong>TLS</strong> — handshake with SNI against the intended address; certificate covers the name; a mismatch after a DNS change usually means the name now points at an unprovisioned host.</li>
+<li><strong>HTTP</strong> — status and origin headers via <code>--resolve</code>; Host-header routing; separate HTTP cache state from DNS cache state before concluding "the fix did not propagate".</li>
+</ol>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep10/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep10 → episodes/ep10/ep10.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 104.57 s, 9448657 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep09/index.html">← Episode 09: Try it without a mouse</a></span><span><a href="../ep11/index.html">Episode 11: Reject All, then what? →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deleted, still showing: Episode 21 | Web Reality Checks</title>
+<meta name="description" content="I Deleted the Record. Why Is It Still Showing Up?. 1m 45s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep21/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Deleted, still showing: Episode 21 | Web Reality Checks"><meta property="og:description" content="I Deleted the Record. Why Is It Still Showing Up?. 1m 45s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep21/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep21/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Deleted, still showing: Episode 21 | Web Reality Checks"><meta name="twitter:description" content="I Deleted the Record. Why Is It Still Showing Up?. 1m 45s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep21/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 21</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep21.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep21.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#3dd6f5">Episode 21 · Data lifecycle</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">I Deleted the Record. Why Is It Still Showing Up?</h1>
+<div><span class="badge ok">1m 45s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="12.33"><b>00:12</b><span>copies</span></button></li><li><button type="button" data-t="20.28"><b>00:20</b><span>flawed stale</span></button></li><li><button type="button" data-t="30.26"><b>00:30</b><span>fix outbox</span></button></li><li><button type="button" data-t="47.32"><b>00:47</b><span>partial fail</span></button></li><li><button type="button" data-t="57.11"><b>00:57</b><span>retry</span></button></li><li><button type="button" data-t="73.42"><b>01:13</b><span>verify</span></button></li><li><button type="button" data-t="79"><b>01:19</b><span>refresh</span></button></li><li><button type="button" data-t="88.8"><b>01:28</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep21.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep21-deletion-copies">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep21/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep21/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep21/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep21/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Deleting a primary record does not automatically remove derived copies from a search index, an application cache, or an already-open browser; deletion is a workflow when data has more than one home.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep21-deletion-copies/</code> — a loopback-only Node 22 synthetic contact directory: a primary <code>contacts</code> table, a separate denormalised <code>search_index</code> table, a deliberately implemented in-process response cache, an <code>outbox</code> table and an in-process cleanup worker. One stable, never-reused contact ID (<code>c_1003</code>) is followed through every layer.</li>
+<li>Flawed variant: <code>DELETE /vuln/contacts/:id</code> deletes the primary row only. Corrected variant: <code>DELETE /contacts/:id</code> deletes the row and inserts an outbox event in one transaction; the worker removes the index entry, clears the <strong>whole</strong> directory cache, and marks the event processed only after both steps succeed.</li>
+<li>The "already-open browser" is <strong>SIMULATED CLIENT STATE</strong>: a plain object holding previously fetched results (<code>client.mjs</code>). No real browser was used. Scenes that show it carry that tag.</li>
+<li>Deliberate policies: whole-cache invalidation (no dependency tracking); retries exhausted → explicit <code>failed</code> state plus an alert record, never silently processed; AUTOINCREMENT ids are not reused.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep21-deletion-copies/test.mjs</code> → <code># tests 20</code>, <code># pass 20</code>, <code># fail 0</code> (deletion, partial-failure, retry, replay, retries-exhausted, stale-browser, id-reuse and atomicity tests, plus known-positive controls).</li>
+<li>Executed: <code>node fixtures/ep21-deletion-copies/demo.mjs</code> → <code>evidence.json</code>: flawed delete leaves lookup 404 but cached search → <code>c_1003, c_1004</code> and the index row present with 0 outbox events; corrected run: attempt 1 pending (attempts 1, stepsDone <code>[search_index]</code>), attempt 2 processed (attempts 2); simulated browser refresh <code>harbourline</code> → <code>[c_1004]</code>; replay ×2 leaves state unchanged and the next new contact is <code>c_1006</code>; retries exhausted after 3 attempts → <code>failed</code> and 1 alert.</li>
+<li>Observed: numbers on screen are copied from <code>evidence.json</code>.</li>
+<li>Predicted / Blocked: no real browser behaviour (HTTP cache, service workers, multiple tabs) was executed.</li>
+<li>Not executed here: narration audio, MP4 render, thumbnail. The orchestrator renders and fills <code>render-evidence.json</code>. <code>video/src/episodes/ep21/timeline.json</code> and <code>captions.srt</code> were generated with <code>--no-audio</code> for type-checking only and must be rebuilt from the real narration.</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> passes.</li>
+</ul>
+<h2 id="accuracy-items-covered">Accuracy items covered</h2>
+<ul>
+<li>Outbox records cleanup intent; it does not make all destinations update atomically (narration, <code>fix_outbox</code> on-screen limit box).</li>
+<li>A stale browser display can remain after backend cleanup (<code>refresh</code> scene, sim-tagged).</li>
+<li>Retries exhausted: explicit failed state and alert, never silently processed (narration + <code>retry</code> scene).</li>
+<li>A directory cache may expose stale data until invalidation succeeds (<code>partial_fail</code>; also a refresh during failure still returns the stale hit).</li>
+<li>Not a privacy-erasure implementation; backups, logs, exports and third-party copies are out of scope; deletion cannot retrieve already-downloaded information (narration + <code>end</code> scene).</li>
+<li>Deleted IDs are not reused (<code>c_1003</code> stays retired; the next contact is <code>c_1006</code>).</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep21    # from narration audio in video/public/ep21/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep21 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated: the browser (client state object), the search index (SQLite table, same process), the cache (in-process Map), the alert (in-process record). Measured: only what the local fixture returned.</li>
+<li>Not tested: concurrent workers, real process crashes, cache re-population races, retry backoff, real alert delivery, real browser caching.</li>
+<li>Whole-cache invalidation is a fixture simplification, not a recommended general design.</li>
+<li>Narration is 257 words across nine scenes (script.json).</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep20/index.html">← Episode 20: What HTTPS still shows</a></span><span><a href="../ep22/index.html">Episode 22: Dates moved back a day →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

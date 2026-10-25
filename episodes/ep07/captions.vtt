@@ -1,0 +1,61 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:07.710
+Locally: GET /health → 200 OK.
+
+2
+00:00:07.710 --> 00:00:12.280
+Remote browser: TypeError: Failed to fetch.
+
+3
+00:00:12.280 --> 00:00:18.370
+Connection refused — not CORS, not a 404.
+
+4
+00:00:18.370 --> 00:00:25.550
+127.0.0.1 means the remote machine's OWN loopback.
+
+5
+00:00:25.550 --> 00:00:29.660
+Nothing is listening there.
+
+6
+00:00:29.660 --> 00:00:31.520
+Source: import.meta.env.VITE_API_BASE_URL
+
+7
+00:00:31.520 --> 00:00:42.690
+Vite replaces it at build time. The bundle holds the literal URL.
+
+8
+00:00:42.690 --> 00:00:51.620
+Set VITE_API_BASE_URL on the static host. The host sees it.
+
+9
+00:00:51.620 --> 00:00:54.420
+The served bundle is byte-identical.
+
+10
+00:00:54.420 --> 00:01:00.030
+A static host serves files; it does not rebuild them.
+
+11
+00:01:00.030 --> 00:01:05.300
+Rebuild with a reachable API URL.
+
+12
+00:01:05.300 --> 00:01:11.440
+The new bundle contains the new literal.
+
+13
+00:01:11.440 --> 00:01:19.140
+Retest: GET /health → 200 OK.
+
+14
+00:01:19.140 --> 00:01:27.170
+VITE_ values are public. Never put a secret in one.
+
+15
+00:01:27.170 --> 00:01:34.410
+A server environment change cannot rewrite an existing bundle.

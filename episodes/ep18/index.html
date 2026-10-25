@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Webhook arrived twice: Episode 18 | Web Reality Checks</title>
+<meta name="description" content="Your Webhook Arrived Twice. Then an Older Update Arrived.. 1m 51s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep18/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Webhook arrived twice: Episode 18 | Web Reality Checks"><meta property="og:description" content="Your Webhook Arrived Twice. Then an Older Update Arrived.. 1m 51s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep18/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep18/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Webhook arrived twice: Episode 18 | Web Reality Checks"><meta name="twitter:description" content="Your Webhook Arrived Twice. Then an Older Update Arrived.. 1m 51s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep18/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 18</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep18.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep18.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5b63d">Episode 18 · Duplicates &amp; ordering</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Your Webhook Arrived Twice. Then an Older Update Arrived.</h1>
+<div><span class="badge ok">1m 51s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="13.7"><b>00:13</b><span>order</span></button></li><li><button type="button" data-t="29.72"><b>00:29</b><span>verify</span></button></li><li><button type="button" data-t="50.27"><b>00:50</b><span>dedup</span></button></li><li><button type="button" data-t="64.32"><b>01:04</b><span>version</span></button></li><li><button type="button" data-t="79.9"><b>01:19</b><span>replay</span></button></li><li><button type="button" data-t="94.42"><b>01:34</b><span>final</span></button></li><li><button type="button" data-t="100.42"><b>01:40</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep18.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep18-webhooks">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep18/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep18/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep18/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep18/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> A webhook receiver must not assume that each event is delivered once or that arrival order matches the order the resource actually changed.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep18-webhooks/</code> — a loopback-only Node 22 fixture with a <strong>fictional</strong> provider ("SubHub") that emits <code>{event_id, subscription_id, type, snapshot, version, event_ts}</code> events and signs each delivery as <code>HMAC-SHA256(secret, "${delivery_ts}.${rawBody}")</code> (synthetic secret; fresh timestamp + signature per retry). Two receivers:
+<ul>
+<li><code>receiver-naive.mjs</code> (known-positive control): verifies signature and timestamp, then applies every event in <strong>arrival order</strong>. An older event arriving late overwrites newer state.</li>
+<li><code>receiver.mjs</code> (corrected): verifies the HMAC over the <strong>raw body bytes</strong> with <code>crypto.timingSafeEqual</code> <strong>before</strong> parsing; enforces a 300 s delivery-timestamp tolerance (injectable clock); parses and validates; deduplicates by <code>UNIQUE (provider, event_id)</code>; applies the snapshot only if <code>version &gt; stored</code>; writes the event record and the state change in <strong>one transaction</strong>; returns 200 only after commit, 200 for verified duplicates and stale versions (recorded, not applied), 503 when the commit cannot complete (simulated via a test-only header).</li>
+</ul></li>
+<li><code>db.mjs</code> uses <code>node:sqlite</code> (<code>DatabaseSync</code>) when available, otherwise an in-process store with the same explicit transaction + UNIQUE semantics; <code>db.kind</code> reports which. Here it ran on <code>sqlite</code>.</li>
+<li>Deliberate policies: duplicates and stale versions are answered <strong>200</strong> so the provider stops retrying; both are recorded with their outcome. Dedup is a constraint, not a lookup, so there is no check-then-insert race.</li>
+<li>No external side effects are performed: only rows in the local database change.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep18-webhooks/test.mjs</code> → <code># tests 14  # pass 14  # fail 0</code> (valid signature; tampered body; wrong secret; raw-bytes vs re-serialised signing; expired delivery timestamp with a valid signature; legitimate retry with fresh signature → duplicate; duplicate event; out-of-order older version → stale; <strong>known-positive control</strong> showing the naive receiver regress to <code>past_due</code>; 6 concurrent duplicate deliveries → 1 applied; replay of the full set → state unchanged; commit failure → 503 and no state change; malformed payload → 400; both store backends).</li>
+<li>Executed: <code>node fixtures/ep18-webhooks/demo.mjs</code> → <code>fixtures/ep18-webhooks/evidence.json</code> (receiver clock fixed at <code>1768000000</code>):
+<ul>
+<li>naive receiver, deliveries v1, v3, v2(late): final state <strong>version 2, past_due / starter</strong> (regressed).</li>
+<li>corrected receiver, deliveries v1, v3, v2(late), v3(retry): outcomes applied, applied, <strong>stale</strong>, <strong>duplicate</strong>; final state version 3, active / pro.</li>
+<li>tampered body → 401; wrong secret → 401; valid signature 301 s old → 401 (<code>age_s: 301, tolerance_s: 300</code>).</li>
+<li>v4 with simulated commit failure → <strong>503</strong>, state digest unchanged, no event record; v4 retried → 200 applied.</li>
+<li>6 concurrent deliveries of new event v5 → 6 × 200; applied 1, duplicate 5, records added 1.</li>
+<li>replay of v2, v3, v1, v3, v2, v1 → 6 × 200 duplicate; state digest <code>0d4e457d205b2702</code> before and after; records 5 → 5.</li>
+</ul></li>
+<li>Predicted: timings in the placeholder <code>video/src/episodes/ep18/timeline.json</code> were produced with <code>--no-audio</code> (word-count estimate); the orchestrator rebuilds it from the real narration.</li>
+<li>Blocked (by design of this task): no narration audio generated, no MP4 rendered, no frames inspected. <code>render-evidence.json</code> is filled by the orchestrator.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep18      # from narration audio in video/public/ep18/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep18 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Raw-body verification precedes reserialisation.</strong> The signature is checked over the exact bytes received; a receiver that re-serialises before verifying would accept bytes the provider never signed (tested).</li>
+<li><strong>A valid signature does not establish freshness</strong>; the timestamp tolerance does. <strong>Tolerance does not replace event-ID deduplication</strong>: a retry inside the window is fresh, valid and still a duplicate.</li>
+<li><strong>Version-based skipping is safe only because this provider's events carry full snapshots.</strong> For incremental events (deltas), every intermediate operation may matter; do not apply this strategy blindly.</li>
+<li><strong>Timestamps alone do not provide reliable ordering.</strong> <code>event_ts</code> is informational; ordering uses the provider's per-subscription version.</li>
+<li>The full-snapshot and monotonic-version guarantees belong to this <strong>fictional</strong> provider; real providers do not universally offer them.</li>
+<li><strong>No external side effects</strong> are performed. Emails, charges, queue publishes would require additional coordination (e.g. an outbox pattern or idempotent downstream operations), which this fixture does not demonstrate.</li>
+<li>Simulated: the commit failure (<code>X-Fault: fail-commit</code>) and the receiver clock. Not tested: secret rotation, provider-side retry scheduling, multi-process concurrency against a shared database, record retention/expiry.</li>
+<li>The fixture binds 127.0.0.1 on an ephemeral port; the signing scheme and secret are fixture-only.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep18/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep18 → episodes/ep18/ep18.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 111.93 s, 9135471 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep17/index.html">← Episode 17: Live, ten minutes old</a></span><span><a href="../ep19/index.html">Episode 19: What did the server send? →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

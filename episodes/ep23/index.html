@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two tabs, one document: Episode 23 | Web Reality Checks</title>
+<meta name="description" content="Two Tabs. One Document. Where Did My Changes Go?. 1m 37s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep23/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Two tabs, one document: Episode 23 | Web Reality Checks"><meta property="og:description" content="Two Tabs. One Document. Where Did My Changes Go?. 1m 37s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep23/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep23/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Two tabs, one document: Episode 23 | Web Reality Checks"><meta name="twitter:description" content="Two Tabs. One Document. Where Did My Changes Go?. 1m 37s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep23/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 23</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep23.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep23.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5b63d">Episode 23 · Duplicates &amp; ordering</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Two Tabs. One Document. Where Did My Changes Go?</h1>
+<div><span class="badge ok">1m 37s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>lost</span></button></li><li><button type="button" data-t="10.89"><b>00:10</b><span>rewind</span></button></li><li><button type="button" data-t="18.4"><b>00:18</b><span>diverge</span></button></li><li><button type="button" data-t="27.15"><b>00:27</b><span>flawed</span></button></li><li><button type="button" data-t="39.01"><b>00:39</b><span>fix</span></button></li><li><button type="button" data-t="53.45"><b>00:53</b><span>retest</span></button></li><li><button type="button" data-t="64.18"><b>01:04</b><span>compare</span></button></li><li><button type="button" data-t="75.98"><b>01:15</b><span>limits</span></button></li><li><button type="button" data-t="92.26"><b>01:32</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep23.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep23-optimistic-concurrency">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep23/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep23/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep23/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep23/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Two editors can load the same version and silently overwrite each other if the server accepts unconditional updates; sending <code>expectedVersion</code> and applying it in one atomic conditional UPDATE turns the silent loss into a detectable 409.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep23-optimistic-concurrency/</code> - a loopback-only Node 22 document service (<code>node:http</code>, <code>node:sqlite</code>, zero dependencies) with a flawed unconditional save and a corrected <code>UPDATE ... WHERE id = ? AND version = ?</code> save (<code>changes()</code> decides).</li>
+<li>"Two tabs" = <strong>two independent client instances in Node</strong> with separate sessions and local copies. No real browser was used; the video labels scenes <code>SIMULATED LOCAL FIXTURE</code> and says so on screen (scene <code>rewind</code>).</li>
+<li>Deliberate policies: 409 only for a version mismatch; 503 for a locked database; 500 for other database failures; 404 for absent or non-member documents (authorization checked first, separately); the client preserves unsaved text, shows the current server version, never retries by overwriting, and never merges automatically.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep23-optimistic-concurrency/test.mjs</code> -&gt; <code># tests 16  # pass 16  # fail 0</code> (includes a known-positive control, an HTTP barrier test and a six-thread/six-connection barrier test asserting exactly one accepted update).</li>
+<li>Executed: <code>node fixtures/ep23-optimistic-concurrency/demo.mjs</code> -&gt; <code>evidence.json</code>: flawed path A 200 (v2) then B 200 (v3), final title back to "Launch plan"; corrected path A 200 (v2), B 409 with <code>currentVersion</code> 2, server final v2, B sent one PUT; explicit person-chosen merge saved with <code>expectedVersion</code> 2 -&gt; 200 (v3); concurrent same-version saves -&gt; one 200 and one 409; locked database -&gt; 503, not 409, server still v1.</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> -&gt; no errors in <code>src/episodes/ep23/</code> (an unrelated error in another episode folder may be present while that episode is being built).</li>
+<li>Executed: <code>node tools/build-timeline.mjs ep23 --no-audio</code> -&gt; provisional <code>timeline.json</code> / <code>captions.srt</code> from a word-count estimate; the orchestrator rebuilds them from real narration.</li>
+<li>Narration: 250 words (<code>script.json</code>).</li>
+<li>Blocked / not executed: no real browsers, no narration audio, no render (the orchestrator fills <code>render-evidence.json</code>). Scene frames were not visually inspected by this builder.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep23      # from narration audio in video/public/ep23/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep23 --concurrency 2</code></pre>
+<h2 id="accuracy-bullets-where-each-is-reflected">Accuracy bullets (where each is reflected)</h2>
+<ul>
+<li>Check is not a separate unprotected read and write: scene <code>fix</code> (single statement, "NOT THIS" box); narration "Never a read followed by a write".</li>
+<li>Version conflicts vs database lock failures: scene <code>limits</code> (409 vs 503, observed 503 with server still v1); narration.</li>
+<li>Not every database error is 409: scene <code>limits</code> (500 note); fixture test <code>only a version mismatch yields 409</code>.</li>
+<li>Detects conflicts, not real-time collaboration; not a CRDT or operational transformation: scene <code>limits</code>, narration.</li>
+<li>Document ID and user authorization checked separately: scene <code>fix</code> gate (401 / 404 before the version), scene <code>limits</code>.</li>
+<li>Unsaved edits not discarded on conflict; current server version offered; explicit resolution; no overwrite retry: scenes <code>retest</code>, <code>compare</code>, narration.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated: the "tabs" are Node client objects; the conflict screen in scene <code>compare</code> is an illustration of the client state the fixture holds, not a real UI.</li>
+<li>Measured: only status codes, versions and document text shown in <code>evidence.json</code>; no timings are claimed.</li>
+<li>Scope: one integer version per whole document; no field-level merge, history, or deletion. The cross-thread test uses SQLite rollback-journal mode only.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep22/index.html">← Episode 22: Dates moved back a day</a></span><span><a href="../ep24/index.html">Episode 24: Someone else's name →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uploaded, not ready: Episode 14 | Web Reality Checks</title>
+<meta name="description" content="100% Uploaded. Why Isn't My File Ready?. 1m 46s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep14/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Uploaded, not ready: Episode 14 | Web Reality Checks"><meta property="og:description" content="100% Uploaded. Why Isn't My File Ready?. 1m 46s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep14/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep14/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Uploaded, not ready: Episode 14 | Web Reality Checks"><meta name="twitter:description" content="100% Uploaded. Why Isn't My File Ready?. 1m 46s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep14/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 14</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep14.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep14.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#a78bfa">Episode 14 · Experience &amp; speed</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">100% Uploaded. Why Isn't My File Ready?</h1>
+<div><span class="badge ok">1m 46s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="9.38"><b>00:09</b><span>stages</span></button></li><li><button type="button" data-t="23.53"><b>00:23</b><span>progress</span></button></li><li><button type="button" data-t="40.01"><b>00:40</b><span>accepted</span></button></li><li><button type="button" data-t="52.67"><b>00:52</b><span>ready</span></button></li><li><button type="button" data-t="68.83"><b>01:08</b><span>fail rows</span></button></li><li><button type="button" data-t="85.53"><b>01:25</b><span>fix</span></button></li><li><button type="button" data-t="99.73"><b>01:39</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep14.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep14-upload-stages">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep14/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep14/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep14/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep14/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Request-body transfer, server acceptance, processing and availability are four separate stages; a single "100%" bar only ever reported the first.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep14-upload-stages/</code> — a loopback-only Node 22 CSV uploader with zero dependencies: <code>server.mjs</code> (multipart <code>POST /uploads</code>, authorised <code>GET /jobs/:id</code> and <code>/jobs/:id/result</code>), <code>worker.mjs</code> (in-process parse + row validation → <code>ready</code> or <code>failed</code> with reason), <code>client.mjs</code> (streams the multipart body and records progress from bytes written), and <code>public/index.html</code> + <code>app.js</code> (a browser uploader using <code>XMLHttpRequest.upload.onprogress</code> with a <code>lengthComputable</code> check and four stage-specific statuses; <strong>provided, not executed</strong>).</li>
+<li>The server validates the <strong>request-body size</strong> (65536 bytes, multipart overhead included) and <strong>sniffs the content</strong> for CSV shape. The client's filename and MIME type are recorded but never trusted for the decision.</li>
+<li>Stored files get a <strong>generated name</strong> in a per-process temp directory outside anything served. A job record is created and the server answers <strong>202 + jobId</strong>.</li>
+<li>Deliberate policies: another user's job and an absent job both return <strong>404</strong>; the result endpoint returns <strong>409</strong> unless status is <code>ready</code>; acceptance is about size and shape, not row validity; no processing percentage is reported because none is measured.</li>
+<li><strong>The fixture does not survive process restarts.</strong> Job records are in memory and stored files are removed on close. No persistence is claimed.</li>
+<li>Controlled pacing: the worker's start is delayed by a labelled 400 ms (tests and demo) so the not-ready state is observable through polling. This is artificial and is never presented as a measured processing time.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep14-upload-stages/test.mjs</code> → <code># tests 8  # pass 8  # fail 0</code> (success path; generated filename outside <code>public/</code>; oversized → 413 with no job; PNG labelled <code>.csv</code>/<code>text/csv</code> → 415 with no job; <strong>known-positive control</strong> that a label-trusting policy would have accepted the PNG; fully transferred CSV with invalid rows → 202 then <code>failed</code> with reason, result 409; status access as Bob → 404, absent → 404, unauthenticated → 401; stored files unreachable via served paths).</li>
+<li>Executed: <code>node fixtures/ep14-upload-stages/demo.mjs</code> → <code>evidence.json</code>: valid CSV <strong>82 file bytes travelled as a 232-byte request body</strong> (150 B multipart overhead), 100 % sent, <strong>202</strong> <code>job_89b35fbbbe7a</code>, result before ready <strong>409</strong>, polls <code>accepted</code> ×5 then <code>ready</code> (the count of pre-ready polls varies with scheduling between runs), result <strong>200</strong> (rows 3, totalAmount 114.75), same job as Bob <strong>404</strong>. PNG-as-CSV: 100 % sent, <strong>415</strong> "binary content (NUL byte) is not CSV". Oversized 66723-byte body: <strong>413</strong>. Invalid rows: 100 % sent, <strong>202</strong> <code>job_a664e78fb5bf</code>, then <strong>failed</strong> — <code>line 3: invalid email "not-an-email"; line 4: amount is not a number "lots"</code>, result <strong>409</strong>, as Bob <strong>404</strong>.</li>
+<li>Observed: all timestamps in <code>evidence.json</code> are <code>Date.now()</code> in one loopback process and are labelled "fixture-measured"; they are not representative of real networks or servers.</li>
+<li>Blocked: the browser uploader (<code>public/</code>) was not run; no browser is available in the build environment. Browser <code>upload.onprogress</code> behaviour is therefore described, not demonstrated. The transfer numbers shown come from the Node client (bytes written to the socket) and are labelled "fixture-measured transfer bytes, includes multipart overhead".</li>
+<li>Predicted: <code>video/src/episodes/ep14/timeline.json</code> was generated with <code>--no-audio</code> (word-count estimate) so the project type-checks; the orchestrator regenerates it from real narration. No MP4 is claimed here; the orchestrator fills <code>render-evidence.json</code>.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep14      # needs video/public/ep14/narration.mp3 (or add --no-audio)
+node tools/gen-root.mjs
+node tools/render.mjs ep14 --concurrency 2</code></pre>
+<p>Type-check: <code>cd video &amp;&amp; npx tsc --noEmit</code> passes for <code>src/episodes/ep14/*</code>.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Upload progress is a <strong>request-body</strong> measurement (multipart overhead included). It is never labelled as a stored-file byte count. A percentage is shown only when the total is known (<code>lengthComputable</code>); otherwise the browser page shows an indeterminate bar.</li>
+<li>Upload completion does not establish a successful HTTP status; the status is read separately. An accepted (202) response does not mean processing succeeded; the status endpoint is polled separately.</li>
+<li>No processing percentage is invented. The worker reports a state, not a progress figure.</li>
+<li><strong>Parsing is not malware scanning.</strong> <code>ready</code> means the CSV parsed and its rows validated; it is not a security verdict.</li>
+<li>The content sniff is a shape check (UTF-8 text, no NUL bytes, header with required columns), not a full CSV grammar; quoted fields with embedded commas are unsupported in this fixture.</li>
+<li>Session handling (<code>GET /login/:user</code>) is a test harness, not production authentication. Multipart parsing buffers the whole size-limited body rather than streaming to disk.</li>
+<li>Scenes recreate a browser uploader with plain illustrative chrome and carry the <code>SIMULATED LOCAL FIXTURE</code> tag; no real product UI is mimicked.</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep14/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep14 → episodes/ep14/ep14.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.07 s, 8445528 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep13/index.html">← Episode 13: Is that key a leak?</a></span><span><a href="../ep15/index.html">Episode 15: Paid once, two orders →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

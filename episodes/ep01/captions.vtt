@@ -1,0 +1,61 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:03.520
+Demo complete. Every screen looks finished.
+
+2
+00:00:03.520 --> 00:00:09.840
+None of that tells you whether the server checks who may see what.
+
+3
+00:00:09.840 --> 00:00:22.180
+Four layers: browser, session, API, database.
+
+4
+00:00:22.180 --> 00:00:31.910
+Alice requests her own project. 200 OK.
+
+5
+00:00:31.910 --> 00:00:39.480
+Controlled test: Alice requests Bob's project, 2002.
+
+6
+00:00:39.480 --> 00:00:45.990
+The vulnerable endpoint returns Bob's project. 200 OK.
+
+7
+00:00:45.990 --> 00:00:50.060
+Authenticated was mistaken for authorised.
+
+8
+00:00:50.060 --> 00:00:55.020
+The gate asks: does a user exist?
+
+9
+00:00:55.020 --> 00:01:01.390
+It never asks: does this user own this resource?
+
+10
+00:01:01.390 --> 00:01:09.270
+Fix: resolve the user on the server, query by id AND owner.
+
+11
+00:01:09.270 --> 00:01:14.520
+No match: 404, whether absent or not hers.
+
+12
+00:01:14.520 --> 00:01:21.970
+Retest: Alice's project 200. Bob's project 404.
+
+13
+00:01:21.970 --> 00:01:27.300
+Client-side identity claims change nothing.
+
+14
+00:01:27.300 --> 00:01:32.330
+This fixes one read path, not the whole app.
+
+15
+00:01:32.330 --> 00:01:36.810
+A working interface is not an authorization test.

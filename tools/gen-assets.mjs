@@ -123,14 +123,36 @@ ${arcs.map((a, i) => { const x = 22 + i * 248; return `<g class="fade" style="an
 fs.writeFileSync(path.join(out, 'arcs.svg'), arcsSvg);
 fs.writeFileSync(path.join(out, 'arcs.json'), JSON.stringify(arcs.map((a) => ({name: a[0], color: a[1], episodes: a[2]})), null, 2));
 
-console.log(JSON.stringify({episodes: N, rendered, runtime_s: +runtime.toFixed(1), tests, fails, svgs: ['banner', 'stats', 'method', 'arcs']}));
+
+/* ---------------- loop (hero mark) and og card ---------------- */
+const loopSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 190" width="520" height="190" role="img" aria-labelledby="lt ld">
+<title id="lt">Flaw, control, repair, retest</title><desc id="ld">Four linked steps: flaw in red, control in amber, repair in cyan, retest in green.</desc>
+<defs><linearGradient id="fl" x1="0" x2="1"><stop offset="0" stop-color="${C.red}"/><stop offset=".35" stop-color="${C.amber}"/><stop offset=".7" stop-color="${C.cyan}"/><stop offset="1" stop-color="${C.green}"/></linearGradient></defs>
+<style>.f{font-family:${FONT}}.flow{stroke-dasharray:10 14;animation:dash 1.6s linear infinite}@keyframes dash{to{stroke-dashoffset:-48}}.pulse{animation:pulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}.d1{animation-delay:.3s}.d2{animation-delay:.6s}.d3{animation-delay:.9s}${reduce}</style>
+<path class="flow" d="M104 64 H126 M234 64 H256 M364 64 H386" stroke="url(#fl)" stroke-width="4" fill="none" stroke-linecap="round" transform="translate(-16 0)"/>
+${[['✕', 'FLAW', C.red, 0], ['?', 'CONTROL', C.amber, 1], ['→', 'REPAIR', C.cyan, 2], ['✓', 'RETEST', C.green, 3]].map((q) => `<g transform="translate(${q[3] * 130 + 4} 20)"><g class="pulse d${q[3]}"><rect width="88" height="88" rx="18" fill="${C.panel}" stroke="${q[2]}" stroke-width="3"/></g><text x="44" y="58" text-anchor="middle" class="f" font-size="36" font-weight="800" fill="${q[2]}">${q[0]}</text><text x="44" y="136" text-anchor="middle" class="f" font-size="14" font-weight="700" letter-spacing="2" fill="${C.text}">${q[1]}</text></g>`).join('\n')}
+</svg>`;
+fs.writeFileSync(path.join(out, 'loop.svg'), loopSvg);
+const og = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Web Reality Checks. Break it on purpose. Prove the fix.">
+<rect width="1200" height="630" fill="${C.bg}"/><rect x="24" y="24" width="1152" height="582" rx="28" fill="${C.panel}" stroke="${C.line}"/>
+<rect x="24" y="24" width="1152" height="8" rx="4" fill="url(#og)"/>
+<defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="${C.red}"/><stop offset=".35" stop-color="${C.amber}"/><stop offset=".7" stop-color="${C.cyan}"/><stop offset="1" stop-color="${C.green}"/></linearGradient></defs>
+<text x="80" y="120" font-family="${FONT}" font-size="22" font-weight="800" letter-spacing="7" fill="${C.cyan}">WEB REALITY CHECKS</text>
+<text x="80" y="236" font-family="${FONT}" font-size="86" font-weight="850" letter-spacing="-3" fill="${C.text}">Break it on purpose.</text>
+<text x="80" y="334" font-family="${FONT}" font-size="86" font-weight="850" letter-spacing="-3" fill="${C.text}">Prove the fix.</text>
+<text x="80" y="408" font-family="${FONT}" font-size="30" fill="${C.dim}">${N} short films. Runnable fixtures. Real test output.</text>
+${[['FLAW', C.red], ['CONTROL', C.amber], ['REPAIR', C.cyan], ['RETEST', C.green]].map((q, i) => `<g transform="translate(${80 + i * 262} 470)"><rect width="238" height="84" rx="16" fill="${C.bg}" stroke="${q[1]}" stroke-width="3"/><text x="119" y="54" text-anchor="middle" font-family="${FONT}" font-size="24" font-weight="800" letter-spacing="3" fill="${q[1]}">${q[0]}</text></g>`).join('')}
+</svg>`;
+fs.writeFileSync(path.join(out, 'og.svg'), og);
+
+console.log(JSON.stringify({episodes: N, rendered, runtime_s: +runtime.toFixed(1), tests, fails, svgs: ['banner', 'stats', 'method', 'arcs', 'loop', 'og']}));
 
 if (process.argv.includes('--png')) {
   const {createRequire} = await import('node:module'); const {chromium} = createRequire(import.meta.url)('playwright');
   const b = await chromium.launch();
   const pdir = path.join(out, 'png');
   fs.mkdirSync(pdir, {recursive: true});
-  for (const name of ['banner', 'stats', 'method', 'arcs']) {
+  for (const name of ['banner', 'stats', 'method', 'arcs', 'loop', 'og']) {
     const svg = fs.readFileSync(path.join(out, `${name}.svg`), 'utf8');
     const m = svg.match(/viewBox="0 0 (\d+) (\d+)"/);
     const w = +m[1], h = +m[2];

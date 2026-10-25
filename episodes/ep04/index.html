@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A database in the page: Episode 04 | Web Reality Checks</title>
+<meta name="description" content="I Put a Database Inside a Website. 1m 41s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep04/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="A database in the page: Episode 04 | Web Reality Checks"><meta property="og:description" content="I Put a Database Inside a Website. 1m 41s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep04/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep04/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="A database in the page: Episode 04 | Web Reality Checks"><meta name="twitter:description" content="I Put a Database Inside a Website. 1m 41s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep04/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 04</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep04.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep04.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#3dd6f5">Episode 04 · Data lifecycle</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">I Put a Database Inside a Website</h1>
+<div><span class="badge ok">1m 41s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>create</span></button></li><li><button type="button" data-t="8.49"><b>00:08</b><span>engine</span></button></li><li><button type="button" data-t="20.85"><b>00:20</b><span>memory vs disk</span></button></li><li><button type="button" data-t="32.31"><b>00:32</b><span>reload</span></button></li><li><button type="button" data-t="47.08"><b>00:47</b><span>offline</span></button></li><li><button type="button" data-t="62.27"><b>01:02</b><span>offline edit</span></button></li><li><button type="button" data-t="71.03"><b>01:11</b><span>clean profile</span></button></li><li><button type="button" data-t="80.67"><b>01:20</b><span>clear data</span></button></li><li><button type="button" data-t="90.63"><b>01:30</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep04.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep04-pglite-notes">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep04/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep04/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep04/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep04/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> A real Postgres engine (PGlite, WASM) can run inside the page with browser-local persistence and a separately built offline shell — but that persistence belongs to one origin, one browser profile, one device, and the browser may remove it.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep04-pglite-notes/</code> — a notes app (<code>create / search / edit / delete</code> over a <code>notes</code> table) on <code>@electric-sql/pglite</code> <strong>0.5.11</strong>, pinned in <code>package.json</code> with a committed <code>package-lock.json</code>. <code>notes-db.mjs</code> takes the data-directory string verbatim: the browser passes <code>idb://video-notes</code> (IndexedDB), the Node tests pass a filesystem temp dir, and the known-positive control passes <code>memory://</code>.</li>
+<li>Browser app in <code>app/</code>: <code>index.html</code>, <code>app.js</code>, <code>sw.js</code>. PGlite is imported from a <strong>local copy</strong> of the package's <code>dist/</code> files (<code>app/vendor/pglite/</code>, produced by <code>build-vendor.mjs</code>) — never a CDN. The service worker precaches the shell plus all engine assets (<code>index.js</code>, 7 chunks, <code>fs/*.js</code>, <code>pglite.wasm</code> ~10 MB, <code>pglite.data</code> ~6 MB, <code>initdb.wasm</code>) under a <strong>versioned cache name</strong> (<code>ep04-notes-v0.5.11-&lt;hash&gt;</code>), cache-first for same-origin GETs, older caches deleted on activate, honest 503 text when offline and uncached.</li>
+<li><code>serve.mjs</code> binds <code>127.0.0.1</code> only; <code>http://127.0.0.1</code> is a secure context, so no HTTPS is needed for service workers or IndexedDB.</li>
+<li>Deliberate policies: <code>relaxedDurability</code> is <strong>not enabled</strong> (default off; <code>NotesDb</code> throws if passed); every write is awaited before the UI reports it; no remote sync of any kind exists; synthetic data only (one note, "Groceries").</li>
+<li>API verified against the installed package (<code>node_modules/@electric-sql/pglite/README.md</code> and <code>dist/pglite-*.d.ts</code>): <code>new PGlite(dataDir)</code> with <code>idb://</code> / <code>memory://</code> / path, <code>waitReady</code>, <code>query</code>, <code>exec</code>, <code>close</code>. Path and <code>memory://</code> were executed; <code>idb://</code> is documented but <strong>not executed</strong> (needs a browser).</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>cd fixtures/ep04-pglite-notes &amp;&amp; node --test test.mjs</code> → <code># tests 6  # pass 6  # fail 0</code> (create/search/edit/delete on a filesystem dir; close + reopen same dir keeps the note; a different dir sees 0; <strong>known-positive</strong>: <code>memory://</code> loses the note after close; <code>relaxedDurability</code> refused; constructor guards). Run time ≈ 57 s here because each fresh data dir runs Postgres <code>initdb</code>.</li>
+<li>Executed: <code>node fixtures/ep04-pglite-notes/demo.mjs</code> → <code>evidence.json</code>: engine <code>PostgreSQL 18.6 (PGlite 0.5.11)</code>, fs type <code>filesystem</code>; create → <code>{id 1, "Groceries", "milk, eggs, coffee"}</code>; search <code>coffee</code> → <strong>1</strong> match; close + reopen same dir → count <strong>1</strong> (then edit body → <code>milk, eggs, coffee, bread</code>); different dir → <strong>0</strong>; <code>memory://</code> create, close, reopen → <strong>0</strong>; delete data dir, reopen → <strong>0</strong>; <code>relaxedDurability: false</code>.</li>
+<li>Executed: <code>node build-vendor.mjs</code> → 14 files, 17.4 MB copied to <code>app/vendor/pglite/</code>; <code>precache-manifest.js</code> lists 19 assets; <code>serve.mjs</code> smoke-tested with curl (200 + correct MIME for <code>.html/.js/.mjs/.wasm</code>, 404 for path traversal). <code>app.js</code> and <code>sw.js</code> pass <code>node --check</code> only — they were <strong>not run in a browser</strong>.</li>
+<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors. <code>video/src/episodes/ep04/timeline.json</code> was generated with <code>--no-audio</code> (word-count estimate, 104.2 s, 18 captions) for type-checking; the orchestrator regenerates it from real narration.</li>
+<li>Scenes 1–3 (<code>create</code>, <code>engine</code>, <code>memory_vs_disk</code>) carry sim tag <code>LOCAL FIXTURE · NODE + PGLITE</code> and show only numbers from <code>evidence.json</code>.</li>
+<li><strong>Blocked</strong> (no browser in this environment; scenes 4–8 carry sim tag <code>BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE</code> and show expected behaviour, not results). Exact manual steps are in <code>fixtures/ep04-pglite-notes/browser-test-checklist.md</code>:
+<ul>
+<li>Blocked — scene 4 <code>reload</code>: online load at <code>http://127.0.0.1:8787/</code>, confirm all requests same-origin, engine ready, SW <code>activated · 19 assets cached</code>, IndexedDB database present; create "Groceries"; wait for <code>create → id 1</code>; reload → note present with id 1. (checklist §1–2)</li>
+<li>Blocked — scene 5 <code>offline</code>: confirm Cache Storage holds all 19 entries, then DevTools Network → Offline. (checklist §3.1–3.2)</li>
+<li>Blocked — scene 6 <code>offline_edit</code>: reload offline → page + engine served from the service worker; edit body to <code>milk, eggs, coffee, bread</code>; wait for <code>edit id 1 → ok</code>; reload offline again → edit present. If anything fails, record the message and re-narrate the scene as a failure. (checklist §3.3–3.5)</li>
+<li>Blocked — scene 7 <code>clean_profile</code>: open a fresh profile (Chromium <code>--user-data-dir=&lt;empty&gt;</code> / Firefox <code>about:profiles</code>) at the same address → <code>notes: 0</code>. (checklist §4)</li>
+<li>Blocked — scene 8 <code>clear_data</code>: DevTools → Application → Clear site data (IndexedDB, Cache Storage, service workers) in the original profile; reload → SW re-installs, initdb re-runs, <code>notes: 0</code>. (checklist §5)</li>
+<li>Node analogues for scenes 7 and 8 <strong>were</strong> executed (different dir → 0; deleted dir → 0) and are labelled as such on screen.</li>
+</ul></li>
+<li>Not executed: narration audio, render, thumbnail — the orchestrator does these and fills <code>render-evidence.json</code>. No MP4 is claimed.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd fixtures/ep04-pglite-notes &amp;&amp; npm install --no-audit --no-fund &amp;&amp; node --test test.mjs &amp;&amp; node demo.mjs &amp;&amp; node build-vendor.mjs
+cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep04    # from narration audio in video/public/ep04/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep04 --concurrency 2</code></pre>
+<p>Browser verification (separate, manual): <code>node fixtures/ep04-pglite-notes/serve.mjs 8787</code> then follow <code>browser-test-checklist.md</code>.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Persistence is <strong>per origin and per browser profile</strong>. It is not shared across devices, profiles or even ports; nothing in this app synchronises anything. The narration and end card say so.</li>
+<li>Browser storage can be cleared by the user, by quota pressure or by privacy settings. No permanence is promised; <code>navigator.storage.persist()</code> is not requested.</li>
+<li><code>relaxedDurability</code> was deliberately left off and its effect was not measured.</li>
+<li>No universal browser-compatibility claim: the checklist asks the tester to record browser and version; a current Chromium-based browser or Firefox is the target.</li>
+<li>Everything browser-side (IndexedDB, service worker install, offline reload, clean profile, clear site data) was <strong>not executed</strong> here. Filesystem temp directories under Node stand in for per-profile storage in the measured scenes; the on-screen tag and README label this. If the offline reload fails in a real browser, that failure must be reported, not simulated.</li>
+<li>Timings (<code>openMs</code>) in <code>evidence.json</code> are from this sandbox (initdb ≈ 15–26 s) and are not quoted in the video.</li>
+<li>The <code>~16 MB</code> / <code>~17 MB</code> engine-size figures are the vendored file sizes measured by <code>build-vendor.mjs</code> (uncompressed), not download sizes over the wire.</li>
+<li>Not tested: multi-tab concurrency (PGlite is single-connection), quota/eviction, export/backup (<code>dumpDataDir</code>), any server sync (none exists).</li>
+</ul>
+<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep04/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
+<li>Executed: node tools/render.mjs ep04 → episodes/ep04/ep04.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 101.83 s, 8847885 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
+<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
+<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep03/index.html">← Episode 03: What Sign In does</a></span><span><a href="../ep05/index.html">Episode 05: How many are wrong? →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

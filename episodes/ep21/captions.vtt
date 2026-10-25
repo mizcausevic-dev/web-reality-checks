@@ -1,0 +1,69 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:06.070
+Record lookup: 404. Search: still returns c_1003.
+
+2
+00:00:06.070 --> 00:00:12.330
+The open results page still shows her too.
+
+3
+00:00:12.330 --> 00:00:15.390
+One ID, c_1003, four homes.
+
+4
+00:00:15.390 --> 00:00:20.280
+Primary table, search index, response cache, open browser.
+
+5
+00:00:20.280 --> 00:00:25.600
+Flawed delete: primary row only. Outbox events: 0.
+
+6
+00:00:25.600 --> 00:00:30.260
+Index and cached response still return c_1003.
+
+7
+00:00:30.260 --> 00:00:38.790
+One transaction: delete the row and insert the outbox event.
+
+8
+00:00:38.790 --> 00:00:47.320
+The outbox records intent. It is not atomic across destinations.
+
+9
+00:00:47.320 --> 00:00:51.890
+Index entry removed. Cache invalidation fails once.
+
+10
+00:00:51.890 --> 00:00:57.110
+Event stays pending. The cache still serves c_1003.
+
+11
+00:00:57.110 --> 00:01:04.790
+Attempt two succeeds. Processed only after both steps.
+
+12
+00:01:04.790 --> 00:01:13.420
+Replay is safe. Exhausted retries: failed state and alert.
+
+13
+00:01:13.420 --> 00:01:19.000
+Backend verified: primary, index and cache are clean.
+
+14
+00:01:19.000 --> 00:01:25.740
+The open page keeps its old results until it fetches again.
+
+15
+00:01:25.740 --> 00:01:28.800
+After refresh: only c_1004 remains.
+
+16
+00:01:28.800 --> 00:01:35.600
+Deletion is a workflow when data has more than one home.
+
+17
+00:01:35.600 --> 00:01:43.030
+Not a privacy-erasure system. Backups, logs, exports, third parties: out of scope.
