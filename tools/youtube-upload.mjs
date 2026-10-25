@@ -101,7 +101,7 @@ export function buildFilm(id, opts = {}) {
   const dp = `episodes/${id}/content/distribution.md`;
   if (!ex(dp)) throw new Error(`missing ${dp}`);
   const p = parseDistribution(rd(dp), opts.titleOption ?? 1);
-  const meta = {id, kind: 'ep', title: p.title && sanitize(p.title), description: p.description && sanitize(p.description), tags: p.tags, pinned: p.pinned,
+  const meta = {id, kind: 'ep', title: p.title && sanitize(opts.titleSuffix ? `${p.title} ${opts.titleSuffix}` : p.title), description: p.description && sanitize(p.description), tags: p.tags, pinned: p.pinned,
     file: `episodes/${id}/${id}.mp4`, thumb: `episodes/${id}/thumbnail.png`, captions: `episodes/${id}/captions.srt`, notes: []};
   return finish(meta);
 }
@@ -169,6 +169,12 @@ export async function startSession(meta, o, size) {
   const loc = r.headers.get('location');
   if (!loc || !sameHost(loc)) throw new Error('upload session URL missing or on an unexpected host');
   return loc;
+}
+// videos.update REPLACES the whole snippet, so send every field again (title, description, tags, category).
+export async function updateSnippet(videoId, meta, o) {
+  const r = await retrying(async () => fetch(`${API()}/youtube/v3/videos?part=snippet`, {method: 'PUT', headers: await authz({'Content-Type': 'application/json'}),
+    body: JSON.stringify({id: videoId, snippet: {title: meta.title, description: meta.description, tags: meta.tags, categoryId: String(o.category)}})}));
+  if (!r.ok) throw await apiError(r);
 }
 async function queryOffset(url, size) {
   const r = await fetch(url, {method: 'PUT', headers: await authz({'Content-Length': '0', 'Content-Range': `bytes */${size}`})});
@@ -273,10 +279,10 @@ async function auth(storeToken) {
 
 // ---------- main ----------
 export function parseArgs(argv) {
-  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleOption: 1, seriesThumb: null};
+  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, titleOption: 1, seriesThumb: null};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], nx = () => argv[++i];
-    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
+    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--title-suffix') o.titleSuffix = nx(); else if (a === '--retitle') o.retitle = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
     else if (a === '--synthetic') o.synthetic = true; else if (a === '--confirm-public') o.confirmPublic = true; else if (a === '--ids') o.ids = nx(); else if (a === '--privacy') o.privacy = nx();
     else if (a === '--category') o.category = Number(nx()); else if (a === '--max-units') o.maxUnits = Number(nx()); else if (a === '--title-option') o.titleOption = Number(nx()); else if (a === '--series-thumb') o.seriesThumb = nx();
     else throw new Error(`unknown option ${a}`);
@@ -330,9 +336,10 @@ async function main() {
       let res = await putFile(s.session, path.join(ROOT, f.file), size);
       if (res.expired) { s.session = await startSession(f, o, size); saveState(state); res = await putFile(s.session, path.join(ROOT, f.file), size); }
       if (!res.id) throw new Error(`${f.id}: upload finished without a video id`);
-      s.videoId = res.id; delete s.session; saveState(state);
+      s.videoId = res.id; s.title = f.title; delete s.session; saveState(state);
       console.log(`${f.id} uploaded (${o.privacy}): https://youtu.be/${s.videoId}`);
     } else console.log(`${f.id} already uploaded: https://youtu.be/${s.videoId}`);
+    if (o.retitle && s.title !== f.title) { budget(50); await updateSnippet(s.videoId, f, o); s.title = f.title; saveState(state); console.log(`${f.id} title updated: ${f.title}`); }
     if (f.thumb && !s.thumbnail) { budget(50); await setThumbnail(s.videoId, path.join(ROOT, f.thumb)); s.thumbnail = true; saveState(state); }
     if (o.playlist && !s.playlistItemId) { budget(50); const pid = await ensurePlaylist(state, o); s.playlistItemId = await addToPlaylist(pid, s.videoId); saveState(state); }
     if (o.captions && f.captions && !s.captions) { budget(400); await uploadCaptions(s.videoId, path.join(ROOT, f.captions)); s.captions = true; saveState(state); }

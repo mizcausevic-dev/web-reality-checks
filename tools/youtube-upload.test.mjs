@@ -33,6 +33,7 @@ before(async () => {
       const body = Buffer.concat(chunks);
       log.push({m: req.method, p: u.pathname + u.search, h: req.headers, n: body.length, json: /json/.test(req.headers['content-type'] ?? '') ? safeJson(body) : null});
       const j = (code, o, h = {}) => { res.writeHead(code, {'Content-Type': 'application/json', ...h}); res.end(JSON.stringify(o)); };
+      if (u.pathname === '/youtube/v3/videos' && req.method === 'PUT') return j(200, {id: 'VID_TEST'});
       if (u.pathname === '/youtube/v3/channels') return j(200, {items: [{id: 'UC_TEST', snippet: {title: 'KG Test', customUrl: '@KGTest'}}]});
       if (u.pathname === '/token') return j(200, {access_token: 'fake-access', refresh_token: 'fake-refresh-from-code'});
       if (u.pathname === '/upload/youtube/v3/videos') return j(200, {}, {Location: `${base}/session/1`});
@@ -240,4 +241,29 @@ test('--whoami prints the channel the token uploads to', async () => {
   const r = await run(['--whoami']);
   assert.equal(r.status, 0);
   assert.match(r.stdout, /KG Test \(@kgtest\)/);
+});
+
+test('--title-suffix appends hashtags within the 100 character limit for every episode', () => {
+  for (let i = 1; i <= 30; i++) {
+    const f = buildFilm(`ep${String(i).padStart(2, '0')}`, {titleSuffix: '#WebRealityChecks #webdev'});
+    assert.ok(f.title.endsWith(' #WebRealityChecks #webdev'), f.id);
+    assert.ok([...f.title].length <= 100, `${f.id} title too long`);
+    assert.equal(f.violations.length, 0, `${f.id}: ${f.violations}`);
+  }
+});
+
+test('--retitle sends the FULL snippet (videos.update replaces it) and only once', async () => {
+  fs.rmSync(path.join(tmp, 'state.json'), {force: true});
+  await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest']);
+  const before = log.length;
+  const r = await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest', '--retitle', '--title-suffix', '#WebRealityChecks #webdev']);
+  assert.equal(r.status, 0, r.stderr);
+  const puts = log.slice(before).filter((e) => e.m === 'PUT' && e.p.startsWith('/youtube/v3/videos'));
+  assert.equal(puts.length, 1);
+  const sn = puts[0].json.snippet;
+  assert.ok(sn.title.endsWith('#WebRealityChecks #webdev'));
+  assert.ok(sn.description.length > 100 && sn.tags.length > 5 && sn.categoryId === '28', 'snippet must be complete');
+  const again = log.length;
+  await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest', '--retitle', '--title-suffix', '#WebRealityChecks #webdev']);
+  assert.equal(log.slice(again).filter((e) => e.m === 'PUT' && e.p.startsWith('/youtube/v3/videos')).length, 0, 'second run must not update again');
 });
