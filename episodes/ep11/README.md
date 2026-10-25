@@ -41,3 +41,10 @@ node tools/render.mjs ep11 --concurrency 2
 4. On withdrawal, remove listeners and drop unsent events; do not promise to recall what was sent.
 5. Persist the choice and honour a stored rejection on reload before anything optional runs.
 6. Prove it with a collector: count requests per state, and keep a known-positive control that fails on the flawed build.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep11/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep11 → episodes/ep11/ep11.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.17 s, 8884931 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

@@ -34,3 +34,10 @@ Type-check: `cd video && npx tsc --noEmit` passes for `src/episodes/ep14/*`.
 - The content sniff is a shape check (UTF-8 text, no NUL bytes, header with required columns), not a full CSV grammar; quoted fields with embedded commas are unsupported in this fixture.
 - Session handling (`GET /login/:user`) is a test harness, not production authentication. Multipart parsing buffers the whole size-limited body rather than streaming to disk.
 - Scenes recreate a browser uploader with plain illustrative chrome and carry the `SIMULATED LOCAL FIXTURE` tag; no real product UI is mimicked.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep14/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep14 → episodes/ep14/ep14.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.07 s, 8445528 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

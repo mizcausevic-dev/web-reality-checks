@@ -43,3 +43,10 @@ Fonts: the renderer uses Inter and DejaVu Sans Mono if installed; otherwise syst
 - Not tested: network loss, retries, offline queues, page reload, back/forward cache, multiple tabs, multiple devices, server-side order verification, what any analytics platform would report.
 - Scope of the fix: one owner per business event in the tested scenario. It does not make the analytics pipeline correct in general and does not provide idempotency.
 - The event-ownership checklist is in `fixtures/ep02-duplicate-purchase-events/README.md`.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep02/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep02 → episodes/ep02/ep02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 112.4 s, 9964178 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

@@ -43,3 +43,10 @@ node tools/render.mjs ep17 --concurrency 2
 - Polling faster does not make the collector sample faster (demonstrated). WebSockets do not fix a stale upstream measurement by themselves (stated, not implemented).
 - The stale threshold (300 s) and connection window (90 s) are this fixture's policies, not universal values.
 - Not tested: partial/garbled responses, clock skew, retries/backoff, multiple sources, aggregation windows.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep17/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep17 → episodes/ep17/ep17.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.57 s, 9851334 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

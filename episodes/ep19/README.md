@@ -39,3 +39,10 @@ node tools/render.mjs ep19 --concurrency 2
 - Hydration was not implemented because the static page has no client interactivity; a page with interactivity would need a different comparison.
 - Measurement is string/regex counting of known synthetic content, not a DOM parser. Loopback only; no HTTPS; no real network; no caching behaviour tested.
 - Caption timing in the generated SRT is proportional to word count (heuristic alignment, not forced alignment).
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep19/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep19 → episodes/ep19/ep19.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 107.2 s, 9447060 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

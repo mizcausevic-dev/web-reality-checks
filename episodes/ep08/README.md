@@ -43,3 +43,10 @@ No MP4, audio or thumbnail is claimed by this README; the orchestrator renders a
 - The page mock in scene 1 is an illustrative `Box` drawing labelled ILLUSTRATIVE, not a browser capture.
 - Raw Node timings vary by roughly ±20 % between runs in the shared container; the median is quoted and the raw list is kept. Re-running `demo.mjs` yields different absolute values; the video quotes the recorded `evidence.json`.
 - One image and one handler were corrected. Fonts, CSS, scripts and other interactions were not examined. No claim is made about the page's overall performance.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep08/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep08 → episodes/ep08/ep08.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.37 s, 9347719 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

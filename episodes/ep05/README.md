@@ -36,3 +36,10 @@ node tools/render.mjs ep05 --concurrency 2
 - Not tested: real HTTP behaviour (redirects, TLS errors, bot blocks, parked domains), fuzzy duplicate matching, shared phone lines across genuinely different businesses (which would create false duplicate candidates), any persistence or workflow beyond the JSON files.
 - Accuracy bullets from the brief, each reflected on screen / in narration: data and results labelled synthetic (corner tag, every "Observed from" line); old verification date is not proof of error (scenes 5, 7); HTTP failure is not proof of closure (scenes 5, 8); last checked / last changed / last verified shown as separate fields (scenes 3, 5, 7); unique flagged listings reported separately from issue instances and explicitly not summed (scene 4); checker does not read ground truth (scene 3, test); detected vs missed per seeded class shown (scene 8).
 - Scene timing in `timeline.json` is a word-count heuristic snapped to detected silences once real audio exists; not forced alignment.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep05/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep05 → episodes/ep05/ep05.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.67 s, 9442629 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

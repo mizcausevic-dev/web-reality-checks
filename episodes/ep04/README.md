@@ -43,3 +43,10 @@ Browser verification (separate, manual): `node fixtures/ep04-pglite-notes/serve.
 - Timings (`openMs`) in `evidence.json` are from this sandbox (initdb ≈ 15–26 s) and are not quoted in the video.
 - The `~16 MB` / `~17 MB` engine-size figures are the vendored file sizes measured by `build-vendor.mjs` (uncompressed), not download sizes over the wire.
 - Not tested: multi-tab concurrency (PGlite is single-connection), quota/eviction, export/backup (`dumpDataDir`), any server sync (none exists).
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep04/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep04 → episodes/ep04/ep04.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 101.83 s, 8847885 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

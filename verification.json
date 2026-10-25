@@ -1,0 +1,605 @@
+{
+  "generatedAt": "2026-10-25T09:22:20.835Z",
+  "rows": [
+    {
+      "ep": "ep01",
+      "mp4": {
+        "bytes": 7264149,
+        "duration_s": 98.8,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep01-authz",
+        "pass": 7,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep02",
+      "mp4": {
+        "bytes": 9964178,
+        "duration_s": 112.4,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep02-duplicate-purchase-events",
+        "pass": 8,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep03",
+      "mp4": {
+        "bytes": 9885270,
+        "duration_s": 119.53,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep03-sign-in-session",
+        "pass": 12,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep04",
+      "mp4": {
+        "bytes": 8847885,
+        "duration_s": 101.83,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep04-pglite-notes",
+        "pass": 6,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep05",
+      "mp4": {
+        "bytes": 9442629,
+        "duration_s": 103.67,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep05-directory-quality",
+        "pass": 17,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep06",
+      "mp4": {
+        "bytes": 9661007,
+        "duration_s": 110.8,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep06-prompt-to-answer",
+        "pass": 13,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep07",
+      "mp4": {
+        "bytes": 8792016,
+        "duration_s": 96.4,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep07-vite-env-localhost",
+        "pass": 9,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep08",
+      "mp4": {
+        "bytes": 9347719,
+        "duration_s": 103.37,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep08-feels-slow",
+        "pass": 7,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep09",
+      "mp4": {
+        "bytes": 7965079,
+        "duration_s": 92.87,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep09-keyboard-form",
+        "pass": 15,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep10",
+      "mp4": {
+        "bytes": 9448657,
+        "duration_s": 104.57,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep10-dns-caches",
+        "pass": 13,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep11",
+      "mp4": {
+        "bytes": 8884931,
+        "duration_s": 106.17,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep11-consent-gate",
+        "pass": 10,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep12",
+      "mp4": {
+        "bytes": 8671291,
+        "duration_s": 100.4,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep12-sw-update",
+        "pass": 14,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep13",
+      "mp4": {
+        "bytes": 9765509,
+        "duration_s": 109.6,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep13-api-key-capability",
+        "pass": 16,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep14",
+      "mp4": {
+        "bytes": 8445528,
+        "duration_s": 106.07,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep14-upload-stages",
+        "pass": 8,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep15",
+      "mp4": {
+        "bytes": 8485468,
+        "duration_s": 103.93,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep15-idempotency",
+        "pass": 13,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep16",
+      "mp4": {
+        "bytes": 9507725,
+        "duration_s": 110.27,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep16-rate-limit",
+        "pass": 17,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep17",
+      "mp4": {
+        "bytes": 9851334,
+        "duration_s": 110.57,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep17-stale-dashboard",
+        "pass": 12,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep18",
+      "mp4": {
+        "bytes": 9135471,
+        "duration_s": 111.93,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep18-webhooks",
+        "pass": 14,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep19",
+      "mp4": {
+        "bytes": 9447060,
+        "duration_s": 107.2,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep19-initial-html",
+        "pass": 11,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep20",
+      "mp4": {
+        "bytes": 10721034,
+        "duration_s": 110.33,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep20-https-visibility",
+        "pass": 18,
+        "fail": 0,
+        "exit": 0
+      }
+    }
+  ]
+}

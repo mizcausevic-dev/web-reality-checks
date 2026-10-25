@@ -43,3 +43,10 @@ node tools/render.mjs ep13 --concurrency 2
 - **Repair scope.** The backend exposes one operation to one role. Production backends also need rate limiting, audit logging, and real authentication; the session mechanism here is a test harness.
 - **Rotation is not implemented.** The fixture shows removal from the bundle; it states, but does not demonstrate, that a real leaked secret would additionally require revocation or rotation at the issuer.
 - The flawed bundle must never be deployed; everything binds to 127.0.0.1 on ephemeral ports.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep13/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep13 → episodes/ep13/ep13.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 109.6 s, 9765509 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
