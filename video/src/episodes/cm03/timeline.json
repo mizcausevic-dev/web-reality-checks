@@ -1,0 +1,125 @@
+{
+  "n": 103,
+  "title": "Weird websites, explained",
+  "tag": "Launch film",
+  "kicker": "Official trailer",
+  "fullTitle": "Why Do Websites Do Weird Things? Five Glitches in One Minute",
+  "slug": "why-websites-do-weird-things-trailer",
+  "hero": {
+    "scene": "proof",
+    "t": 5
+  },
+  "audio": "cm03/narration.mp3",
+  "duration": 63.36,
+  "scenes": [
+    {
+      "id": "hook",
+      "start": 0,
+      "end": 5.14,
+      "sim": "FOOTAGE FROM EPISODE 15"
+    },
+    {
+      "id": "problem",
+      "start": 5.14,
+      "end": 16.12,
+      "sim": "PROMOTIONAL FILM"
+    },
+    {
+      "id": "method",
+      "start": 16.12,
+      "end": 28.83,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "proof",
+      "start": 28.83,
+      "end": 39.88,
+      "sim": "FOOTAGE FROM EPISODE 15"
+    },
+    {
+      "id": "range",
+      "start": 39.88,
+      "end": 47.83,
+      "sim": "PROMOTIONAL FILM"
+    },
+    {
+      "id": "limits",
+      "start": 47.83,
+      "end": 56.23,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "cta",
+      "start": 56.23,
+      "end": 63.36,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 3.52,
+      "text": "You tapped Pay once. The app made two orders."
+    },
+    {
+      "start": 3.52,
+      "end": 5.14,
+      "text": "Nothing you did was wrong."
+    },
+    {
+      "start": 5.14,
+      "end": 10.08,
+      "text": "An old page after an update. Someone else's name."
+    },
+    {
+      "start": 10.08,
+      "end": 16.12,
+      "text": "A date one day off. A deleted record that still shows."
+    },
+    {
+      "start": 16.12,
+      "end": 19.51,
+      "text": "Flaw. Control. Repair. Retest."
+    },
+    {
+      "start": 19.51,
+      "end": 28.83,
+      "text": "Each glitch rebuilt as a small pretend app on a laptop."
+    },
+    {
+      "start": 28.83,
+      "end": 34.36,
+      "text": "Without a ticket number: two attempts, two orders."
+    },
+    {
+      "start": 34.36,
+      "end": 39.88,
+      "text": "With a ticket number: two attempts, one order."
+    },
+    {
+      "start": 39.88,
+      "end": 47.83,
+      "text": "Everyday objects explain each strange moment."
+    },
+    {
+      "start": 47.83,
+      "end": 50.88,
+      "text": "Made-up data, local machine."
+    },
+    {
+      "start": 50.88,
+      "end": 56.23,
+      "text": "Not an audit of any real product."
+    },
+    {
+      "start": 56.23,
+      "end": 59.5,
+      "text": "Watch the films. Run the tests yourself."
+    },
+    {
+      "start": 59.5,
+      "end": 61.36,
+      "text": "The repository, linked below."
+    }
+  ]
+}

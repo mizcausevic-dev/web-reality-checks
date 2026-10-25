@@ -1,0 +1,15 @@
+{
+  "n": 103, "slug": "why-websites-do-weird-things-trailer", "title": "Weird websites, explained",
+  "fullTitle": "Why Do Websites Do Weird Things? Five Glitches in One Minute",
+  "tag": "Launch film", "kicker": "Official trailer",
+  "hero": {"scene": "proof", "t": 5},
+  "scenes": [
+    {"id": "hook", "sim": "FOOTAGE FROM EPISODE 15", "narration": "You tapped Pay once. The app made two orders. Nothing you did was wrong.", "captions": ["You tapped Pay once. The app made two orders.", "Nothing you did was wrong."]},
+    {"id": "problem", "sim": "PROMOTIONAL FILM", "narration": "Websites do strange things. A page that stays old after an update. Someone else's name on your screen. A date one day off. A deleted record that still shows up.", "captions": ["An old page after an update. Someone else's name.", "A date one day off. A deleted record that still shows."]},
+    {"id": "method", "sim": "CONCEPTUAL ILLUSTRATION", "narration": "Web Reality Checks explains why. Each film rebuilds one glitch as a small pretend app on a laptop, breaks it on purpose, proves the test can fail, applies the smallest fix, and tests again.", "captions": ["Flaw. Control. Repair. Retest.", "Each glitch rebuilt as a small pretend app on a laptop."]},
+    {"id": "proof", "sim": "FOOTAGE FROM EPISODE 15", "narration": "Take the double charge. Without a ticket number on each attempt, two attempts made two orders. With a ticket number, two attempts made one order. Thirteen tests pass in that fixture.", "captions": ["Without a ticket number: two attempts, two orders.", "With a ticket number: two attempts, one order."]},
+    {"id": "range", "sim": "PROMOTIONAL FILM", "narration": "Every strange moment gets everyday objects: a dropped phone call, a manager waiting at the door, a library card left in the drawer.", "captions": ["Everyday objects explain each strange moment."]},
+    {"id": "limits", "sim": "CONCEPTUAL ILLUSTRATION", "narration": "Everything uses made-up data on a local machine. It is not an audit of any real product, and each fix covers only the problem it shows.", "captions": ["Made-up data, local machine.", "Not an audit of any real product."]},
+    {"id": "cta", "sim": null, "narration": "Watch the films and run the tests yourself. The repository is linked below.", "captions": ["Watch the films. Run the tests yourself.", "The repository, linked below."]}
+  ]
+}

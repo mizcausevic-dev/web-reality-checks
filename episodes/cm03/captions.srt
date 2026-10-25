@@ -1,0 +1,51 @@
+1
+00:00:00,600 --> 00:00:03,520
+You tapped Pay once. The app made two orders.
+
+2
+00:00:03,520 --> 00:00:05,140
+Nothing you did was wrong.
+
+3
+00:00:05,140 --> 00:00:10,080
+An old page after an update. Someone else's name.
+
+4
+00:00:10,080 --> 00:00:16,120
+A date one day off. A deleted record that still shows.
+
+5
+00:00:16,120 --> 00:00:19,510
+Flaw. Control. Repair. Retest.
+
+6
+00:00:19,510 --> 00:00:28,830
+Each glitch rebuilt as a small pretend app on a laptop.
+
+7
+00:00:28,830 --> 00:00:34,360
+Without a ticket number: two attempts, two orders.
+
+8
+00:00:34,360 --> 00:00:39,880
+With a ticket number: two attempts, one order.
+
+9
+00:00:39,880 --> 00:00:47,830
+Everyday objects explain each strange moment.
+
+10
+00:00:47,830 --> 00:00:50,880
+Made-up data, local machine.
+
+11
+00:00:50,880 --> 00:00:56,230
+Not an audit of any real product.
+
+12
+00:00:56,230 --> 00:00:59,500
+Watch the films. Run the tests yourself.
+
+13
+00:00:59,500 --> 00:01:01,360
+The repository, linked below.

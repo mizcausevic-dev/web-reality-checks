@@ -1,0 +1,95 @@
+1
+00:00:00,600 --> 00:00:04,610
+Five weird website moments. Five questions.
+
+2
+00:00:04,610 --> 00:00:10,630
+Every answer comes from a test in the repository.
+
+3
+00:00:10,630 --> 00:00:18,890
+Q1. Pay tapped once, reply lost, retry with the same ticket number.
+
+4
+00:00:18,890 --> 00:00:26,470
+How many orders exist afterwards? A: one. B: two. C: three.
+
+5
+00:00:32,470 --> 00:00:37,500
+A: one order. The same ticket returns the saved order.
+
+6
+00:00:37,500 --> 00:00:42,530
+Without a ticket, the same test made two. Episode 15.
+
+7
+00:00:42,530 --> 00:00:49,130
+Q2. New version published, open tab still shows Build 1.
+
+8
+00:00:49,130 --> 00:00:59,040
+What happens to Build 2? A: replaces at once. B: installs and waits. C: deleted.
+
+9
+00:01:05,040 --> 00:01:10,750
+B: it installs and waits behind Build 1.
+
+10
+00:01:10,750 --> 00:01:16,460
+A model, not a browser recording. Episode 12.
+
+11
+00:01:16,460 --> 00:01:21,770
+Q3. Alice loads her dashboard, then Bob loads his.
+
+12
+00:01:21,770 --> 00:01:30,030
+In the flawed test, what does Bob see? A: Bob. B: error. C: Alice.
+
+13
+00:01:36,030 --> 00:01:38,270
+C: Welcome back, Alice.
+
+14
+00:01:38,270 --> 00:01:44,440
+The saved page had no person in its label. Episode 24.
+
+15
+00:01:44,440 --> 00:01:51,850
+Q4. A deadline of January 15 shown on a New York clock.
+
+16
+00:01:51,850 --> 00:01:59,270
+Which date appears? A: Jan 15. B: Jan 16. C: Jan 14.
+
+17
+00:02:05,270 --> 00:02:13,310
+C: January 14. Midnight in London is 7 pm the day before in New York.
+
+18
+00:02:13,310 --> 00:02:14,380
+Episode 22.
+
+19
+00:02:14,380 --> 00:02:21,030
+Q5. Contact c_1003 deleted. A direct lookup says not found.
+
+20
+00:02:21,030 --> 00:02:29,670
+A search for Dana returns? A: still listed. B: nothing. C: an error.
+
+21
+00:02:35,670 --> 00:02:38,770
+A: the contact is still listed.
+
+22
+00:02:38,770 --> 00:02:43,410
+The delete removed only the main record. Episode 21.
+
+23
+00:02:43,410 --> 00:02:46,700
+Five weird moments, each tested on a laptop.
+
+24
+00:02:46,700 --> 00:02:50,410
+Run the tests yourself. The repository is linked below.

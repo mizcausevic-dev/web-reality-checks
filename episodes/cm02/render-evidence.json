@@ -1,0 +1,35 @@
+{
+  "file": "episodes/cm02/cm02.mp4",
+  "bytes": 5997716,
+  "duration_s": 69.6,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 69.6,
+  "thumbnail": {
+    "file": "episodes/cm02/thumbnail.png",
+    "size": "1280x720",
+    "source": "THUMB-CM02"
+  },
+  "hero": {
+    "file": "episodes/cm02/hero.png",
+    "size": "1600x900",
+    "source": "HERO-CM02"
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "raw_duration_s": 139.807,
+  "final_duration_s": 172.408,
+  "lead_s": 0.6,
+  "tail_s": 2,
+  "cuts": [
+    {
+      "after": "hook",
+      "t": 10.03,
+      "silence_len": 0.58,
+      "est": 9.74,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "q1",
+      "t": 25.87,
+      "silence_len": 0.74,
+      "est": 25.5,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "a1",
+      "t": 35.93,
+      "silence_len": 0.62,
+      "est": 35.62,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "q2",
+      "t": 52.44,
+      "silence_len": 0.6,
+      "est": 52.14,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "a2",
+      "t": 63.86,
+      "silence_len": 0.6,
+      "est": 63.56,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "q3",
+      "t": 77.43,
+      "silence_len": 0.7,
+      "est": 77.08,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "a3",
+      "t": 85.84,
+      "silence_len": 0.6,
+      "est": 85.54,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "q4",
+      "t": 100.67,
+      "silence_len": 0.66,
+      "est": 100.34,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "a4",
+      "t": 109.78,
+      "silence_len": 0.48,
+      "est": 109.54,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "q5",
+      "t": 125.07,
+      "silence_len": 0.62,
+      "est": 124.76,
+      "method": "asr-word-index"
+    },
+    {
+      "after": "a5",
+      "t": 132.81,
+      "silence_len": 0.46,
+      "est": 132.58,
+      "method": "asr-word-index"
+    }
+  ],
+  "think_inserted_s": [
+    {
+      "scene": "q1",
+      "seconds": 6
+    },
+    {
+      "scene": "q2",
+      "seconds": 6
+    },
+    {
+      "scene": "q3",
+      "seconds": 6
+    },
+    {
+      "scene": "q4",
+      "seconds": 6
+    },
+    {
+      "scene": "q5",
+      "seconds": 6
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "n": 113,
+  "title": "Weird websites quiz",
+  "tag": "Quiz",
+  "kicker": "Quiz",
+  "fullTitle": "Why Do Websites Do Weird Things? The Five-Question Quiz",
+  "slug": "weird-websites-quiz",
+  "hero": {
+    "scene": "q1",
+    "t": 3
+  },
+  "audio": "qz03/narration.mp3",
+  "duration": 172.41,
+  "scenes": [
+    {
+      "id": "hook",
+      "start": 0,
+      "end": 10.63,
+      "sim": null
+    },
+    {
+      "id": "q1",
+      "start": 10.63,
+      "end": 32.47,
+      "think": 6
+    },
+    {
+      "id": "a1",
+      "start": 32.47,
+      "end": 42.53
+    },
+    {
+      "id": "q2",
+      "start": 42.53,
+      "end": 65.04,
+      "sim": "CONCEPTUAL ILLUSTRATION",
+      "think": 6
+    },
+    {
+      "id": "a2",
+      "start": 65.04,
+      "end": 76.46,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "q3",
+      "start": 76.46,
+      "end": 96.03,
+      "think": 6
+    },
+    {
+      "id": "a3",
+      "start": 96.03,
+      "end": 104.44
+    },
+    {
+      "id": "q4",
+      "start": 104.44,
+      "end": 125.27,
+      "think": 6
+    },
+    {
+      "id": "a4",
+      "start": 125.27,
+      "end": 134.38
+    },
+    {
+      "id": "q5",
+      "start": 134.38,
+      "end": 155.67,
+      "think": 6
+    },
+    {
+      "id": "a5",
+      "start": 155.67,
+      "end": 163.41
+    },
+    {
+      "id": "close",
+      "start": 163.41,
+      "end": 172.407,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.61,
+      "text": "Five weird website moments. Five questions."
+    },
+    {
+      "start": 4.61,
+      "end": 10.63,
+      "text": "Every answer comes from a test in the repository."
+    },
+    {
+      "start": 10.63,
+      "end": 18.89,
+      "text": "Q1. Pay tapped once, reply lost, retry with the same ticket number."
+    },
+    {
+      "start": 18.89,
+      "end": 26.47,
+      "text": "How many orders exist afterwards? A: one. B: two. C: three."
+    },
+    {
+      "start": 32.47,
+      "end": 37.5,
+      "text": "A: one order. The same ticket returns the saved order."
+    },
+    {
+      "start": 37.5,
+      "end": 42.53,
+      "text": "Without a ticket, the same test made two. Episode 15."
+    },
+    {
+      "start": 42.53,
+      "end": 49.13,
+      "text": "Q2. New version published, open tab still shows Build 1."
+    },
+    {
+      "start": 49.13,
+      "end": 59.04,
+      "text": "What happens to Build 2? A: replaces at once. B: installs and waits. C: deleted."
+    },
+    {
+      "start": 65.04,
+      "end": 70.75,
+      "text": "B: it installs and waits behind Build 1."
+    },
+    {
+      "start": 70.75,
+      "end": 76.46,
+      "text": "A model, not a browser recording. Episode 12."
+    },
+    {
+      "start": 76.46,
+      "end": 81.77,
+      "text": "Q3. Alice loads her dashboard, then Bob loads his."
+    },
+    {
+      "start": 81.77,
+      "end": 90.03,
+      "text": "In the flawed test, what does Bob see? A: Bob. B: error. C: Alice."
+    },
+    {
+      "start": 96.03,
+      "end": 98.27,
+      "text": "C: Welcome back, Alice."
+    },
+    {
+      "start": 98.27,
+      "end": 104.44,
+      "text": "The saved page had no person in its label. Episode 24."
+    },
+    {
+      "start": 104.44,
+      "end": 111.85,
+      "text": "Q4. A deadline of January 15 shown on a New York clock."
+    },
+    {
+      "start": 111.85,
+      "end": 119.27,
+      "text": "Which date appears? A: Jan 15. B: Jan 16. C: Jan 14."
+    },
+    {
+      "start": 125.27,
+      "end": 133.31,
+      "text": "C: January 14. Midnight in London is 7 pm the day before in New York."
+    },
+    {
+      "start": 133.31,
+      "end": 134.38,
+      "text": "Episode 22."
+    },
+    {
+      "start": 134.38,
+      "end": 141.03,
+      "text": "Q5. Contact c_1003 deleted. A direct lookup says not found."
+    },
+    {
+      "start": 141.03,
+      "end": 149.67,
+      "text": "A search for Dana returns? A: still listed. B: nothing. C: an error."
+    },
+    {
+      "start": 155.67,
+      "end": 158.77,
+      "text": "A: the contact is still listed."
+    },
+    {
+      "start": 158.77,
+      "end": 163.41,
+      "text": "The delete removed only the main record. Episode 21."
+    },
+    {
+      "start": 163.41,
+      "end": 166.7,
+      "text": "Five weird moments, each tested on a laptop."
+    },
+    {
+      "start": 166.7,
+      "end": 170.41,
+      "text": "Run the tests yourself. The repository is linked below."
+    }
+  ]
+}
