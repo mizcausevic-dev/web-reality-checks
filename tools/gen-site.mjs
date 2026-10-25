@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const REPO = 'https://github.com/mizcausevic-dev/web-reality-checks';
-const eps = fs.readdirSync(path.join(root, 'episodes')).filter((d) => /^ep\d\d$/.test(d)).sort();
+const eps = fs.readdirSync(path.join(root, 'episodes')).filter((d) => /^ep\d\d$/.test(d) && fs.existsSync(path.join(root, 'episodes', d, 'script.json')) && fs.existsSync(path.join(root, 'episodes', d, 'render-evidence.json'))).sort();
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const mmss = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
