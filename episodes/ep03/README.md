@@ -48,3 +48,10 @@ node tools/render.mjs ep03 --concurrency 2
 - Not covered: rate limiting, lockout, MFA, password reset, remember-me, idle timeout, concurrent sessions, token-based/OAuth/OIDC/passkey sign-in.
 - Correct cookie attributes, a fresh session id and CSRF tokens address the demonstrated concerns only; the application is not claimed to be fully secure.
 - Timeline durations in `timeline.json` are a word-count estimate until real narration audio is supplied.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep03/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep03 → episodes/ep03/ep03.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 119.53 s, 9885270 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

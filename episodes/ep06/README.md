@@ -39,3 +39,10 @@ node tools/render.mjs ep06 --concurrency 2
 - No streaming, concurrency, cancellation, rate limiting, or real session establishment (EP03 covers sessions).
 - The assistant window in scene 1 is an illustrative `Box`, not a real product UI.
 - Scene boundaries from `build-timeline.mjs` are a word-count/silence heuristic, not forced alignment.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep06/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep06 → episodes/ep06/ep06.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.8 s, 9661007 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

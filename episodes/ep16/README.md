@@ -41,3 +41,10 @@ Type-check: `cd video && npx tsc --noEmit` (passes).
 
 ## Orchestrator note (observed during production)
 - Observed: `node --test fixtures/ep16-rate-limit/test.mjs` passed 17/17 on three consecutive runs on an idle 2-vCPU box, and failed 1/17 once while a video render saturated both cores. The limiter and typing tests run on a scaled virtual clock, so heavy CPU contention can shift one timing assertion. Run the suite on an idle machine; a single failure under load is a scheduling artefact, not a limiter defect.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep16/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep16 → episodes/ep16/ep16.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.27 s, 9507725 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

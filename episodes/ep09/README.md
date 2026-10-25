@@ -42,3 +42,10 @@ node tools/render.mjs ep09 --concurrency 2
 - **No rendered browser.** The static audit is regex-level analysis of inline CSS/script and can miss `box-shadow` focus styles, external stylesheets or dynamically inserted markup. Confirm with `keyboard-test-checklist.md` in a real browser.
 - The repair covers this one form. Modals, custom selects, date pickers and multi-step flows each need their own keyboard test.
 - The flawed version is a hand-built teaching fixture, not derived from any real product.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep09/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep09 → episodes/ep09/ep09.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 92.87 s, 7965079 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

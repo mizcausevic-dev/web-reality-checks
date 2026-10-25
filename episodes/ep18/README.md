@@ -39,3 +39,10 @@ node tools/render.mjs ep18 --concurrency 2
 - **No external side effects** are performed. Emails, charges, queue publishes would require additional coordination (e.g. an outbox pattern or idempotent downstream operations), which this fixture does not demonstrate.
 - Simulated: the commit failure (`X-Fault: fail-commit`) and the receiver clock. Not tested: secret rotation, provider-side retry scheduling, multi-process concurrency against a shared database, record retention/expiry.
 - The fixture binds 127.0.0.1 on an ephemeral port; the signing scheme and secret are fixture-only.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep18/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep18 → episodes/ep18/ep18.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 111.93 s, 9135471 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

@@ -35,3 +35,10 @@ node tools/render.mjs ep12 --concurrency 2
 - Old assets are deleted only during the new worker's `activate`, by prefix, after the previous worker is redundant. `clients.claim()` is not the mechanism that deletes caches.
 - No lifecycle event was faked as a browser capture and no `controllerchange` reload loop is possible: one guard per document, one reload.
 - The model omits `updateViaCache`, imported scripts, scope rules, the browser's 24-hour byte-check and navigation-triggered update checks, and multiple registrations. The fetch handler is a minimal cache-first strategy for demonstration, not a production caching policy.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep12/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep12 → episodes/ep12/ep12.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 100.4 s, 8671291 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

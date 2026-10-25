@@ -46,3 +46,10 @@ node tools/render.mjs ep20 --concurrency 2
 - Not covered: HTTP/3 over QUIC, TLS 1.2, session resumption, 0-RTT, OCSP, client certificates, traffic-analysis attacks beyond the statement that sizes and timing alone do not reveal exact content.
 - The illustrative browser chrome in `navigate` is a plain `Box`, labelled illustrative; it mimics no product.
 - Caption timing in the provisional timeline is a word-count heuristic; the orchestrator re-aligns to real audio.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep20/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep20 → episodes/ep20/ep20.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.33 s, 10721034 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

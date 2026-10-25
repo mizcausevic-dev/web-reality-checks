@@ -39,3 +39,10 @@ Full version: `fixtures/ep10-dns-caches/diagnostic-checklist.md`.
 2. **Connectivity** — TCP connect to the *resolved* address; test the intended address explicitly with `--resolve`; firewall rules; test from the client's network.
 3. **TLS** — handshake with SNI against the intended address; certificate covers the name; a mismatch after a DNS change usually means the name now points at an unprovisioned host.
 4. **HTTP** — status and origin headers via `--resolve`; Host-header routing; separate HTTP cache state from DNS cache state before concluding "the fix did not propagate".
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep10/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep10 → episodes/ep10/ep10.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 104.57 s, 9448657 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.

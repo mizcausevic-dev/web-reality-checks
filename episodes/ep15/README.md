@@ -52,3 +52,10 @@ node tools/render.mjs ep15 --concurrency 2
 - The fingerprint covers only the validated order fields. Fields deliberately excluded from validation (e.g. a client `userId`) cannot affect it.
 - Session harness (`GET /login/:user`) is not production authentication. The vulnerable fixture binds to 127.0.0.1 on an ephemeral port and must never be deployed.
 - `node:sqlite` is marked experimental in Node 22; it prints an `ExperimentalWarning`.
+
+
+## Render evidence (orchestrator)
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep15/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
+- Executed: node tools/render.mjs ep15 → episodes/ep15/ep15.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.93 s, 8485468 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
+- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
+- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
