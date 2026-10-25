@@ -268,3 +268,33 @@ test('--retitle sends the FULL snippet (videos.update replaces it) and only once
   await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest', '--retitle', '--title-suffix', '#WebRealityChecks #webdev']);
   assert.equal(log.slice(again).filter((e) => e.m === 'PUT' && e.p.startsWith('/youtube/v3/videos')).length, 0, 'second run must not update again');
 });
+
+test('--publish needs --confirm-public, sets public with the full status object, then the playlist, and only once', async () => {
+  fs.rmSync(path.join(tmp, 'state.json'), {force: true});
+  const base1 = ['--ids', 'ep15', '--expect-channel', '@kgtest'];
+  await run([...base1, '--upload', '--playlist']);
+  const refused = await run([...base1, '--publish']);
+  assert.notEqual(refused.status, 0);
+  assert.match(refused.stderr, /confirm-public/);
+  const before = log.length;
+  const r = await run([...base1, '--publish', '--confirm-public']);
+  assert.equal(r.status, 0, r.stderr);
+  const seen = log.slice(before);
+  const vid = seen.filter((e) => e.m === 'PUT' && e.p.startsWith('/youtube/v3/videos'));
+  assert.equal(vid.length, 1);
+  assert.deepEqual(vid[0].json.status, {privacyStatus: 'public', selfDeclaredMadeForKids: false});
+  const pl = seen.filter((e) => e.m === 'PUT' && e.p.startsWith('/youtube/v3/playlists'));
+  assert.equal(pl.length, 1);
+  assert.equal(pl[0].json.status.privacyStatus, 'public');
+  assert.ok(pl[0].json.snippet.title, 'playlist update must resend its title');
+  const again = log.length;
+  await run([...base1, '--publish', '--confirm-public']);
+  assert.equal(log.slice(again).filter((e) => e.m === 'PUT').length, 0, 'second run must change nothing');
+});
+
+test('--publish on a film that was never uploaded is refused', async () => {
+  fs.rmSync(path.join(tmp, 'state.json'), {force: true});
+  const r = await run(['--ids', 'ep15', '--publish', '--confirm-public', '--expect-channel', '@kgtest']);
+  assert.notEqual(r.status, 0);
+  assert.match(r.stderr, /not uploaded yet/);
+});

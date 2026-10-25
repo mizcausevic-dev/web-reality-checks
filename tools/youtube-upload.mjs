@@ -205,11 +205,27 @@ async function setThumbnail(videoId, file) {
   const r = await retrying(async () => fetch(`${API()}/upload/youtube/v3/thumbnails/set?videoId=${encodeURIComponent(videoId)}&uploadType=media`, {method: 'POST', headers: await authz({'Content-Type': 'image/png'}), body: fs.readFileSync(file)}));
   if (!r.ok) throw await apiError(r);
 }
-async function ensurePlaylist(state, o) {
-  if (state.playlistId) return state.playlistId;
+function playlistMeta() {
   const rel = rd('SERIES_RELEASE.md');
   const title = (section(rel, /### Playlist title[^\n]*\n/, /\n### /) ?? '').match(/^1\. `([^`]+)`/m)?.[1] ?? 'Web Reality Checks';
   const description = sanitize((section(rel, /### Playlist description[^\n]*\n/, /\n## /) ?? '').replace(/^```\n?|\n?```$/g, ''));
+  return {title, description};
+}
+// videos.update with part=status REPLACES the status object, so selfDeclaredMadeForKids (and the synthetic flag) are sent again.
+export async function setVisibility(videoId, privacy, o) {
+  const status = {privacyStatus: privacy, selfDeclaredMadeForKids: false, ...(o.synthetic ? {containsSyntheticMedia: true} : {})};
+  const r = await retrying(async () => fetch(`${API()}/youtube/v3/videos?part=status`, {method: 'PUT', headers: await authz({'Content-Type': 'application/json'}), body: JSON.stringify({id: videoId, status})}));
+  if (!r.ok) throw await apiError(r);
+}
+async function setPlaylistVisibility(playlistId, privacy) {
+  const {title, description} = playlistMeta();
+  const r = await retrying(async () => fetch(`${API()}/youtube/v3/playlists?part=snippet,status`, {method: 'PUT', headers: await authz({'Content-Type': 'application/json'}),
+    body: JSON.stringify({id: playlistId, snippet: {title, description}, status: {privacyStatus: privacy}})}));
+  if (!r.ok) throw await apiError(r);
+}
+async function ensurePlaylist(state, o) {
+  if (state.playlistId) return state.playlistId;
+  const {title, description} = playlistMeta();
   // Reuse an existing playlist with this exact title (a failed earlier run may have created it), so reruns never duplicate it.
   const ex = await retrying(async () => fetch(`${API()}/youtube/v3/playlists?part=snippet&mine=true&maxResults=50`, {headers: await authz()}));
   if (ex.ok) { const hit = ((await ex.json().catch(() => ({}))).items ?? []).find((p) => p.snippet?.title === title); if (hit) return (state.playlistId = hit.id); }
@@ -282,15 +298,16 @@ async function auth(storeToken) {
 
 // ---------- main ----------
 export function parseArgs(argv) {
-  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, titleOption: 1, seriesThumb: null};
+  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, publish: false, titleOption: 1, seriesThumb: null};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], nx = () => argv[++i];
-    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--title-suffix') o.titleSuffix = nx(); else if (a === '--retitle') o.retitle = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
+    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--title-suffix') o.titleSuffix = nx(); else if (a === '--retitle') o.retitle = true; else if (a === '--publish') o.publish = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
     else if (a === '--synthetic') o.synthetic = true; else if (a === '--confirm-public') o.confirmPublic = true; else if (a === '--ids') o.ids = nx(); else if (a === '--privacy') o.privacy = nx();
     else if (a === '--category') o.category = Number(nx()); else if (a === '--max-units') o.maxUnits = Number(nx()); else if (a === '--title-option') o.titleOption = Number(nx()); else if (a === '--series-thumb') o.seriesThumb = nx();
     else throw new Error(`unknown option ${a}`);
   }
   if (!['private', 'unlisted', 'public'].includes(o.privacy)) throw new Error('--privacy must be private, unlisted or public');
+  if (o.publish && !o.confirmPublic) throw new Error('BLOCKED: --publish makes videos public and needs --confirm-public');
   if (o.privacy === 'public' && o.upload && !o.confirmPublic) throw new Error('BLOCKED: public uploads need --confirm-public (default is private)');
   return o;
 }
@@ -308,11 +325,11 @@ async function main() {
   API(); TOKEN_URL(); // fail fast if the environment points these at a non-Google, non-loopback host
   if (o.auth) return auth(o.storeToken);
   if (o.whoami) { const c = await currentChannel(); console.log(`This token uploads to: ${c.title} (@${c.handle}) id ${c.id}`); return; }
-  if (o.upload && !o.ids) throw new Error('BLOCKED: --upload needs an explicit --ids (for example --ids ep15)');
-  if (o.upload && !o.expectChannel) throw new Error('BLOCKED: --upload needs --expect-channel @handle (run --whoami to see which channel the token uses)');
+  if ((o.upload || o.publish) && !o.ids) throw new Error('BLOCKED: --upload needs an explicit --ids (for example --ids ep15)');
+  if ((o.upload || o.publish) && !o.expectChannel) throw new Error('BLOCKED: --upload needs --expect-channel @handle (run --whoami to see which channel the token uses)');
   const films = expandIds(o.ids).map((id) => buildFilm(id, o));
   let bad = 0, units = 0;
-  console.log(`${o.upload ? 'UPLOAD' : 'DRY RUN'} | privacy=${o.privacy} | films=${films.length} | playlist=${o.playlist} captions=${o.captions}`);
+  console.log(`${o.publish ? 'PUBLISH' : o.upload ? 'UPLOAD' : 'DRY RUN'} | privacy=${o.privacy} | films=${films.length} | playlist=${o.playlist} captions=${o.captions}`);
   for (const f of films) {
     const u = plannedUnits(f, o); units += u;
     console.log(`${f.id.padEnd(6)} title ${[...(f.title ?? '')].length}c | desc ${Buffer.byteLength(f.description ?? '')}B | tags ${f.tags.length}${f.tagsDropped.length ? ` (dropped ${f.tagsDropped.length} to fit 500)` : ''} | ~${u} units${f.violations.length ? ` | PROBLEMS: ${f.violations.join('; ')}` : ''}${f.notes.length ? ` | NOTE: ${f.notes.join('; ')}` : ''}`);
@@ -320,7 +337,7 @@ async function main() {
   }
   console.log(`Planned quota (excluding the separate videos.insert bucket of 100/day): ~${units} units against 10000/day${units > o.maxUnits ? `; this needs about ${Math.ceil(units / o.maxUnits)} days at --max-units ${o.maxUnits} (progress is saved, rerun to continue)` : ''}`);
   if (bad) { console.error(`${bad} film(s) have problems; fix them before uploading.`); process.exit(2); }
-  if (!o.upload) { console.log('Dry run only. Nothing was sent. Add --upload to upload as private.'); return; }
+  if (!o.upload && !o.publish) { console.log('Dry run only. Nothing was sent. Add --upload to upload as private.'); return; }
 
   const ch = await currentChannel();
   if (ch.handle !== o.expectChannel.replace(/^@/, '').toLowerCase()) throw new Error(`BLOCKED: token belongs to "${ch.title}" (@${ch.handle}), expected ${o.expectChannel}. Nothing was uploaded. Run --auth again and pick the right channel account.`);
@@ -335,6 +352,7 @@ async function main() {
     const s = (state.films[f.id] ??= {});
     const size = fs.statSync(path.join(ROOT, f.file)).size;
     if (!s.videoId) {
+      if (!o.upload) throw new Error(`${f.id} is not uploaded yet; run with --upload first`);
       if (!s.session) { s.session = await startSession(f, o, size); saveState(state); }
       let res = await putFile(s.session, path.join(ROOT, f.file), size);
       if (res.expired) { s.session = await startSession(f, o, size); saveState(state); res = await putFile(s.session, path.join(ROOT, f.file), size); }
@@ -345,8 +363,10 @@ async function main() {
     if (o.retitle && s.title !== f.title) { budget(50); await updateSnippet(s.videoId, f, o); s.title = f.title; saveState(state); console.log(`${f.id} title updated: ${f.title}`); }
     if (f.thumb && !s.thumbnail) { budget(50); await setThumbnail(s.videoId, path.join(ROOT, f.thumb)); s.thumbnail = true; saveState(state); }
     if (o.playlist && !s.playlistItemId) { budget(50); const pid = await ensurePlaylist(state, o); s.playlistItemId = await addToPlaylist(pid, s.videoId); saveState(state); }
+    if (o.publish && !s.published) { budget(50); await setVisibility(s.videoId, 'public', o); s.published = true; saveState(state); console.log(`${f.id} is now PUBLIC: https://youtu.be/${s.videoId}`); }
     if (o.captions && f.captions && !s.captions) { budget(400); await uploadCaptions(s.videoId, path.join(ROOT, f.captions)); s.captions = true; saveState(state); }
   }
+  if (o.publish && state.playlistId && !state.playlistPublic && films.every((f) => state.films[f.id]?.published)) { budget(50); await setPlaylistVisibility(state.playlistId, 'public'); state.playlistPublic = true; saveState(state); console.log(`Playlist is now PUBLIC: https://www.youtube.com/playlist?list=${state.playlistId}`); }
   console.log('\nDone. Review each video in YouTube Studio before changing visibility.');
   for (const f of films.filter((x) => x.pinned)) console.log(`\nPinned comment for ${f.id} (paste and pin by hand; the API cannot pin):\n${f.pinned}`);
 }
