@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const dir = path.join(root, 'video', 'src', 'episodes');
-const eps = fs.readdirSync(dir).filter((d) => fs.existsSync(path.join(dir, d, 'timeline.json')) && fs.existsSync(path.join(dir, d, 'index.tsx')) && fs.existsSync(path.join(dir, d, 'Scenes.tsx'))).sort();
+const eps = fs.readdirSync(dir).filter((d) => fs.existsSync(path.join(dir, d, 'timeline.json')) && fs.existsSync(path.join(dir, d, 'index.tsx')) && fs.existsSync(path.join(dir, d, 'Scenes.tsx'))).sort().filter((e) => process.argv.length < 3 || process.argv.slice(2).includes(e));
 const imports = eps.map((e) => `import * as ${e} from './episodes/${e}';\nimport {scenes as ${e}scenes} from './episodes/${e}/Scenes';`).join('\n');
 const comps = eps.map((e) => `      <Composition id="${e.toUpperCase()}" component={${e}.Episode} durationInFrames={framesFor(${e}.timeline as Timeline)} fps={FPS} width={W} height={H} />
       <Composition id="HERO-${e.toUpperCase()}" component={makeHero(${e}.timeline as Timeline, ${e}scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />

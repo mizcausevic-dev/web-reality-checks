@@ -1,0 +1,72 @@
+{
+  "n": 24,
+  "slug": "shared-cache-leak",
+  "title": "Someone else's name",
+  "fullTitle": "Why Did This Dashboard Show Someone Else's Name?",
+  "scenes": [
+    {
+      "id": "fail",
+      "narration": "Alice opens her dashboard: Welcome back, Alice. Bob signs in with his own account, opens the same page, and reads: Welcome back, Alice. Bob's session was correct. The page was not.",
+      "captions": [
+        "Alice loads her dashboard: \"Welcome back, Alice\".",
+        "Bob loads the same page and sees \"Welcome back, Alice\"."
+      ]
+    },
+    {
+      "id": "leak",
+      "narration": "Bob received Alice's name, Alice's email, and the same render number. A cache hit, so nothing was rendered for Bob. This is a deliberately flawed application cache in a local fixture, not a CDN incident.",
+      "captions": [
+        "Bob's response: Alice's name, Alice's email, same render number.",
+        "A deliberately flawed application cache, not a CDN incident."
+      ]
+    },
+    {
+      "id": "key",
+      "narration": "The cause is the key. The cache looks entries up by path only: slash dashboard. Two identities map onto one shared slot, because identity was never in the key.",
+      "captions": [
+        "The cache key is the path only: /dashboard.",
+        "Two identities, one shared slot."
+      ]
+    },
+    {
+      "id": "auth",
+      "narration": "Authentication ran first, and it was right: Bob was Bob. But the cached payload was chosen afterwards, without asking whose it was. A correct Cache-Control header cannot help, because this custom code never reads it.",
+      "captions": [
+        "Authentication was correct. The cached payload was not.",
+        "Cache-Control does not repair code that ignores it."
+      ]
+    },
+    {
+      "id": "fix",
+      "narration": "The repair removes the personalised page from the shared cache. Every request is authenticated and authorised, then rendered for the current user, with Cache-Control private, no-store. The old entry is explicitly purged.",
+      "captions": [
+        "Bypass the shared slot. Authenticate and authorise every request.",
+        "Send private, no-store. Purge the old entry."
+      ]
+    },
+    {
+      "id": "retest",
+      "narration": "Retest with two independent sessions: separate cookie jars standing in for isolated browser contexts. Alice, Bob, Alice, Bob. Each response is rendered fresh; the shared slot is never touched.",
+      "captions": [
+        "Two independent cookie jars. Alice, Bob, Alice, Bob.",
+        "The shared slot is never touched."
+      ]
+    },
+    {
+      "id": "verify",
+      "narration": "Each user receives only their own page: four requests, four separate renders. Headers cannot retract a response already delivered, and Vary Cookie is not a universal answer. Identity-aware caching needs its own authorisation and invalidation decisions.",
+      "captions": [
+        "Each user receives only their own page.",
+        "Already-delivered responses cannot be retracted."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "A cache key defines which requests you treat as equivalent.",
+      "captions": [
+        "A cache key defines which requests you treat as equivalent."
+      ]
+    }
+  ]
+}

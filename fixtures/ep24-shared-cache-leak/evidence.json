@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-10-25T18:27:24.772Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "note": "Two independent cookie jars (Client instances) stand in for isolated browser contexts. No real browser. The cache is in-process application code, not a CDN.",
+  "cacheKey": {
+    "expression": "url.pathname",
+    "value": "/dashboard",
+    "includesIdentity": false
+  },
+  "flawed": {
+    "aliceStatus": 200,
+    "aliceAppCache": "MISS",
+    "aliceViewer": "u_alice",
+    "bobStatus": 200,
+    "bobAppCache": "HIT",
+    "bobViewer": "u_alice",
+    "bobGreeting": "Welcome back, Alice",
+    "leakedEmail": "alice@example.test",
+    "sameRenderSeq": true,
+    "bobWhoami": "u_bob",
+    "cacheAfterAlice": {
+      "keys": [
+        "/dashboard"
+      ],
+      "populatedBy": "u_alice",
+      "size": 1
+    },
+    "cacheAfterBob": {
+      "keys": [
+        "/dashboard"
+      ],
+      "hits": 1,
+      "size": 1
+    }
+  },
+  "headerDoesNotRepair": {
+    "cacheControl": "private, no-store",
+    "appCache": "HIT",
+    "bobViewer": "u_alice"
+  },
+  "unauthenticated": {
+    "flawedWithPopulatedCache": 401,
+    "corrected": 401,
+    "correctedCacheControl": "private, no-store"
+  },
+  "repair": {
+    "entryBefore": {
+      "present": true,
+      "size": 1
+    },
+    "repairOut": {
+      "mode": "corrected",
+      "purged": true
+    },
+    "entryAfter": {
+      "present": false,
+      "size": 0,
+      "purgeLog": [
+        {
+          "key": "/dashboard",
+          "populatedBy": "u_alice",
+          "reason": "repair: shared entry held one user's personalized page"
+        }
+      ]
+    },
+    "cacheStatsBeforeRetest": {
+      "reads": 2,
+      "hits": 1,
+      "writes": 1,
+      "purges": 1
+    },
+    "cacheStatsAfterRetest": {
+      "reads": 2,
+      "hits": 1,
+      "writes": 1,
+      "purges": 1
+    },
+    "sharedCacheTouchedDuringRetest": false
+  },
+  "retest": {
+    "requests": 4,
+    "aliceOnlyAlice": true,
+    "bobOnlyBob": true,
+    "allBypass": true,
+    "allPrivateNoStore": true,
+    "distinctRenderSeqs": 4
+  },
+  "alreadyDelivered": {
+    "leakedBodyStillHeldByClient": true,
+    "note": "The repair changes later responses only. The leaked response had already been delivered and is not retracted."
+  },
+  "log": [
+    {
+      "phase": "0 sessions",
+      "client": "bob",
+      "request": "GET /whoami",
+      "status": 200,
+      "appCache": null,
+      "cacheControl": "private, no-store",
+      "viewer": null,
+      "greeting": null,
+      "renderSeq": null,
+      "note": "server-side session table resolves Bob's jar to Bob"
+    },
+    {
+      "phase": "1 flawed",
+      "client": "alice",
+      "request": "GET /dashboard",
+      "status": 200,
+      "appCache": "MISS",
+      "cacheControl": null,
+      "viewer": "u_alice",
+      "greeting": "Welcome back, Alice",
+      "renderSeq": 1
+    },
+    {
+      "phase": "1 flawed",
+      "client": "bob",
+      "request": "GET /dashboard",
+      "status": 200,
+      "appCache": "HIT",
+      "cacheControl": null,
+      "viewer": "u_alice",
+      "greeting": "Welcome back, Alice",
+      "renderSeq": 1,
+      "note": "Bob is authenticated as Bob"
+    },
+    {
+      "phase": "1b flawed + correct header",
+      "client": "alice",
+      "request": "GET /dashboard",
+      "status": 200,
+      "appCache": "MISS",
+      "cacheControl": "private, no-store",
+      "viewer": "u_alice",
+      "greeting": "Welcome back, Alice",
+      "renderSeq": 1
+    },
+    {
+      "phase": "1b flawed + correct header",
+      "client": "bob",
+      "request": "GET /dashboard",
+      "status": 200,
+      "appCache": "HIT",
+      "cacheControl": "private, no-store",
+      "viewer": "u_alice",
+      "greeting": "Welcome back, Alice",
+      "renderSeq": 1
+    },
+    {
+      "phase": "1c unauthenticated",
+      "client": "anon",
+      "request": "GET /dashboard",
+      "status": 401,
+      "appCache": null,
+      "cacheControl": null,
+      "viewer": null,
+      "greeting": null,
+      "renderSeq": null
+    },
+    {
+      "phase": "3 retest",
+      "client": "alice",
+      "request": "GET /dashboard",
+      "status": 200,
+      "appCache": "BYPASS",
+      "cacheControl": "private, no-store",
+      "viewer": "u_alice",
+      "greeting": "Welcome back, Alice",
+      "renderSeq": 2
+    },
+    {
+      "phase": "3 retest",
+      "client": "bob",
+      "request": "GET /dashboard",
+      "status": 200,
+      "appCache": "BYPASS",
+      "cacheControl": "private, no-store",
+      "viewer": "u_bob",
+      "greeting": "Welcome back, Bob",
+      "renderSeq": 3
+    },
+    {
+      "phase": "3 retest",
+      "client": "alice",
+      "request": "GET /dashboard",
+      "status": 200,
+      "appCache": "BYPASS",
+      "cacheControl": "private, no-store",
+      "viewer": "u_alice",
+      "greeting": "Welcome back, Alice",
+      "renderSeq": 4
+    },
+    {
+      "phase": "3 retest",
+      "client": "bob",
+      "request": "GET /dashboard",
+      "status": 200,
+      "appCache": "BYPASS",
+      "cacheControl": "private, no-store",
+      "viewer": "u_bob",
+      "greeting": "Welcome back, Bob",
+      "renderSeq": 5
+    },
+    {
+      "phase": "3 retest",
+      "client": "anon",
+      "request": "GET /dashboard",
+      "status": 401,
+      "appCache": "BYPASS",
+      "cacheControl": "private, no-store",
+      "viewer": null,
+      "greeting": null,
+      "renderSeq": null
+    }
+  ]
+}

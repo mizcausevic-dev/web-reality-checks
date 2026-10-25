@@ -1,0 +1,132 @@
+{
+  "n": 24,
+  "title": "Someone else's name",
+  "fullTitle": "Why Did This Dashboard Show Someone Else's Name?",
+  "slug": "shared-cache-leak",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep24/narration.mp3",
+  "duration": 99.59,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 11.99
+    },
+    {
+      "id": "leak",
+      "start": 11.99,
+      "end": 27.27
+    },
+    {
+      "id": "key",
+      "start": 27.27,
+      "end": 39.57
+    },
+    {
+      "id": "auth",
+      "start": 39.57,
+      "end": 54.04
+    },
+    {
+      "id": "fix",
+      "start": 54.04,
+      "end": 66.66
+    },
+    {
+      "id": "retest",
+      "start": 66.66,
+      "end": 79.88
+    },
+    {
+      "id": "verify",
+      "start": 79.88,
+      "end": 93.37
+    },
+    {
+      "id": "end",
+      "start": 93.37,
+      "end": 99.59,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 5.29,
+      "text": "Alice loads her dashboard: \"Welcome back, Alice\"."
+    },
+    {
+      "start": 5.29,
+      "end": 11.99,
+      "text": "Bob loads the same page and sees \"Welcome back, Alice\"."
+    },
+    {
+      "start": 11.99,
+      "end": 19.63,
+      "text": "Bob's response: Alice's name, Alice's email, same render number."
+    },
+    {
+      "start": 19.63,
+      "end": 27.27,
+      "text": "A deliberately flawed application cache, not a CDN incident."
+    },
+    {
+      "start": 27.27,
+      "end": 34.84,
+      "text": "The cache key is the path only: /dashboard."
+    },
+    {
+      "start": 34.84,
+      "end": 39.57,
+      "text": "Two identities, one shared slot."
+    },
+    {
+      "start": 39.57,
+      "end": 46.8,
+      "text": "Authentication was correct. The cached payload was not."
+    },
+    {
+      "start": 46.8,
+      "end": 54.04,
+      "text": "Cache-Control does not repair code that ignores it."
+    },
+    {
+      "start": 54.04,
+      "end": 61.14,
+      "text": "Bypass the shared slot. Authenticate and authorise every request."
+    },
+    {
+      "start": 61.14,
+      "end": 66.66,
+      "text": "Send private, no-store. Purge the old entry."
+    },
+    {
+      "start": 66.66,
+      "end": 74.21,
+      "text": "Two independent cookie jars. Alice, Bob, Alice, Bob."
+    },
+    {
+      "start": 74.21,
+      "end": 79.88,
+      "text": "The shared slot is never touched."
+    },
+    {
+      "start": 79.88,
+      "end": 87.75,
+      "text": "Each user receives only their own page."
+    },
+    {
+      "start": 87.75,
+      "end": 93.37,
+      "text": "Already-delivered responses cannot be retracted."
+    },
+    {
+      "start": 93.37,
+      "end": 97.59,
+      "text": "A cache key defines which requests you treat as equivalent."
+    }
+  ]
+}

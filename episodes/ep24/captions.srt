@@ -1,0 +1,59 @@
+1
+00:00:00,600 --> 00:00:05,290
+Alice loads her dashboard: "Welcome back, Alice".
+
+2
+00:00:05,290 --> 00:00:11,990
+Bob loads the same page and sees "Welcome back, Alice".
+
+3
+00:00:11,990 --> 00:00:19,630
+Bob's response: Alice's name, Alice's email, same render number.
+
+4
+00:00:19,630 --> 00:00:27,270
+A deliberately flawed application cache, not a CDN incident.
+
+5
+00:00:27,270 --> 00:00:34,840
+The cache key is the path only: /dashboard.
+
+6
+00:00:34,840 --> 00:00:39,570
+Two identities, one shared slot.
+
+7
+00:00:39,570 --> 00:00:46,800
+Authentication was correct. The cached payload was not.
+
+8
+00:00:46,800 --> 00:00:54,040
+Cache-Control does not repair code that ignores it.
+
+9
+00:00:54,040 --> 00:01:01,140
+Bypass the shared slot. Authenticate and authorise every request.
+
+10
+00:01:01,140 --> 00:01:06,660
+Send private, no-store. Purge the old entry.
+
+11
+00:01:06,660 --> 00:01:14,210
+Two independent cookie jars. Alice, Bob, Alice, Bob.
+
+12
+00:01:14,210 --> 00:01:19,880
+The shared slot is never touched.
+
+13
+00:01:19,880 --> 00:01:27,750
+Each user receives only their own page.
+
+14
+00:01:27,750 --> 00:01:33,370
+Already-delivered responses cannot be retracted.
+
+15
+00:01:33,370 --> 00:01:37,590
+A cache key defines which requests you treat as equivalent.
