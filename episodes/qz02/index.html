@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Launch review quiz: Quiz | Web Reality Checks</title>
+<meta name="description" content="Launch Review Quiz: Five Questions Your Demo Can't Answer. 3m 11s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/qz02/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Launch review quiz: Quiz | Web Reality Checks"><meta property="og:description" content="Launch Review Quiz: Five Questions Your Demo Can't Answer. 3m 11s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/qz02/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/qz02/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Launch review quiz: Quiz | Web Reality Checks"><meta name="twitter:description" content="Launch Review Quiz: Five Questions Your Demo Can't Answer. 3m 11s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/qz02/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / Quiz</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="qz02.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="qz02.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5b63d">Quiz</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Launch Review Quiz: Five Questions Your Demo Can't Answer</h1>
+<div><span class="badge ok">3m 11s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>hook</span></button></li><li><button type="button" data-t="12.87"><b>00:12</b><span>q1</span></button></li><li><button type="button" data-t="36.18"><b>00:36</b><span>a1</span></button></li><li><button type="button" data-t="45.61"><b>00:45</b><span>q2</span></button></li><li><button type="button" data-t="68.07"><b>01:08</b><span>a2</span></button></li><li><button type="button" data-t="76.65"><b>01:16</b><span>q3</span></button></li><li><button type="button" data-t="103.18"><b>01:43</b><span>a3</span></button></li><li><button type="button" data-t="113.3"><b>01:53</b><span>q4</span></button></li><li><button type="button" data-t="138.46"><b>02:18</b><span>a4</span></button></li><li><button type="button" data-t="147.82"><b>02:27</b><span>q5</span></button></li><li><button type="button" data-t="170.5"><b>02:50</b><span>a5</span></button></li><li><button type="button" data-t="177.85"><b>02:57</b><span>close</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="qz02.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="../../launch/b-launch-review/index.html">Read the launch article</a></div>
+<h2 style="margin-top:44px">About this film</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>What it is.</strong> A five-question multiple-choice video quiz for founders, product managers and buyers. Scenes: <code>hook</code>, then <code>q1</code>/<code>a1</code> to <code>q5</code>/<code>a5</code>, then <code>close</code> (12 scenes). Narration is 393 words, one paragraph per scene. Each question scene carries <code>"think": 6</code>. Questions, answers and the exact fixture facts: <code>launch/b-launch-review/quiz.md</code>.</p>
+<h2 id="how-it-is-built">How it is built</h2>
+<pre><code># 1. generate ONE narration take of all scene paragraphs in order -&gt; video/public/qz02/raw.mp3
+node tools/build-quiz.mjs qz02       # cuts at silences, inserts 6 s think time, writes narration.mp3, timeline.json, captions.srt
+node tools/gen-root.mjs
+node tools/render.mjs qz02 --concurrency 2</code></pre>
+<p>In <code>Scenes.tsx</code> the question and the three options are on screen from the start of each ask scene. The countdown ring is drawn only when <code>t &gt;= dur - 6</code>. On the reveal scene the correct option turns green, the others dim, and a chip shows the episode and the evidence value.</p>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Every value shown comes from a fixture <code>evidence.json</code>: ep01 (200 vs 404), ep15 (<code>orderCount</code> 2 vs 1), ep05 (3,875 instances, 3,303 unique listings, 6,697 clean), ep17 (poll at t=570: age 570 s, label Live), ep16 (17 requests vs 1).</li>
+<li>Observed: stills of the hook, an ask scene (with countdown) and an answer scene were rendered and inspected during authoring. No audio or video was rendered.</li>
+</ul>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>The fixtures are synthetic and local; the quiz does not describe any real product and is not an audit or certification.</li>
+<li>Question 4 uses a simulated clock; question 5 uses virtual time. Both are labelled in <code>quiz.md</code>.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/qz02/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs qz02 → episodes/qz02/qz02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 191.93 s, 13840743 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
+</ul>
+</div>
+
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

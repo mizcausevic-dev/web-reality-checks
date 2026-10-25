@@ -40,7 +40,6 @@
 <li>Executed: <code>cd fixtures/ep04-pglite-notes &amp;&amp; node --test test.mjs</code> → <code># tests 6  # pass 6  # fail 0</code> (create/search/edit/delete on a filesystem dir; close + reopen same dir keeps the note; a different dir sees 0; <strong>known-positive</strong>: <code>memory://</code> loses the note after close; <code>relaxedDurability</code> refused; constructor guards). Run time ≈ 57 s here because each fresh data dir runs Postgres <code>initdb</code>.</li>
 <li>Executed: <code>node fixtures/ep04-pglite-notes/demo.mjs</code> → <code>evidence.json</code>: engine <code>PostgreSQL 18.6 (PGlite 0.5.11)</code>, fs type <code>filesystem</code>; create → <code>{id 1, "Groceries", "milk, eggs, coffee"}</code>; search <code>coffee</code> → <strong>1</strong> match; close + reopen same dir → count <strong>1</strong> (then edit body → <code>milk, eggs, coffee, bread</code>); different dir → <strong>0</strong>; <code>memory://</code> create, close, reopen → <strong>0</strong>; delete data dir, reopen → <strong>0</strong>; <code>relaxedDurability: false</code>.</li>
 <li>Executed: <code>node build-vendor.mjs</code> → 14 files, 17.4 MB copied to <code>app/vendor/pglite/</code>; <code>precache-manifest.js</code> lists 19 assets; <code>serve.mjs</code> smoke-tested with curl (200 + correct MIME for <code>.html/.js/.mjs/.wasm</code>, 404 for path traversal). <code>app.js</code> and <code>sw.js</code> pass <code>node --check</code> only — they were <strong>not run in a browser</strong>.</li>
-<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors. <code>video/src/episodes/ep04/timeline.json</code> was generated with <code>--no-audio</code> (word-count estimate, 104.2 s, 18 captions) for type-checking; the orchestrator regenerates it from real narration.</li>
 <li>Scenes 1–3 (<code>create</code>, <code>engine</code>, <code>memory_vs_disk</code>) carry sim tag <code>LOCAL FIXTURE · NODE + PGLITE</code> and show only numbers from <code>evidence.json</code>.</li>
 <li><strong>Blocked</strong> (no browser in this environment; scenes 4–8 carry sim tag <code>BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE</code> and show expected behaviour, not results). Exact manual steps are in <code>fixtures/ep04-pglite-notes/browser-test-checklist.md</code>:
 <ul>
@@ -51,7 +50,6 @@
 <li>Blocked — scene 8 <code>clear_data</code>: DevTools → Application → Clear site data (IndexedDB, Cache Storage, service workers) in the original profile; reload → SW re-installs, initdb re-runs, <code>notes: 0</code>. (checklist §5)</li>
 <li>Node analogues for scenes 7 and 8 <strong>were</strong> executed (different dir → 0; deleted dir → 0) and are labelled as such on screen.</li>
 </ul></li>
-<li>Not executed: narration audio, render, thumbnail — the orchestrator does these and fills <code>render-evidence.json</code>. No MP4 is claimed.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd fixtures/ep04-pglite-notes &amp;&amp; npm install --no-audit --no-fund &amp;&amp; node --test test.mjs &amp;&amp; node demo.mjs &amp;&amp; node build-vendor.mjs
@@ -71,12 +69,12 @@ node tools/render.mjs ep04 --concurrency 2</code></pre>
 <li>The <code>~16 MB</code> / <code>~17 MB</code> engine-size figures are the vendored file sizes measured by <code>build-vendor.mjs</code> (uncompressed), not download sizes over the wire.</li>
 <li>Not tested: multi-tab concurrency (PGlite is single-connection), quota/eviction, export/backup (<code>dumpDataDir</code>), any server sync (none exists).</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep04/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep04 → episodes/ep04/ep04.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 101.83 s, 8847885 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep04/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep04 → episodes/ep04/ep04.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 101.83 s, 8847885 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep03/index.html">← Episode 03: What Sign In does</a></span><span><a href="../ep05/index.html">Episode 05: How many are wrong? →</a></span></nav>

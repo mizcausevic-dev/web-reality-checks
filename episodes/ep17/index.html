@@ -49,10 +49,8 @@
 <li>Polling faster: 5 s vs 30 s polling over 599 s → 119 vs 19 polls, collector sampled exactly once in both, identical age (570 s) at t=570.</li>
 <li>Timestamp checks: +45 s future → <code>impossible-future</code>, age <code>null</code>; missing / <code>"yesterday-ish"</code> → <code>invalid-timestamp</code>, age <code>null</code>.</li>
 </ul></li>
-<li>Executed: <code>node tools/build-timeline.mjs ep17 --no-audio</code> → <code>video/src/episodes/ep17/timeline.json</code> (estimated 102.21 s from 254 narration words) and <code>episodes/ep17/captions.srt</code>. These are placeholders until the orchestrator supplies narration audio and rebuilds.</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors in <code>src/episodes/ep17/*</code>. (Pre-existing errors in other episodes' folders were not touched.)</li>
 <li>Predicted: narration ~254 words ≈ 100 s of speech; final scene timing depends on the real audio.</li>
-<li>Blocked: no narration audio generated, no MP4 rendered, no QA stills rendered (orchestrator step; also <code>video/src/Root.tsx</code> currently references episodes whose <code>Scenes.tsx</code> is missing, so a bundle would not build until those land).</li>
 <li>Not executed: a WebSocket/SSE variant. The claim "a push transport delivers the same stale upstream reading sooner" is stated as reasoning, not demonstrated by this fixture.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
@@ -70,12 +68,12 @@ node tools/render.mjs ep17 --concurrency 2</code></pre>
 <li>The stale threshold (300 s) and connection window (90 s) are this fixture's policies, not universal values.</li>
 <li>Not tested: partial/garbled responses, clock skew, retries/backoff, multiple sources, aggregation windows.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep17/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep17 → episodes/ep17/ep17.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.57 s, 9851334 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep17/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep17 → episodes/ep17/ep17.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.57 s, 9851334 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep16/index.html">← Episode 16: It's being rate-limited</a></span><span><a href="../ep18/index.html">Episode 18: Webhook arrived twice →</a></span></nav>

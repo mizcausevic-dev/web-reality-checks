@@ -39,7 +39,6 @@
 <li>Executed: <code>node fixtures/ep26-n-plus-one/demo.mjs</code> → <code>evidence.json</code>: flawed 101 SELECTs, corrected 1, bodies byte-equal (13544 bytes), 12 distinct authors across 100 lookups (88 repeats), most-fetched author 14 times, control 102 / 2.</li>
 <li>Observed: the video displays these numbers; the values in <code>Scenes.tsx</code> are copied from <code>evidence.json</code> and <code>seed-data.json</code>.</li>
 <li>Not measured: latency or any timing. The video does not claim a speed-up.</li>
-<li>Blocked / not done by the builder: no audio generated, no video rendered, no MP4 exists yet (orchestrator step). <code>video/src/episodes/ep26/timeline.json</code> was generated with <code>--no-audio</code> (estimated timing) only so the project type-checks.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
@@ -61,6 +60,13 @@ node tools/render.mjs ep26 --concurrency 2</code></pre>
 <li>Simulated local fixture, synthetic data, in-memory SQLite, no ORM. Nothing here says how a networked database or a particular ORM behaves.</li>
 <li>The query tree is an illustration of the logged statements (each square = one logged author lookup); layout is not a measurement.</li>
 <li>Fixture limitations are listed in <code>fixtures/ep26-n-plus-one/README.md</code>.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep26/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep26 → episodes/ep26/ep26.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 91.67 s, 10146241 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep25/index.html">← Episode 25: Can you restore it?</a></span><span><a href="../ep27/index.html">Episode 27: Results jump backward →</a></span></nav>

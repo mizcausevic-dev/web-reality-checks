@@ -39,9 +39,7 @@
 <ul>
 <li>Executed: <code>node --test fixtures/ep13-api-key-capability/test.mjs</code> → <code># tests 16  # pass 16  # fail 0</code>. Includes known-positive controls: the synthetic secret <strong>does</strong> authorise the privileged operation (200); the scanner <strong>does</strong> find the planted secret in both <code>app.js</code> and <code>index.html</code>; the served flawed bundle <strong>does</strong> contain the secret; the upstream <strong>would</strong> perform <code>delete_project</code> for the secret-holder.</li>
 <li>Executed: <code>node fixtures/ep13-api-key-capability/demo.mjs</code> → <code>evidence.json</code>. Upstream: public id as bearer <strong>403</strong>, no credential 401, secret <strong>200</strong> (rotate_webhook and delete_project). Backend: unauthenticated <strong>401</strong>, viewer <strong>403</strong>, maintainer <strong>200</strong> (exactly 1 upstream call, made by the backend; <code>secretInResponse: false</code> across all 5 backend responses), over-broad <code>delete_project</code> <strong>400</strong> with no upstream call. Scanner: flawed bundle <strong>2 secret-like</strong> + 2 identifier-like; corrected bundle <strong>0 secret-like</strong> + 2 identifier-like, after the control run.</li>
-<li>Executed: <code>node tools/build-timeline.mjs ep13 --no-audio</code> → provisional <code>video/src/episodes/ep13/timeline.json</code> (estimated 109.7 s from a 2.55 words/s rate; to be rebuilt from real narration audio by the orchestrator). Narration: 258 words.</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> passes for <code>src/episodes/ep13/*</code> (at the time of writing, unrelated in-progress episodes from other builders may show their own errors).</li>
-<li>Predicted: scene durations in <code>Scenes.tsx</code> are tuned for roughly 7–14 s per scene; the orchestrator's audio-aligned timeline will set the real values.</li>
 <li>Blocked (not done here, by spec): narration audio, render, <code>render-evidence.json</code>, thumbnail, git.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
@@ -113,12 +111,12 @@ node tools/render.mjs ep13 --concurrency 2</code></pre>
 <li><strong>Rotation is not implemented.</strong> The fixture shows removal from the bundle; it states, but does not demonstrate, that a real leaked secret would additionally require revocation or rotation at the issuer.</li>
 <li>The flawed bundle must never be deployed; everything binds to 127.0.0.1 on ephemeral ports.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep13/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep13 → episodes/ep13/ep13.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 109.6 s, 9765509 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep13/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep13 → episodes/ep13/ep13.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 109.6 s, 9765509 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep12/index.html">← Episode 12: Still the old version?</a></span><span><a href="../ep14/index.html">Episode 14: Uploaded, not ready →</a></span></nav>

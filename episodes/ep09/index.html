@@ -44,10 +44,8 @@
 <li>Executed: <code>node fixtures/ep09-keyboard-form/audit.mjs</code> → <code>audit-results.json</code>: flawed <strong>3 / 11 checks pass</strong> (fails: labelled inputs 0/3, placeholder-only 3, outline:none ×2, no :focus-visible, no <code>&lt;form&gt;</code>, submit not keyboard-operable, Enter does not submit, errors not associable); corrected <strong>11 / 11 pass</strong> (tab order <code>name → email → password → button[type=submit]</code>, 0 dangling <code>aria-describedby</code>, 0 positive tabindex).</li>
 <li>Executed: <code>node fixtures/ep09-keyboard-form/demo.mjs</code> → <code>evidence.json</code>: flawed — 3 tab stops, submit unreachable, Enter in a field → nothing, Tab leaves the form, Enter/Space → nothing. Corrected — 4 tab stops; Enter in password field submits; <code>email</code> and <code>password</code> rejected with <code>aria-invalid="true"</code>, <code>aria-describedby="email-error"</code> / <code>"password-hint password-error"</code>; focus → <code>#email</code>; values preserved; after correction Tab → button → Space → accepted; 7 keystrokes (Tab Tab Tab Enter Tab Tab Space) excluding typing.</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → clean.</li>
-<li>Executed: <code>node tools/build-timeline.mjs ep09 --no-audio</code> → provisional <code>timeline.json</code> (94.76 s estimated, 8 scenes, 16 captions). Rebuild from real narration when audio exists.</li>
 <li>Blocked: no browser in this environment, so focus visibility, tab order and Enter/Space behaviour are modelled from markup and HTML semantics, not captured from a rendered page. <code>demo.mjs</code> and the video label this.</li>
 <li>Blocked: no screen reader available. The <code>label for</code>, <code>aria-describedby</code>, <code>aria-invalid</code> and <code>role=status</code> associations are implemented; what any browser + screen-reader pair announces was <strong>not verified</strong> and is not claimed.</li>
-<li>Blocked (by spec): no narration audio generated, no MP4 rendered here; the orchestrator fills <code>render-evidence.json</code>.</li>
 </ul>
 <h2 id="video-notes">Video notes</h2>
 <ul>
@@ -69,12 +67,12 @@ node tools/render.mjs ep09 --concurrency 2</code></pre>
 <li>The repair covers this one form. Modals, custom selects, date pickers and multi-step flows each need their own keyboard test.</li>
 <li>The flawed version is a hand-built teaching fixture, not derived from any real product.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep09/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep09 → episodes/ep09/ep09.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 92.87 s, 7965079 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep09/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep09 → episodes/ep09/ep09.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 92.87 s, 7965079 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep08/index.html">← Episode 08: Why it feels slow</a></span><span><a href="../ep10/index.html">Episode 10: One DNS record →</a></span></nav>

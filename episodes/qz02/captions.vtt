@@ -1,0 +1,121 @@
+WEBVTT
+
+1
+00:00:00.600 --> 00:00:06.440
+Five questions from the launch review your demo never shows.
+
+2
+00:00:06.440 --> 00:00:12.870
+Each answer comes from a real test result in the repository.
+
+3
+00:00:12.870 --> 00:00:16.480
+Question 1. Trust and access.
+
+4
+00:00:16.480 --> 00:00:23.690
+Alice is signed in and asks for Bob's private project.
+
+5
+00:00:23.690 --> 00:00:30.180
+In the flawed version, what does the server answer?
+
+6
+00:00:36.180 --> 00:00:39.810
+B: Bob's project, status 200.
+
+7
+00:00:39.810 --> 00:00:45.610
+The server never checked who owns the project.
+
+8
+00:00:45.610 --> 00:00:48.210
+Question 2. Duplicates.
+
+9
+00:00:48.210 --> 00:00:55.140
+One click, a lost confirmation, an automatic retry.
+
+10
+00:00:55.140 --> 00:01:02.070
+In the flawed version, how many orders exist?
+
+11
+00:01:08.070 --> 00:01:09.910
+B: two orders.
+
+12
+00:01:09.910 --> 00:01:16.650
+With a unique key per purchase, the repair ends with one.
+
+13
+00:01:16.650 --> 00:01:22.120
+Question 3. Data lifecycle.
+
+14
+00:01:22.120 --> 00:01:28.970
+10,000 listings, 3,875 problems recorded.
+
+15
+00:01:28.970 --> 00:01:37.180
+How many different listings were flagged?
+
+16
+00:01:43.180 --> 00:01:45.880
+B: 3,303 distinct listings.
+
+17
+00:01:45.880 --> 00:01:53.300
+Some listings carry several flags. Ask which count a report shows.
+
+18
+00:01:53.300 --> 00:01:55.430
+Question 4. Freshness.
+
+19
+00:01:55.430 --> 00:02:05.360
+A green Live label, "updated 0 s ago". The sensor samples every 600 s.
+
+20
+00:02:05.360 --> 00:02:12.460
+Just before the next sample, how old is the reading?
+
+21
+00:02:18.460 --> 00:02:22.200
+C: 570 seconds, nearly ten minutes.
+
+22
+00:02:22.200 --> 00:02:27.820
+The label described the page refresh, not the measurement.
+
+23
+00:02:27.820 --> 00:02:31.610
+Question 5. Experience and speed.
+
+24
+00:02:31.610 --> 00:02:36.920
+Flawed: 8 keystrokes, 17 requests, 12 rejected.
+
+25
+00:02:36.920 --> 00:02:44.500
+After the repair, how many requests for the same typing?
+
+26
+00:02:50.500 --> 00:02:52.070
+C: one request.
+
+27
+00:02:52.070 --> 00:02:57.850
+It waits for typing to pause and respects the retry delay.
+
+28
+00:02:57.850 --> 00:03:01.520
+Ask for the test, not the demo.
+
+29
+00:03:01.520 --> 00:03:06.250
+Ten questions and every fixture: the repository, linked below.
+
+30
+00:03:06.250 --> 00:03:09.920
+Synthetic fixtures. Not an audit or certification.

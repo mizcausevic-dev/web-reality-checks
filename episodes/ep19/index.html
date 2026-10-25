@@ -49,8 +49,6 @@
 <li>Identical title, description and <code>robots=noindex</code> on both raw responses; SSG hrefs equal <code>article.json</code> hrefs; the CSR data file carries the same hrefs.</li>
 </ul></li>
 <li>Executed: rendered-DOM capture with <code>chrome-headless-shell</code> (HeadlessChrome/157.0.8080.0, Remotion bundle) launched as <code>--headless=new --no-sandbox --no-zygote --disable-gpu --disable-dev-shm-usage --no-proxy-server --user-data-dir=&lt;tmp&gt; --remote-debugging-port=0 about:blank</code>, then CDP <code>Target.createTarget</code> → (<code>Emulation.setScriptExecutionDisabled</code> for JS-off) → <code>Page.navigate</code> → <code>Page.loadEventFired</code> + 1.5 s settle → <code>Runtime.evaluate(document.documentElement.outerHTML)</code>. Plain <code>--dump-dom</code> hung in this container, so the DevTools protocol was used instead; the saved captures are in <code>fixtures/ep19-initial-html/captures/dom-*.html</code>.</li>
-<li>Observed: <code>episodes/ep19/captions.srt</code> and <code>video/src/episodes/ep19/timeline.json</code> were generated with <code>--no-audio</code> (estimated speech duration 101.96 s, total 104.56 s) so the composition type-checks; the orchestrator regenerates them from real narration.</li>
-<li>Not executed: narration audio, MP4 render, frame inspection (orchestrator). <code>render-evidence.json</code> is filled by the orchestrator.</li>
 <li>The browser pages shown in scenes 1, 3 and 4 are illustrative recreations drawn with the kit's plain <code>Box</code> chrome; the numbers on them come from <code>evidence.json</code>. Scene 6 (crawl / render / index / rank) is labelled <code>CONCEPTUAL ILLUSTRATION</code> and measures nothing.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
@@ -67,12 +65,12 @@ node tools/render.mjs ep19 --concurrency 2</code></pre>
 <li>Measurement is string/regex counting of known synthetic content, not a DOM parser. Loopback only; no HTTPS; no real network; no caching behaviour tested.</li>
 <li>Caption timing in the generated SRT is proportional to word count (heuristic alignment, not forced alignment).</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep19/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep19 → episodes/ep19/ep19.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 107.2 s, 9447060 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep19/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep19 → episodes/ep19/ep19.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 107.2 s, 9447060 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep18/index.html">← Episode 18: Webhook arrived twice</a></span><span><a href="../ep20/index.html">Episode 20: What HTTPS still shows →</a></span></nav>

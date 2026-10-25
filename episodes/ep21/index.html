@@ -40,7 +40,6 @@
 <li>Executed: <code>node fixtures/ep21-deletion-copies/demo.mjs</code> → <code>evidence.json</code>: flawed delete leaves lookup 404 but cached search → <code>c_1003, c_1004</code> and the index row present with 0 outbox events; corrected run: attempt 1 pending (attempts 1, stepsDone <code>[search_index]</code>), attempt 2 processed (attempts 2); simulated browser refresh <code>harbourline</code> → <code>[c_1004]</code>; replay ×2 leaves state unchanged and the next new contact is <code>c_1006</code>; retries exhausted after 3 attempts → <code>failed</code> and 1 alert.</li>
 <li>Observed: numbers on screen are copied from <code>evidence.json</code>.</li>
 <li>Predicted / Blocked: no real browser behaviour (HTTP cache, service workers, multiple tabs) was executed.</li>
-<li>Not executed here: narration audio, MP4 render, thumbnail. The orchestrator renders and fills <code>render-evidence.json</code>. <code>video/src/episodes/ep21/timeline.json</code> and <code>captions.srt</code> were generated with <code>--no-audio</code> for type-checking only and must be rebuilt from the real narration.</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> passes.</li>
 </ul>
 <h2 id="accuracy-items-covered">Accuracy items covered</h2>
@@ -63,6 +62,13 @@ node tools/render.mjs ep21 --concurrency 2</code></pre>
 <li>Not tested: concurrent workers, real process crashes, cache re-population races, retry backoff, real alert delivery, real browser caching.</li>
 <li>Whole-cache invalidation is a fixture simplification, not a recommended general design.</li>
 <li>Narration is 257 words across nine scenes (script.json).</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep21/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep21 → episodes/ep21/ep21.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 105.03 s, 8838635 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep20/index.html">← Episode 20: What HTTPS still shows</a></span><span><a href="../ep22/index.html">Episode 22: Dates moved back a day →</a></span></nav>

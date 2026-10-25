@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The job that ran twice: Episode 30 | Web Reality Checks</title>
+<meta name="description" content="Your Scheduled Job Ran Twice. Was the Scheduler Wrong?. 1m 45s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep30/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="The job that ran twice: Episode 30 | Web Reality Checks"><meta property="og:description" content="Your Scheduled Job Ran Twice. Was the Scheduler Wrong?. 1m 45s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep30/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep30/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="The job that ran twice: Episode 30 | Web Reality Checks"><meta name="twitter:description" content="Your Scheduled Job Ran Twice. Was the Scheduler Wrong?. 1m 45s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep30/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 30</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep30.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep30.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5b63d">Episode 30 · Duplicates &amp; ordering</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">Your Scheduled Job Ran Twice. Was the Scheduler Wrong?</h1>
+<div><span class="badge ok">1m 45s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>fail</span></button></li><li><button type="button" data-t="10.82"><b>00:10</b><span>race</span></button></li><li><button type="button" data-t="23.85"><b>00:23</b><span>key</span></button></li><li><button type="button" data-t="41.46"><b>00:41</b><span>rerun</span></button></li><li><button type="button" data-t="51.73"><b>00:51</b><span>one</span></button></li><li><button type="button" data-t="65.76"><b>01:05</b><span>crash</span></button></li><li><button type="button" data-t="77.27"><b>01:17</b><span>retry</span></button></li><li><button type="button" data-t="90.69"><b>01:30</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep30.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep30-scheduled-job-twice">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep30/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep30/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep30/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep30/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> Two invocations can target the same logical job; the application must coordinate which result is committed.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep30-scheduled-job-twice/</code> — two real worker processes (separate SQLite connections) share one WAL-mode database file. Logical run = report type + scheduled UTC instant. Reports are small aggregates of synthetic source rows stored in the same database. No emails, external files or third-party actions.</li>
+<li>Flawed: no UNIQUE on the logical run; autocommit check-then-insert; a test-controlled IPC barrier releases both workers after both checks say "absent"; the busy timeout lets both inserts commit → 2 rows.</li>
+<li>Corrected: <code>UNIQUE (report_type, scheduled_utc)</code>; <code>BEGIN IMMEDIATE</code>; <code>INSERT … ON CONFLICT (report_type, scheduled_utc) DO NOTHING</code>; <code>changes() == 0</code> → verify the committed report and exit; otherwise compute, store the complete result, commit. No incomplete placeholder is ever committed.</li>
+<li>Deliberate policies: exhausted busy timeout is a retryable database failure (exit 75), not "already completed"; a UNIQUE violation from another constraint (<code>reports.ref</code>) is a real error, not "already completed".</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep30-scheduled-job-twice/test.mjs</code> → <code># tests 17  # pass 17  # fail 0</code> (3 consecutive runs, plus 6 parallel runs, all green; includes a known-positive control for the flaw).</li>
+<li>Executed: <code>node fixtures/ep30-scheduled-job-twice/demo.mjs</code> → <code>evidence.json</code>: flawed 2 rows; corrected 1 row (<code>committed</code> + <code>already-committed</code>); SIGKILL after insert → 0 rows visible while open, 0 after, 1 after retry; 30 ms busy timeout with a third connection holding the write lock → <code>retryable-busy</code>, 0 rows; <code>reports.ref</code> violation → <code>constraint-violation</code>, 0 rows; in-process Boolean across two processes → 2 rows.</li>
+<li>Observed: numbers on screen (2 rows, 1 row, 7 source rows / 12325 cents) are copied from <code>evidence.json</code>. Which worker wins varies per run, so the video does not name a winner.</li>
+</ul>
+<h2 id="accuracy-checklist-from-the-brief">Accuracy checklist (from the brief)</h2>
+<ul>
+<li>Not exactly-once execution: stated in the final scene and in the fixture README.</li>
+<li>Demonstrated guarantee: one committed database report per logical run.</li>
+<li>A unique constraint does not retry by itself: on-screen in "key" and "end".</li>
+<li>In-process Boolean cannot coordinate processes: narration and on-screen in "end" (tested: 2 rows).</li>
+<li>Not every violation is "already completed": narration and on-screen in "key" and "retry".</li>
+<li>Report generation short and database-local; no transaction around slow external work: on-screen in "key" and "end".</li>
+<li>External effects need coordination beyond this fixture: narration and on-screen in "end".</li>
+<li>Scheduled instants are UTC strings: on-screen in "key"; enforced by <code>windowFor()</code>.</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep30    # from narration audio in video/public/ep30/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep30 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Simulated vs measured: workers, locks, rollbacks and row counts are real SQLite behaviour on one machine; the fault (SIGKILL) and the lock hold are injected by the test, and the scene diagrams are illustrative.</li>
+<li>WAL mode, local file, one database. Other journal modes, network filesystems and other databases are not tested. No timing claims.</li>
+<li>The video does not claim any specific scheduler duplicates runs; it forces two invocations.</li>
+<li>Scope of the fix: one committed row per logical run. Retry scheduling, leases and external side-effect coordination are out of scope.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep30/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep30 → episodes/ep30/ep30.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 105.67 s, 8385850 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep29/index.html">← Episode 29: Who sets the price?</a></span><span></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

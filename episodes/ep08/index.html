@@ -55,14 +55,12 @@
 <li>LCP via <code>PerformanceObserver({type:'largest-contentful-paint', buffered:true})</code>; interaction via <code>PerformanceObserver({type:'event', durationThreshold:16})</code> on the single scripted click, reported as a <strong>lab measurement of one scripted interaction</strong>, not a field INP assessment; TBT is not a substitute.</li>
 <li>Add results under a <code>browserLab</code> key in <code>evidence.json</code> with the conditions, then the Blocked lines above become Executed.</li>
 </ol></li>
-<li>Timeline: <code>video/src/episodes/ep08/timeline.json</code> was built with <code>--no-audio</code> (word-count estimate, 103.78 s). The orchestrator rebuilds it from real narration; scene boundaries will then snap to detected silences (heuristic, not forced alignment).</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
 node tools/build-timeline.mjs ep08      # from video/public/ep08/narration.mp3, or add --no-audio
 node tools/gen-root.mjs
 node tools/render.mjs ep08 --concurrency 2</code></pre>
-<p>No MP4, audio or thumbnail is claimed by this README; the orchestrator renders and fills <code>render-evidence.json</code>.</p>
 <h2 id="limitations">Limitations</h2>
 <ul>
 <li><strong>Nothing in a browser was measured.</strong> Byte size is a file property and Node CPU time is a proxy for the click's main-thread work; neither is a user-perceived latency. The video says so on screen (persistent sim tag <code>LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT</code>) and states that loading and interaction are different tests.</li>
@@ -71,12 +69,12 @@ node tools/render.mjs ep08 --concurrency 2</code></pre>
 <li>Raw Node timings vary by roughly ±20 % between runs in the shared container; the median is quoted and the raw list is kept. Re-running <code>demo.mjs</code> yields different absolute values; the video quotes the recorded <code>evidence.json</code>.</li>
 <li>One image and one handler were corrected. Fonts, CSS, scripts and other interactions were not examined. No claim is made about the page's overall performance.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep08/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep08 → episodes/ep08/ep08.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.37 s, 9347719 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep08/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep08 → episodes/ep08/ep08.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.37 s, 9347719 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep07/index.html">← Episode 07: Why is production broken?</a></span><span><a href="../ep09/index.html">Episode 09: Try it without a mouse →</a></span></nav>

@@ -15,12 +15,12 @@
 <nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
 <main id="main">
 <div class="wrap"><article class="prose">
-<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / For engineers and ai-assisted builders</p>
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / For engineers and AI-assisted builders</p>
 <h1 id="break-it-on-purpose-known-positive-controls-for-web-bugs">Break It on Purpose: Known-Positive Controls for Web Bugs</h1>
 <p><em>A test-first way to explain a web bug, prove your fix test can fail, and review AI-generated patches. Three runnable fixtures, plain Node, no framework required.</em></p>
 <p><img loading="lazy" decoding="async" src="images/hero.png" alt="Break it on purpose: node --test output from episode 15 with the known-positive control highlighted" /></p>
 <p>A passing test only means something if the same test could have failed. Fixes, including AI-generated patches, too often ship without anyone checking that.</p>
-<p>The missing check is a <strong>known-positive control</strong>: a test asserting that the bug is visible in the flawed code, so the test that later passes on the repaired code is evidence, not decoration. Web Reality Checks is a library of {{EPISODES}} short narrated films, each backed by a runnable local fixture with regression tests, and nearly every one is built around that idea. This is the engineer's tour: the method, three episodes from three different arcs, how to run them with <code>node --test</code>, and how to fork one for your own stack.</p>
+<p>The missing check is a <strong>known-positive control</strong>: a test asserting that the bug is visible in the flawed code, so the test that later passes on the repaired code is evidence, not decoration. Web Reality Checks is a library of 30 short narrated films, each backed by a runnable local fixture with regression tests, and nearly every one is built around that idea. This is the engineer's tour: the method, three episodes from three different arcs, how to run them with <code>node --test</code>, and how to fork one for your own stack.</p>
 <h2 id="what-is-a-known-positive-control">What is a known-positive control?</h2>
 <p>In a laboratory, a positive control is a sample you know should trigger the assay. If the assay stays blank on it, the assay is broken, and a blank on your real sample means nothing.</p>
 <p>A known-positive control does the same job in a regression suite. You keep the flawed variant of the code next to the repaired one, and you write a test that runs your scenario against the flawed variant and requires the bug to appear. Only then does the matching test on the repaired variant carry weight.</p>
@@ -125,7 +125,7 @@ node fixtures/ep15-idempotency/demo.mjs</code></pre>
 </ol>
 <p>If the assistant cannot produce a flawed variant that trips the control, it has not understood the bug yet.</p>
 <h2 id="what-exists-today-and-what-it-does-not-claim">What exists today, and what it does not claim</h2>
-<p>What exists: {{EPISODES}} episodes in {{ARCS}} arcs (Trust &amp; access, Duplicates &amp; ordering, Data lifecycle, Delivery &amp; freshness, Experience &amp; speed). Each has a fixture, a test suite, a demo that writes <code>evidence.json</code>, and a README stating its limits. {{TESTS}} fixture tests pass in total, and the films run {{RUNTIME}} combined. Code is MIT licensed; narration audio and rendered video are all rights reserved.</p>
+<p>What exists: 30 episodes in 5 arcs (Trust &amp; access, Duplicates &amp; ordering, Data lifecycle, Delivery &amp; freshness, Experience &amp; speed). Each has a fixture, a test suite, a demo that writes <code>evidence.json</code>, and a README stating its limits. 428 fixture tests pass in total, and the films run 51m 41s combined. Code is MIT licensed; narration audio and rendered video are all rights reserved.</p>
 <p>What is demonstrated and what is not: results shown from fixtures are executed output. Some scenes are labeled conceptual illustrations, such as the TLS leg in episode 3 and all of episode 20. Episode 17 runs on a simulated clock, not real waiting.</p>
 <p>What it does not claim: this is not an audit and not a certification. It makes no finding about any real product or company. A repair fixes the demonstrated path only. The repository contains no roadmap, so nothing further is promised.</p>
 <h2 id="start-here">Start here</h2>
@@ -136,7 +136,7 @@ node fixtures/ep15-idempotency/demo.mjs</code></pre>
 <p>Miz Causevic, Kinetic Gain LLC</p>
 
 <hr><h2>Watch and test yourself</h2>
-<div class="links" style="font-size:17px"><a href="../../episodes/cm01/index.html">Watch the 1m 06s launch film</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/launch/a-break-it-on-purpose/social.md">Social copy</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/launch/a-break-it-on-purpose/seo.md">SEO notes</a></div>
+<div class="links" style="font-size:17px"><a href="../../episodes/cm01/index.html">Watch the 1m 06s launch film</a><a href="../../episodes/qz01/index.html">Take the 3m 15s quiz</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/launch/a-break-it-on-purpose/social.md">Social copy</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/launch/a-break-it-on-purpose/seo.md">SEO notes</a></div>
 </article></div>
 </main>
 <footer class="foot"><div class="wrap">

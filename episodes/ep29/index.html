@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Who sets the price?: Episode 29 | Web Reality Checks</title>
+<meta name="description" content="The Browser Said $10. What Price Did the Server Trust?. 1m 36s narrated film backed by a runnable local fixture. Synthetic data only.">
+<link rel="canonical" href="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep29/index.html">
+<meta name="theme-color" content="#0b0c10">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Web Reality Checks"><meta property="og:title" content="Who sets the price?: Episode 29 | Web Reality Checks"><meta property="og:description" content="The Browser Said $10. What Price Did the Server Trust?. 1m 36s narrated film backed by a runnable local fixture. Synthetic data only."><meta property="og:url" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep29/index.html"><meta property="og:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep29/hero.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Who sets the price?: Episode 29 | Web Reality Checks"><meta name="twitter:description" content="The Browser Said $10. What Price Did the Server Trust?. 1m 36s narrated film backed by a runnable local fixture. Synthetic data only."><meta name="twitter:image" content="https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep29/hero.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b0c10'/%3E%3Crect x='6' y='6' width='20' height='20' rx='5' fill='%233dd6f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap"><a class="brand" href="../../index.html"><i aria-hidden="true"></i>Web Reality Checks</a>
+<nav class="main" aria-label="Primary"><a href="../../index.html#method">Method</a><a href="../../index.html#arcs">Arcs</a><a href="../../index.html#launch">Launch</a><a href="../../index.html#episodes">Episodes</a><a href="../../index.html#run">Run it</a><a href="https://github.com/mizcausevic-dev/web-reality-checks">GitHub</a></nav></div></header>
+<main id="main">
+<div class="wrap">
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#episodes">Episodes</a> / Episode 29</p>
+<div class="film"><div>
+<video class="player" controls preload="metadata" poster="thumbnail.png" playsinline><source src="ep29.mp4" type="video/mp4"><track kind="captions" srclang="en" label="English" src="captions.vtt" default>Your browser cannot play this video. <a href="ep29.mp4">Download the MP4</a>.</video>
+</div><aside aria-label="Chapters"><div class="kicker" style="color:#f5533d">Episode 29 · Trust &amp; access</div>
+<h1 style="font-size:clamp(26px,3.4vw,38px)">The Browser Said $10. What Price Did the Server Trust?</h1>
+<div><span class="badge ok">1m 36s</span><span class="badge">1920×1080 · 30 fps · h264/aac</span><span class="badge">Narrated, captions included</span></div>
+<h2 style="font-size:18px;margin:18px 0 0">Chapters</h2><ul class="chap"><li><button type="button" data-t="0"><b>00:00</b><span>tamper</span></button></li><li><button type="button" data-t="8.71"><b>00:08</b><span>fail</span></button></li><li><button type="button" data-t="19.39"><b>00:19</b><span>leak</span></button></li><li><button type="button" data-t="31.06"><b>00:31</b><span>fix</span></button></li><li><button type="button" data-t="46.04"><b>00:46</b><span>retest</span></button></li><li><button type="button" data-t="59.01"><b>00:59</b><span>change</span></button></li><li><button type="button" data-t="71.15"><b>01:11</b><span>confirm</span></button></li><li><button type="button" data-t="86.99"><b>01:26</b><span>end</span></button></li></ul>
+<p class="note">Chapter times are scene starts from the build timeline and can be about a second off the spoken words.</p></aside></div>
+<div class="links" style="margin:0 0 8px"><a href="ep29.mp4" download>Download MP4</a><a href="captions.srt">SRT</a><a href="captions.vtt">WebVTT</a><a href="hero.png">Hero image</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/tree/main/fixtures/ep29-server-side-price">Fixture and tests</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep29/content/article-technical.md">Article for engineers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep29/content/article-business.md">Article for buyers</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep29/content/article-layman.md">Article in plain language</a><a href="https://github.com/mizcausevic-dev/web-reality-checks/blob/main/episodes/ep29/content/distribution.md">Distribution kit</a></div>
+<h2 style="margin-top:44px">What was run, and what it does not prove</h2>
+<div class="prose compact" style="margin:0;max-width:860px">
+<p><strong>Central idea.</strong> The browser can display a price, but the server must determine the authoritative price used to create an order.</p>
+<h2 id="what-this-fixture-is">What this fixture is</h2>
+<ul>
+<li><code>fixtures/ep29-server-side-price/</code> — loopback-only Node 22 mock checkout on <code>node:sqlite</code> with a server-side product catalog, integer cents, one currency (USD), quantities bounded to 1..100, synthetic orders, and no payment provider.</li>
+<li>Flawed endpoint <code>POST /vuln/orders</code> trusts the client's <code>unitPriceCents</code>. Corrected endpoint <code>POST /orders</code> takes <code>productId</code>, <code>quantity</code>, <code>expectedUnitPriceCents</code> (comparison only), reads the catalog price inside one <code>BEGIN IMMEDIATE</code> transaction, and stores an order-line price snapshot.</li>
+<li>Deliberate policy: any difference between expected and current price (up or down) returns <code>409 price_changed</code> with the current quote and creates no order; a new attempt needs <code>confirmPriceCents</code> equal to the current price.</li>
+<li>Explicitly excluded: taxes, discounts, shipping, inventory reservation, payment. The fix is <strong>not</strong> a price lock.</li>
+</ul>
+<h2 id="evidence">Evidence</h2>
+<ul>
+<li>Executed: <code>node --test fixtures/ep29-server-side-price/test.mjs</code> → <code># tests 37</code>, <code># pass 37</code>, <code># fail 0</code> (includes two known-positive controls: tampered price on the flawed endpoint, and a reprice in the gap when no transaction is used).</li>
+<li>Executed: <code>node fixtures/ep29-server-side-price/demo.mjs</code> → <code>evidence.json</code>: flawed 201 with stored total 200¢ vs catalog total 2000¢; corrected altered request 409, 0 orders; honest request 201 snapshot 1000¢; catalog moved to 1200¢ → 409 quote 2400¢, 0 orders, then confirmed 201 snapshot 1200¢; second connection mid-transaction → <code>busy</code>, snapshot 1000¢; no-transaction control → reprice <code>ok</code>, snapshot 1000¢ vs catalog 1200¢.</li>
+<li>Executed: the barrier uses a worker-thread SQLite connection and Atomics; it is real concurrency at one chosen interleaving.</li>
+<li>Page and button visuals are labelled illustrative; they are not a real product UI.</li>
+</ul>
+<h2 id="accuracy-checklist-from-the-brief">Accuracy checklist (from the brief)</h2>
+<ul>
+<li>Expected price is a comparison value only (narration <code>fix</code>, on-screen "comparison only").</li>
+<li>Malformed, negative, fractional, zero, excessive quantities rejected (tested; narration <code>retest</code>; on-screen "Quantity range is 1 to 100").</li>
+<li>Unknown and unavailable products rejected (tested; <code>retest</code>).</li>
+<li>Arithmetic stays inside the safe-integer range (tested, 422; stated in the fixture README).</li>
+<li>No floating-point currency (integer cents, BigInt formatting; tested).</li>
+<li>Transaction strategy specific to SQLite (<code>BEGIN IMMEDIATE</code>; named on screen and in the README).</li>
+<li>No silent price-lock claim (narration <code>confirm</code>, on-screen "NOT A PRICE LOCK").</li>
+<li>No real payments (on-screen <code>tamper</code>, <code>end</code>).</li>
+<li>Exclusions stated (narration and on-screen in <code>end</code>).</li>
+</ul>
+<h2 id="build-and-render">Build and render</h2>
+<pre><code>cd video &amp;&amp; npm install
+node tools/build-timeline.mjs ep29      # from narration audio in video/public/ep29/narration.mp3, or --no-audio
+node tools/gen-root.mjs
+node tools/render.mjs ep29 --concurrency 2</code></pre>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>The transaction-consistency test covers one deterministic interleaving through the store function, not HTTP, and only SQLite's write-lock behaviour. Other databases need their own strategy.</li>
+<li>No price lock, taxes, discounts, shipping, inventory reservation, payment, idempotency, or authentication.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep29/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep29 → episodes/ep29/ep29.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 96.27 s, 7755595 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
+</ul>
+</div>
+<nav class="pn" aria-label="Episode navigation"><span><a href="../ep28/index.html">← Episode 28: Hidden is not denied</a></span><span><a href="../ep30/index.html">Episode 30: The job that ran twice →</a></span></nav>
+</div>
+</main>
+<footer class="foot"><div class="wrap">
+<p><strong>Synthetic data only.</strong> Every fixture runs on loopback with made-up people and made-up records. Nothing here is a finding about a real product or company, and this series is not an audit or a certification. Scenes labeled <em>conceptual</em> or <em>promotional</em> on screen are illustrations, not product output.</p>
+<p>Narration is a synthetic voice (ElevenLabs, model eleven_v4). Code is MIT licensed; narration audio and rendered video are all rights reserved. Kinetic Gain LLC. <a href="https://github.com/mizcausevic-dev/web-reality-checks">Source repository</a>.</p>
+</div></footer>
+<script src="../../assets/site.js" defer></script>
+</body></html>

@@ -50,8 +50,6 @@
 <li>corrected, two purchases, two keys: 2 orders</li>
 </ul></li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → clean.</li>
-<li>Executed: <code>node tools/build-timeline.mjs ep15 --no-audio</code> → provisional <code>video/src/episodes/ep15/timeline.json</code> (102.6 s estimated, 22 captions) so the composition type-checks. The orchestrator regenerates it from real narration audio.</li>
-<li>Blocked (by spec, for the builder): narration audio, render, thumbnail, <code>render-evidence.json</code> — produced by the orchestrator. No MP4 is claimed here.</li>
 <li>Predicted: the vulnerable-endpoint behaviour in the first scene is an illustrative checkout mock-up (plain <code>Box</code> chrome), labelled "Illustrative checkout"; the counts on it are from <code>evidence.json</code>.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
@@ -108,12 +106,12 @@ node tools/render.mjs ep15 --concurrency 2</code></pre>
 <li>Session harness (<code>GET /login/:user</code>) is not production authentication. The vulnerable fixture binds to 127.0.0.1 on an ephemeral port and must never be deployed.</li>
 <li><code>node:sqlite</code> is marked experimental in Node 22; it prints an <code>ExperimentalWarning</code>.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep15/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep15 → episodes/ep15/ep15.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.93 s, 8485468 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep15/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep15 → episodes/ep15/ep15.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.93 s, 8485468 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep14/index.html">← Episode 14: Uploaded, not ready</a></span><span><a href="../ep16/index.html">Episode 16: It's being rate-limited →</a></span></nav>

@@ -241,7 +241,7 @@ for (const p of packages) {
   const html = tidy(fixLinks(pandoc(md), `launch/${p.dir}`));
   const cm = byId.get(p.cm), qz = byId.get(p.qz);
   const body = `<div class="wrap"><article class="prose">
-<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / For ${esc(p.audience.toLowerCase())}</p>
+<p class="crumb"><a href="../../index.html">Web Reality Checks</a> / <a href="../../index.html#launch">Launch</a> / For ${esc(p.audience.charAt(0).toLowerCase() + p.audience.slice(1))}</p>
 ${html}
 <hr><h2>Watch and test yourself</h2>
 <div class="links" style="font-size:17px">${cm ? `<a href="../../episodes/${cm.id}/index.html">Watch the ${esc(hm(cm.ev.duration_s))} launch film</a>` : ''}${qz ? `<a href="../../episodes/${qz.id}/index.html">Take the ${esc(hm(qz.ev.duration_s))} quiz</a>` : ''}<a href="${REPO}/blob/main/launch/${p.dir}/social.md">Social copy</a><a href="${REPO}/blob/main/launch/${p.dir}/seo.md">SEO notes</a></div>

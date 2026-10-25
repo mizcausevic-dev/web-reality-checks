@@ -1,8 +1,81 @@
 {
-  "generatedAt": "2026-10-25T09:22:20.835Z",
+  "generatedAt": "2026-10-25T19:35:21.529Z",
+  "totals": {
+    "episodes": 30,
+    "episodesRendered": 30,
+    "tests": 428,
+    "testFailures": 0,
+    "episodeRuntimeSeconds": 3101.6,
+    "launchFilms": 6,
+    "launchRuntimeSeconds": 759
+  },
   "rows": [
     {
+      "ep": "cm01",
+      "kind": "commercial",
+      "mp4": {
+        "bytes": 5717121,
+        "duration_s": 66.3,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true
+      },
+      "thumb": "1280 720"
+    },
+    {
+      "ep": "cm02",
+      "kind": "commercial",
+      "mp4": {
+        "bytes": 5997716,
+        "duration_s": 69.6,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true
+      },
+      "thumb": "1280 720"
+    },
+    {
+      "ep": "cm03",
+      "kind": "commercial",
+      "mp4": {
+        "bytes": 5299989,
+        "duration_s": 63.37,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true
+      },
+      "thumb": "1280 720"
+    },
+    {
       "ep": "ep01",
+      "kind": "episode",
       "mp4": {
         "bytes": 7264149,
         "duration_s": 98.8,
@@ -33,6 +106,7 @@
     },
     {
       "ep": "ep02",
+      "kind": "episode",
       "mp4": {
         "bytes": 9964178,
         "duration_s": 112.4,
@@ -63,8 +137,9 @@
     },
     {
       "ep": "ep03",
+      "kind": "episode",
       "mp4": {
-        "bytes": 9885270,
+        "bytes": 9869705,
         "duration_s": 119.53,
         "video": "h264 1920x1080 30/1 yuv420p",
         "audio": "aac 48000Hz 2ch",
@@ -93,6 +168,7 @@
     },
     {
       "ep": "ep04",
+      "kind": "episode",
       "mp4": {
         "bytes": 8847885,
         "duration_s": 101.83,
@@ -123,6 +199,7 @@
     },
     {
       "ep": "ep05",
+      "kind": "episode",
       "mp4": {
         "bytes": 9442629,
         "duration_s": 103.67,
@@ -153,6 +230,7 @@
     },
     {
       "ep": "ep06",
+      "kind": "episode",
       "mp4": {
         "bytes": 9661007,
         "duration_s": 110.8,
@@ -183,6 +261,7 @@
     },
     {
       "ep": "ep07",
+      "kind": "episode",
       "mp4": {
         "bytes": 8792016,
         "duration_s": 96.4,
@@ -213,6 +292,7 @@
     },
     {
       "ep": "ep08",
+      "kind": "episode",
       "mp4": {
         "bytes": 9347719,
         "duration_s": 103.37,
@@ -243,6 +323,7 @@
     },
     {
       "ep": "ep09",
+      "kind": "episode",
       "mp4": {
         "bytes": 7965079,
         "duration_s": 92.87,
@@ -273,6 +354,7 @@
     },
     {
       "ep": "ep10",
+      "kind": "episode",
       "mp4": {
         "bytes": 9448657,
         "duration_s": 104.57,
@@ -303,6 +385,7 @@
     },
     {
       "ep": "ep11",
+      "kind": "episode",
       "mp4": {
         "bytes": 8884931,
         "duration_s": 106.17,
@@ -333,6 +416,7 @@
     },
     {
       "ep": "ep12",
+      "kind": "episode",
       "mp4": {
         "bytes": 8671291,
         "duration_s": 100.4,
@@ -363,6 +447,7 @@
     },
     {
       "ep": "ep13",
+      "kind": "episode",
       "mp4": {
         "bytes": 9765509,
         "duration_s": 109.6,
@@ -393,6 +478,7 @@
     },
     {
       "ep": "ep14",
+      "kind": "episode",
       "mp4": {
         "bytes": 8445528,
         "duration_s": 106.07,
@@ -423,6 +509,7 @@
     },
     {
       "ep": "ep15",
+      "kind": "episode",
       "mp4": {
         "bytes": 8485468,
         "duration_s": 103.93,
@@ -453,6 +540,7 @@
     },
     {
       "ep": "ep16",
+      "kind": "episode",
       "mp4": {
         "bytes": 9507725,
         "duration_s": 110.27,
@@ -483,6 +571,7 @@
     },
     {
       "ep": "ep17",
+      "kind": "episode",
       "mp4": {
         "bytes": 9851334,
         "duration_s": 110.57,
@@ -513,6 +602,7 @@
     },
     {
       "ep": "ep18",
+      "kind": "episode",
       "mp4": {
         "bytes": 9135471,
         "duration_s": 111.93,
@@ -543,6 +633,7 @@
     },
     {
       "ep": "ep19",
+      "kind": "episode",
       "mp4": {
         "bytes": 9447060,
         "duration_s": 107.2,
@@ -573,6 +664,7 @@
     },
     {
       "ep": "ep20",
+      "kind": "episode",
       "mp4": {
         "bytes": 10721034,
         "duration_s": 110.33,
@@ -600,6 +692,379 @@
         "fail": 0,
         "exit": 0
       }
+    },
+    {
+      "ep": "ep21",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 8838635,
+        "duration_s": 105.03,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep21-deletion-copies",
+        "pass": 20,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep22",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 7176749,
+        "duration_s": 89.37,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep22-date-only-timezones",
+        "pass": 15,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep23",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 8354289,
+        "duration_s": 97.7,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep23-optimistic-concurrency",
+        "pass": 16,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep24",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 8472639,
+        "duration_s": 99.6,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep24-shared-cache-leak",
+        "pass": 18,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep25",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 8600293,
+        "duration_s": 100.97,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep25-restore-tests",
+        "pass": 16,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep26",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 10146241,
+        "duration_s": 91.67,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep26-n-plus-one",
+        "pass": 15,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep27",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 8353640,
+        "duration_s": 103.03,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep27-stale-search-responses",
+        "pass": 22,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep28",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 7455611,
+        "duration_s": 91.53,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep28-hidden-admin-button",
+        "pass": 12,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep29",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 7755595,
+        "duration_s": 96.27,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep29-server-side-price",
+        "pass": 37,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "ep30",
+      "kind": "episode",
+      "mp4": {
+        "bytes": 8385850,
+        "duration_s": 105.67,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true,
+        "content/article-technical.md": true,
+        "content/article-business.md": true,
+        "content/article-layman.md": true,
+        "content/distribution.md": true
+      },
+      "thumb": "1280 720",
+      "tests": {
+        "fixture": "ep30-scheduled-job-twice",
+        "pass": 17,
+        "fail": 0,
+        "exit": 0
+      }
+    },
+    {
+      "ep": "qz01",
+      "kind": "quiz",
+      "mp4": {
+        "bytes": 14432951,
+        "duration_s": 195.37,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true
+      },
+      "thumb": "1280 720"
+    },
+    {
+      "ep": "qz02",
+      "kind": "quiz",
+      "mp4": {
+        "bytes": 13840743,
+        "duration_s": 191.93,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true
+      },
+      "thumb": "1280 720"
+    },
+    {
+      "ep": "qz03",
+      "kind": "quiz",
+      "mp4": {
+        "bytes": 13028215,
+        "duration_s": 172.4,
+        "video": "h264 1920x1080 30/1 yuv420p",
+        "audio": "aac 48000Hz 2ch",
+        "ok": true
+      },
+      "narration": true,
+      "files": {
+        "captions.srt": true,
+        "thumbnail.png": true,
+        "hero.png": true,
+        "README.md": true,
+        "script.json": true,
+        "render-evidence.json": true
+      },
+      "thumb": "1280 720"
     }
   ]
 }

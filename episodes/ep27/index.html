@@ -38,9 +38,7 @@
 <li>Executed: <code>node --test fixtures/ep27-stale-search-responses/test.mjs</code> → <code># tests 22</code>, <code># pass 22</code>, <code># fail 0</code>.</li>
 <li>Executed: <code>node fixtures/ep27-stale-search-responses/demo.mjs</code> → <code>evidence.json</code> with five scenarios (stale success, stale failure, loading, cleared, disposed), each with the exact release schedule and flawed/corrected state timelines, plus an abort comparison. Key values shown in the video: flawed final = query <code>react</code> with results for <code>re</code>; corrected final = results for <code>react</code>, discards <code>success, finally</code>; stale failure → flawed error <code>network error (simulated)</code>, corrected none and discards <code>error, finally</code>; loading → flawed <code>false</code>, corrected <code>true</code>; cleared → flawed shows results for <code>re</code>, corrected none; disposed → 2 writes after dispose (flawed) vs 0 (corrected); final state identical with and without abort.</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors.</li>
-<li>Executed: <code>node tools/build-timeline.mjs ep27 --no-audio</code> → provisional <code>timeline.json</code> and <code>captions.srt</code> (word-count estimate, to be rebuilt from real narration).</li>
 <li>Predicted: how a browser UI framework would behave with this logic follows from the state machine; it was not run in a browser.</li>
-<li>Blocked: no narration audio, no render (orchestrator fills <code>render-evidence.json</code>). No MP4 is claimed.</li>
 </ul>
 <h2 id="accuracy-bullets">Accuracy bullets</h2>
 <ul>
@@ -62,7 +60,13 @@ node tools/render.mjs ep27 --concurrency 2</code></pre>
 <ul>
 <li>Entirely simulated: the controller and mock API are not a recording of a real browser or server. The search UI drawn in the video is a plain illustrative box.</li>
 <li>Not tested: real fetch/abort semantics, server behaviour, framework lifecycles, retries, caching.</li>
-<li>Caption/scene timing in the provisional timeline is a word-count heuristic; the orchestrator re-aligns to real audio.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep27/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep27 → episodes/ep27/ep27.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.03 s, 8353640 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep26/index.html">← Episode 26: One page, 101 queries</a></span><span><a href="../ep28/index.html">Episode 28: Hidden is not denied →</a></span></nav>

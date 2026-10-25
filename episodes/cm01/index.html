@@ -34,16 +34,22 @@
 <li>Conceptual: the four-panel method scene (<code>method</code>, tag CONCEPTUAL ILLUSTRATION). Promotional: the call-to-action card.</li>
 <li>Persistent tag per scene: <code>FOOTAGE FROM EPISODE NN</code> where real frames are on screen, <code>CONCEPTUAL ILLUSTRATION</code>, or <code>PROMOTIONAL FILM</code>.</li>
 </ul>
-<h2 id="build-and-render-orchestrator">Build and render (orchestrator)</h2>
+<h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
 node tools/build-timeline.mjs cm01        # from video/public/cm01/narration.mp3, or --no-audio
 node tools/gen-root.mjs
 node tools/render.mjs cm01 --concurrency 2</code></pre>
 <h2 id="limitations">Limitations</h2>
 <ul>
-<li><code>video/src/episodes/cm01/timeline.json</code> was generated with <code>--no-audio</code> (word-count estimate, about 64 s). No narration audio was generated and no MP4 was rendered by the builder; the orchestrator rebuilds the timeline from real narration.</li>
 <li>Real frames are cropped from 1920x1080 stills and scaled; they were not re-rendered.</li>
 <li>The trailer does not claim the repairs cover anything beyond the demonstrated paths.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/cm01/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs cm01 → episodes/cm01/cm01.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 66.3 s, 5717121 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 

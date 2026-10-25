@@ -42,9 +42,7 @@
 <li>Executed: <code>node --test fixtures/ep12-sw-update/test.mjs</code> → <code># tests 14  # pass 14  # fail 0</code> (byte-different <code>sw.js</code>; distinct precache names; activate cleanup keeps only the current <code>wrc-ep12-*</code> cache and spares foreign caches; a known-positive control showing an unversioned cache name leaves nothing to clean; <code>SKIP_WAITING</code> handled and other messages ignored; first install claims with no notice; byte-identical script → no update; Build 2 waits behind Build 1 with the page still controlled by Build 1 and both caches present; approval → activation → <code>wrc-ep12-v1</code> deleted → <code>controllerchange</code> → one reload; guard ignores a second event; server build switching and <code>no-cache</code> on <code>/sw.js</code>).</li>
 <li>Executed: <code>node fixtures/ep12-sw-update/demo.mjs</code> → <code>fixtures/ep12-sw-update/evidence.json</code>: model steps 1–2 (Build 1 active, controller, cache <code>wrc-ep12-v1</code>), 3–4 (server → Build 2, tab unchanged), 5–7 (Build 2 <code>installed</code>/waiting, notice <code>true</code>, caches <code>wrc-ep12-v1, wrc-ep12-v2</code>), 8–9 (<code>SKIP_WAITING</code> → Build 2 active, controller Build 2, caches <code>[wrc-ep12-v2]</code>, <code>reloads: 1</code>, second <code>controllerchange</code> <code>ignored</code>). Real loopback server: <code>/</code> → <code>Build 1</code> then <code>Build 2</code> after switching; <code>/sw.js</code> <code>Cache-Control: no-cache</code>, <code>const BUILD = 1;</code> vs <code>2</code>, 2502 bytes each, byte-different.</li>
 <li>Observed (in the Remotion scenes): all displayed values are constants copied from <code>evidence.json</code> into <code>EV</code> at the top of <code>Scenes.tsx</code>.</li>
-<li>Predicted: scene durations in <code>video/src/episodes/ep12/timeline.json</code> were generated with <code>--no-audio</code> (word-count estimate, 104.17 s). The orchestrator regenerates them from real narration.</li>
 <li><strong>Blocked: the real browser service-worker lifecycle was not executed</strong> (no browser in the build environment). <code>install</code>/<code>activate</code>/<code>controllerchange</code> events, the actual reload and DevTools states are depicted from the Node model and labelled illustrative. Manual verification: <code>cd fixtures/ep12-sw-update &amp;&amp; node generate-sw.mjs &amp;&amp; node serve.mjs --build 1</code>, then follow <code>browser-test-checklist.md</code> steps 1–10 (open tab → confirm controller → keep open → <code>curl /__set-build/2</code> → click Check for update → observe waiting worker and both caches → "Update available" → Approve → one reload → Build 2, only <code>wrc-ep12-v2</code> left).</li>
-<li>Blocked: no narration generated, no MP4 rendered, no frames inspected (orchestrator steps). <code>render-evidence.json</code> is not present.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
@@ -61,12 +59,12 @@ node tools/render.mjs ep12 --concurrency 2</code></pre>
 <li>No lifecycle event was faked as a browser capture and no <code>controllerchange</code> reload loop is possible: one guard per document, one reload.</li>
 <li>The model omits <code>updateViaCache</code>, imported scripts, scope rules, the browser's 24-hour byte-check and navigation-triggered update checks, and multiple registrations. The fetch handler is a minimal cache-first strategy for demonstration, not a production caching policy.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep12/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep12 → episodes/ep12/ep12.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 100.4 s, 8671291 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep12/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep12 → episodes/ep12/ep12.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 100.4 s, 8671291 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep11/index.html">← Episode 11: Reject All, then what?</a></span><span><a href="../ep13/index.html">Episode 13: Is that key a leak? →</a></span></nav>

@@ -13,10 +13,14 @@ In `Scenes.tsx` the question and the three options are on screen from the start 
 
 ## Evidence
 - Every value shown comes from a fixture `evidence.json`: ep01 (200 vs 404), ep15 (`orderCount` 2 vs 1), ep05 (3,875 instances, 3,303 unique listings, 6,697 clean), ep17 (poll at t=570: age 570 s, label Live), ep16 (17 requests vs 1).
-- Executed: `node tools/build-timeline.mjs qz02 --no-audio` (placeholder timeline; it does not include the six-second think pauses, so the countdown starts earlier than it will in the real build); `cd video && npx tsc --noEmit` for `src/episodes/qz02/`.
 - Observed: stills of the hook, an ask scene (with countdown) and an answer scene were rendered and inspected during authoring. No audio or video was rendered.
-- Blocked: narration take, `build-quiz.mjs`, MP4 render: the orchestrator does these.
 
 ## Limitations
 - The fixtures are synthetic and local; the quiz does not describe any real product and is not an audit or certification.
 - Question 4 uses a simulated clock; question 5 uses virtual time. Both are labelled in `quiz.md`.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/qz02/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs qz02 → episodes/qz02/qz02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 191.93 s, 13840743 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

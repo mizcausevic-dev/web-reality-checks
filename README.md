@@ -4,7 +4,7 @@
 
 # Web Reality Checks
 
-**28 short narrated films about the web bugs that survive demos. Each one is backed by a fixture you can run on a laptop and tests that fail when the flaw comes back.**
+**30 short narrated films about the web bugs that survive demos. Each one is backed by a fixture you can run on a laptop and tests that fail when the flaw comes back.**
 
 [Watch on the site](https://mizcausevic-dev.github.io/web-reality-checks/) · [Episodes](#episodes) · [Launch packages](#launch-packages) · [Run a fixture](#run-a-fixture-in-one-minute) · [Reproduce a film](#reproduce-one-episode)
 
@@ -24,9 +24,9 @@ Web Reality Checks reproduces each failure on a local, synthetic fixture, proves
 
 ## Episodes
 
-<img src="assets/arcs.svg" alt="28 episodes grouped into five arcs" width="100%">
+<img src="assets/arcs.svg" alt="30 episodes grouped into five arcs" width="100%">
 
-Total runtime 48m 19s across 28 episodes.
+Total runtime 51m 41s across 30 episodes; 428 fixture tests pass, 0 fail (see [VERIFICATION.md](VERIFICATION.md)).
 
 | # | Episode | Arc | Runtime | Fixture tests | Watch |
 |---|---------|-----|---------|---------------|-------|
@@ -50,14 +50,16 @@ Total runtime 48m 19s across 28 episodes.
 | 18 | [Webhook arrived twice](episodes/ep18/README.md) | Duplicates & ordering | 1m 51s | [14/14](fixtures/ep18-webhooks) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep18/) |
 | 19 | [What did the server send?](episodes/ep19/README.md) | Delivery & freshness | 1m 47s | [11/11](fixtures/ep19-initial-html) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep19/) |
 | 20 | [What HTTPS still shows](episodes/ep20/README.md) | Delivery & freshness | 1m 50s | [18/18](fixtures/ep20-https-visibility) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep20/) |
-| 21 | [Deleted, still showing](episodes/ep21/README.md) | Data lifecycle | 1m 45s | [n/a](fixtures/ep21-deletion-copies) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep21/) |
-| 22 | [Dates moved back a day](episodes/ep22/README.md) | Data lifecycle | 1m 29s | [n/a](fixtures/ep22-date-only-timezones) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep22/) |
-| 23 | [Two tabs, one document](episodes/ep23/README.md) | Duplicates & ordering | 1m 37s | [n/a](fixtures/ep23-optimistic-concurrency) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep23/) |
-| 24 | [Someone else's name](episodes/ep24/README.md) | Trust & access | 1m 39s | [n/a](fixtures/ep24-shared-cache-leak) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep24/) |
-| 25 | [Can you restore it?](episodes/ep25/README.md) | Data lifecycle | 1m 40s | [n/a](fixtures/ep25-restore-tests) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep25/) |
-| 26 | [One page, 101 queries](episodes/ep26/README.md) | Data lifecycle | 1m 31s | [n/a](fixtures/ep26-n-plus-one) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep26/) |
-| 27 | [Results jump backward](episodes/ep27/README.md) | Duplicates & ordering | 1m 43s | [n/a](fixtures/ep27-stale-search-responses) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep27/) |
-| 28 | [Hidden is not denied](episodes/ep28/README.md) | Trust & access | 1m 31s | [n/a](fixtures/ep28-hidden-admin-button) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep28/) |
+| 21 | [Deleted, still showing](episodes/ep21/README.md) | Data lifecycle | 1m 45s | [20/20](fixtures/ep21-deletion-copies) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep21/) |
+| 22 | [Dates moved back a day](episodes/ep22/README.md) | Data lifecycle | 1m 29s | [15/15](fixtures/ep22-date-only-timezones) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep22/) |
+| 23 | [Two tabs, one document](episodes/ep23/README.md) | Duplicates & ordering | 1m 37s | [16/16](fixtures/ep23-optimistic-concurrency) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep23/) |
+| 24 | [Someone else's name](episodes/ep24/README.md) | Trust & access | 1m 39s | [18/18](fixtures/ep24-shared-cache-leak) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep24/) |
+| 25 | [Can you restore it?](episodes/ep25/README.md) | Data lifecycle | 1m 40s | [16/16](fixtures/ep25-restore-tests) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep25/) |
+| 26 | [One page, 101 queries](episodes/ep26/README.md) | Data lifecycle | 1m 31s | [15/15](fixtures/ep26-n-plus-one) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep26/) |
+| 27 | [Results jump backward](episodes/ep27/README.md) | Duplicates & ordering | 1m 43s | [22/22](fixtures/ep27-stale-search-responses) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep27/) |
+| 28 | [Hidden is not denied](episodes/ep28/README.md) | Trust & access | 1m 31s | [12/12](fixtures/ep28-hidden-admin-button) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep28/) |
+| 29 | [Who sets the price?](episodes/ep29/README.md) | Trust & access | 1m 36s | [37/37](fixtures/ep29-server-side-price) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep29/) |
+| 30 | [The job that ran twice](episodes/ep30/README.md) | Duplicates & ordering | 1m 45s | [17/17](fixtures/ep30-scheduled-job-twice) | [page](https://mizcausevic-dev.github.io/web-reality-checks/episodes/ep30/) |
 
 ## Launch packages
 
@@ -65,9 +67,9 @@ Three packages, one per audience. Each has a long article, a launch film and a f
 
 | Audience | Article | Launch film | Quiz |
 |----------|---------|-------------|------|
-| Engineers and AI-assisted builders | [Break It on Purpose: Known-Positive Controls for Web Bugs](launch/a-break-it-on-purpose/article.md) | [cm01](episodes/cm01/README.md) (1m 06s) | [qz01](episodes/qz01/README.md) |
-| Founders, product managers, buyers | [The Launch Review Checklist Your Demo Never Shows: 10 Questions for Founders, Product Managers and Buyers](launch/b-launch-review/article.md) | [cm02](episodes/cm02/README.md) (1m 09s) | [qz02](episodes/qz02/README.md) |
-| General audience | [Why Do Websites Do Weird Things? Five Glitches, Explained With Everyday Objects](launch/c-weird-websites/article.md) | [cm03](episodes/cm03/README.md) (1m 03s) | [qz03](episodes/qz03/README.md) |
+| Engineers and AI-assisted builders | [Break It on Purpose: Known-Positive Controls for Web Bugs](launch/a-break-it-on-purpose/article.md) | [cm01](episodes/cm01/README.md) (1m 06s) | [qz01](episodes/qz01/README.md) (3m 15s) |
+| Founders, product managers, buyers | [The Launch Review Checklist Your Demo Never Shows: 10 Questions for Founders, Product Managers and Buyers](launch/b-launch-review/article.md) | [cm02](episodes/cm02/README.md) (1m 09s) | [qz02](episodes/qz02/README.md) (3m 11s) |
+| General audience | [Why Do Websites Do Weird Things? Five Glitches, Explained With Everyday Objects](launch/c-weird-websites/article.md) | [cm03](episodes/cm03/README.md) (1m 03s) | [qz03](episodes/qz03/README.md) (2m 52s) |
 
 Each package folder also holds `seo.md`, `social.md`, `commercial.md`, `quiz.md` and `images/` with alt text.
 

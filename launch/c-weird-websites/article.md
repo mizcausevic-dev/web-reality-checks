@@ -18,7 +18,7 @@ Three words will come up.
 
 Speed is why copies exist, and stale copies cause most of the strangeness below.
 
-This article comes from **Web Reality Checks**, a library of {{EPISODES}} short narrated films by Miz Causevic, Kinetic Gain LLC. Each film builds a tiny pretend app with made-up people, makes it misbehave on purpose, proves the check can fail, applies the smallest fix, and runs the same check again. The method has four steps: **Flaw, Control, Repair, Retest.** The films fall into {{ARCS}} groups. These five stories come from four.
+This article comes from **Web Reality Checks**, a library of 30 short narrated films by Miz Causevic, Kinetic Gain LLC. Each film builds a tiny pretend app with made-up people, makes it misbehave on purpose, proves the check can fail, applies the smallest fix, and runs the same check again. The method has four steps: **Flaw, Control, Repair, Retest.** The films fall into 5 groups. These five stories come from four.
 
 ![Map of the chain of copies behind a website and where each glitch lives](images/diagram-chain.png)
 
@@ -108,7 +108,7 @@ It serves shoppers who want to know what to tell support, owners deciding what t
 
 ## What exists today, and what it does not claim
 
-- **Demonstrated:** each fixture is a small program that runs on your own computer, listens only to that computer, and has automated tests that pass. The numbers quoted here come from those runs. The repository's {{TESTS}} passing tests and {{RUNTIME}} of film are counted by the release process.
+- **Demonstrated:** each fixture is a small program that runs on your own computer, listens only to that computer, and has automated tests that pass. The numbers quoted here come from those runs. The repository's 428 passing tests and 51m 41s of film are counted by the release process.
 - **Conceptual or simulated:** the browser lifecycle in Episode 12 is a model, the open browser in Episode 21 is simulated, and the cache in Episode 24 is custom code written for the test.
 - **Not claimed:** none of this is an audit of a real product or company, or a certification. Each fix covers the one problem shown, and nothing here says how often these glitches happen in the wild.
 - **Planned:** the repository publishes no roadmap, so nothing further is promised.

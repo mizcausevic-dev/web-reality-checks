@@ -42,7 +42,6 @@
 <li>Executed: <code>node fixtures/ep14-upload-stages/demo.mjs</code> → <code>evidence.json</code>: valid CSV <strong>82 file bytes travelled as a 232-byte request body</strong> (150 B multipart overhead), 100 % sent, <strong>202</strong> <code>job_89b35fbbbe7a</code>, result before ready <strong>409</strong>, polls <code>accepted</code> ×5 then <code>ready</code> (the count of pre-ready polls varies with scheduling between runs), result <strong>200</strong> (rows 3, totalAmount 114.75), same job as Bob <strong>404</strong>. PNG-as-CSV: 100 % sent, <strong>415</strong> "binary content (NUL byte) is not CSV". Oversized 66723-byte body: <strong>413</strong>. Invalid rows: 100 % sent, <strong>202</strong> <code>job_a664e78fb5bf</code>, then <strong>failed</strong> — <code>line 3: invalid email "not-an-email"; line 4: amount is not a number "lots"</code>, result <strong>409</strong>, as Bob <strong>404</strong>.</li>
 <li>Observed: all timestamps in <code>evidence.json</code> are <code>Date.now()</code> in one loopback process and are labelled "fixture-measured"; they are not representative of real networks or servers.</li>
 <li>Blocked: the browser uploader (<code>public/</code>) was not run; no browser is available in the build environment. Browser <code>upload.onprogress</code> behaviour is therefore described, not demonstrated. The transfer numbers shown come from the Node client (bytes written to the socket) and are labelled "fixture-measured transfer bytes, includes multipart overhead".</li>
-<li>Predicted: <code>video/src/episodes/ep14/timeline.json</code> was generated with <code>--no-audio</code> (word-count estimate) so the project type-checks; the orchestrator regenerates it from real narration. No MP4 is claimed here; the orchestrator fills <code>render-evidence.json</code>.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
@@ -60,12 +59,12 @@ node tools/render.mjs ep14 --concurrency 2</code></pre>
 <li>Session handling (<code>GET /login/:user</code>) is a test harness, not production authentication. Multipart parsing buffers the whole size-limited body rather than streaming to disk.</li>
 <li>Scenes recreate a browser uploader with plain illustrative chrome and carry the <code>SIMULATED LOCAL FIXTURE</code> tag; no real product UI is mimicked.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep14/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep14 → episodes/ep14/ep14.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.07 s, 8445528 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep14/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep14 → episodes/ep14/ep14.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.07 s, 8445528 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep13/index.html">← Episode 13: Is that key a leak?</a></span><span><a href="../ep15/index.html">Episode 15: Paid once, two orders →</a></span></nav>

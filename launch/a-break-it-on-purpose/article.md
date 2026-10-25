@@ -6,7 +6,7 @@
 
 A passing test only means something if the same test could have failed. Fixes, including AI-generated patches, too often ship without anyone checking that.
 
-The missing check is a **known-positive control**: a test asserting that the bug is visible in the flawed code, so the test that later passes on the repaired code is evidence, not decoration. Web Reality Checks is a library of {{EPISODES}} short narrated films, each backed by a runnable local fixture with regression tests, and nearly every one is built around that idea. This is the engineer's tour: the method, three episodes from three different arcs, how to run them with `node --test`, and how to fork one for your own stack.
+The missing check is a **known-positive control**: a test asserting that the bug is visible in the flawed code, so the test that later passes on the repaired code is evidence, not decoration. Web Reality Checks is a library of 30 short narrated films, each backed by a runnable local fixture with regression tests, and nearly every one is built around that idea. This is the engineer's tour: the method, three episodes from three different arcs, how to run them with `node --test`, and how to fork one for your own stack.
 
 ## What is a known-positive control?
 
@@ -173,7 +173,7 @@ If the assistant cannot produce a flawed variant that trips the control, it has 
 
 ## What exists today, and what it does not claim
 
-What exists: {{EPISODES}} episodes in {{ARCS}} arcs (Trust & access, Duplicates & ordering, Data lifecycle, Delivery & freshness, Experience & speed). Each has a fixture, a test suite, a demo that writes `evidence.json`, and a README stating its limits. {{TESTS}} fixture tests pass in total, and the films run {{RUNTIME}} combined. Code is MIT licensed; narration audio and rendered video are all rights reserved.
+What exists: 30 episodes in 5 arcs (Trust & access, Duplicates & ordering, Data lifecycle, Delivery & freshness, Experience & speed). Each has a fixture, a test suite, a demo that writes `evidence.json`, and a README stating its limits. 428 fixture tests pass in total, and the films run 51m 41s combined. Code is MIT licensed; narration audio and rendered video are all rights reserved.
 
 What is demonstrated and what is not: results shown from fixtures are executed output. Some scenes are labeled conceptual illustrations, such as the TLS leg in episode 3 and all of episode 20. Episode 17 runs on a simulated clock, not real waiting.
 

@@ -38,9 +38,8 @@
 <li>Executed: <code>node --test fixtures/ep23-optimistic-concurrency/test.mjs</code> -&gt; <code># tests 16  # pass 16  # fail 0</code> (includes a known-positive control, an HTTP barrier test and a six-thread/six-connection barrier test asserting exactly one accepted update).</li>
 <li>Executed: <code>node fixtures/ep23-optimistic-concurrency/demo.mjs</code> -&gt; <code>evidence.json</code>: flawed path A 200 (v2) then B 200 (v3), final title back to "Launch plan"; corrected path A 200 (v2), B 409 with <code>currentVersion</code> 2, server final v2, B sent one PUT; explicit person-chosen merge saved with <code>expectedVersion</code> 2 -&gt; 200 (v3); concurrent same-version saves -&gt; one 200 and one 409; locked database -&gt; 503, not 409, server still v1.</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> -&gt; no errors in <code>src/episodes/ep23/</code> (an unrelated error in another episode folder may be present while that episode is being built).</li>
-<li>Executed: <code>node tools/build-timeline.mjs ep23 --no-audio</code> -&gt; provisional <code>timeline.json</code> / <code>captions.srt</code> from a word-count estimate; the orchestrator rebuilds them from real narration.</li>
 <li>Narration: 250 words (<code>script.json</code>).</li>
-<li>Blocked / not executed: no real browsers, no narration audio, no render (the orchestrator fills <code>render-evidence.json</code>). Scene frames were not visually inspected by this builder.</li>
+<li>Blocked / not executed: no real browsers.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
@@ -61,6 +60,13 @@ node tools/render.mjs ep23 --concurrency 2</code></pre>
 <li>Simulated: the "tabs" are Node client objects; the conflict screen in scene <code>compare</code> is an illustration of the client state the fixture holds, not a real UI.</li>
 <li>Measured: only status codes, versions and document text shown in <code>evidence.json</code>; no timings are claimed.</li>
 <li>Scope: one integer version per whole document; no field-level merge, history, or deletion. The cross-thread test uses SQLite rollback-journal mode only.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep23/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep23 → episodes/ep23/ep23.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 97.7 s, 8354289 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep22/index.html">← Episode 22: Dates moved back a day</a></span><span><a href="../ep24/index.html">Episode 24: Someone else's name →</a></span></nav>

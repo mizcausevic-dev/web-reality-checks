@@ -6,7 +6,7 @@
 
 Your demo went well. Every screen loaded, every button worked, and the buyer nodded. That tells you the product works for one person doing everything right on a good connection. It tells you nothing about what happens when a customer asks for someone else's order, a payment confirmation gets lost, or a dashboard says "Live" over ten-minute-old data.
 
-This is a launch review checklist for the people who decide whether software ships: founders, product managers and buyers. It draws on Web Reality Checks, a library of {{EPISODES}} short narrated films I made, each one reproducing a web failure on a local, synthetic fixture with regression tests you can run yourself. The repository is open at [github.com/mizcausevic-dev/web-reality-checks](https://github.com/mizcausevic-dev/web-reality-checks), and the films are in the [YouTube playlist link].
+This is a launch review checklist for the people who decide whether software ships: founders, product managers and buyers. It draws on Web Reality Checks, a library of 30 short narrated films I made, each one reproducing a web failure on a local, synthetic fixture with regression tests you can run yourself. The repository is open at [github.com/mizcausevic-dev/web-reality-checks](https://github.com/mizcausevic-dev/web-reality-checks), and the films are in the [YouTube playlist link].
 
 > **What this is not.** This is not an audit, a penetration test or a certification. Nothing here is a finding about a real product or company. Answering these questions well does not make a product secure or compliant. It shows which claims have evidence behind them and which are still promises.
 
@@ -47,7 +47,7 @@ Then decide. **Hold** if a question touching identity, money or customer data si
 
 ## A ten-question launch review checklist, mapped to five arcs
 
-The series groups its episodes into {{ARCS}} arcs. Each arc yields two questions to put to a team or a vendor.
+The series groups its episodes into 5 arcs. Each arc yields two questions to put to a team or a vendor.
 
 ![Ten launch questions in five rows, one row per arc, with the episode numbers that support each](images/diagram-review-map.png)
 
@@ -93,7 +93,7 @@ A banner's look does not prove the application obeys it. In [Episode 11](../../e
 
 ## What exists today, and what it does not claim
 
-**Demonstrated** means the fixture exists in the repository and its tests ran: {{TESTS}} fixture tests pass, and the narrated films total {{RUNTIME}}. Every number above comes from a fixture's `evidence.json`, labeled as synthetic and local.
+**Demonstrated** means the fixture exists in the repository and its tests ran: 428 fixture tests pass, and the narrated films total 51m 41s. Every number above comes from a fixture's `evidence.json`, labeled as synthetic and local.
 
 **Conceptual** means a labeled illustration, not output: the HTTPS leg of Episode 03, the browser steps of Episode 04, the remote client of Episode 07, the browser lab of Episode 08, the screen reader of Episode 09, the service-worker lifecycle of Episode 12, and all of Episode 20. The Episode 21 browser and the Episode 27 search controller are simulated too.
 

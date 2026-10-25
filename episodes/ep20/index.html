@@ -41,9 +41,8 @@
 <li>Executed: <code>node --test fixtures/ep20-https-visibility/test.mjs</code> → <code># tests 18  # pass 18  # fail 0</code> (URL splitting with a known-positive control; matrix schema; observer-never-sees-content/certificate invariants; variant consistency; checklist covers every accuracy id under a real scene; every script scene tagged; scope-notes content).</li>
 <li>Executed: <code>node fixtures/ep20-https-visibility/demo.mjs</code> → <code>evidence.json</code>: resolution name <code>example.test</code>, port <code>443</code>, request line <code>GET /account?tab=billing HTTP/1.1</code>, fragment <code>#history</code>, <code>fragmentInRequestTarget: false</code>. Observer tally over the matrix: 5 visible (DNS question, destination IP, port, timing/volume, SNI), 5 encrypted (TLS 1.3 certificate, method/path/query, headers, cookies, body), 1 not-sent (URL fragment). Browser: 11 visible. Endpoint: 9 visible, 2 not-sent (DNS question, URL fragment).</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors in <code>src/episodes/ep20/</code>.</li>
-<li>Executed: <code>node tools/build-timeline.mjs ep20 --no-audio</code> → provisional <code>video/src/episodes/ep20/timeline.json</code> and <code>episodes/ep20/captions.srt</code> (word-count estimate, 104.56 s; to be rebuilt by the orchestrator from real narration audio).</li>
 <li>Predicted: DNS, TCP, TLS handshake and HTTP behaviour as drawn follow from the cited specifications under the stated scope; none of it was observed on a network.</li>
-<li>Blocked: no packet capture, no real TLS session, no narration audio, no render (orchestrator fills <code>render-evidence.json</code>).</li>
+<li>Blocked: no packet capture and no real TLS session; the episode is conceptual.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
@@ -71,14 +70,13 @@ node tools/render.mjs ep20 --concurrency 2</code></pre>
 <li>Entirely conceptual. Nothing about the drawn record sizes, timings, certificate fields or key agreement is measured; they are schematic.</li>
 <li>Not covered: HTTP/3 over QUIC, TLS 1.2, session resumption, 0-RTT, OCSP, client certificates, traffic-analysis attacks beyond the statement that sizes and timing alone do not reveal exact content.</li>
 <li>The illustrative browser chrome in <code>navigate</code> is a plain <code>Box</code>, labelled illustrative; it mimics no product.</li>
-<li>Caption timing in the provisional timeline is a word-count heuristic; the orchestrator re-aligns to real audio.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep20/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep20 → episodes/ep20/ep20.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.33 s, 10721034 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep20/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep20 → episodes/ep20/ep20.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.33 s, 10721034 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep19/index.html">← Episode 19: What did the server send?</a></span><span><a href="../ep21/index.html">Episode 21: Deleted, still showing →</a></span></nav>

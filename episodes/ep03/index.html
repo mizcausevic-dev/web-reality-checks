@@ -40,9 +40,7 @@
 <li>Executed: <code>cd fixtures/ep03-sign-in-session &amp;&amp; node --test test.mjs</code> → <code># tests 12  # pass 12  # fail 0</code> (includes a known-positive control: without <code>regenerate()</code> the pre-auth session id survives login).</li>
 <li>Executed: <code>node fixtures/ep03-sign-in-session/demo.mjs</code> → <code>evidence.json</code>: wrong password <strong>401</strong>; correct password <strong>200</strong> with <code>Set-Cookie sid=&lt;opaque id&gt;; Path=/; Expires=…; HttpOnly; Secure; SameSite=Lax</code>, <code>hasDomainAttribute: false</code>; session id <strong>changed: true</strong>; replay of pre-auth cookie after login <strong>401</strong>; <code>GET /me</code> with cookie <strong>200</strong> (<code>u_alice</code>, <code>member</code>); <code>GET /admin/audit</code> anonymous <strong>401</strong>, alice <strong>403</strong> (<code>required: admin, actual: member</code>), carol <strong>200</strong>; <code>POST /login</code> without CSRF header <strong>403</strong>; <code>GET /logout</code> <strong>405</strong>; <code>POST /logout</code> without CSRF header <strong>403</strong>; <code>POST /logout</code> with token <strong>200</strong>, <code>cookieExpired: true</code>; replay after logout <strong>401</strong>; request without <code>X-Forwarded-Proto: https</code> → <code>sessionCookieIssued: false</code>. Hash: <code>$argon2id$v=19$m=65536,t=3,p=4$…</code>, 97 chars, <code>differ: true</code>, <code>containsPassword: false</code>.</li>
 <li>Verified: <code>cd video &amp;&amp; npx tsc --noEmit</code> passes with <code>video/src/episodes/ep03/*</code>.</li>
-<li>Executed: <code>node tools/build-timeline.mjs ep03 --no-audio</code> → <code>video/src/episodes/ep03/timeline.json</code> (estimated 104.6 s, no audio; to be rebuilt by the orchestrator once narration exists).</li>
 <li>Blocked: real HTTPS handshake, certificate validation, and a browser's <code>Secure</code>/<code>HttpOnly</code>/<code>SameSite</code> enforcement — no trusted local CA and no browser were available. Attributes were verified on the <code>Set-Cookie</code> header only.</li>
-<li>Not executed: narration audio and MP4 render (orchestrator fills <code>render-evidence.json</code>).</li>
 <li>The session ids shown on screen (<code>IXbv8tHA…</code>, <code>KCWMieVO…</code>) are the first eight characters of the ids recorded in <code>evidence.json</code> for one run; they are random and differ on every run.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
@@ -122,12 +120,12 @@ node tools/render.mjs ep03 --concurrency 2</code></pre>
 <li>Correct cookie attributes, a fresh session id and CSRF tokens address the demonstrated concerns only; the application is not claimed to be fully secure.</li>
 <li>Timeline durations in <code>timeline.json</code> are a word-count estimate until real narration audio is supplied.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep03/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep03 → episodes/ep03/ep03.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 119.53 s, 9885270 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep03/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep03 → episodes/ep03/ep03.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 119.53 s, 9869705 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep02/index.html">← Episode 02: Three purchase events</a></span><span><a href="../ep04/index.html">Episode 04: A database in the page →</a></span></nav>

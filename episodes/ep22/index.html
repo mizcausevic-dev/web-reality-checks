@@ -41,7 +41,6 @@
 <li>Executed: <code>node fixtures/ep22-date-only-timezones/demo.mjs</code> → <code>evidence.json</code>: flawed <code>2026-01-15 / 2026-01-14 / 2026-01-15</code>; corrected <code>2026-01-15</code> in all three; event <code>15:00 / 10:00 / 00:00 on 2026-01-16</code>; explicit-zone output identical under five machine <code>TZ</code> values.</li>
 <li>Observed: New York flawed date is <code>2026-01-14</code> (19:00), computed by <code>Intl.DateTimeFormat</code> in the test itself.</li>
 <li>Observed (this engine only): <code>new Date("2026-02-30")</code> rolls over to <code>2026-03-02</code> instead of failing.</li>
-<li>Not executed: audio, render, MP4. None exists yet; the orchestrator renders and fills <code>render-evidence.json</code>.</li>
 </ul>
 <h2 id="accuracy-items-and-where-they-are-covered">Accuracy items and where they are covered</h2>
 <ul>
@@ -56,12 +55,18 @@
 node tools/build-timeline.mjs ep22    # from narration audio in video/public/ep22/narration.mp3, or --no-audio
 node tools/gen-root.mjs
 node tools/render.mjs ep22 --concurrency 2</code></pre>
-<p>Note: <code>video/src/episodes/ep22/timeline.json</code> and <code>episodes/ep22/captions.srt</code> currently come from a <code>--no-audio</code> run (estimated timing) so type-checking works; rebuild from the real narration.</p>
 <h2 id="limitations">Limitations</h2>
 <ul>
 <li>Computed in Node 22 / V8 only; browsers and other engines were not tested.</li>
 <li>Daylight-saving transitions and recurring local-time schedules are explained, not demonstrated or tested.</li>
 <li>The scene visuals are an illustrative layout driven by fixture output, not a screenshot of a real task app.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep22/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep22 → episodes/ep22/ep22.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 89.37 s, 7176749 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep21/index.html">← Episode 21: Deleted, still showing</a></span><span><a href="../ep23/index.html">Episode 23: Two tabs, one document →</a></span></nav>

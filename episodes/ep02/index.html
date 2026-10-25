@@ -41,9 +41,7 @@
 <ul>
 <li>Executed: <code>node --test fixtures/ep02-duplicate-purchase-events/test.mjs</code> → <code># tests 8  # pass 8  # fail 0</code> (Node v22.23.4). Includes a known-positive control asserting the flawed page emits 3 envelopes for one order, and a documented-LIMIT test asserting that replaying the same completion action still emits again (deliberately not fixed).</li>
 <li>Executed: <code>node fixtures/ep02-duplicate-purchase-events/demo.mjs</code> → <code>fixtures/ep02-duplicate-purchase-events/evidence.json</code>: flawed run <code>receivedCount: 3</code> (emitters <code>app.purchaseHandler</code> @ <code>09:00:00.000Z</code>, <code>tagManager.purchaseTrigger</code> @ <code>.007Z</code>, <code>ConfirmationComponent.onMount</code> @ <code>.021Z</code>, all <code>event: purchase</code>, all <code>transaction_id: T-20261025-0001</code>); corrected run <code>completeOrder → 1</code>, <code>remountConfirmation() ×2 → 1</code>, <code>receivedCount: 1</code>, emitter <code>app.purchaseHandler</code>, <code>purchaseListenersOnBus: 1</code>.</li>
-<li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → no errors in <code>src/episodes/ep02/</code> (checked with a placeholder <code>timeline.json</code> from <code>build-timeline.mjs ep02 --no-audio</code>; the orchestrator regenerates it from real audio).</li>
 <li>Observed: every number shown in <code>video/src/episodes/ep02/Scenes.tsx</code> (3, 1, the three emitter names, the three timestamps, the per-action counts) is copied from <code>evidence.json</code>.</li>
-<li>Blocked: no narration audio generated, no MP4 rendered, no inspection frames — the orchestrator does those and fills <code>render-evidence.json</code>.</li>
 <li>Predicted: narration is 258 words; at the builder's 2.55 words/s estimate that is ≈101 s speech, ≈104 s total with lead/tail. Actual timing comes from the generated audio.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
@@ -70,12 +68,12 @@ node tools/render.mjs ep02 --concurrency 2</code></pre>
 <li>Scope of the fix: one owner per business event in the tested scenario. It does not make the analytics pipeline correct in general and does not provide idempotency.</li>
 <li>The event-ownership checklist is in <code>fixtures/ep02-duplicate-purchase-events/README.md</code>.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep02/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep02 → episodes/ep02/ep02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 112.4 s, 9964178 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep02/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep02 → episodes/ep02/ep02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 112.4 s, 9964178 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep01/index.html">← Episode 01: Is it safe to launch?</a></span><span><a href="../ep03/index.html">Episode 03: What Sign In does →</a></span></nav>

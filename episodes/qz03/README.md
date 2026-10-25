@@ -15,7 +15,12 @@ node tools/render.mjs qz03 --concurrency 2
 ```
 
 ## Limits
-- The committed `timeline.json` was generated with `node tools/build-timeline.mjs qz03 --no-audio` only so the project type-checks. It does not include the 6 s think pauses. Rebuild with `build-quiz.mjs` once `raw.mp3` exists.
 - The countdown ring shows only during the last 6 s of each `q` scene (`t >= dur - 6`).
 - Question 2 is labelled "CONCEPTUAL ILLUSTRATION" because Episode 12's lifecycle is a model, not a browser capture.
 - No audio and no video were generated for this package.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/qz03/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs qz03 → episodes/qz03/qz03.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 172.4 s, 13028215 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

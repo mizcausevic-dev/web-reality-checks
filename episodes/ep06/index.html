@@ -51,7 +51,6 @@
 </ul></li>
 <li>Measured-in-fixture: <code>totalMsMeasuredInFixture</code> values in <code>evidence.json</code> are <code>process.hrtime</code> deltas around a local mock and an in-memory filter (about 0.07–1.1 ms). They are <strong>not</strong> shown in the video and say nothing about real model latency.</li>
 <li>Verified: <code>cd video &amp;&amp; npx tsc --noEmit</code> reports no errors in <code>src/episodes/ep06/*</code>. All ten scene components server-render at t = 0…9 s with no element below y = 920.</li>
-<li>Not executed: narration audio, render, thumbnail — the orchestrator does these and fills <code>render-evidence.json</code>. <code>video/src/episodes/ep06/timeline.json</code> was generated with <code>--no-audio</code> for type-checking only and should be regenerated from the real narration.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
@@ -67,12 +66,12 @@ node tools/render.mjs ep06 --concurrency 2</code></pre>
 <li>The assistant window in scene 1 is an illustrative <code>Box</code>, not a real product UI.</li>
 <li>Scene boundaries from <code>build-timeline.mjs</code> are a word-count/silence heuristic, not forced alignment.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep06/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep06 → episodes/ep06/ep06.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.8 s, 9661007 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep06/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep06 → episodes/ep06/ep06.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.8 s, 9661007 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep05/index.html">← Episode 05: How many are wrong?</a></span><span><a href="../ep07/index.html">Episode 07: Why is production broken? →</a></span></nav>

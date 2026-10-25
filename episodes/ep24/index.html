@@ -41,10 +41,9 @@
 <li>Executed: <code>node --test fixtures/ep24-shared-cache-leak/test.mjs</code> -&gt; <code># tests 18</code>, <code># pass 18</code>, <code># fail 0</code>.</li>
 <li>Executed: <code>node fixtures/ep24-shared-cache-leak/demo.mjs</code> -&gt; <code>evidence.json</code>: Alice <code>200 MISS</code>; Bob <code>200 HIT</code> with viewer <code>u_alice</code> (renderSeq 1 for both); header-present variant still <code>HIT</code>/<code>u_alice</code>; unauthenticated <code>401</code>; purge <code>true</code> (entries 1 -&gt; 0); retest of four requests all <code>200 BYPASS</code>, each viewer only their own id, four distinct renderSeq, shared-cache counters unchanged (reads 2, writes 1).</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> -&gt; no errors in <code>src/episodes/ep24/</code> (other episodes in progress may report their own errors).</li>
-<li>Executed: <code>node tools/build-timeline.mjs ep24 --no-audio</code> -&gt; provisional <code>timeline.json</code> / <code>captions.srt</code> (word-count estimate; orchestrator rebuilds from real audio).</li>
 <li>Narration: 237 words across eight scenes.</li>
 <li>Observed: all numbers shown in the video (statuses, <code>HIT</code>/<code>MISS</code>/<code>BYPASS</code>, render numbers, cache counters, purge result, test counts) are copied from <code>evidence.json</code> and the test run; they are hard-coded in <code>Scenes.tsx</code>, not read at render time.</li>
-<li>Blocked / not executed: no real browser, CDN or proxy; no narration audio; no render (orchestrator fills <code>render-evidence.json</code>).</li>
+<li>Blocked / not executed: no real browser, CDN or proxy.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
@@ -67,6 +66,13 @@ node tools/render.mjs ep24 --concurrency 2</code></pre>
 <li>The retest uses cookie jars, not browsers; browser cache, service workers and storage partitioning are not exercised. No HTTP caching semantics (RFC 9111) are implemented.</li>
 <li>Only <code>GET /dashboard</code> is repaired. No TTL, eviction, concurrency or multi-process behaviour.</li>
 <li>Caption timing in the provisional timeline is a word-count heuristic.</li>
+</ul>
+<h2 id="render-evidence">Render evidence</h2>
+<ul>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep24/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep24 → episodes/ep24/ep24.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 99.6 s, 8472639 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep23/index.html">← Episode 23: Two tabs, one document</a></span><span><a href="../ep25/index.html">Episode 25: Can you restore it? →</a></span></nav>

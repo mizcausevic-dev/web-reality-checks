@@ -50,7 +50,6 @@
 </ul></li>
 <li>Observed: every on-screen number in <code>video/src/episodes/ep05/Scenes.tsx</code> is a constant in the <code>EV</code> object at the top of that file, copied from <code>inspection-results.json</code> / <code>evidence.json</code>. If the fixture is regenerated with a different seed, refresh <code>EV</code>.</li>
 <li>Executed: <code>cd video &amp;&amp; npx tsc --noEmit</code> → clean.</li>
-<li>Blocked (by spec, orchestrator's job): narration audio, MP4 render, <code>render-evidence.json</code>, thumbnail. <code>video/src/episodes/ep05/timeline.json</code> currently holds a <code>--no-audio</code> estimate only so the project type-checks; rebuild it from real narration before rendering.</li>
 </ul>
 <h2 id="build-and-render">Build and render</h2>
 <pre><code>cd video &amp;&amp; npm install
@@ -64,12 +63,12 @@ node tools/render.mjs ep05 --concurrency 2</code></pre>
 <li>Accuracy bullets from the brief, each reflected on screen / in narration: data and results labelled synthetic (corner tag, every "Observed from" line); old verification date is not proof of error (scenes 5, 7); HTTP failure is not proof of closure (scenes 5, 8); last checked / last changed / last verified shown as separate fields (scenes 3, 5, 7); unique flagged listings reported separately from issue instances and explicitly not summed (scene 4); checker does not read ground truth (scene 3, test); detected vs missed per seeded class shown (scene 8).</li>
 <li>Scene timing in <code>timeline.json</code> is a word-count heuristic snapped to detected silences once real audio exists; not forced alignment.</li>
 </ul>
-<h2 id="render-evidence-orchestrator">Render evidence (orchestrator)</h2>
+<h2 id="render-evidence">Render evidence</h2>
 <ul>
-<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep05/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).</li>
-<li>Executed: node tools/render.mjs ep05 → episodes/ep05/ep05.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.67 s, 9442629 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.</li>
-<li>Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.</li>
-<li>Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.</li>
+<li>Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep05/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.</li>
+<li>Executed: node tools/render.mjs ep05 → episodes/ep05/ep05.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.67 s, 9442629 bytes). Thumbnail and hero are rendered as Remotion stills.</li>
+<li>Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.</li>
+<li>Observed: inspection stills in frames/ were reviewed for clipping and overlap.</li>
 </ul>
 </div>
 <nav class="pn" aria-label="Episode navigation"><span><a href="../ep04/index.html">← Episode 04: A database in the page</a></span><span><a href="../ep06/index.html">Episode 06: Prompt to answer →</a></span></nav>
