@@ -9,3 +9,4 @@ fixtures/**/uploads/
 fixtures/ep08-feels-slow/assets/hero-large.png
 queue.log
 queue/
+series-cut/
