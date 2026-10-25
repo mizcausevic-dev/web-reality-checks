@@ -1,0 +1,35 @@
+{
+  "file": "episodes/qz03/qz03.mp4",
+  "bytes": 13028215,
+  "duration_s": 172.4,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 172.41,
+  "thumbnail": {
+    "file": "episodes/qz03/thumbnail.png",
+    "size": "1280x720",
+    "source": "THUMB-QZ03"
+  },
+  "hero": {
+    "file": "episodes/qz03/hero.png",
+    "size": "1600x900",
+    "source": "HERO-QZ03"
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending"
+  ]
+}
