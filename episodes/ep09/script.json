@@ -1,0 +1,80 @@
+{
+  "n": 9,
+  "slug": "keyboard-form",
+  "title": "Try it without a mouse",
+  "fullTitle": "This Form Looks Finished. Try Using It Without a Mouse.",
+  "scenes": [
+    {
+      "id": "polished",
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST",
+      "narration": "Here is a registration form. Clean spacing, a blue button, three tidy fields. It looks finished. A screenshot would sign it off.",
+      "captions": [
+        "A registration form. It looks finished.",
+        "A screenshot would sign it off."
+      ]
+    },
+    {
+      "id": "keyboard",
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST",
+      "narration": "Now take the mouse away. Keyboard only. Press Tab and watch where focus goes.",
+      "captions": [
+        "Take the mouse away. Keyboard only.",
+        "Press Tab. Where does focus go?"
+      ]
+    },
+    {
+      "id": "fail",
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST",
+      "narration": "Tab, Tab, Tab. Focus is moving, but nothing shows it, because a stylesheet removed every outline. One more Tab and focus leaves the form entirely. The blue button is a div with a click handler. It cannot be reached, and Enter and Space do nothing.",
+      "captions": [
+        "Focus moves, but nothing shows it: outline none.",
+        "The submit button is a div. Tab skips it. Enter and Space do nothing."
+      ]
+    },
+    {
+      "id": "fix_native",
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST",
+      "narration": "First repair. A real form element and a real submit button. Now the button is a Tab stop, Enter in any field submits, and a focus-visible style draws a ring that is actually visible.",
+      "captions": [
+        "Repair one: a native form and a native button.",
+        "Focus-visible: a ring you can see."
+      ]
+    },
+    {
+      "id": "fix_labels",
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST",
+      "narration": "Second repair. Placeholders vanish when you type, so each field gets a persistent label, connected with a for attribute. In the accessibility tree, simplified here, every input now has a name.",
+      "captions": [
+        "Repair two: persistent labels, connected with label for.",
+        "Accessibility tree (simplified): every input has a name."
+      ]
+    },
+    {
+      "id": "errors",
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST",
+      "narration": "Submit invalid data. Two errors appear beside their fields, each marked aria invalid and linked with aria describedby. Every value stays in place. Focus moves once, deliberately, to the first invalid field.",
+      "captions": [
+        "Invalid data: errors linked with aria-describedby and aria-invalid.",
+        "Values preserved. Focus moves once, to the first invalid field."
+      ]
+    },
+    {
+      "id": "retest",
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST",
+      "narration": "Correct the data and run the same keyboard journey. Tab, Tab, Tab, Enter, Tab, Tab, Space. Accepted. Seven keystrokes, and the mouse never came back.",
+      "captions": [
+        "Same journey, corrected form: Tab Tab Tab Enter Tab Tab Space.",
+        "Accepted. Seven keystrokes, no mouse."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "A screenshot cannot show whether a form is operable. This was a keyboard test, not an accessibility audit. The associations are implemented; no screen reader was available to verify what they announce.",
+      "captions": [
+        "A screenshot cannot show whether a form is operable.",
+        "Keyboard test, not an audit. Announcements not verified."
+      ]
+    }
+  ]
+}

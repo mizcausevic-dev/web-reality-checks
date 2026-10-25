@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-10-25T08:19:28.659Z",
+  "label": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED",
+  "executed": {
+    "what": "WHATWG URL parsing of the example URL (string-level only). Nothing else ran.",
+    "url": "https://example.test/account?tab=billing#history",
+    "resolutionName": "example.test",
+    "port": 443,
+    "requestTarget": "/account?tab=billing",
+    "requestLine": "GET /account?tab=billing HTTP/1.1",
+    "fragment": "#history",
+    "fragmentInRequestTarget": false
+  },
+  "notExecuted": [
+    "DNS resolution",
+    "TCP connection",
+    "TLS handshake",
+    "HTTP request",
+    "packet capture"
+  ],
+  "matrix": {
+    "rows": 11,
+    "columns": [
+      "browser",
+      "observer",
+      "endpoint"
+    ],
+    "tally": {
+      "browser": {
+        "visible": 11,
+        "encrypted": 0,
+        "not-sent": 0
+      },
+      "observer": {
+        "visible": 5,
+        "encrypted": 5,
+        "not-sent": 1
+      },
+      "endpoint": {
+        "visible": 9,
+        "encrypted": 0,
+        "not-sent": 2
+      }
+    },
+    "observerVisible": [
+      "DNS question",
+      "Destination IP",
+      "Port",
+      "Timing / volume",
+      "SNI in ClientHello"
+    ],
+    "observerEncrypted": [
+      "Server certificate (TLS 1.3)",
+      "HTTP method / path / query",
+      "Headers",
+      "Cookies",
+      "Body"
+    ],
+    "observerNotSent": [
+      "URL fragment"
+    ],
+    "variants": [
+      {
+        "id": "ech",
+        "changes": [
+          "sni/observer → encrypted"
+        ],
+        "stillVisible": [
+          "destination_ip",
+          "port",
+          "timing_volume",
+          "dns_question"
+        ]
+      },
+      {
+        "id": "encrypted_dns",
+        "changes": [
+          "dns_question/observer → encrypted"
+        ],
+        "stillVisible": [
+          "destination_ip",
+          "port",
+          "timing_volume",
+          "sni"
+        ]
+      },
+      {
+        "id": "cdn_termination",
+        "changes": [
+          "method_path_query/endpoint → visible",
+          "destination_ip/observer → visible"
+        ],
+        "stillVisible": [
+          "destination_ip",
+          "port",
+          "timing_volume",
+          "sni"
+        ]
+      }
+    ]
+  },
+  "accuracyIds": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    "A11",
+    "S01",
+    "E01",
+    "E02",
+    "E03",
+    "E04"
+  ]
+}

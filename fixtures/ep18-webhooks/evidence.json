@@ -1,0 +1,305 @@
+{
+  "generatedAt": "2026-10-25T08:13:18.580Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "fixedReceiverClock": 1768000000,
+  "toleranceS": 300,
+  "events": {
+    "v1": {
+      "event_id": "evt_1d691bf2e854",
+      "subscription_id": "sub_alpha",
+      "type": "subscription.created",
+      "version": 1,
+      "snapshot": {
+        "subscription_id": "sub_alpha",
+        "version": 1,
+        "status": "trialing",
+        "plan": "starter"
+      },
+      "event_ts": "2026-01-15T09:01:00.000Z"
+    },
+    "v2": {
+      "event_id": "evt_75e0e5df4066",
+      "subscription_id": "sub_alpha",
+      "type": "subscription.updated",
+      "version": 2,
+      "snapshot": {
+        "subscription_id": "sub_alpha",
+        "version": 2,
+        "status": "past_due",
+        "plan": "starter"
+      },
+      "event_ts": "2026-01-15T09:02:00.000Z"
+    },
+    "v3": {
+      "event_id": "evt_748d0c0d9c60",
+      "subscription_id": "sub_alpha",
+      "type": "subscription.updated",
+      "version": 3,
+      "snapshot": {
+        "subscription_id": "sub_alpha",
+        "version": 3,
+        "status": "active",
+        "plan": "pro"
+      },
+      "event_ts": "2026-01-15T09:03:00.000Z"
+    }
+  },
+  "deliveryOrder": [
+    "v1",
+    "v3",
+    "v2",
+    "v3"
+  ],
+  "naive": {
+    "backend": "sqlite",
+    "log": [
+      {
+        "delivered": "v1",
+        "event_id": "evt_1d691bf2e854",
+        "version": 1,
+        "delivery_ts": 1767999980,
+        "signature": "v1=6e4bfe70d2264eb6…",
+        "status": 200,
+        "outcome": "applied",
+        "stateAfter": {
+          "version": 1,
+          "status": "trialing",
+          "plan": "starter"
+        }
+      },
+      {
+        "delivered": "v3",
+        "event_id": "evt_748d0c0d9c60",
+        "version": 3,
+        "delivery_ts": 1767999990,
+        "signature": "v1=56da54155c4407d2…",
+        "status": 200,
+        "outcome": "applied",
+        "stateAfter": {
+          "version": 3,
+          "status": "active",
+          "plan": "pro"
+        }
+      },
+      {
+        "delivered": "v2",
+        "event_id": "evt_75e0e5df4066",
+        "version": 2,
+        "delivery_ts": 1768000000,
+        "signature": "v1=db2027a7b90672ff…",
+        "status": 200,
+        "outcome": "applied",
+        "stateAfter": {
+          "version": 2,
+          "status": "past_due",
+          "plan": "starter"
+        }
+      }
+    ],
+    "finalState": {
+      "version": 2,
+      "status": "past_due",
+      "plan": "starter"
+    }
+  },
+  "corrected": {
+    "backend": "sqlite",
+    "log": [
+      {
+        "delivered": "v1",
+        "event_id": "evt_1d691bf2e854",
+        "version": 1,
+        "delivery_ts": 1767999980,
+        "signature": "v1=6e4bfe70d2264eb6…",
+        "status": 200,
+        "outcome": "applied",
+        "stateAfter": {
+          "version": 1,
+          "status": "trialing",
+          "plan": "starter"
+        }
+      },
+      {
+        "delivered": "v3",
+        "event_id": "evt_748d0c0d9c60",
+        "version": 3,
+        "delivery_ts": 1767999990,
+        "signature": "v1=56da54155c4407d2…",
+        "status": 200,
+        "outcome": "applied",
+        "stateAfter": {
+          "version": 3,
+          "status": "active",
+          "plan": "pro"
+        }
+      },
+      {
+        "delivered": "v2",
+        "event_id": "evt_75e0e5df4066",
+        "version": 2,
+        "delivery_ts": 1768000000,
+        "signature": "v1=db2027a7b90672ff…",
+        "status": 200,
+        "outcome": "stale",
+        "stateAfter": {
+          "version": 3,
+          "status": "active",
+          "plan": "pro"
+        }
+      },
+      {
+        "delivered": "v3",
+        "event_id": "evt_748d0c0d9c60",
+        "version": 3,
+        "delivery_ts": 1768000010,
+        "signature": "v1=851bdc1f360c96cf…",
+        "status": 200,
+        "outcome": "duplicate",
+        "stateAfter": {
+          "version": 3,
+          "status": "active",
+          "plan": "pro"
+        }
+      }
+    ]
+  },
+  "checks": [
+    {
+      "check": "tampered body, original signature",
+      "status": 401,
+      "body": {
+        "error": "invalid signature"
+      }
+    },
+    {
+      "check": "signed with the wrong secret",
+      "status": 401,
+      "body": {
+        "error": "invalid signature"
+      }
+    },
+    {
+      "check": "valid signature, delivery timestamp 301 s old",
+      "status": 401,
+      "body": {
+        "error": "delivery timestamp outside tolerance",
+        "age_s": 301,
+        "tolerance_s": 300
+      }
+    },
+    {
+      "check": "v4 with simulated commit failure",
+      "status": 503,
+      "body": {
+        "error": "could not commit; retry later",
+        "detail": "SIMULATED: commit failed (storage unavailable)"
+      },
+      "stateUnchanged": true,
+      "eventRecords": 3
+    },
+    {
+      "check": "v4 retried after the 5xx",
+      "status": 200,
+      "outcome": "applied",
+      "stateAfter": {
+        "version": 4,
+        "status": "active",
+        "plan": "enterprise"
+      }
+    }
+  ],
+  "concurrent": {
+    "event": "v5",
+    "attempts": 6,
+    "statuses": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "applied": 1,
+    "duplicate": 5,
+    "eventRecordsAdded": 1
+  },
+  "replay": {
+    "order": [
+      "v2",
+      "v3",
+      "v1",
+      "v3",
+      "v2",
+      "v1"
+    ],
+    "results": [
+      {
+        "delivered": "v2",
+        "status": 200,
+        "outcome": "duplicate"
+      },
+      {
+        "delivered": "v3",
+        "status": 200,
+        "outcome": "duplicate"
+      },
+      {
+        "delivered": "v1",
+        "status": 200,
+        "outcome": "duplicate"
+      },
+      {
+        "delivered": "v3",
+        "status": 200,
+        "outcome": "duplicate"
+      },
+      {
+        "delivered": "v2",
+        "status": 200,
+        "outcome": "duplicate"
+      },
+      {
+        "delivered": "v1",
+        "status": 200,
+        "outcome": "duplicate"
+      }
+    ],
+    "stateDigestBefore": "0d4e457d205b2702",
+    "stateDigestAfter": "0d4e457d205b2702",
+    "unchanged": true,
+    "eventRecordsBefore": 5,
+    "eventRecordsAfter": 5,
+    "finalState": {
+      "version": 5,
+      "status": "active",
+      "plan": "enterprise"
+    }
+  },
+  "eventTable": [
+    {
+      "event_id": "evt_1d691bf2e854",
+      "version": 1,
+      "outcome": "applied"
+    },
+    {
+      "event_id": "evt_748d0c0d9c60",
+      "version": 3,
+      "outcome": "applied"
+    },
+    {
+      "event_id": "evt_75e0e5df4066",
+      "version": 2,
+      "outcome": "stale"
+    },
+    {
+      "event_id": "evt_61f7c0b4e265",
+      "version": 4,
+      "outcome": "applied"
+    },
+    {
+      "event_id": "evt_1b9532cb2d1a",
+      "version": 5,
+      "outcome": "applied"
+    }
+  ]
+}

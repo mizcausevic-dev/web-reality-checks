@@ -1,0 +1,138 @@
+{
+  "n": 19,
+  "title": "What did the server send?",
+  "fullTitle": "The Browser Shows Your Page. What Does the Server Send?",
+  "slug": "initial-html",
+  "hero": {
+    "scene": "raw",
+    "t": 6
+  },
+  "audio": "ep19/narration.mp3",
+  "duration": 107.19,
+  "scenes": [
+    {
+      "id": "identical",
+      "start": 0,
+      "end": 9.11
+    },
+    {
+      "id": "raw",
+      "start": 9.11,
+      "end": 29.63
+    },
+    {
+      "id": "populate",
+      "start": 29.63,
+      "end": 48.06
+    },
+    {
+      "id": "nojs",
+      "start": 48.06,
+      "end": 66.37
+    },
+    {
+      "id": "present",
+      "start": 66.37,
+      "end": 80.37
+    },
+    {
+      "id": "pipeline",
+      "start": 80.37,
+      "end": 97.58,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "end",
+      "start": 97.58,
+      "end": 107.19,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.57,
+      "text": "Two pages. Same article, headings, links, title."
+    },
+    {
+      "start": 4.57,
+      "end": 9.11,
+      "text": "In a browser you cannot tell them apart."
+    },
+    {
+      "start": 9.11,
+      "end": 13.36,
+      "text": "Raw HTML, before any script runs."
+    },
+    {
+      "start": 13.36,
+      "end": 20.43,
+      "text": "Generated page: 1 h1, 4 h2, 6 paragraphs, 3 links."
+    },
+    {
+      "start": 20.43,
+      "end": 29.63,
+      "text": "Client-rendered page: a shell and one script tag. 0 of 198 article words."
+    },
+    {
+      "start": 29.63,
+      "end": 37,
+      "text": "The script fetches /article.json and inserts the article."
+    },
+    {
+      "start": 37,
+      "end": 48.06,
+      "text": "With JavaScript on, both DOMs end with 6 paragraphs and 3 links."
+    },
+    {
+      "start": 48.06,
+      "end": 53.49,
+      "text": "JavaScript off: generated page still shows the article."
+    },
+    {
+      "start": 53.49,
+      "end": 56.88,
+      "text": "Client-rendered page stays at \"Loading\"."
+    },
+    {
+      "start": 56.88,
+      "end": 66.37,
+      "text": "A browser with scripts off is not a Googlebot simulator. Google can run JS."
+    },
+    {
+      "start": 66.37,
+      "end": 73.7,
+      "text": "Generated response: text, headings and hrefs are already in the bytes."
+    },
+    {
+      "start": 73.7,
+      "end": 80.37,
+      "text": "No script, no hydration: the article has no client interactivity."
+    },
+    {
+      "start": 80.37,
+      "end": 86.52,
+      "text": "Crawl fetches. Render may run scripts. Index stores. Rank shows."
+    },
+    {
+      "start": 86.52,
+      "end": 93.28,
+      "text": "This test touches crawl and a slice of render; nothing more."
+    },
+    {
+      "start": 93.28,
+      "end": 97.58,
+      "text": "Static HTML guarantees neither indexing nor rankings."
+    },
+    {
+      "start": 97.58,
+      "end": 101.19,
+      "text": "Initial HTML and the eventual DOM are different artifacts."
+    },
+    {
+      "start": 101.19,
+      "end": 105.19,
+      "text": "Inspect both, and know which one you are looking at."
+    }
+  ]
+}

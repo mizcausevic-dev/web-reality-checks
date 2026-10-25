@@ -1,0 +1,220 @@
+{
+  "generatedAt": "2026-10-25T08:29:58.757Z",
+  "note": "Lifecycle events come from the deterministic model in sw-lifecycle-sim.mjs executing the real sw.js/app.js logic in Node. They were NOT captured from a browser. Server rows were executed against serve.mjs on 127.0.0.1.",
+  "executedServer": {
+    "build1": {
+      "h1": "Build 1",
+      "swCacheControl": "no-cache",
+      "swBytes": 2502,
+      "swBuildConst": 1,
+      "swCacheName": "wrc-ep12-v1"
+    },
+    "build2": {
+      "h1": "Build 2",
+      "swCacheControl": "no-cache",
+      "swBytes": 2502,
+      "swBuildConst": 2,
+      "swCacheName": "wrc-ep12-v2"
+    }
+  },
+  "modelSteps": [
+    {
+      "label": "1-2 Build 1 installed, active, controlling the page",
+      "installing": null,
+      "waiting": null,
+      "active": {
+        "label": "build1",
+        "state": "activated"
+      },
+      "controller": {
+        "label": "build1",
+        "state": "activated"
+      },
+      "caches": [
+        "wrc-ep12-v1"
+      ],
+      "updateAvailable": false,
+      "pageShows": "Build 1"
+    },
+    {
+      "label": "3-4 deploy: server switched to Build 2; open tab unchanged",
+      "installing": null,
+      "waiting": null,
+      "active": {
+        "label": "build1",
+        "state": "activated"
+      },
+      "controller": {
+        "label": "build1",
+        "state": "activated"
+      },
+      "caches": [
+        "wrc-ep12-v1"
+      ],
+      "updateAvailable": false,
+      "serverBuild": 2,
+      "pageShows": "Build 1"
+    },
+    {
+      "label": "5-6 registration.update(): Build 2 installed, WAITING behind Build 1",
+      "installing": null,
+      "waiting": {
+        "label": "build2",
+        "state": "installed"
+      },
+      "active": {
+        "label": "build1",
+        "state": "activated"
+      },
+      "controller": {
+        "label": "build1",
+        "state": "activated"
+      },
+      "caches": [
+        "wrc-ep12-v1",
+        "wrc-ep12-v2"
+      ],
+      "updateAvailable": true,
+      "pageShows": "Build 1"
+    },
+    {
+      "label": "7 page shows \"Update available\"",
+      "installing": null,
+      "waiting": {
+        "label": "build2",
+        "state": "installed"
+      },
+      "active": {
+        "label": "build1",
+        "state": "activated"
+      },
+      "controller": {
+        "label": "build1",
+        "state": "activated"
+      },
+      "caches": [
+        "wrc-ep12-v1",
+        "wrc-ep12-v2"
+      ],
+      "updateAvailable": true,
+      "pageShows": "Build 1"
+    },
+    {
+      "label": "8-9 approved: SKIP_WAITING → Build 2 active → controllerchange → one reload",
+      "installing": null,
+      "waiting": null,
+      "active": {
+        "label": "build2",
+        "state": "activated"
+      },
+      "controller": {
+        "label": "build2",
+        "state": "activated"
+      },
+      "caches": [
+        "wrc-ep12-v2"
+      ],
+      "updateAvailable": false,
+      "reloads": 1,
+      "secondEventResult": "ignored",
+      "pageShows": "Build 2 (after the single reload)"
+    }
+  ],
+  "lifecycleTrace": [
+    {
+      "ev": "update-check",
+      "label": "build1"
+    },
+    {
+      "ev": "updatefound",
+      "worker": "build1"
+    },
+    {
+      "ev": "installed",
+      "worker": "build1",
+      "cacheName": "wrc-ep12-v1"
+    },
+    {
+      "ev": "activating",
+      "worker": "build1"
+    },
+    {
+      "ev": "activated",
+      "worker": "build1",
+      "cachesAfter": [
+        "wrc-ep12-v1"
+      ]
+    },
+    {
+      "ev": "controllerchange",
+      "controller": "build1",
+      "why": "clients.claim() on first install"
+    },
+    {
+      "ev": "update-check",
+      "label": "build2"
+    },
+    {
+      "ev": "updatefound",
+      "worker": "build2"
+    },
+    {
+      "ev": "installed",
+      "worker": "build2",
+      "cacheName": "wrc-ep12-v2"
+    },
+    {
+      "ev": "waiting",
+      "worker": "build2",
+      "behind": "build1"
+    },
+    {
+      "ev": "message",
+      "to": "build2",
+      "data": {
+        "type": "SKIP_WAITING"
+      }
+    },
+    {
+      "ev": "skipWaiting",
+      "worker": "build2"
+    },
+    {
+      "ev": "redundant",
+      "worker": "build1"
+    },
+    {
+      "ev": "activating",
+      "worker": "build2"
+    },
+    {
+      "ev": "activated",
+      "worker": "build2",
+      "cachesAfter": [
+        "wrc-ep12-v2"
+      ]
+    },
+    {
+      "ev": "controllerchange",
+      "controller": "build2",
+      "why": "skipWaiting activation"
+    }
+  ],
+  "summary": {
+    "buildsServed": [
+      "Build 1",
+      "Build 2"
+    ],
+    "swByteDifferent": true,
+    "cacheNames": [
+      "wrc-ep12-v1",
+      "wrc-ep12-v2"
+    ],
+    "cachesAfterActivation": [
+      "wrc-ep12-v2"
+    ],
+    "reloads": 1,
+    "controllerChangeEventsHandled": 2,
+    "finalController": "build2"
+  }
+}

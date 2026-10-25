@@ -1,0 +1,147 @@
+{
+  "n": 14,
+  "title": "Uploaded, not ready",
+  "fullTitle": "100% Uploaded. Why Isn't My File Ready?",
+  "slug": "upload-stages",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep14/narration.mp3",
+  "duration": 106.07,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 9.38
+    },
+    {
+      "id": "stages",
+      "start": 9.38,
+      "end": 23.53
+    },
+    {
+      "id": "progress",
+      "start": 23.53,
+      "end": 40.01
+    },
+    {
+      "id": "accepted",
+      "start": 40.01,
+      "end": 52.67
+    },
+    {
+      "id": "ready",
+      "start": 52.67,
+      "end": 68.83
+    },
+    {
+      "id": "fail_rows",
+      "start": 68.83,
+      "end": 85.53
+    },
+    {
+      "id": "fix",
+      "start": 85.53,
+      "end": 99.73
+    },
+    {
+      "id": "end",
+      "start": 99.73,
+      "end": 106.07,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.76,
+      "text": "The bar says 100%. The file is not ready."
+    },
+    {
+      "start": 4.76,
+      "end": 9.38,
+      "text": "Nothing is wrong with the bar. It measured something else."
+    },
+    {
+      "start": 9.38,
+      "end": 16.46,
+      "text": "Four stages: transfer, acceptance, processing, availability."
+    },
+    {
+      "start": 16.46,
+      "end": 23.53,
+      "text": "The bar only showed the first."
+    },
+    {
+      "start": 23.53,
+      "end": 29.46,
+      "text": "XHR upload events: loaded / total, only if lengthComputable."
+    },
+    {
+      "start": 29.46,
+      "end": 34.08,
+      "text": "Those are request-body bytes, multipart overhead included."
+    },
+    {
+      "start": 34.08,
+      "end": 40.01,
+      "text": "An 82-byte file travelled as a 232-byte request body."
+    },
+    {
+      "start": 40.01,
+      "end": 47.17,
+      "text": "After the last byte, the response arrives separately: 202 Accepted + job ID."
+    },
+    {
+      "start": 47.17,
+      "end": 52.67,
+      "text": "Accepted means stored and queued, not processed. Result now: 409."
+    },
+    {
+      "start": 52.67,
+      "end": 59.85,
+      "text": "Polling the authorised status endpoint: accepted → ready."
+    },
+    {
+      "start": 59.85,
+      "end": 68.83,
+      "text": "Only then does the result open. Another user gets 404."
+    },
+    {
+      "start": 68.83,
+      "end": 74.4,
+      "text": "Same flow, different file: 100% transferred, 202 Accepted."
+    },
+    {
+      "start": 74.4,
+      "end": 81.35,
+      "text": "The worker finds bad rows. Job failed, with a reason."
+    },
+    {
+      "start": 81.35,
+      "end": 85.53,
+      "text": "The bar had still said 100%."
+    },
+    {
+      "start": 85.53,
+      "end": 90.5,
+      "text": "Replace the single bar with four statuses."
+    },
+    {
+      "start": 90.5,
+      "end": 96.18,
+      "text": "Processing is a plain state: no invented percentage."
+    },
+    {
+      "start": 96.18,
+      "end": 99.73,
+      "text": "Parsing is not malware scanning."
+    },
+    {
+      "start": 99.73,
+      "end": 104.07,
+      "text": "Bytes transferred is not the same as work completed."
+    }
+  ]
+}

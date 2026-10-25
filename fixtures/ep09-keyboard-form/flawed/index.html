@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create your account — FLAWED fixture (EP09)</title>
+<style>
+  /* Deliberately flawed. Do not copy. Local fixture for Web Reality Checks EP09. */
+  :root { color-scheme: light; }
+  * { outline: none; }                 /* FLAW: focus indication removed everywhere */
+  body { margin: 0; font-family: system-ui, sans-serif; background: #f4f5f7; color: #1b1d22; display: grid; place-items: center; min-height: 100vh; }
+  .card { width: 380px; background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+  h1 { font-size: 24px; margin: 0 0 20px; }
+  .field { margin-bottom: 16px; }
+  .input { width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid #d5d8de; border-radius: 10px; font-size: 16px; }
+  .input:focus { outline: none; border-color: #d5d8de; } /* FLAW: focus looks identical to unfocused */
+  .error { color: #c0392b; font-size: 13px; margin-top: 6px; display: none; }
+  .error.show { display: block; }
+  .btn { margin-top: 8px; padding: 14px; text-align: center; border-radius: 10px; background: #2d6cdf; color: #fff; font-weight: 600; cursor: pointer; user-select: none; }
+  .fine { color: #6b7280; font-size: 12px; margin-top: 14px; text-align: center; }
+  .banner { position: fixed; top: 8px; left: 8px; font: 11px/1.3 monospace; color: #92400e; background: #fef3c7; padding: 4px 8px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="banner">LOCAL FIXTURE · FLAWED VERSION · EP09</div>
+<div class="card">
+  <h1>Create your account</h1>
+
+  <!-- FLAW: no <form>, so Enter in a field submits nothing -->
+  <div class="field">
+    <!-- FLAW: placeholder is the only label -->
+    <input class="input" id="name" type="text" placeholder="Full name">
+    <!-- FLAW: error text is not associated with the input (no aria-describedby / aria-invalid) -->
+    <div class="error" id="name-error">Please enter your name.</div>
+  </div>
+
+  <div class="field">
+    <input class="input" id="email" type="text" placeholder="Email address">
+    <div class="error" id="email-error">That email address does not look right.</div>
+  </div>
+
+  <div class="field">
+    <input class="input" id="password" type="password" placeholder="Password (8+ characters)">
+    <div class="error" id="password-error">Password must be at least 8 characters.</div>
+  </div>
+
+  <!-- FLAW: clickable <div> as the submit control. Not focusable, no role, no key handling. -->
+  <div class="btn" id="submit" onclick="submitForm()">Create account</div>
+
+  <p class="fine">By continuing you agree to the terms.</p>
+</div>
+
+<script>
+  // Mouse-only submit. Pressing Tab never reaches #submit; Enter/Space never fire this.
+  function submitForm() {
+    var ok = true;
+    var name = document.getElementById('name');
+    var email = document.getElementById('email');
+    var password = document.getElementById('password');
+    document.getElementById('name-error').classList.toggle('show', !name.value.trim());
+    document.getElementById('email-error').classList.toggle('show', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value));
+    document.getElementById('password-error').classList.toggle('show', password.value.length < 8);
+    ok = !document.querySelector('.error.show');
+    if (ok) {
+      // FLAW (secondary): on success the fields are simply wiped and a message appears; no focus management.
+      name.value = ''; email.value = ''; password.value = '';
+      document.querySelector('h1').textContent = 'Account created';
+    }
+  }
+</script>
+</body>
+</html>

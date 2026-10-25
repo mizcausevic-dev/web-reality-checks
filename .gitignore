@@ -6,3 +6,4 @@ video/.remotion/
 fixtures/**/dist/
 fixtures/**/*.sqlite
 fixtures/**/uploads/
+fixtures/ep08-feels-slow/assets/hero-large.png

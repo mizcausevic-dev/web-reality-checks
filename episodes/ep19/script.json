@@ -1,0 +1,16 @@
+{
+  "n": 19,
+  "slug": "initial-html",
+  "title": "What did the server send?",
+  "fullTitle": "The Browser Shows Your Page. What Does the Server Send?",
+  "hero": {"scene": "raw", "t": 6},
+  "scenes": [
+    {"id": "identical", "narration": "Two pages. Same article, headings, links and title. In a browser you cannot tell them apart. The server sent them very differently.", "captions": ["Two pages. Same article, headings, links, title.", "In a browser you cannot tell them apart."]},
+    {"id": "raw", "narration": "Fetch the raw HTML, before any script runs. The generated page carries the whole article: one h one, four h twos, six paragraphs, three links. The client-rendered page carries a shell: a loading line and one script tag. Zero article words of one hundred and ninety-eight. Same title and description on both.", "captions": ["Raw HTML, before any script runs.", "Generated page: 1 h1, 4 h2, 6 paragraphs, 3 links.", "Client-rendered page: a shell and one script tag. 0 of 198 article words."]},
+    {"id": "populate", "narration": "The shell is not broken. Its script fetches article dot json and inserts the article. In a headless browser with JavaScript on, the client-rendered DOM ends with the same six paragraphs and three links. The article exists, but only in the browser's result.", "captions": ["The script fetches /article.json and inserts the article.", "With JavaScript on, both DOMs end with 6 paragraphs and 3 links."]},
+    {"id": "nojs", "narration": "Disable JavaScript in a clean context. The generated page still shows the full article. The client-rendered page stays at Loading. Careful: a browser with scripts off is not a Googlebot simulator. Google can execute JavaScript. This only shows what each response contains on its own.", "captions": ["JavaScript off: generated page still shows the article.", "Client-rendered page stays at \"Loading\".", "A browser with scripts off is not a Googlebot simulator. Google can run JS."]},
+    {"id": "present", "narration": "Look again at the generated response. Text, headings and href attributes are already in the bytes the server sent. No script puts them there, and no hydration either: this article has no client interactivity.", "captions": ["Generated response: text, headings and hrefs are already in the bytes.", "No script, no hydration: the article has no client interactivity."]},
+    {"id": "pipeline", "sim": "CONCEPTUAL ILLUSTRATION", "narration": "Separate four things a search engine does. Crawl fetches. Render may execute scripts. Index decides what to store. Rank decides what to show. This test touches crawl and a slice of render. Static HTML guarantees neither indexing nor rankings, and server-rendered pages can still be rendered.", "captions": ["Crawl fetches. Render may run scripts. Index stores. Rank shows.", "This test touches crawl and a slice of render; nothing more.", "Static HTML guarantees neither indexing nor rankings."]},
+    {"id": "end", "sim": null, "narration": "Initial HTML and the eventual DOM are different artefacts. Inspect both, and know which you are looking at.", "captions": ["Initial HTML and the eventual DOM are different artifacts.", "Inspect both, and know which one you are looking at."]}
+  ]
+}

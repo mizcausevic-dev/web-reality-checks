@@ -1,0 +1,144 @@
+{
+  "n": 9,
+  "title": "Try it without a mouse",
+  "fullTitle": "This Form Looks Finished. Try Using It Without a Mouse.",
+  "slug": "keyboard-form",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep09/narration.mp3",
+  "duration": 92.88,
+  "scenes": [
+    {
+      "id": "polished",
+      "start": 0,
+      "end": 8.52,
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST"
+    },
+    {
+      "id": "keyboard",
+      "start": 8.52,
+      "end": 14.47,
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST"
+    },
+    {
+      "id": "fail",
+      "start": 14.47,
+      "end": 30.98,
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST"
+    },
+    {
+      "id": "fix_native",
+      "start": 30.98,
+      "end": 44.74,
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST"
+    },
+    {
+      "id": "fix_labels",
+      "start": 44.74,
+      "end": 55.33,
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST"
+    },
+    {
+      "id": "errors",
+      "start": 55.33,
+      "end": 67.67,
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST"
+    },
+    {
+      "id": "retest",
+      "start": 67.67,
+      "end": 78.78,
+      "sim": "ILLUSTRATIVE RECREATION · KEYBOARD TEST"
+    },
+    {
+      "id": "end",
+      "start": 78.78,
+      "end": 92.88,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.56,
+      "text": "A registration form. It looks finished."
+    },
+    {
+      "start": 4.56,
+      "end": 8.52,
+      "text": "A screenshot would sign it off."
+    },
+    {
+      "start": 8.52,
+      "end": 11.49,
+      "text": "Take the mouse away. Keyboard only."
+    },
+    {
+      "start": 11.49,
+      "end": 14.47,
+      "text": "Press Tab. Where does focus go?"
+    },
+    {
+      "start": 14.47,
+      "end": 20.47,
+      "text": "Focus moves, but nothing shows it: outline none."
+    },
+    {
+      "start": 20.47,
+      "end": 30.98,
+      "text": "The submit button is a div. Tab skips it. Enter and Space do nothing."
+    },
+    {
+      "start": 30.98,
+      "end": 39.24,
+      "text": "Repair one: a native form and a native button."
+    },
+    {
+      "start": 39.24,
+      "end": 44.74,
+      "text": "Focus-visible: a ring you can see."
+    },
+    {
+      "start": 44.74,
+      "end": 50.03,
+      "text": "Repair two: persistent labels, connected with label for."
+    },
+    {
+      "start": 50.03,
+      "end": 55.33,
+      "text": "Accessibility tree (simplified): every input has a name."
+    },
+    {
+      "start": 55.33,
+      "end": 60.81,
+      "text": "Invalid data: errors linked with aria-describedby and aria-invalid."
+    },
+    {
+      "start": 60.81,
+      "end": 67.67,
+      "text": "Values preserved. Focus moves once, to the first invalid field."
+    },
+    {
+      "start": 67.67,
+      "end": 75.31,
+      "text": "Same journey, corrected form: Tab Tab Tab Enter Tab Tab Space."
+    },
+    {
+      "start": 75.31,
+      "end": 78.78,
+      "text": "Accepted. Seven keystrokes, no mouse."
+    },
+    {
+      "start": 78.78,
+      "end": 85.19,
+      "text": "A screenshot cannot show whether a form is operable."
+    },
+    {
+      "start": 85.19,
+      "end": 90.88,
+      "text": "Keyboard test, not an audit. Announcements not verified."
+    }
+  ]
+}

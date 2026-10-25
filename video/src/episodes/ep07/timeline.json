@@ -1,0 +1,139 @@
+{
+  "n": 7,
+  "title": "Why is production broken?",
+  "fullTitle": "It Works Locally. Why Is Production Broken?",
+  "slug": "vite-env-localhost",
+  "hero": {
+    "scene": "remote_fail",
+    "t": 6
+  },
+  "audio": "ep07/narration.mp3",
+  "duration": 96.41,
+  "scenes": [
+    {
+      "id": "local_ok",
+      "start": 0,
+      "end": 7.71
+    },
+    {
+      "id": "remote_fail",
+      "start": 7.71,
+      "end": 18.37,
+      "sim": "REMOTE CLIENT · CONCEPTUAL SIMULATION"
+    },
+    {
+      "id": "follow_loopback",
+      "start": 18.37,
+      "end": 29.66,
+      "sim": "REMOTE CLIENT · CONCEPTUAL SIMULATION"
+    },
+    {
+      "id": "bundle",
+      "start": 29.66,
+      "end": 42.69
+    },
+    {
+      "id": "host_env",
+      "start": 42.69,
+      "end": 51.62
+    },
+    {
+      "id": "still_old",
+      "start": 51.62,
+      "end": 60.03
+    },
+    {
+      "id": "fix",
+      "start": 60.03,
+      "end": 71.44
+    },
+    {
+      "id": "retest",
+      "start": 71.44,
+      "end": 79.14
+    },
+    {
+      "id": "end",
+      "start": 79.14,
+      "end": 96.41,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 7.71,
+      "text": "Locally: GET /health → 200 OK."
+    },
+    {
+      "start": 7.71,
+      "end": 12.28,
+      "text": "Remote browser: TypeError: Failed to fetch."
+    },
+    {
+      "start": 12.28,
+      "end": 18.37,
+      "text": "Connection refused — not CORS, not a 404."
+    },
+    {
+      "start": 18.37,
+      "end": 25.55,
+      "text": "127.0.0.1 means the remote machine's OWN loopback."
+    },
+    {
+      "start": 25.55,
+      "end": 29.66,
+      "text": "Nothing is listening there."
+    },
+    {
+      "start": 29.66,
+      "end": 31.52,
+      "text": "Source: import.meta.env.VITE_API_BASE_URL"
+    },
+    {
+      "start": 31.52,
+      "end": 42.69,
+      "text": "Vite replaces it at build time. The bundle holds the literal URL."
+    },
+    {
+      "start": 42.69,
+      "end": 51.62,
+      "text": "Set VITE_API_BASE_URL on the static host. The host sees it."
+    },
+    {
+      "start": 51.62,
+      "end": 54.42,
+      "text": "The served bundle is byte-identical."
+    },
+    {
+      "start": 54.42,
+      "end": 60.03,
+      "text": "A static host serves files; it does not rebuild them."
+    },
+    {
+      "start": 60.03,
+      "end": 65.3,
+      "text": "Rebuild with a reachable API URL."
+    },
+    {
+      "start": 65.3,
+      "end": 71.44,
+      "text": "The new bundle contains the new literal."
+    },
+    {
+      "start": 71.44,
+      "end": 79.14,
+      "text": "Retest: GET /health → 200 OK."
+    },
+    {
+      "start": 79.14,
+      "end": 87.17,
+      "text": "VITE_ values are public. Never put a secret in one."
+    },
+    {
+      "start": 87.17,
+      "end": 94.41,
+      "text": "A server environment change cannot rewrite an existing bundle."
+    }
+  ]
+}

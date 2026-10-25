@@ -1,0 +1,75 @@
+1
+00:00:00,600 --> 00:00:04,530
+Two credential-shaped strings in the shipped bundle.
+
+2
+00:00:04,530 --> 00:00:09,580
+Is this a leak? The names cannot tell you.
+
+3
+00:00:09,580 --> 00:00:13,870
+Ask: what can each value actually do?
+
+4
+00:00:13,870 --> 00:00:21,840
+A name is a label. A capability is what the upstream will perform.
+
+5
+00:00:21,840 --> 00:00:27,260
+Public id as bearer → 403. It names a project; it authorises nothing.
+
+6
+00:00:27,260 --> 00:00:32,270
+'Public' is a tested fact here, not a promise from the name.
+
+7
+00:00:32,270 --> 00:00:35,680
+Synthetic secret → 200. The operation runs.
+
+8
+00:00:35,680 --> 00:00:39,580
+Anyone who downloaded the bundle holds this capability.
+
+9
+00:00:39,580 --> 00:00:46,160
+Fix: the backend holds the secret in its own config.
+
+10
+00:00:46,160 --> 00:00:54,720
+A forwarding proxy is the leak with an extra hop: authenticate, authorise, validate.
+
+11
+00:00:54,720 --> 00:00:59,380
+No session → 401. Viewer role → 403.
+
+12
+00:00:59,380 --> 00:01:02,290
+Neither request reaches the upstream.
+
+13
+00:01:02,290 --> 00:01:09,410
+Maintainer → 200. One upstream call, by the backend.
+
+14
+00:01:09,410 --> 00:01:17,320
+No secret in body or headers. Over-broad operation → 400.
+
+15
+00:01:17,320 --> 00:01:22,450
+Scan JS, HTML, config payloads, source maps if produced.
+
+16
+00:01:22,450 --> 00:01:30,440
+0 secret-like, after the scanner proved it finds the planted one. Not zero everywhere.
+
+17
+00:01:30,440 --> 00:01:35,950
+A public identifier names something. A secret grants capability.
+
+18
+00:01:35,950 --> 00:01:40,860
+Vendor browser keys differ; CORS is not authorisation.
+
+19
+00:01:40,860 --> 00:01:47,600
+A leaked production secret must be rotated. Removal revokes no copies.

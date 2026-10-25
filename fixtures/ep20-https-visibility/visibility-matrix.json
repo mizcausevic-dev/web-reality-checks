@@ -1,0 +1,188 @@
+{
+  "label": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED",
+  "description": "Who can see which part of one HTTPS navigation, under the stated scope. Hand-authored from protocol behaviour (RFC 8446 TLS 1.3, RFC 6066 SNI, RFC 9110 HTTP semantics, RFC 1035 DNS, WHATWG URL). No packets were captured and no TLS traffic was recorded.",
+  "example": {
+    "url": "https://example.test/account?tab=billing#history",
+    "resolutionName": "example.test",
+    "requestTarget": "/account?tab=billing",
+    "fragment": "#history",
+    "port": 443,
+    "illustrativeAddress": "192.0.2.10",
+    "illustrativeAddressNote": "RFC 5737 documentation address used only as a label; nothing was resolved or connected."
+  },
+  "scope": [
+    "HTTPS over TLS 1.3",
+    "TCP transport (not HTTP/3 over QUIC)",
+    "Conventional DNS query over an unencrypted transport (UDP/TCP port 53)",
+    "No VPN, no proxy",
+    "No Encrypted Client Hello (ECH)",
+    "No TLS session resumption, no 0-RTT",
+    "Trusted browser and trusted TLS-terminating server",
+    "Passive observer positioned on the path between the browser and both the DNS resolver and the TLS endpoint",
+    "These assumptions are illustrative; they are not every modern browser connection"
+  ],
+  "columns": ["browser", "observer", "endpoint"],
+  "columnLabels": {"browser": "Browser", "observer": "Passive network observer", "endpoint": "TLS-terminating endpoint"},
+  "states": ["visible", "encrypted", "not-sent"],
+  "categories": ["names", "addresses", "timing", "content"],
+  "rows": [
+    {
+      "id": "dns_question",
+      "label": "DNS question",
+      "category": "names",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser (or its stub resolver) forms the question for example.test.", "scope": "Trusted browser."},
+        "observer": {"state": "visible", "reason": "Plain DNS carries the queried name without encryption.", "scope": "Unencrypted DNS transport AND an observer between the browser and the resolver; DoH/DoT or a different vantage point changes this."},
+        "endpoint": {"state": "not-sent", "reason": "The DNS question goes to the resolver, not to the web server.", "scope": "Resolver and web server are different parties."}
+      }
+    },
+    {
+      "id": "destination_ip",
+      "label": "Destination IP",
+      "category": "addresses",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser received the address from DNS and opens the TCP connection to it.", "scope": "Trusted browser."},
+        "observer": {"state": "visible", "reason": "IP headers are never encrypted by TLS; routing needs them.", "scope": "No VPN or proxy. An IP does not necessarily identify one unique website (shared hosting, CDNs)."},
+        "endpoint": {"state": "visible", "reason": "It is the endpoint's own address; it also sees the client's source address.", "scope": "Direct connection; a CDN in front would see the client address instead."}
+      }
+    },
+    {
+      "id": "port",
+      "label": "Port",
+      "category": "addresses",
+      "cells": {
+        "browser": {"state": "visible", "reason": "https: defaults to port 443 unless the URL names another.", "scope": "WHATWG URL default port."},
+        "observer": {"state": "visible", "reason": "TCP port numbers are in the transport header, outside TLS.", "scope": "TCP, no tunnel."},
+        "endpoint": {"state": "visible", "reason": "The listener accepted the connection on that port.", "scope": "Direct connection."}
+      }
+    },
+    {
+      "id": "timing_volume",
+      "label": "Timing / volume",
+      "category": "timing",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser sends and receives the bytes.", "scope": "Trusted browser."},
+        "observer": {"state": "visible", "reason": "Packet times and TLS record lengths are observable even though payloads are encrypted; by themselves they do not reveal exact application content.", "scope": "Observer on path; no padding or traffic shaping assumed."},
+        "endpoint": {"state": "visible", "reason": "The server sees when requests arrive and how large they are.", "scope": "Direct connection."}
+      }
+    },
+    {
+      "id": "sni",
+      "label": "SNI in ClientHello",
+      "category": "names",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser writes server_name = example.test into the ClientHello.", "scope": "Trusted browser."},
+        "observer": {"state": "visible", "reason": "The ClientHello is the first TLS message and is sent in plaintext; without ECH the server_name extension is readable.", "scope": "No ECH. With ECH the inner ClientHello is encrypted and the outer one carries a public name."},
+        "endpoint": {"state": "visible", "reason": "The server uses SNI to pick a certificate and virtual host.", "scope": "Direct connection."}
+      }
+    },
+    {
+      "id": "server_certificate",
+      "label": "Server certificate (TLS 1.3)",
+      "category": "content",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser decrypts the handshake with the handshake traffic keys and verifies the certificate chain.", "scope": "TLS 1.3; the browser is a party to the key exchange."},
+        "observer": {"state": "encrypted", "reason": "In TLS 1.3 the Certificate message follows ServerHello inside the encrypted handshake; only ciphertext and record length are seen.", "scope": "TLS 1.3 only. TLS 1.2 sent the certificate in plaintext."},
+        "endpoint": {"state": "visible", "reason": "It is the server's own certificate.", "scope": "Trusted endpoint."}
+      }
+    },
+    {
+      "id": "method_path_query",
+      "label": "HTTP method / path / query",
+      "category": "content",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser builds the request line GET /account?tab=billing.", "scope": "Trusted browser."},
+        "observer": {"state": "encrypted", "reason": "The request line is HTTP application data carried inside TLS records.", "scope": "Observer is passive and does not hold the session keys."},
+        "endpoint": {"state": "visible", "reason": "The server decrypts and parses the request; it may log it.", "scope": "The TLS-terminating party is the endpoint; if a CDN terminates TLS, the CDN sees this."}
+      }
+    },
+    {
+      "id": "headers",
+      "label": "Headers",
+      "category": "content",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser sets Host, User-Agent, Accept and the rest.", "scope": "Trusted browser."},
+        "observer": {"state": "encrypted", "reason": "Headers are inside encrypted application data.", "scope": "No proxy that terminates TLS."},
+        "endpoint": {"state": "visible", "reason": "Headers are plaintext after TLS decryption at the endpoint.", "scope": "Trusted endpoint; may log."}
+      }
+    },
+    {
+      "id": "cookies",
+      "label": "Cookies",
+      "category": "content",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser attaches the Cookie header from its own jar.", "scope": "Trusted browser."},
+        "observer": {"state": "encrypted", "reason": "The Cookie header is a header: encrypted application data.", "scope": "Observer is passive and does not hold the session keys."},
+        "endpoint": {"state": "visible", "reason": "The server reads the cookie to identify the session.", "scope": "Trusted endpoint."}
+      }
+    },
+    {
+      "id": "body",
+      "label": "Body",
+      "category": "content",
+      "cells": {
+        "browser": {"state": "visible", "reason": "The browser produces the body (empty for this GET).", "scope": "Trusted browser."},
+        "observer": {"state": "encrypted", "reason": "Request and response bodies are encrypted application data; only their lengths and timing leak.", "scope": "Observer is passive and does not hold the session keys."},
+        "endpoint": {"state": "visible", "reason": "The server receives the decrypted body.", "scope": "Trusted endpoint."}
+      }
+    },
+    {
+      "id": "url_fragment",
+      "label": "URL fragment",
+      "category": "content",
+      "cells": {
+        "browser": {"state": "visible", "reason": "#history stays in the browser's URL and is available to page JavaScript via location.hash.", "scope": "Page JavaScript could separately read and transmit it; that would be a different request, outside this illustration."},
+        "observer": {"state": "not-sent", "reason": "The fragment is not part of the request target, so it is never serialised onto the wire.", "scope": "WHATWG URL / RFC 9110 request-target semantics."},
+        "endpoint": {"state": "not-sent", "reason": "The server never receives the fragment in the HTTP request.", "scope": "Unless page JavaScript sends it in a separate request."}
+      }
+    }
+  ],
+  "variants": [
+    {
+      "id": "ech",
+      "label": "Encrypted Client Hello",
+      "changes": [
+        {"row": "sni", "column": "observer", "state": "encrypted", "reason": "The real server_name is in the encrypted inner ClientHello; the outer ClientHello shows a public name for the ECH-fronting provider."}
+      ],
+      "stillVisible": ["destination_ip", "port", "timing_volume", "dns_question"],
+      "note": "ECH protects the inner ClientHello. It does not hide the destination IP, the port, timing and volume, or a plain DNS question."
+    },
+    {
+      "id": "encrypted_dns",
+      "label": "Encrypted DNS (DoH / DoT)",
+      "changes": [
+        {"row": "dns_question", "column": "observer", "state": "encrypted", "reason": "The question travels inside TLS to the resolver; an on-path observer sees a connection to the resolver, not the queried name."}
+      ],
+      "stillVisible": ["destination_ip", "port", "timing_volume", "sni"],
+      "note": "Encrypted DNS hides the question from an on-path observer. It does not hide the destination IP of the later connection, and without ECH the SNI still carries the name."
+    },
+    {
+      "id": "cdn_termination",
+      "label": "CDN terminates TLS",
+      "changes": [
+        {"row": "method_path_query", "column": "endpoint", "state": "visible", "reason": "The CDN edge is the TLS endpoint for this connection and sees the plaintext request."},
+        {"row": "destination_ip", "column": "observer", "state": "visible", "reason": "The destination IP is the CDN's shared address, which may serve many unrelated sites."}
+      ],
+      "stillVisible": ["destination_ip", "port", "timing_volume", "sni"],
+      "note": "If a CDN terminates TLS it is an endpoint for that connection. Any onward connection from the CDN to the origin is a separate connection with its own visibility."
+    }
+  ],
+  "accuracy": [
+    {"id": "A01", "text": "Do not depict the observer reading encrypted HTTP content."},
+    {"id": "A02", "text": "Do not depict the TLS 1.3 server certificate as plaintext on the wire."},
+    {"id": "A03", "text": "Without ECH, SNI can reveal the requested hostname."},
+    {"id": "A04", "text": "DNS visibility depends on transport and observer position."},
+    {"id": "A05", "text": "Destination IP visibility does not necessarily identify one unique website."},
+    {"id": "A06", "text": "Record lengths and traffic timing remain observable, but do not reveal exact application content by themselves."},
+    {"id": "A07", "text": "ECH protects the inner ClientHello; it does not hide all metadata."},
+    {"id": "A08", "text": "Encrypted DNS does not hide destination IP addresses."},
+    {"id": "A09", "text": "If a CDN terminates TLS, it is an endpoint for that connection; any onward connection is separate."},
+    {"id": "A10", "text": "HTTPS does not prevent phishing, compromised endpoints, or server logging."},
+    {"id": "A11", "text": "Do not fabricate packet captures or imply actual TLS traffic was recorded."},
+    {"id": "S01", "text": "Do not present the scope assumptions as every modern browser connection."},
+    {"id": "E01", "text": "The hostname is used for resolution and connection setup."},
+    {"id": "E02", "text": "The HTTP request includes the path and query."},
+    {"id": "E03", "text": "The fragment is not included in the HTTP request target."},
+    {"id": "E04", "text": "Page JavaScript could separately read and transmit a fragment, but that is outside the illustrated request."}
+  ]
+}

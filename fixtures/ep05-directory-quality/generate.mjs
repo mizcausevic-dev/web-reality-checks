@@ -16,7 +16,7 @@ import fs from 'node:fs';
 export const SEED = 20261025;
 export const TOTAL = 10000;
 /** Fixed "now" so every run yields identical ages. */
-export const NOW = '2026-10-25T00:00:00.000Z';
+export const NOW = '2026-10-25';
 const NOW_MS = Date.parse(NOW);
 const DAY = 86_400_000;
 
@@ -53,7 +53,7 @@ const STREET = ['Main St', 'Elm St', 'Mill Rd', 'Harbor Ave', 'Church St', 'Wash
 
 /* ---------------- helpers ---------------- */
 const slugify = (s) => s.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-const iso = (ms) => new Date(ms).toISOString();
+const iso = (ms) => new Date(ms).toISOString().slice(0, 10); // date-only ISO (UTC midnight); keeps the 10k-row file near 3 MB
 const daysAgo = (d) => NOW_MS - Math.round(d * DAY);
 const pad = (n, w) => String(n).padStart(w, '0');
 const fmtPhone = (digits, style) => {
@@ -62,7 +62,7 @@ const fmtPhone = (digits, style) => {
 };
 
 /** Website hostname bucket -> how the mock responder behaves (see check.mjs). */
-const site = (slug, bucket) => `https://${slug}.${bucket}.test/`;
+const site = (slug, bucket) => `https://${slug}.${bucket}.test`;
 
 export const generate = () => {
   const rng = makeRng(SEED);
@@ -74,14 +74,21 @@ export const generate = () => {
   const DUP_GROUPS = 320;
   const nBase = TOTAL - DUP_GROUPS; // each group adds exactly one extra row
   const usedSlugs = new Set();
+  const usedPhones = new Set();
   for (let i = 0; i < nBase; i++) {
-    let name, slug;
-    do { name = `${rng.pick(ADJ)} ${rng.pick(NOUN)}${rng.pick(SUFFIX)}`; slug = slugify(name); } while (usedSlugs.has(slug));
-    usedSlugs.add(slug);
     const city = rng.pick(CITY), state = rng.pick(STATE);
+    let name, slug, tries = 0;
+    do {
+      name = `${rng.pick(ADJ)} ${rng.pick(NOUN)}${rng.pick(SUFFIX)}`;
+      if (tries++ > 8) name = `${name} of ${city}`; // vocab is finite; qualify by town after a few collisions
+      slug = slugify(name);
+    } while (usedSlugs.has(slug));
+    usedSlugs.add(slug);
     const zip = `${pad(rng.int(1000, 99999), 5)}`;
     const street = `${rng.int(1, 999)} ${rng.pick(STREET)}`;
-    const phoneDigits = `555${pad(rng.int(2000000, 9999999), 7)}`;
+    let phoneDigits;
+    do phoneDigits = `555${pad(rng.int(2000000, 9999999), 7)}`; while (usedPhones.has(phoneDigits)); // base phones unique by construction
+    usedPhones.add(phoneDigits);
     // open-business website bucket distribution (world behaviour, NOT a truth label)
     const r = rng.next();
     const bucket = r < 0.88 ? 'ok' : r < 0.93 ? 'slow' : r < 0.97 ? 'down' : 'nx';
@@ -109,7 +116,10 @@ export const generate = () => {
     const plainName = base.name.replace(/ (Co\.|LLC|Inc|& Sons|Group)$/, '');
     copy.name = hard ? plainName.split(' ').slice(1).join(' ') || plainName : rng.pick([`${plainName} LLC`, `The ${plainName}`, plainName.toUpperCase(), `${plainName} Inc`]);
     const digits = base.phone.replace(/\D/g, '');
-    copy.phone = hard ? fmtPhone(`555${pad(rng.int(2000000, 9999999), 7)}`, rng.int(0, 2)) : fmtPhone(digits, rng.int(0, 2));
+    let fresh;
+    do fresh = `555${pad(rng.int(2000000, 9999999), 7)}`; while (usedPhones.has(fresh));
+    usedPhones.add(fresh);
+    copy.phone = hard ? fmtPhone(fresh, rng.int(0, 2)) : fmtPhone(digits, rng.int(0, 2));
     if (hard) copy.address = {...base.address, street: base.address.street.replace(/ St$/, ' Street').replace(/ Ave$/, ' Avenue').replace(/ Rd$/, ' Road')};
     copy.lastChangedAt = iso(daysAgo(rng.int(0, 400)));
     copy.lastVerifiedAt = iso(daysAgo(rng.int(0, 300)));
@@ -175,10 +185,10 @@ export const generate = () => {
 
   // ---- 6. closures: the business is closed. Website behaviour varies: some sites are gone,
   //      some domains lapsed, some sites are still up (-> the checker cannot see the closure).
-  rng.sample(listings.filter((l) => typeof l.website === 'string' && l.website.startsWith('https://') && /\.(ok|slow|down|nx)\.test\//.test(l.website)), 350).forEach((l) => {
+  rng.sample(listings.filter((l) => typeof l.website === 'string' && l.website.startsWith('https://') && /\.(ok|slow|down|nx)\.test$/.test(l.website)), 350).forEach((l) => {
     const r = rng.next();
     const bucket = r < 0.4 ? 'gone' : r < 0.7 ? 'nx' : 'ok';
-    l.website = l.website.replace(/\.(ok|slow|down|nx)\.test\//, `.${bucket}.test/`);
+    l.website = l.website.replace(/\.(ok|slow|down|nx)\.test$/, `.${bucket}.test`);
     label(l.id, 'closed', {siteBucket: bucket, closedDaysAgo: rng.int(30, 600)});
   });
 

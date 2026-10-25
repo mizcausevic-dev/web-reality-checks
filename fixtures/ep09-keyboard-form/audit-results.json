@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-10-25T08:24:43.925Z",
+  "method": "static markup + CSS text audit; no browser; not an accessibility-conformance claim",
+  "results": {
+    "flawed": {
+      "label": "flawed",
+      "counts": {
+        "inputs": 3,
+        "labelledInputs": 0,
+        "placeholderOnlyInputs": 3,
+        "positiveTabindex": 0,
+        "outlineNoneDeclarations": 2,
+        "focusableElements": 3,
+        "errorContainers": 3,
+        "errorContainersWithId": 3,
+        "danglingDescribedBy": 0,
+        "reorderingCssDeclarations": 0
+      },
+      "tabOrder": [
+        "input#name[type=text]",
+        "input#email[type=text]",
+        "input#password[type=password]"
+      ],
+      "nativeForm": false,
+      "focusVisibleRule": false,
+      "submit": {
+        "kind": "custom",
+        "element": "div#submit",
+        "insideForm": false,
+        "focusable": false,
+        "role": false,
+        "keyHandler": false,
+        "keyboardOperable": false,
+        "enterInFieldSubmits": false,
+        "text": "Create account"
+      },
+      "labelled": [],
+      "placeholderOnly": [
+        "input#name[type=text]",
+        "input#email[type=text]",
+        "input#password[type=password]"
+      ],
+      "positiveTabindex": [],
+      "danglingDescribedBy": [],
+      "script": {
+        "setsAriaDescribedBy": false,
+        "setsAriaInvalid": false,
+        "clearsValuesOnSuccessOnly": false
+      },
+      "checks": {
+        "allInputsLabelled": false,
+        "noPlaceholderOnlyLabels": false,
+        "noPositiveTabindex": true,
+        "noOutlineNone": false,
+        "visibleFocusStyle": false,
+        "nativeForm": false,
+        "submitKeyboardOperable": false,
+        "enterSubmitsFromField": false,
+        "describedByTargetsExist": true,
+        "errorsAssociable": false,
+        "domOrderIsVisualOrder": true
+      },
+      "passed": 3,
+      "failed": 8
+    },
+    "corrected": {
+      "label": "corrected",
+      "counts": {
+        "inputs": 3,
+        "labelledInputs": 3,
+        "placeholderOnlyInputs": 0,
+        "positiveTabindex": 0,
+        "outlineNoneDeclarations": 0,
+        "focusableElements": 4,
+        "errorContainers": 3,
+        "errorContainersWithId": 3,
+        "danglingDescribedBy": 0,
+        "reorderingCssDeclarations": 0
+      },
+      "tabOrder": [
+        "input#name[type=text]",
+        "input#email[type=email]",
+        "input#password[type=password]",
+        "button[type=submit]"
+      ],
+      "nativeForm": true,
+      "focusVisibleRule": true,
+      "submit": {
+        "kind": "native",
+        "element": "button[type=submit]",
+        "insideForm": true,
+        "focusable": true,
+        "keyboardOperable": true,
+        "enterInFieldSubmits": true
+      },
+      "labelled": [
+        "input#name[type=text]",
+        "input#email[type=email]",
+        "input#password[type=password]"
+      ],
+      "placeholderOnly": [],
+      "positiveTabindex": [],
+      "danglingDescribedBy": [],
+      "script": {
+        "setsAriaDescribedBy": true,
+        "setsAriaInvalid": true,
+        "clearsValuesOnSuccessOnly": true
+      },
+      "checks": {
+        "allInputsLabelled": true,
+        "noPlaceholderOnlyLabels": true,
+        "noPositiveTabindex": true,
+        "noOutlineNone": true,
+        "visibleFocusStyle": true,
+        "nativeForm": true,
+        "submitKeyboardOperable": true,
+        "enterSubmitsFromField": true,
+        "describedByTargetsExist": true,
+        "errorsAssociable": true,
+        "domOrderIsVisualOrder": true
+      },
+      "passed": 11,
+      "failed": 0
+    }
+  }
+}

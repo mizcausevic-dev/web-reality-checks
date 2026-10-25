@@ -1,0 +1,67 @@
+1
+00:00:00,600 --> 00:00:04,570
+Two pages. Same article, headings, links, title.
+
+2
+00:00:04,570 --> 00:00:09,110
+In a browser you cannot tell them apart.
+
+3
+00:00:09,110 --> 00:00:13,360
+Raw HTML, before any script runs.
+
+4
+00:00:13,360 --> 00:00:20,430
+Generated page: 1 h1, 4 h2, 6 paragraphs, 3 links.
+
+5
+00:00:20,430 --> 00:00:29,630
+Client-rendered page: a shell and one script tag. 0 of 198 article words.
+
+6
+00:00:29,630 --> 00:00:37,000
+The script fetches /article.json and inserts the article.
+
+7
+00:00:37,000 --> 00:00:48,060
+With JavaScript on, both DOMs end with 6 paragraphs and 3 links.
+
+8
+00:00:48,060 --> 00:00:53,490
+JavaScript off: generated page still shows the article.
+
+9
+00:00:53,490 --> 00:00:56,880
+Client-rendered page stays at "Loading".
+
+10
+00:00:56,880 --> 00:01:06,370
+A browser with scripts off is not a Googlebot simulator. Google can run JS.
+
+11
+00:01:06,370 --> 00:01:13,700
+Generated response: text, headings and hrefs are already in the bytes.
+
+12
+00:01:13,700 --> 00:01:20,370
+No script, no hydration: the article has no client interactivity.
+
+13
+00:01:20,370 --> 00:01:26,520
+Crawl fetches. Render may run scripts. Index stores. Rank shows.
+
+14
+00:01:26,520 --> 00:01:33,280
+This test touches crawl and a slice of render; nothing more.
+
+15
+00:01:33,280 --> 00:01:37,580
+Static HTML guarantees neither indexing nor rankings.
+
+16
+00:01:37,580 --> 00:01:41,190
+Initial HTML and the eventual DOM are different artifacts.
+
+17
+00:01:41,190 --> 00:01:45,190
+Inspect both, and know which one you are looking at.

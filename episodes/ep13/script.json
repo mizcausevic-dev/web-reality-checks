@@ -1,0 +1,82 @@
+{
+  "n": 13,
+  "slug": "api-key-capability",
+  "title": "Is that key a leak?",
+  "fullTitle": "That API Key Is in Your JavaScript. Is That Always a Leak?",
+  "scenes": [
+    {
+      "id": "inspect_leak",
+      "narration": "Open the shipped bundle and two credential-shaped strings fall out. One is called public, one secret. Is this a leak? The names cannot tell you.",
+      "captions": [
+        "Two credential-shaped strings in the shipped bundle.",
+        "Is this a leak? The names cannot tell you."
+      ]
+    },
+    {
+      "id": "ask",
+      "narration": "Ask instead: what can each value actually do? A name is a label. A capability is what the upstream performs for whoever presents it.",
+      "captions": [
+        "Ask: what can each value actually do?",
+        "A name is a label. A capability is what the upstream will perform."
+      ]
+    },
+    {
+      "id": "public_fail",
+      "narration": "Present the public identifier as a bearer credential. Four oh three. It names a project and authorises nothing. Public is a tested fact here, not a promise.",
+      "captions": [
+        "Public id as bearer → 403. It names a project; it authorises nothing.",
+        "'Public' is a tested fact here, not a promise from the name."
+      ]
+    },
+    {
+      "id": "secret_ok",
+      "narration": "Present the synthetic secret. Two hundred. Anyone who downloaded that bundle holds this capability. That is the leak.",
+      "captions": [
+        "Synthetic secret → 200. The operation runs.",
+        "Anyone who downloaded the bundle holds this capability."
+      ]
+    },
+    {
+      "id": "fix",
+      "narration": "Move privileged access behind a backend that keeps the secret server-side. But a backend that forwards whatever the browser asks is the leak with an extra hop. It must authenticate, authorise, and validate the operation.",
+      "captions": [
+        "Fix: the backend holds the secret in its own config.",
+        "A forwarding proxy is the leak with an extra hop: authenticate, authorise, validate."
+      ]
+    },
+    {
+      "id": "reject",
+      "narration": "No session: four oh one. A signed-in viewer without the role: four oh three. Neither request reaches the upstream.",
+      "captions": [
+        "No session → 401. Viewer role → 403.",
+        "Neither request reaches the upstream."
+      ]
+    },
+    {
+      "id": "allow",
+      "narration": "A maintainer requests the one allowed operation: two hundred. One upstream call with the backend's own credential, and no secret in the response body or headers. Request delete project instead, and the backend refuses before calling anyone.",
+      "captions": [
+        "Maintainer → 200. One upstream call, by the backend.",
+        "No secret in body or headers. Over-broad operation → 400."
+      ]
+    },
+    {
+      "id": "retest_scan",
+      "narration": "Inspect the corrected artefacts: JavaScript, HTML, config payloads, and source maps if produced. Zero secret-like strings, after the scanner proved it finds the planted one. Zero in these files is not zero everywhere.",
+      "captions": [
+        "Scan JS, HTML, config payloads, source maps if produced.",
+        "0 secret-like, after the scanner proved it finds the planted one. Not zero everywhere."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "A public identifier names something. A secret grants capability. Some vendors ship browser keys with deliberately limited capability; this fixture settles nothing about theirs. CORS is not authorisation. And a leaked production secret must be rotated: removal revokes no copies.",
+      "captions": [
+        "A public identifier names something. A secret grants capability.",
+        "Vendor browser keys differ; CORS is not authorisation.",
+        "A leaked production secret must be rotated. Removal revokes no copies."
+      ]
+    }
+  ]
+}

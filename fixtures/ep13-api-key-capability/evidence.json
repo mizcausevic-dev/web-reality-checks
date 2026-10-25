@@ -1,0 +1,229 @@
+{
+  "generatedAt": "2026-10-25T08:16:29.732Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "summary": {
+    "flawedBundle": {
+      "secretLike": 2,
+      "identifierLike": 2,
+      "files": [
+        "app.js",
+        "index.html"
+      ]
+    },
+    "correctedBundle": {
+      "secretLike": 0,
+      "identifierLike": 2,
+      "files": [
+        "app.js",
+        "index.html"
+      ]
+    },
+    "upstream": {
+      "publicIdAsBearer": 403,
+      "noCredential": 401,
+      "secret": 200
+    },
+    "backend": {
+      "unauthenticated": 401,
+      "viewer": 403,
+      "maintainer": 200,
+      "overBroadOperation": 400,
+      "secretInAnyBackendResponse": false,
+      "backendResponsesChecked": 5
+    },
+    "values": {
+      "PUBLIC_PROJECT_ID": "proj_pub_7f3a21",
+      "SERVER_SECRET_TOKEN_redacted": "srv_secret…",
+      "note": "both values are synthetic; the secret is printed in full only inside the fixture source, never in evidence or video"
+    }
+  },
+  "log": [
+    {
+      "label": "inspect flawed bundle",
+      "scan": {
+        "dir": "bundle-flawed",
+        "filesScanned": [
+          "app.js",
+          "index.html"
+        ],
+        "secretLike": 2,
+        "identifierLike": 2,
+        "findings": [
+          {
+            "file": "app.js",
+            "line": 6,
+            "kind": "secret-like",
+            "valueRedacted": "srv_secret…0a3"
+          },
+          {
+            "file": "app.js",
+            "line": 5,
+            "kind": "identifier-like",
+            "valueRedacted": "proj_pub_7…a21"
+          },
+          {
+            "file": "index.html",
+            "line": 10,
+            "kind": "secret-like",
+            "valueRedacted": "srv_secret…0a3"
+          },
+          {
+            "file": "index.html",
+            "line": 9,
+            "kind": "identifier-like",
+            "valueRedacted": "proj_pub_7…a21"
+          }
+        ]
+      }
+    },
+    {
+      "label": "public id → GET public info",
+      "target": "upstream",
+      "request": "GET /public/proj_pub_7f3a21",
+      "status": 200,
+      "body": {
+        "projectId": "proj_pub_7f3a21",
+        "name": "Synthetic Demo Project",
+        "region": "local",
+        "plan": "sandbox"
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "public id presented as bearer → privileged op",
+      "target": "upstream",
+      "request": "POST /privileged",
+      "status": 403,
+      "body": {
+        "error": "credential does not authorise this operation"
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "no credential → privileged op",
+      "target": "upstream",
+      "request": "POST /privileged",
+      "status": 401,
+      "body": {
+        "error": "missing bearer credential"
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "CONTROL: synthetic secret → privileged op",
+      "target": "upstream",
+      "request": "POST /privileged",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "operation": "rotate_webhook",
+        "projectId": "proj_pub_7f3a21",
+        "webhookVersion": 2
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "CONTROL: synthetic secret → delete_project (upstream would allow it)",
+      "target": "upstream",
+      "request": "POST /privileged",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "operation": "delete_project",
+        "projectId": "proj_pub_7f3a21",
+        "note": "simulated; project state retained for the fixture"
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "sessions",
+      "note": "server-side sessions for u_vik (viewer) and u_mara (maintainer) established via test harness; cookies are opaque"
+    },
+    {
+      "label": "browser config payload",
+      "target": "backend",
+      "request": "GET /config",
+      "status": 200,
+      "body": {
+        "publicProjectId": "proj_pub_7f3a21"
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "unauthenticated → backend privileged",
+      "target": "backend",
+      "request": "POST /privileged",
+      "status": 401,
+      "body": {
+        "error": "unauthenticated"
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "vik (viewer) → backend privileged",
+      "target": "backend",
+      "request": "POST /privileged",
+      "status": 403,
+      "body": {
+        "error": "forbidden for this user"
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "mara (maintainer) → backend privileged",
+      "target": "backend",
+      "request": "POST /privileged",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "operation": "rotate_webhook",
+        "performedBy": "u_mara",
+        "webhookVersion": 3
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "upstream calls made during mara request",
+      "count": 1,
+      "credentialUsedByBackend": "srv_secret…",
+      "note": "the backend presented its own credential; the browser never held it"
+    },
+    {
+      "label": "mara → backend privileged with over-broad operation delete_project",
+      "target": "backend",
+      "request": "POST /privileged",
+      "status": 400,
+      "body": {
+        "error": "operation not permitted by this backend"
+      },
+      "secretInResponse": false
+    },
+    {
+      "label": "inspect corrected bundle",
+      "scan": {
+        "dir": "bundle-corrected",
+        "filesScanned": [
+          "app.js",
+          "index.html"
+        ],
+        "secretLike": 0,
+        "identifierLike": 2,
+        "findings": [
+          {
+            "file": "app.js",
+            "line": 4,
+            "kind": "identifier-like",
+            "valueRedacted": "proj_pub_7…a21"
+          },
+          {
+            "file": "index.html",
+            "line": 8,
+            "kind": "identifier-like",
+            "valueRedacted": "proj_pub_7…a21"
+          }
+        ]
+      },
+      "controlPassedFirst": true
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "generatedAt": "2026-10-25T08:16:34.469Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "build": {
+    "csr": {
+      "file": "dist/csr/article/index.html",
+      "bytes": 727
+    },
+    "ssg": {
+      "file": "dist/ssg/article/index.html",
+      "bytes": 2520
+    },
+    "appJs": {
+      "file": "dist/csr/app.js",
+      "bytes": 1148
+    },
+    "data": {
+      "file": "dist/article.json",
+      "bytes": 2062
+    }
+  },
+  "rawResponse": {
+    "csr": {
+      "status": 200,
+      "bytes": 727,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1": 0,
+      "h2": 0,
+      "articleParagraphs": "0/6",
+      "articleWords": "0/198",
+      "links": 0,
+      "linkHrefs": [],
+      "scriptTags": 1,
+      "loadingShell": true,
+      "renderedByClientJs": false
+    },
+    "ssg": {
+      "status": 200,
+      "bytes": 2520,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1": 1,
+      "h2": 4,
+      "articleParagraphs": "6/6",
+      "articleWords": "198/198",
+      "links": 3,
+      "linkHrefs": [
+        "/guides/tide-tables/",
+        "/guides/clock-maintenance/",
+        "/about/"
+      ],
+      "scriptTags": 0,
+      "loadingShell": false,
+      "renderedByClientJs": false
+    }
+  },
+  "missingRoute": {
+    "csr": {
+      "route": "/csr/missing/",
+      "status": 404,
+      "servesShell": false
+    },
+    "ssg": {
+      "route": "/ssg/missing/",
+      "status": 404,
+      "servesShell": false
+    }
+  },
+  "renderedDom": {
+    "method": "headless Chrome 157 (Remotion bundle, chrome-headless-shell) driven over the DevTools protocol from Node; outerHTML read after the load event plus a 1.5 s settle. JS-disabled runs use Emulation.setScriptExecutionDisabled in a fresh temporary profile.",
+    "csr_js": {
+      "status": 200,
+      "bytes": 2567,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1": 1,
+      "h2": 4,
+      "articleParagraphs": "6/6",
+      "articleWords": "198/198",
+      "links": 3,
+      "linkHrefs": [
+        "/guides/tide-tables/",
+        "/guides/clock-maintenance/",
+        "/about/"
+      ],
+      "scriptTags": 1,
+      "loadingShell": false,
+      "renderedByClientJs": true,
+      "requests": [
+        "/csr/article/",
+        "/csr/app.js",
+        "/article.json"
+      ]
+    },
+    "ssg_js": {
+      "status": 200,
+      "bytes": 2503,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1": 1,
+      "h2": 4,
+      "articleParagraphs": "6/6",
+      "articleWords": "198/198",
+      "links": 3,
+      "linkHrefs": [
+        "/guides/tide-tables/",
+        "/guides/clock-maintenance/",
+        "/about/"
+      ],
+      "scriptTags": 0,
+      "loadingShell": false,
+      "renderedByClientJs": false,
+      "requests": [
+        "/ssg/article/"
+      ]
+    },
+    "csr_nojs": {
+      "status": 200,
+      "bytes": 710,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1": 0,
+      "h2": 0,
+      "articleParagraphs": "0/6",
+      "articleWords": "0/198",
+      "links": 0,
+      "linkHrefs": [],
+      "scriptTags": 1,
+      "loadingShell": true,
+      "renderedByClientJs": false,
+      "requests": [
+        "/csr/article/"
+      ]
+    },
+    "ssg_nojs": {
+      "status": 200,
+      "bytes": 2503,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1": 1,
+      "h2": 4,
+      "articleParagraphs": "6/6",
+      "articleWords": "198/198",
+      "links": 3,
+      "linkHrefs": [
+        "/guides/tide-tables/",
+        "/guides/clock-maintenance/",
+        "/about/"
+      ],
+      "scriptTags": 0,
+      "loadingShell": false,
+      "renderedByClientJs": false,
+      "requests": [
+        "/ssg/article/"
+      ]
+    }
+  },
+  "serverLog": [
+    "200 GET /csr/article/",
+    "200 GET /ssg/article/",
+    "404 GET /csr/missing/",
+    "404 GET /ssg/missing/",
+    "200 GET /csr/article/",
+    "200 GET /csr/app.js",
+    "200 GET /article.json",
+    "200 GET /ssg/article/",
+    "200 GET /csr/article/",
+    "200 GET /ssg/article/"
+  ],
+  "notes": [
+    "Both variants share title, description, robots (noindex), heading structure and href links; only when the article enters the document differs.",
+    "A plain HTTP fetch is not a search-engine rendering test; a browser with scripts disabled is not a Googlebot simulator. Google can execute JavaScript.",
+    "Nothing here measures crawling, indexing or ranking. No timings or timelines are claimed.",
+    "robots=noindex is deliberate: this is a local teaching fixture and must not be indexed if deployed by mistake."
+  ]
+}

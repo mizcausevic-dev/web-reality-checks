@@ -1,0 +1,160 @@
+{
+  "n": 4,
+  "title": "A database in the page",
+  "fullTitle": "I Put a Database Inside a Website",
+  "slug": "pglite-notes",
+  "hero": {
+    "scene": "engine",
+    "t": 6
+  },
+  "audio": null,
+  "duration": 104.17,
+  "scenes": [
+    {
+      "id": "create",
+      "start": 0,
+      "end": 8.44,
+      "sim": "LOCAL FIXTURE · NODE + PGLITE"
+    },
+    {
+      "id": "engine",
+      "start": 8.44,
+      "end": 20.6,
+      "sim": "LOCAL FIXTURE · NODE + PGLITE"
+    },
+    {
+      "id": "memory_vs_disk",
+      "start": 20.6,
+      "end": 33.93,
+      "sim": "LOCAL FIXTURE · NODE + PGLITE"
+    },
+    {
+      "id": "reload",
+      "start": 33.93,
+      "end": 49.23,
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
+    },
+    {
+      "id": "offline",
+      "start": 49.23,
+      "end": 62.56,
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
+    },
+    {
+      "id": "offline_edit",
+      "start": 62.56,
+      "end": 72.36,
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
+    },
+    {
+      "id": "clean_profile",
+      "start": 72.36,
+      "end": 81.78,
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
+    },
+    {
+      "id": "clear_data",
+      "start": 81.78,
+      "end": 93.93,
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE"
+    },
+    {
+      "id": "end",
+      "start": 93.93,
+      "end": 104.17,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.96,
+      "text": "Create a note, then search it with SQL. One match."
+    },
+    {
+      "start": 4.96,
+      "end": 8.44,
+      "text": "A real Postgres engine answered. No server involved."
+    },
+    {
+      "start": 8.44,
+      "end": 14.2,
+      "text": "PGlite: Postgres compiled to WebAssembly, loaded like an asset."
+    },
+    {
+      "start": 14.2,
+      "end": 20.6,
+      "text": "Here it ran under Node against a folder on disk."
+    },
+    {
+      "start": 20.6,
+      "end": 26.95,
+      "text": "Working memory and the data directory are two different places."
+    },
+    {
+      "start": 26.95,
+      "end": 33.93,
+      "text": "memory:// loses the note on close. The filesystem dir keeps it."
+    },
+    {
+      "start": 33.93,
+      "end": 40.81,
+      "text": "Browser: idb://video-notes is IndexedDB for this origin and profile."
+    },
+    {
+      "start": 40.81,
+      "end": 49.23,
+      "text": "Reload, same origin and profile: the note should still be there."
+    },
+    {
+      "start": 49.23,
+      "end": 56.25,
+      "text": "A service worker precaches the shell and all engine files."
+    },
+    {
+      "start": 56.25,
+      "end": 62.56,
+      "text": "Same origin, versioned cache. Finish caching before going offline."
+    },
+    {
+      "start": 62.56,
+      "end": 66.57,
+      "text": "Offline reload and edit: the write goes to IndexedDB."
+    },
+    {
+      "start": 66.57,
+      "end": 72.36,
+      "text": "If it fails in your browser, report it. Do not film a success."
+    },
+    {
+      "start": 72.36,
+      "end": 76.4,
+      "text": "Clean profile, same address: no notes."
+    },
+    {
+      "start": 76.4,
+      "end": 81.78,
+      "text": "Node analogue: a second data dir sees zero."
+    },
+    {
+      "start": 81.78,
+      "end": 88.17,
+      "text": "Clear site data: the note and the cache are gone."
+    },
+    {
+      "start": 88.17,
+      "end": 93.93,
+      "text": "The browser owns this storage and may remove it."
+    },
+    {
+      "start": 93.93,
+      "end": 99.08,
+      "text": "Local persistence is not cloud sync — or a backup."
+    },
+    {
+      "start": 99.08,
+      "end": 102.17,
+      "text": "One origin, one profile, one device."
+    }
+  ]
+}

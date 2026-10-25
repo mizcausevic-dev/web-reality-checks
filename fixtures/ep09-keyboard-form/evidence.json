@@ -1,0 +1,375 @@
+{
+  "generatedAt": "2026-10-25T08:24:44.140Z",
+  "method": "keyboard-journey model over the static DOM (tab order from markup, Enter/Space from HTML semantics, validation rules mirrored from the page scripts). No browser, no screen reader. Associations are implemented in markup/script; announcements were not verified.",
+  "audit": {
+    "flawed": {
+      "passed": 3,
+      "failed": 8,
+      "counts": {
+        "inputs": 3,
+        "labelledInputs": 0,
+        "placeholderOnlyInputs": 3,
+        "positiveTabindex": 0,
+        "outlineNoneDeclarations": 2,
+        "focusableElements": 3,
+        "errorContainers": 3,
+        "errorContainersWithId": 3,
+        "danglingDescribedBy": 0,
+        "reorderingCssDeclarations": 0
+      },
+      "checks": {
+        "allInputsLabelled": false,
+        "noPlaceholderOnlyLabels": false,
+        "noPositiveTabindex": true,
+        "noOutlineNone": false,
+        "visibleFocusStyle": false,
+        "nativeForm": false,
+        "submitKeyboardOperable": false,
+        "enterSubmitsFromField": false,
+        "describedByTargetsExist": true,
+        "errorsAssociable": false,
+        "domOrderIsVisualOrder": true
+      }
+    },
+    "corrected": {
+      "passed": 11,
+      "failed": 0,
+      "counts": {
+        "inputs": 3,
+        "labelledInputs": 3,
+        "placeholderOnlyInputs": 0,
+        "positiveTabindex": 0,
+        "outlineNoneDeclarations": 0,
+        "focusableElements": 4,
+        "errorContainers": 3,
+        "errorContainersWithId": 3,
+        "danglingDescribedBy": 0,
+        "reorderingCssDeclarations": 0
+      },
+      "checks": {
+        "allInputsLabelled": true,
+        "noPlaceholderOnlyLabels": true,
+        "noPositiveTabindex": true,
+        "noOutlineNone": true,
+        "visibleFocusStyle": true,
+        "nativeForm": true,
+        "submitKeyboardOperable": true,
+        "enterSubmitsFromField": true,
+        "describedByTargetsExist": true,
+        "errorsAssociable": true,
+        "domOrderIsVisualOrder": true
+      }
+    }
+  },
+  "journeys": {
+    "flawed": {
+      "version": "flawed",
+      "tabOrder": [
+        "input#name[type=text]",
+        "input#email[type=text]",
+        "input#password[type=password]"
+      ],
+      "tabStops": [
+        "input#name[type=text]",
+        "input#email[type=text]",
+        "input#password[type=password]"
+      ],
+      "submitControl": {
+        "element": "div#submit",
+        "kind": "<div onclick>",
+        "reachableByTab": false,
+        "insideNativeForm": false
+      },
+      "focusVisibleStyleDeclared": false,
+      "invalidSubmission": {
+        "outcome": "unreachable by keyboard",
+        "valuesAfter": {
+          "name": "Dana Okafor",
+          "email": "dana.okafor@example",
+          "password": "short1"
+        },
+        "data": {
+          "name": "Dana Okafor",
+          "email": "dana.okafor@example",
+          "password": "short1"
+        },
+        "errors": {
+          "name": {},
+          "email": {},
+          "password": {}
+        },
+        "focusAfter": "body",
+        "valuesPreserved": true,
+        "afterTab": {
+          "focusAfterTab": "body",
+          "enter": "nothing happened",
+          "space": "nothing happened"
+        }
+      },
+      "validSubmission": {
+        "outcome": "no keyboard path to submission",
+        "source": "n/a",
+        "data": null
+      },
+      "keystrokes": [
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Enter",
+        "Tab",
+        "Enter",
+        "Space"
+      ],
+      "keystrokesAfterSweep": [
+        "Tab",
+        "Tab",
+        "Tab",
+        "Enter",
+        "Tab",
+        "Enter",
+        "Space"
+      ],
+      "keyLog": [
+        {
+          "key": "Tab",
+          "focus": "input#name[type=text]",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#email[type=text]",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#password[type=password]",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "body",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#name[type=text]",
+          "note": "focus first field"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#email[type=text]",
+          "note": "focus email"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#password[type=password]",
+          "note": "focus password"
+        },
+        {
+          "key": "Enter",
+          "focus": "input#password[type=password]",
+          "note": "in password field → nothing happened"
+        },
+        {
+          "key": "Tab",
+          "focus": "body",
+          "note": "after last field → focus left the form (body)"
+        },
+        {
+          "key": "Enter",
+          "focus": "body",
+          "note": "nothing happened"
+        },
+        {
+          "key": "Space",
+          "focus": "body",
+          "note": "nothing happened"
+        }
+      ]
+    },
+    "corrected": {
+      "version": "corrected",
+      "tabOrder": [
+        "input#name[type=text]",
+        "input#email[type=email]",
+        "input#password[type=password]",
+        "button[type=submit]"
+      ],
+      "tabStops": [
+        "input#name[type=text]",
+        "input#email[type=email]",
+        "input#password[type=password]",
+        "button[type=submit]"
+      ],
+      "submitControl": {
+        "element": "button[type=submit]",
+        "kind": "native <button type=submit>",
+        "reachableByTab": true,
+        "insideNativeForm": true
+      },
+      "focusVisibleStyleDeclared": true,
+      "invalidSubmission": {
+        "outcome": "rejected",
+        "firstInvalid": "email",
+        "focusMovedTo": "email",
+        "valuesAfter": {
+          "name": "Dana Okafor",
+          "email": "dana.okafor@example",
+          "password": "short1"
+        },
+        "source": "Enter in field → implicit form submission",
+        "data": {
+          "name": "Dana Okafor",
+          "email": "dana.okafor@example",
+          "password": "short1"
+        },
+        "errors": {
+          "name": {
+            "error": null,
+            "ariaInvalid": null,
+            "ariaDescribedBy": null
+          },
+          "email": {
+            "error": "That email address does not look right.",
+            "ariaInvalid": "true",
+            "ariaDescribedBy": "email-error"
+          },
+          "password": {
+            "error": "Password must be at least 8 characters.",
+            "ariaInvalid": "true",
+            "ariaDescribedBy": "password-hint password-error"
+          }
+        },
+        "focusAfter": "input#email[type=email]",
+        "valuesPreserved": true,
+        "afterTab": null
+      },
+      "validSubmission": {
+        "outcome": "accepted",
+        "source": "Space on <button type=submit>",
+        "valuesAfter": {
+          "name": "Dana Okafor",
+          "email": "dana.okafor@example.test",
+          "password": "correct-horse-9"
+        },
+        "data": {
+          "name": "Dana Okafor",
+          "email": "dana.okafor@example.test",
+          "password": "correct-horse-9"
+        }
+      },
+      "keystrokes": [
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Tab",
+        "Enter",
+        "Tab",
+        "Tab",
+        "Space"
+      ],
+      "keystrokesAfterSweep": [
+        "Tab",
+        "Tab",
+        "Tab",
+        "Enter",
+        "Tab",
+        "Tab",
+        "Space"
+      ],
+      "keyLog": [
+        {
+          "key": "Tab",
+          "focus": "input#name[type=text]",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#email[type=email]",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#password[type=password]",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "button[type=submit]",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "body",
+          "note": "move focus forward"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#name[type=text]",
+          "note": "focus first field"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#email[type=email]",
+          "note": "focus email"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#password[type=password]",
+          "note": "focus password"
+        },
+        {
+          "key": "Enter",
+          "focus": "input#email[type=email]",
+          "note": "in password field → rejected"
+        },
+        {
+          "key": "Tab",
+          "focus": "input#password[type=password]",
+          "note": "focus password"
+        },
+        {
+          "key": "Tab",
+          "focus": "button[type=submit]",
+          "note": "focus button[type=submit]"
+        },
+        {
+          "key": "Space",
+          "focus": "button[type=submit]",
+          "note": "on submit button → accepted"
+        }
+      ]
+    }
+  },
+  "summary": {
+    "flawed": {
+      "tabStops": 3,
+      "submitReachable": false,
+      "enterInFieldSubmits": false,
+      "labelledInputs": "0/3",
+      "outlineNoneDeclarations": 2,
+      "errorsAssociated": false
+    },
+    "corrected": {
+      "tabStops": 4,
+      "submitReachable": true,
+      "enterInFieldSubmits": true,
+      "firstInvalidField": "email",
+      "focusMovedTo": "email",
+      "valuesPreserved": true,
+      "labelledInputs": "3/3",
+      "outlineNoneDeclarations": 0,
+      "errorsAssociated": true,
+      "validSubmission": "accepted",
+      "keystrokesToComplete": 7
+    }
+  }
+}

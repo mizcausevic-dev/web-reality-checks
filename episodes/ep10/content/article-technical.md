@@ -1,5 +1,5 @@
-SEO title (≤60 chars): DNS Caches Explained: Why Fixing a Record Does Not Fix the Site
-Meta description (≤155 chars): One wrong A record, two resolvers, two different answers. A deterministic DNS cache simulator shows why the fix did not take, with 13 tests and a checklist.
+SEO title (≤60 chars): DNS Caches: Why Fixing the Record Did Not Fix the Site
+Meta description (≤155 chars): One wrong A record, two resolvers, two different answers. A deterministic DNS cache simulator shows why the fix did not take: 13 tests plus a checklist.
 Slug: dns-caches
 Primary keyword: DNS cache TTL   Secondary keywords (3–5): DNS propagation, authoritative A record, recursive resolver cache, TTL not retroactive, DNS troubleshooting checklist
 Medium tags (5): DNS, Web Development, Networking, Site Reliability, Node.js
@@ -10,25 +10,25 @@ Medium tags (5): DNS, Web Development, Networking, Site Reliability, Node.js
 
 One edit to the A record for `example.test`, and moments later one client still loads the site while the other cannot connect. You correct the record, and the broken client stays broken for another forty-five seconds of simulated time, because the fix went to the source and the stale answer lives somewhere else.
 
-This is episode ten of Web Reality Checks. The whole episode is a wrong authoritative A record, two recursive resolver caches that learned different things at different moments, and the gap between fixing a record and every cache noticing. It runs on a deterministic local simulator with a virtual clock, no real network, and all numbers below come from that local synthetic fixture.
+This is episode ten of Web Reality Checks. The whole episode is a wrong authoritative A record, two recursive resolver caches that learned different things at different moments, and the gap between fixing a record and every cache noticing. It runs on a deterministic local simulator with a virtual clock and no real network; every number below comes from that local synthetic fixture.
 
 ## What actually happens
 
-Loading a website is two steps that most people experience as one. Resolution: the client asks its recursive resolver for an address for the name. Connection: the client tries to reach that address. The resolver does not answer from the authoritative server every time. It answers from its own cache for as long as the record's TTL, the time-to-live it stored alongside the answer, has not run out. Only when the cached entry is stale does it ask the authority again.
+Loading a website is two steps that most people experience as one. Resolution: the client asks its recursive resolver for an address. Connection: the client tries to reach that address. The resolver does not consult the authoritative server every time. It answers from its own cache for as long as the record's TTL, the time-to-live it stored with the answer, has not run out. Only when the entry is stale does it ask the authority again.
 
-That cache is the entire story. When you edit the authoritative record, you change what the next cache miss will fetch. You do not change anything already sitting in a resolver's cache, and you have no channel to reach it. Resolvers that cached the old answer keep serving it until their stored TTL runs out. Resolvers that happen to miss while the record is wrong cache the wrong answer, and keep serving that until their own TTL runs out. Two resolvers, two fetch times, two expiry times, two different views of the same name.
+That cache is the entire story. When you edit the authoritative record, you change what the next cache miss will fetch. You do not change anything already sitting in a resolver's cache, and you have no channel to reach it. Resolvers that cached the old answer keep serving it until their stored TTL runs out. Resolvers that miss while the record is wrong cache the wrong answer and serve that until their own TTL runs out. Two resolvers, two fetch times, two expiry times, two views of the same name.
 
-Three accuracy points follow directly from the mechanism, and the brief insists on each.
+Three accuracy points follow from the mechanism.
 
-First, a wrong answer is not a resolution failure. Every query in this fixture returns `NOERROR` with an address. The lookup succeeded. It returned the wrong destination. The thing that fails is the connection step afterwards, and it fails because the destination is wrong, not because DNS broke.
+First, a wrong answer is not a resolution failure. Every query in this fixture returns `NOERROR` with an address. The lookup succeeded. It returned the wrong destination. What fails is the connection step afterwards, because the destination is wrong, not because DNS broke.
 
-Second, lowering the TTL after the fact does nothing for entries already cached. A resolver computes `expiresAt = cachedAt + ttlAtFetch` when it stores the answer. The TTL you set at the authority later only governs lookups that happen later.
+Second, lowering the TTL after the fact does nothing for entries already cached. A resolver computes `expiresAt = cachedAt + ttlAtFetch` when it stores the answer. A TTL set at the authority later governs only later lookups.
 
 Third, expiry pushes nothing. When an entry passes its `expiresAt`, nothing is sent to the resolver or the client. The stale entry sits there until a client asks again, and only then does the resolver fetch whatever the authority says at that moment.
 
 ## The fixture
 
-`fixtures/ep10-dns-caches/` is a zero-dependency Node 22 state machine. It holds one authoritative A record for `example.test`, two recursive resolver caches (A and B), two clients each bound to one resolver, and a simplified connect stage that succeeds only when the resolved address equals the intended origin `192.0.2.10`. The wrong address is `192.0.2.20`. Both are RFC 5737 documentation addresses held as strings. Nothing opens a socket.
+`fixtures/ep10-dns-caches/` is a zero-dependency Node 22 state machine: one authoritative A record for `example.test`, two recursive resolver caches (A and B), two clients each bound to one resolver, and a simplified connect stage that succeeds only when the resolved address equals the intended origin `192.0.2.10`. The wrong address is `192.0.2.20`. Both are RFC 5737 documentation addresses held as strings. Nothing opens a socket.
 
 The clock is virtual. Every action carries a time `t` in seconds, and a cache entry expires because `t >= expiresAt`, never because of a scripted countdown:
 
@@ -79,11 +79,11 @@ A resolver answers from cache if the entry is fresh. Otherwise it fetches the au
 
 After the restore, both clients query at t=30, both at t=60, and both again at t=75, with a snapshot taken at each of those times.
 
-The connect stage is a comparison against the intended IP. It stands in for TCP connect only. TLS and HTTP are out of scope for the model and are handled by the diagnostic checklist instead.
+The connect stage is a comparison against the intended IP and stands in for TCP connect only. TLS and HTTP are handled by the diagnostic checklist instead.
 
 ## The test that proves it
 
-`node --test fixtures/ep10-dns-caches/test.mjs` runs thirteen tests and reports `# tests 13  # pass 13  # fail 0` (local synthetic fixture). The names carry the argument:
+`node --test fixtures/ep10-dns-caches/test.mjs` reports `# tests 13  # pass 13  # fail 0` (local synthetic fixture). The names carry the argument:
 
 - `t=0: resolver A caches the correct address with TTL 60 (cache miss, connect ok)`
 - `t=10: authoritative record changed to the wrong address; resolver A cache untouched`
@@ -99,19 +99,19 @@ The connect stage is a comparison against the intended IP. It stands in for TCP 
 - `virtual clock cannot run backwards`
 - `evidence shape: every event has the required fields`
 
-The known-positive control at t=15 is the one that makes the rest meaningful. It asserts that resolver B actually serves and caches `192.0.2.20`, with the message "the flaw must be observable: the wrong record is served". If the simulator could not be made to serve the wrong answer, a passing recovery test would prove nothing.
+The known-positive control at t=15 makes the rest meaningful. It asserts that resolver B actually serves and caches `192.0.2.20`, with the message "the flaw must be observable: the wrong record is served". If the simulator could not be made to serve the wrong answer, a passing recovery test would prove nothing.
 
-Two tests isolate the accuracy claims. The TTL test caches an answer at t=0 with TTL 60, lowers the authoritative TTL to 5 at t=5, and asserts at t=20 that `expiresAt` is still 60 and the entry is still fresh; only the lookup at t=60 inherits the new TTL, giving `expiresAt` 65. The expiry test caches an answer, changes the record, jumps the clock to t=100 with nobody asking, and asserts the stale entry is still what is stored and that `events.length` is still 1: no query happened on its own.
+Two tests isolate the accuracy claims. The TTL test caches an answer at t=0 with TTL 60, lowers the authoritative TTL to 5 at t=5, and asserts at t=20 that `expiresAt` is still 60; only the lookup at t=60 inherits the new TTL, giving `expiresAt` 65. The expiry test caches an answer, changes the record, jumps the clock to t=100 with nobody asking, and asserts the stale entry is still what is stored and `events.length` is still 1: no query happened on its own.
 
 `demo.mjs` runs the sequence and writes `evidence.json`. From that file (local synthetic fixture): 10 queries, 0 resolution failures, 4 failed connections, all four to `192.0.2.20`. At t=20, client A hits its cache and gets `192.0.2.10` with 40 seconds remaining; client B hits its cache and gets `192.0.2.20` with 55 seconds remaining, and its connection fails.
 
 ## The repair
 
-At t=30 the authoritative record is restored to `192.0.2.10`. That is the repair, and it is the correct repair. The point of the episode is what it does and does not do.
+At t=30 the authoritative record is restored to `192.0.2.10`. That is the repair, and it is the correct one. The point of the episode is what it does and does not do.
 
-It changes what every future cache miss fetches. It does not touch resolver B's entry, which was cached at t=15 with TTL 60 and therefore expires at t=75 whatever happens at the authority. At t=30, client B queries again, hits the cache, receives `192.0.2.20` with 45 seconds remaining, and fails to connect. The source is correct. The client is still broken.
+It changes what every future cache miss fetches. It does not touch resolver B's entry, cached at t=15 with TTL 60 and therefore expiring at t=75 whatever happens at the authority. At t=30, client B queries again, hits the cache, receives `192.0.2.20` with 45 seconds remaining, and fails to connect. The source is correct. The client is still broken.
 
-There is nothing else to do from the authority's side. You cannot shorten resolver B's entry by lowering the TTL now; that TTL is already stored. You cannot push the correction; expiry only permits the next question. What you can do is know exactly when each cache you care about will ask again, which is why the checklist tells you to record the TTL that was in force when the bad answer was cached.
+There is nothing else to do from the authority's side. You cannot shorten resolver B's entry by lowering the TTL now; that TTL is already stored. You cannot push the correction; expiry only permits the next question. What you can do is know when each cache you care about will ask again, which is why the checklist says to record the TTL in force when the bad answer was cached.
 
 ## Retest
 
@@ -122,13 +122,13 @@ From `evidence.json` (local synthetic fixture):
 - t=75, client B: cache miss, fetches `192.0.2.10`, TTL 60, connect ok. The bad entry expired at t=75 and a client asked.
 - t=75, client A: cache hit, `192.0.2.10`, 45 seconds remaining, connect ok.
 
-Resolver A recovered at t=60 and resolver B at t=75. The test `the two resolvers are independent: no fixed global recovery moment` asserts those two numbers differ. Each recovery time is that cache's fetch time plus its stored TTL plus whenever it next got asked. There is no single propagation time in this run, and there is no single propagation time in real incidents either.
+Resolver A recovered at t=60 and resolver B at t=75. The test `the two resolvers are independent: no fixed global recovery moment` asserts those two numbers differ. Each recovery time is that cache's fetch time plus its stored TTL plus whenever it next got asked. There is no single propagation time in this run, and none in real incidents either.
 
 ## What this does not prove
 
 The README and the brief are explicit about scope.
 
-- This is a simulated model, not a measurement of any resolver software. Not modelled: serve-stale, prefetch or pre-expiry refresh, browser DNS cache, operating-system stub cache, negative caching, resolver TTL clamping, multiple authoritative servers, primary-to-secondary propagation delay, CNAME chains, round-robin.
+- This is a simulated model, not a measurement of any resolver software. Not modeled: serve-stale, prefetch or pre-expiry refresh, browser DNS cache, operating-system stub cache, negative caching, resolver TTL clamping, multiple authoritative servers, primary-to-secondary propagation delay, CNAME chains, round-robin.
 - A record only. A real investigation must also check AAAA. An IPv6-capable client may never consult the A record you fixed, and a wrong or stale AAAA record produces the same symptom.
 - The recovery times t=60 and t=75 belong to this sequence. They are not a general propagation interval.
 - Connectivity, TLS and HTTP are not simulated. The connect stage is a string comparison.

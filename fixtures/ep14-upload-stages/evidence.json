@@ -1,0 +1,309 @@
+{
+  "generatedAt": "2026-10-25T08:17:28.683Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "labels": {
+    "timestamps": "fixture-measured: Date.now() in the demo process, ms relative to demo start. Not representative of any real network or server.",
+    "transferBytes": "fixture-measured transfer bytes, includes multipart overhead (request body, not stored-file size)",
+    "controlledPacing": "the worker waits 400 ms before processing starts. This delay is ARTIFICIAL and exists only so the processing state is observable. It is not a measured processing time.",
+    "processingPercent": "none. The server does not report a processing percentage because it does not measure one.",
+    "persistence": "job records are in memory and stored files are in a per-process temp dir; nothing survives a restart.",
+    "browserUploader": "public/index.html + app.js are provided, not executed (no browser in this environment)."
+  },
+  "limits": {
+    "maxRequestBodyBytes": 65536
+  },
+  "log": [
+    {
+      "label": "success: valid CSV",
+      "transfer": {
+        "label": "fixture-measured transfer bytes, includes multipart overhead",
+        "fileBytes": 82,
+        "requestBodyBytes": 232,
+        "multipartOverheadBytes": 150,
+        "progressEvents": 8,
+        "firstEvent": {
+          "sentBytes": 32,
+          "totalBytes": 232,
+          "pct": 14,
+          "atMs": 11
+        },
+        "lastEvent": {
+          "sentBytes": 232,
+          "totalBytes": 232,
+          "pct": 100,
+          "atMs": 12
+        },
+        "transferCompleteAtMs": 12
+      },
+      "response": {
+        "status": 202,
+        "body": {
+          "accepted": true,
+          "jobId": "job_89b35fbbbe7a",
+          "status": "accepted",
+          "reason": null,
+          "stages": {
+            "accepted": 1792916247774,
+            "processingStarted": null,
+            "finished": null
+          },
+          "statusUrl": "/jobs/job_89b35fbbbe7a",
+          "resultUrl": null,
+          "storedBytes": 82,
+          "requestBodyBytes": 232,
+          "note": "accepted for processing; not processed yet"
+        },
+        "receivedAtMs": 25
+      },
+      "jobCreated": true,
+      "resultBeforeReady": {
+        "status": 409,
+        "body": {
+          "error": "result not available",
+          "status": "accepted",
+          "reason": null
+        }
+      },
+      "polls": [
+        {
+          "atMs": 31,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 156,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 236,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 297,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 360,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 425,
+          "jobStatus": "ready"
+        }
+      ],
+      "final": {
+        "jobId": "job_89b35fbbbe7a",
+        "status": "ready",
+        "reason": null,
+        "stages": {
+          "accepted": 1792916247774,
+          "processingStarted": 1792916248183,
+          "finished": 1792916248184
+        },
+        "statusUrl": "/jobs/job_89b35fbbbe7a",
+        "resultUrl": "/jobs/job_89b35fbbbe7a/result"
+      },
+      "stagesMs": {
+        "accepted": 22,
+        "processingStarted": 431,
+        "finished": 432
+      },
+      "resultAfterFinal": {
+        "status": 200,
+        "body": {
+          "jobId": "job_89b35fbbbe7a",
+          "status": "ready",
+          "result": {
+            "rows": 3,
+            "columns": [
+              "id",
+              "email",
+              "amount"
+            ],
+            "totalAmount": 114.75
+          }
+        }
+      },
+      "statusAsBob": 404
+    },
+    {
+      "label": "http rejection: PNG bytes labelled totally.csv / text/csv",
+      "transfer": {
+        "label": "fixture-measured transfer bytes, includes multipart overhead",
+        "fileBytes": 210,
+        "requestBodyBytes": 361,
+        "multipartOverheadBytes": 151,
+        "progressEvents": 12,
+        "firstEvent": {
+          "sentBytes": 32,
+          "totalBytes": 361,
+          "pct": 9,
+          "atMs": 1
+        },
+        "lastEvent": {
+          "sentBytes": 361,
+          "totalBytes": 361,
+          "pct": 100,
+          "atMs": 1
+        },
+        "transferCompleteAtMs": 484
+      },
+      "response": {
+        "status": 415,
+        "body": {
+          "error": "content is not CSV-like",
+          "reason": "binary content (NUL byte) is not CSV",
+          "claimedFilename": "totally.csv",
+          "claimedType": "text/csv",
+          "note": "client filename and MIME type were not trusted"
+        },
+        "receivedAtMs": 500
+      },
+      "jobCreated": false
+    },
+    {
+      "label": "http rejection: oversized body",
+      "transfer": {
+        "label": "fixture-measured transfer bytes, includes multipart overhead",
+        "fileBytes": 66576,
+        "requestBodyBytes": 66723,
+        "multipartOverheadBytes": 147,
+        "progressEvents": 9,
+        "firstEvent": {
+          "sentBytes": 8192,
+          "totalBytes": 66723,
+          "pct": 12,
+          "atMs": 0
+        },
+        "lastEvent": {
+          "sentBytes": 66723,
+          "totalBytes": 66723,
+          "pct": 100,
+          "atMs": 0
+        },
+        "transferCompleteAtMs": 500
+      },
+      "response": {
+        "status": 413,
+        "body": {
+          "error": "request body too large",
+          "limitBytes": 65536,
+          "note": "limit applies to the request body, multipart overhead included"
+        },
+        "receivedAtMs": 501
+      },
+      "jobCreated": false
+    },
+    {
+      "label": "processing failure: valid shape, invalid rows",
+      "transfer": {
+        "label": "fixture-measured transfer bytes, includes multipart overhead",
+        "fileBytes": 81,
+        "requestBodyBytes": 231,
+        "multipartOverheadBytes": 150,
+        "progressEvents": 8,
+        "firstEvent": {
+          "sentBytes": 32,
+          "totalBytes": 231,
+          "pct": 14,
+          "atMs": 0
+        },
+        "lastEvent": {
+          "sentBytes": 231,
+          "totalBytes": 231,
+          "pct": 100,
+          "atMs": 1
+        },
+        "transferCompleteAtMs": 502
+      },
+      "response": {
+        "status": 202,
+        "body": {
+          "accepted": true,
+          "jobId": "job_a664e78fb5bf",
+          "status": "accepted",
+          "reason": null,
+          "stages": {
+            "accepted": 1792916248254,
+            "processingStarted": null,
+            "finished": null
+          },
+          "statusUrl": "/jobs/job_a664e78fb5bf",
+          "resultUrl": null,
+          "storedBytes": 81,
+          "requestBodyBytes": 231,
+          "note": "accepted for processing; not processed yet"
+        },
+        "receivedAtMs": 520
+      },
+      "jobCreated": true,
+      "resultBeforeReady": {
+        "status": 409,
+        "body": {
+          "error": "result not available",
+          "status": "accepted",
+          "reason": null
+        }
+      },
+      "polls": [
+        {
+          "atMs": 530,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 586,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 642,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 698,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 754,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 810,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 862,
+          "jobStatus": "accepted"
+        },
+        {
+          "atMs": 918,
+          "jobStatus": "failed"
+        }
+      ],
+      "final": {
+        "jobId": "job_a664e78fb5bf",
+        "status": "failed",
+        "reason": "validation failed: line 3: invalid email \"not-an-email\"; line 4: amount is not a number \"lots\"",
+        "stages": {
+          "accepted": 1792916248254,
+          "processingStarted": 1792916248654,
+          "finished": 1792916248654
+        },
+        "statusUrl": "/jobs/job_a664e78fb5bf",
+        "resultUrl": null
+      },
+      "stagesMs": {
+        "accepted": 502,
+        "processingStarted": 902,
+        "finished": 902
+      },
+      "resultAfterFinal": {
+        "status": 409,
+        "body": {
+          "error": "result not available",
+          "status": "failed",
+          "reason": "validation failed: line 3: invalid email \"not-an-email\"; line 4: amount is not a number \"lots\""
+        }
+      },
+      "statusAsBob": 404
+    }
+  ]
+}

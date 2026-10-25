@@ -1,0 +1,16 @@
+{
+  "n": 18,
+  "slug": "webhooks",
+  "title": "Webhook arrived twice",
+  "fullTitle": "Your Webhook Arrived Twice. Then an Older Update Arrived.",
+  "scenes": [
+    {"id": "fail", "narration": "The subscription was active, on the pro plan. Then an older update arrived, and the record says past due. Every signature was valid. The receiver simply applied events in arrival order.", "captions": ["Active on pro. Then an older update arrives: past due.", "Every signature was valid. The receiver applied events in arrival order."]},
+    {"id": "order", "narration": "Separate two orders. Creation order at the provider: version one, two, three. Delivery order on the wire: one, three, then two, late. Retries and parallel workers do this routinely. Timestamps alone will not sort it out.", "captions": ["Creation order: v1, v2, v3. Delivery order: v1, v3, then v2 late.", "Retries and parallel workers do this. Timestamps alone do not order events."]},
+    {"id": "verify", "narration": "First, trust the bytes. Verify the HMAC over the delivery timestamp and the raw body, before parsing, with a constant-time compare. Then check the timestamp against a three hundred second tolerance. Tampered body: four oh one. Valid signature, three hundred and one seconds old: four oh one. Valid is not fresh.", "captions": ["Verify HMAC over timestamp + RAW body bytes, before parsing.", "Tampered body: 401. Valid signature, 301 s old: 401.", "Valid does not mean fresh."]},
+    {"id": "dedup", "narration": "Fresh is not unique. A legitimate retry is fresh and correctly signed. The database decides: a unique constraint on provider and event ID. The second arrival violates it, rolls back, and gets two hundred, duplicate.", "captions": ["A legitimate retry is fresh and correctly signed.", "UNIQUE (provider, event_id): second arrival rolled back, 200 duplicate."]},
+    {"id": "version", "narration": "Then the version. Two arrives after three. Stored version is three, so two is stale: recorded, not applied. Safe only because each event carries the full snapshot. For incremental events, skipping is not safe.", "captions": ["v2 arrives after v3. Stored version 3: v2 is stale, not applied.", "Safe only because each event carries a full snapshot."]},
+    {"id": "replay", "narration": "Replay the whole set, shuffled: six deliveries, six two hundreds, all duplicates. Event record and state share one transaction; two hundred is sent only after commit. A failed commit returns five oh three, nothing changed.", "captions": ["Replay all six, shuffled: six 200s, all duplicate.", "Record + state in ONE transaction. 200 only after commit. Failed commit: 503."]},
+    {"id": "final", "narration": "The subscription stays active. Six concurrent deliveries of one new event: one applied, five duplicates, one record.", "captions": ["Final state unchanged: active.", "Six concurrent deliveries: one applied, five duplicate, one record."]},
+    {"id": "end", "sim": null, "narration": "Delivery order is not business order. This fixture writes only to its own database. Emails, charges and queues need extra coordination.", "captions": ["Delivery order is not business order.", "External side effects need extra coordination."]}
+  ]
+}

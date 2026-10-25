@@ -1,0 +1,179 @@
+{
+  "generatedAt": "2026-10-25T08:15:17.441Z",
+  "method": {
+    "raw": "plain HTTP GET via fetch(); initial response body only",
+    "dom": "headless Chrome (Remotion bundle) over CDP; document.documentElement.outerHTML after load + 1.5 s settle"
+  },
+  "raw": {
+    "csr": {
+      "route": "/csr/article/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "file": "captures/raw-csr.html",
+      "bytes": 727,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1Count": 0,
+      "h2Count": 0,
+      "articleHeadingsPresent": 0,
+      "articleHeadingsExpected": 3,
+      "articleParagraphsPresent": 0,
+      "articleParagraphsExpected": 6,
+      "articleWordsPresent": 0,
+      "articleWordsExpected": 198,
+      "linkHrefs": [],
+      "linkCount": 0,
+      "scriptTags": 1,
+      "renderedByClientJs": false,
+      "containsLoadingShell": true
+    },
+    "ssg": {
+      "route": "/ssg/article/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "file": "captures/raw-ssg.html",
+      "bytes": 2520,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1Count": 1,
+      "h2Count": 4,
+      "articleHeadingsPresent": 3,
+      "articleHeadingsExpected": 3,
+      "articleParagraphsPresent": 6,
+      "articleParagraphsExpected": 6,
+      "articleWordsPresent": 198,
+      "articleWordsExpected": 198,
+      "linkHrefs": [
+        "/guides/tide-tables/",
+        "/guides/clock-maintenance/",
+        "/about/"
+      ],
+      "linkCount": 3,
+      "scriptTags": 0,
+      "renderedByClientJs": false,
+      "containsLoadingShell": false
+    }
+  },
+  "dom": {
+    "csr": {
+      "route": "/csr/article/",
+      "javascript": "enabled",
+      "mainStatus": 200,
+      "requests": [
+        "/csr/article/",
+        "/csr/app.js",
+        "/article.json"
+      ],
+      "file": "captures/dom-csr.html",
+      "bytes": 2567,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1Count": 1,
+      "h2Count": 4,
+      "articleHeadingsPresent": 3,
+      "articleHeadingsExpected": 3,
+      "articleParagraphsPresent": 6,
+      "articleParagraphsExpected": 6,
+      "articleWordsPresent": 198,
+      "articleWordsExpected": 198,
+      "linkHrefs": [
+        "/guides/tide-tables/",
+        "/guides/clock-maintenance/",
+        "/about/"
+      ],
+      "linkCount": 3,
+      "scriptTags": 1,
+      "renderedByClientJs": true,
+      "containsLoadingShell": false
+    },
+    "ssg": {
+      "route": "/ssg/article/",
+      "javascript": "enabled",
+      "mainStatus": 200,
+      "requests": [
+        "/ssg/article/"
+      ],
+      "file": "captures/dom-ssg.html",
+      "bytes": 2503,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1Count": 1,
+      "h2Count": 4,
+      "articleHeadingsPresent": 3,
+      "articleHeadingsExpected": 3,
+      "articleParagraphsPresent": 6,
+      "articleParagraphsExpected": 6,
+      "articleWordsPresent": 198,
+      "articleWordsExpected": 198,
+      "linkHrefs": [
+        "/guides/tide-tables/",
+        "/guides/clock-maintenance/",
+        "/about/"
+      ],
+      "linkCount": 3,
+      "scriptTags": 0,
+      "renderedByClientJs": false,
+      "containsLoadingShell": false
+    },
+    "csr-nojs": {
+      "route": "/csr/article/",
+      "javascript": "disabled (Emulation.setScriptExecutionDisabled)",
+      "mainStatus": 200,
+      "requests": [
+        "/csr/article/"
+      ],
+      "file": "captures/dom-csr-nojs.html",
+      "bytes": 710,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1Count": 0,
+      "h2Count": 0,
+      "articleHeadingsPresent": 0,
+      "articleHeadingsExpected": 3,
+      "articleParagraphsPresent": 0,
+      "articleParagraphsExpected": 6,
+      "articleWordsPresent": 0,
+      "articleWordsExpected": 198,
+      "linkHrefs": [],
+      "linkCount": 0,
+      "scriptTags": 1,
+      "renderedByClientJs": false,
+      "containsLoadingShell": true
+    },
+    "ssg-nojs": {
+      "route": "/ssg/article/",
+      "javascript": "disabled (Emulation.setScriptExecutionDisabled)",
+      "mainStatus": 200,
+      "requests": [
+        "/ssg/article/"
+      ],
+      "file": "captures/dom-ssg-nojs.html",
+      "bytes": 2503,
+      "title": "Field Notes on the Lantern Harbour Tide Clock",
+      "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+      "robots": "noindex",
+      "h1Count": 1,
+      "h2Count": 4,
+      "articleHeadingsPresent": 3,
+      "articleHeadingsExpected": 3,
+      "articleParagraphsPresent": 6,
+      "articleParagraphsExpected": 6,
+      "articleWordsPresent": 198,
+      "articleWordsExpected": 198,
+      "linkHrefs": [
+        "/guides/tide-tables/",
+        "/guides/clock-maintenance/",
+        "/about/"
+      ],
+      "linkCount": 3,
+      "scriptTags": 0,
+      "renderedByClientJs": false,
+      "containsLoadingShell": false
+    }
+  }
+}

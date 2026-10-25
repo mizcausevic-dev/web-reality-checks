@@ -1,0 +1,63 @@
+1
+00:00:00,600 --> 00:00:03,700
+Navigation to https://example.test/account?tab=billing#history
+
+2
+00:00:03,700 --> 00:00:16,110
+A passive observer sits on the network path. Illustration, not a capture.
+
+3
+00:00:16,110 --> 00:00:23,380
+Plain DNS: the question for example.test is unencrypted.
+
+4
+00:00:23,380 --> 00:00:30,650
+Visibility depends on DNS transport and observer position.
+
+5
+00:00:30,650 --> 00:00:36,430
+Destination IP, port 443, timing and volume are visible.
+
+6
+00:00:36,430 --> 00:00:42,860
+An IP address does not necessarily identify one unique website.
+
+7
+00:00:42,860 --> 00:00:49,620
+ClientHello is plaintext. No ECH: the SNI names example.test.
+
+8
+00:00:49,620 --> 00:00:56,070
+ServerHello: keys agreed. The rest of the handshake is encrypted.
+
+9
+00:00:56,070 --> 00:01:01,700
+TLS 1.3: the server certificate is inside the encrypted handshake.
+
+10
+00:01:01,700 --> 00:01:06,770
+The observer sees a record length, not the certificate.
+
+11
+00:01:06,770 --> 00:01:10,530
+GET /account?tab=billing, headers, cookies, body: encrypted.
+
+12
+00:01:10,530 --> 00:01:18,040
+Record sizes and timing leak, but not the exact content by themselves.
+
+13
+00:01:18,040 --> 00:01:27,630
+Browser and TLS endpoint both hold the plaintext. The server may log it.
+
+14
+00:01:27,630 --> 00:01:32,790
+The fragment #history never left the browser.
+
+15
+00:01:32,790 --> 00:01:38,440
+Encrypted content can still travel with visible metadata.
+
+16
+00:01:38,440 --> 00:01:48,330
+Encrypted DNS hides the question, not the IP. ECH hides the SNI, not everything.

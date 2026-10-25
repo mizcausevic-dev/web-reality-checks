@@ -1,0 +1,102 @@
+{
+  "n": 3,
+  "slug": "sign-in-session",
+  "title": "What Sign In does",
+  "fullTitle": "Watch What Happens When You Click 'Sign In'",
+  "hero": {
+    "scene": "cookie",
+    "t": 4
+  },
+  "scenes": [
+    {
+      "id": "click",
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL",
+      "narration": "You click Sign In. Wrong password: four oh one. Right password: two hundred, and one cookie. Here is one way that works; not every sign-in does.",
+      "captions": [
+        "Wrong password: 401. Right password: 200 and one cookie.",
+        "One implementation, not every sign-in system."
+      ]
+    },
+    {
+      "id": "lanes",
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL",
+      "narration": "Five parts: browser, HTTPS, server, user database, session store. Three objects move between them: password, session identifier, authorisation decision. Keep them apart.",
+      "captions": [
+        "Browser · HTTPS · server · user database · session store.",
+        "Three objects: password, session id, authorisation decision."
+      ]
+    },
+    {
+      "id": "https",
+      "sim": "CONCEPTUAL ILLUSTRATION",
+      "narration": "Credentials travel inside the encrypted connection. HTTPS protects data in transit, not a browser or server already compromised. This leg is drawn, not executed.",
+      "captions": [
+        "Credentials travel inside the encrypted connection.",
+        "HTTPS protects transit, not a compromised endpoint. Illustrated, not executed."
+      ]
+    },
+    {
+      "id": "verify",
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL",
+      "narration": "The server stores a salted argon two hash, never the password. Hashing is one way; nothing turns it back. The library recomputes and compares. Two hashes of one password differ.",
+      "captions": [
+        "Stored: a salted argon2id hash, not the password. One way, not reversible.",
+        "Observed: two hashes of the same password differ; both verify."
+      ]
+    },
+    {
+      "id": "fresh_session",
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL",
+      "narration": "On success the session is regenerated: the pre-login identifier is destroyed and a fresh one created, so a planted identifier is worthless.",
+      "captions": [
+        "Success: regenerate. Pre-auth id destroyed, fresh id created.",
+        "Observed: old id replayed after login → 401."
+      ]
+    },
+    {
+      "id": "cookie",
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL",
+      "narration": "That identifier goes to the browser in an opaque cookie, never the password. HttpOnly keeps it from ordinary scripts, not from every attack. Secure: HTTPS only. SameSite Lax: defence in depth. No Domain: host-only.",
+      "captions": [
+        "Set-Cookie: sid=<opaque>; HttpOnly; Secure; SameSite=Lax; Path=/ — no Domain.",
+        "HttpOnly limits ordinary JS access. It does not stop every session attack."
+      ]
+    },
+    {
+      "id": "request",
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL",
+      "narration": "Later requests carry the cookie. The server looks it up and finds the user. The cookie identifies a session; it carries no permission.",
+      "captions": [
+        "GET /me + cookie → store lookup → 200, u_alice.",
+        "The cookie identifies a session. It carries no permission."
+      ]
+    },
+    {
+      "id": "authz",
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL",
+      "narration": "A protected action asks two questions. Valid session? No cookie: four oh one. Permitted? A member on the admin audit: four oh three. An admin: two hundred.",
+      "captions": [
+        "Two checks: session valid? then permitted?",
+        "Observed: no cookie 401 · member 403 · admin 200."
+      ]
+    },
+    {
+      "id": "logout",
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL",
+      "narration": "Sign out is a POST with a CSRF token, required on login and logout because SameSite alone is not enough. Nothing changes state over GET. Record destroyed, cookie expired. Replay: four oh one.",
+      "captions": [
+        "POST /logout with CSRF token: record destroyed, cookie expired.",
+        "Observed: GET /logout 405 · no token 403 · replay after logout 401."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "The cookie identifies a session. The server enforces access. One implementation, memory store not for production, TLS leg illustrated.",
+      "captions": [
+        "The cookie identifies a session. The server enforces access.",
+        "One implementation. Memory store not for production. TLS leg illustrated."
+      ]
+    }
+  ]
+}

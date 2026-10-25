@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create your account — CORRECTED fixture (EP09)</title>
+<style>
+  /* Corrected version. Local fixture for Web Reality Checks EP09. */
+  :root { color-scheme: light; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: #f4f5f7; color: #1b1d22; display: grid; place-items: center; min-height: 100vh; }
+  .card { width: 380px; background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+  h1 { font-size: 24px; margin: 0 0 20px; }
+  .field { margin-bottom: 16px; }
+  label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }   /* persistent, visible label */
+  .hint { color: #6b7280; font-size: 13px; margin-top: 6px; }
+  .input { width: 100%; box-sizing: border-box; padding: 12px 14px; border: 1px solid #d5d8de; border-radius: 10px; font-size: 16px; }
+  /* Visible focus indicator for keyboard users; 3px ring with offset so it survives on any border colour. */
+  .input:focus-visible, .btn:focus-visible { outline: 3px solid #1d4ed8; outline-offset: 2px; }
+  .input[aria-invalid="true"] { border-color: #c0392b; border-width: 2px; }
+  .error { color: #c0392b; font-size: 13px; margin-top: 6px; }
+  .error:empty { display: none; }
+  .btn { margin-top: 8px; width: 100%; padding: 14px; border: 0; border-radius: 10px; background: #2d6cdf; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+  .fine { color: #6b7280; font-size: 12px; margin-top: 14px; text-align: center; }
+  .status { margin-top: 12px; font-size: 14px; color: #166534; }
+  .banner { position: fixed; top: 8px; left: 8px; font: 11px/1.3 monospace; color: #065f46; background: #d1fae5; padding: 4px 8px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="banner">LOCAL FIXTURE · CORRECTED VERSION · EP09</div>
+<main class="card">
+  <h1 id="form-title">Create your account</h1>
+
+  <!-- Native form: Enter in any field submits; novalidate so our own messages are shown consistently. -->
+  <form id="signup" novalidate aria-labelledby="form-title">
+    <div class="field">
+      <label for="name">Full name</label>
+      <input class="input" id="name" name="name" type="text" autocomplete="name">
+      <div class="error" id="name-error"></div>
+    </div>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <input class="input" id="email" name="email" type="email" autocomplete="email" inputmode="email">
+      <div class="error" id="email-error"></div>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <!-- The hint is always associated; the error id is appended only after validation fails. -->
+      <input class="input" id="password" name="password" type="password" autocomplete="new-password" aria-describedby="password-hint">
+      <div class="hint" id="password-hint">At least 8 characters.</div>
+      <div class="error" id="password-error"></div>
+    </div>
+
+    <!-- Native button: focusable by Tab, activated by Enter and Space, submits the form. -->
+    <button class="btn" type="submit">Create account</button>
+    <div class="status" id="status" role="status"></div>
+  </form>
+
+  <p class="fine">By continuing you agree to the terms.</p>
+</main>
+
+<script>
+  // Validation rules. Values are never cleared on error.
+  var rules = [
+    { id: 'name',     test: function (v) { return v.trim().length > 0; },                        msg: 'Please enter your name.' },
+    { id: 'email',    test: function (v) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); },     msg: 'That email address does not look right.' },
+    { id: 'password', test: function (v) { return v.length >= 8; },                              msg: 'Password must be at least 8 characters.' }
+  ];
+
+  function setError(input, msg) {
+    var errorId = input.id + '-error';
+    var errorEl = document.getElementById(errorId);
+    var ids = (input.getAttribute('data-describedby-base') || '').split(' ').filter(Boolean);
+    if (msg) {
+      errorEl.textContent = msg;
+      input.setAttribute('aria-invalid', 'true');
+      ids.push(errorId);
+    } else {
+      errorEl.textContent = '';
+      input.removeAttribute('aria-invalid');
+    }
+    if (ids.length) input.setAttribute('aria-describedby', ids.join(' '));
+    else input.removeAttribute('aria-describedby');
+  }
+
+  // Remember any pre-existing describedby (the password hint) so the error id is appended, not substituted.
+  rules.forEach(function (r) {
+    var el = document.getElementById(r.id);
+    el.setAttribute('data-describedby-base', el.getAttribute('aria-describedby') || '');
+  });
+
+  document.getElementById('signup').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var firstInvalid = null;
+    rules.forEach(function (r) {
+      var el = document.getElementById(r.id);
+      var ok = r.test(el.value);
+      setError(el, ok ? '' : r.msg);
+      if (!ok && !firstInvalid) firstInvalid = el;
+    });
+    var status = document.getElementById('status');
+    if (firstInvalid) {
+      status.textContent = '';
+      firstInvalid.focus();          // deliberate: focus goes to the first invalid field, values untouched
+    } else {
+      status.textContent = 'Account created for ' + document.getElementById('email').value + '. (Local fixture, nothing was sent.)';
+    }
+  });
+
+  // Clear a field's error as soon as the user corrects it, so stale messages do not persist.
+  rules.forEach(function (r) {
+    document.getElementById(r.id).addEventListener('input', function () {
+      if (this.getAttribute('aria-invalid') === 'true' && r.test(this.value)) setError(this, '');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "file": "episodes/ep11/ep11.mp4",
+  "bytes": 8888553,
+  "duration_s": 106.17,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 106.15,
+  "thumbnail": {
+    "file": "episodes/ep11/thumbnail.png",
+    "size": "1280x720",
+    "source": "THUMB-EP11"
+  },
+  "hero": {
+    "file": "episodes/ep11/hero.png",
+    "size": "1600x900",
+    "source": "HERO-EP11"
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending",
+    "scene_fail",
+    "scene_fix",
+    "scene_retest"
+  ]
+}

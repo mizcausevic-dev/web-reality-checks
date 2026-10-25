@@ -1,0 +1,89 @@
+{
+  "n": 4,
+  "slug": "pglite-notes",
+  "title": "A database in the page",
+  "fullTitle": "I Put a Database Inside a Website",
+  "scenes": [
+    {
+      "id": "create",
+      "sim": "LOCAL FIXTURE · NODE + PGLITE",
+      "narration": "Create a note called Groceries. Search for coffee. One match. A real Postgres engine answered, and no server was involved.",
+      "captions": [
+        "Create a note, then search it with SQL. One match.",
+        "A real Postgres engine answered. No server involved."
+      ]
+    },
+    {
+      "id": "engine",
+      "sim": "LOCAL FIXTURE · NODE + PGLITE",
+      "narration": "The engine is PGlite: Postgres compiled to WebAssembly, about sixteen megabytes loaded like any asset. In a browser it runs inside the page. Here it ran under Node, against a folder.",
+      "captions": [
+        "PGlite: Postgres compiled to WebAssembly, loaded like an asset.",
+        "Here it ran under Node against a folder on disk."
+      ]
+    },
+    {
+      "id": "memory_vs_disk",
+      "sim": "LOCAL FIXTURE · NODE + PGLITE",
+      "narration": "Two places. The engine works in memory; persistence is a data directory written through after each query. A memory-only directory loses the note on close. The filesystem one keeps it. Relaxed durability stays off.",
+      "captions": [
+        "Working memory and the data directory are two different places.",
+        "memory:// loses the note on close. The filesystem dir keeps it."
+      ]
+    },
+    {
+      "id": "reload",
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE",
+      "narration": "In the browser the directory is idb colon slash slash video-notes: IndexedDB for this origin, in this profile. Reload under the same origin and profile and the note should be there. That needs a real browser: shown, not measured.",
+      "captions": [
+        "Browser: idb://video-notes is IndexedDB for this origin and profile.",
+        "Reload, same origin and profile: the note should still be there."
+      ]
+    },
+    {
+      "id": "offline",
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE",
+      "narration": "Offline is a separate job. A service worker precaches the page, the script and every engine file from the same origin under a versioned cache name. Go offline only once that cache is complete.",
+      "captions": [
+        "A service worker precaches the shell and all engine files.",
+        "Same origin, versioned cache. Finish caching before going offline."
+      ]
+    },
+    {
+      "id": "offline_edit",
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE",
+      "narration": "Reload offline, edit the note, and the write goes to IndexedDB. If this fails in your browser, report the failure. Do not film a success.",
+      "captions": [
+        "Offline reload and edit: the write goes to IndexedDB.",
+        "If it fails in your browser, report it. Do not film a success."
+      ]
+    },
+    {
+      "id": "clean_profile",
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE",
+      "narration": "A clean browser profile at the same address: no notes. Nothing synchronised them; nothing exists to. Under Node, a second data directory showed zero.",
+      "captions": [
+        "Clean profile, same address: no notes.",
+        "Node analogue: a second data dir sees zero."
+      ]
+    },
+    {
+      "id": "clear_data",
+      "sim": "BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE",
+      "narration": "Clear the original profile's site data and the note is gone, with the cache. The browser owns that storage and may remove it. Under Node, deleting the folder did the same.",
+      "captions": [
+        "Clear site data: the note and the cache are gone.",
+        "The browser owns this storage and may remove it."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "Local persistence is not cloud sync, and not a backup. One origin, one profile, one device, until the browser decides otherwise.",
+      "captions": [
+        "Local persistence is not cloud sync — or a backup.",
+        "One origin, one profile, one device."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "n": 18,
+  "title": "Webhook arrived twice",
+  "fullTitle": "Your Webhook Arrived Twice. Then an Older Update Arrived.",
+  "slug": "webhooks",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep18/narration.mp3",
+  "duration": 111.92,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 13.7
+    },
+    {
+      "id": "order",
+      "start": 13.7,
+      "end": 29.72
+    },
+    {
+      "id": "verify",
+      "start": 29.72,
+      "end": 50.27
+    },
+    {
+      "id": "dedup",
+      "start": 50.27,
+      "end": 64.32
+    },
+    {
+      "id": "version",
+      "start": 64.32,
+      "end": 79.9
+    },
+    {
+      "id": "replay",
+      "start": 79.9,
+      "end": 94.42
+    },
+    {
+      "id": "final",
+      "start": 94.42,
+      "end": 100.42
+    },
+    {
+      "id": "end",
+      "start": 100.42,
+      "end": 111.92,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 6.84,
+      "text": "Active on pro. Then an older update arrives: past due."
+    },
+    {
+      "start": 6.84,
+      "end": 13.7,
+      "text": "Every signature was valid. The receiver applied events in arrival order."
+    },
+    {
+      "start": 13.7,
+      "end": 21.71,
+      "text": "Creation order: v1, v2, v3. Delivery order: v1, v3, then v2 late."
+    },
+    {
+      "start": 21.71,
+      "end": 29.72,
+      "text": "Retries and parallel workers do this. Timestamps alone do not order events."
+    },
+    {
+      "start": 29.72,
+      "end": 38.28,
+      "text": "Verify HMAC over timestamp + RAW body bytes, before parsing."
+    },
+    {
+      "start": 38.28,
+      "end": 45.99,
+      "text": "Tampered body: 401. Valid signature, 301 s old: 401."
+    },
+    {
+      "start": 45.99,
+      "end": 50.27,
+      "text": "Valid does not mean fresh."
+    },
+    {
+      "start": 50.27,
+      "end": 56.88,
+      "text": "A legitimate retry is fresh and correctly signed."
+    },
+    {
+      "start": 56.88,
+      "end": 64.32,
+      "text": "UNIQUE (provider, event_id): second arrival rolled back, 200 duplicate."
+    },
+    {
+      "start": 64.32,
+      "end": 73.22,
+      "text": "v2 arrives after v3. Stored version 3: v2 is stale, not applied."
+    },
+    {
+      "start": 73.22,
+      "end": 79.9,
+      "text": "Safe only because each event carries a full snapshot."
+    },
+    {
+      "start": 79.9,
+      "end": 85.43,
+      "text": "Replay all six, shuffled: six 200s, all duplicate."
+    },
+    {
+      "start": 85.43,
+      "end": 94.42,
+      "text": "Record + state in ONE transaction. 200 only after commit. Failed commit: 503."
+    },
+    {
+      "start": 94.42,
+      "end": 96.27,
+      "text": "Final state unchanged: active."
+    },
+    {
+      "start": 96.27,
+      "end": 100.42,
+      "text": "Six concurrent deliveries: one applied, five duplicate, one record."
+    },
+    {
+      "start": 100.42,
+      "end": 105.17,
+      "text": "Delivery order is not business order."
+    },
+    {
+      "start": 105.17,
+      "end": 109.92,
+      "text": "External side effects need extra coordination."
+    }
+  ]
+}

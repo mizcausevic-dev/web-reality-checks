@@ -7,121 +7,121 @@
     "scene": "fail",
     "t": 6
   },
-  "audio": null,
-  "duration": 101.42,
+  "audio": "ep11/narration.mp3",
+  "duration": 106.15,
   "scenes": [
     {
       "id": "fail",
       "start": 0,
-      "end": 12.36,
+      "end": 12.14,
       "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
     },
     {
       "id": "layers",
-      "start": 12.36,
-      "end": 25.31,
+      "start": 12.14,
+      "end": 26.59,
       "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
     },
     {
       "id": "gap",
-      "start": 25.31,
-      "end": 42.17,
+      "start": 26.59,
+      "end": 44.03,
       "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
     },
     {
       "id": "fix",
-      "start": 42.17,
-      "end": 59.03,
+      "start": 44.03,
+      "end": 60.9,
       "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
     },
     {
       "id": "retest",
-      "start": 59.03,
-      "end": 71.97,
+      "start": 60.9,
+      "end": 75.24,
       "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
     },
     {
       "id": "logs",
-      "start": 71.97,
-      "end": 87.66,
+      "start": 75.24,
+      "end": 92.12,
       "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
     },
     {
       "id": "end",
-      "start": 87.66,
-      "end": 101.42,
+      "start": 92.12,
+      "end": 106.15,
       "sim": null
     }
   ],
   "captions": [
     {
       "start": 0.6,
-      "end": 5.44,
+      "end": 5.35,
       "text": "Click 'Reject optional'. The banner goes away."
     },
     {
-      "start": 5.44,
-      "end": 12.36,
+      "start": 5.35,
+      "end": 12.14,
       "text": "The simulated analytics module keeps sending: 4 requests in total."
     },
     {
-      "start": 12.36,
-      "end": 18.19,
+      "start": 12.14,
+      "end": 18.64,
       "text": "Four parts: consent UI, preference store, analytics module, collector."
     },
     {
-      "start": 18.19,
-      "end": 25.31,
+      "start": 18.64,
+      "end": 26.59,
       "text": "The collector is local and simulated. No real service is contacted."
     },
     {
-      "start": 25.31,
-      "end": 33.34,
+      "start": 26.59,
+      "end": 34.89,
       "text": "The buttons write the preference. Nothing executing ever reads it."
     },
     {
-      "start": 33.34,
-      "end": 42.17,
+      "start": 34.89,
+      "end": 44.03,
       "text": "No cookie is needed for this: an in-memory ID is enough."
     },
     {
-      "start": 42.17,
-      "end": 49.59,
+      "start": 44.03,
+      "end": 51.45,
       "text": "A consent state machine drives one gate: open only in 'accepted'."
     },
     {
-      "start": 49.59,
-      "end": 59.03,
+      "start": 51.45,
+      "end": 60.9,
       "text": "init, track and flush each check the gate. Withdraw removes listeners, clears the queue."
     },
     {
-      "start": 59.03,
-      "end": 66.09,
+      "start": 60.9,
+      "end": 68.72,
       "text": "No choice 0 · Rejected 0 · Reload with stored rejection 0."
     },
     {
-      "start": 66.09,
-      "end": 71.97,
+      "start": 68.72,
+      "end": 75.24,
       "text": "Accepted 3 · Withdraw: unsent event dropped, count stays 3."
     },
     {
-      "start": 71.97,
-      "end": 80.23,
+      "start": 75.24,
+      "end": 84.12,
       "text": "Flawed: 4 requests, 3 marked 'rejected'. Corrected: 3, all 'accepted'."
     },
     {
-      "start": 80.23,
-      "end": 87.66,
+      "start": 84.12,
+      "end": 92.12,
       "text": "Stopping future requests does not delete data already collected."
     },
     {
-      "start": 87.66,
-      "end": 93.82,
+      "start": 92.12,
+      "end": 98.42,
       "text": "First-party does not mean necessary or exempt. Not a legal certification."
     },
     {
-      "start": 93.82,
-      "end": 99.42,
+      "start": 98.42,
+      "end": 104.15,
       "text": "The button is a promise. The requests show the implementation."
     }
   ]

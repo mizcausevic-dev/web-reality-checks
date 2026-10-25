@@ -1,0 +1,188 @@
+{
+  "generatedAt": "2026-10-25T08:13:11.197Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "transport": "plain HTTP on loopback; X-Forwarded-Proto: https + trust proxy so Secure cookies are issued. TLS NOT executed.",
+  "libraries": {
+    "argon2": "0.41.1",
+    "express": "4.21.2",
+    "express-session": "1.18.1",
+    "csrf-csrf": "3.1.0",
+    "cookie-parser": "1.4.7"
+  },
+  "log": [
+    {
+      "label": "stored password hash",
+      "note": "argon2id, random salt; what the user database holds for alice. Two hashes of the same password differ. Not reversible.",
+      "hashPrefix": "$argon2id$v=19$m=65536,t=3,p=4$…",
+      "hashLength": 97,
+      "secondHashPrefix": "$argon2id$v=19$m=65536,t=3,p=4$…",
+      "differ": true,
+      "containsPassword": false
+    },
+    {
+      "label": "pre-auth session",
+      "sessionId": "Xpi3dL5R…",
+      "authenticated": false,
+      "note": "anonymous session created when the CSRF token was fetched"
+    },
+    {
+      "label": "login wrong password",
+      "request": "POST /login",
+      "status": 401,
+      "body": {
+        "error": "invalid credentials"
+      },
+      "setCookie": []
+    },
+    {
+      "label": "login correct password",
+      "request": "POST /login",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "user": {
+          "id": "u_alice",
+          "email": "alice@example.test",
+          "role": "member"
+        },
+        "sessionRegenerated": true,
+        "csrfToken": "<128 chars, per-session token>"
+      },
+      "setCookie": [
+        "__Host-wrc.x-csrf-token=<195 chars, opaque>; Path=/; HttpOnly; Secure; SameSite=Lax",
+        "sid=<86 chars, opaque>; Path=/; Expires=Sun, 25 Oct 2026 08:43:10 GMT; HttpOnly; Secure; SameSite=Lax"
+      ],
+      "sessionCookieAttributes": [
+        "Path=/",
+        "Expires=Sun, 25 Oct 2026 08:43:10 GMT",
+        "HttpOnly",
+        "Secure",
+        "SameSite=Lax"
+      ],
+      "hasDomainAttribute": false
+    },
+    {
+      "label": "session id after login",
+      "before": "Xpi3dL5R…",
+      "after": "41P5g2pU…",
+      "changed": true
+    },
+    {
+      "label": "replay pre-auth session id after login",
+      "request": "GET /me",
+      "status": 401,
+      "body": {
+        "error": "no valid session"
+      },
+      "setCookie": []
+    },
+    {
+      "label": "subsequent request with cookie",
+      "request": "GET /me",
+      "status": 200,
+      "body": {
+        "user": {
+          "id": "u_alice",
+          "role": "member"
+        }
+      },
+      "setCookie": []
+    },
+    {
+      "label": "admin route without cookie",
+      "request": "GET /admin/audit",
+      "status": 401,
+      "body": {
+        "error": "no valid session"
+      },
+      "setCookie": []
+    },
+    {
+      "label": "admin route as alice (member)",
+      "request": "GET /admin/audit",
+      "status": 403,
+      "body": {
+        "error": "forbidden",
+        "required": "admin",
+        "actual": "member"
+      },
+      "setCookie": []
+    },
+    {
+      "label": "admin route as carol (admin)",
+      "request": "GET /admin/audit",
+      "status": 200,
+      "body": {
+        "entries": [
+          {
+            "at": "2026-01-01T00:00:00Z",
+            "actor": "u_carol",
+            "action": "seed"
+          }
+        ]
+      },
+      "setCookie": []
+    },
+    {
+      "label": "login without CSRF header",
+      "request": "POST /login",
+      "status": 403,
+      "body": {
+        "error": "invalid csrf token"
+      },
+      "setCookie": []
+    },
+    {
+      "label": "logout via GET",
+      "request": "GET /logout",
+      "status": 405,
+      "body": {
+        "error": "method not allowed; sign-out is a POST"
+      },
+      "setCookie": []
+    },
+    {
+      "label": "logout without CSRF header",
+      "request": "POST /logout",
+      "status": 403,
+      "body": {
+        "error": "invalid csrf token"
+      },
+      "setCookie": []
+    },
+    {
+      "label": "logout",
+      "request": "POST /logout",
+      "status": 200,
+      "body": {
+        "ok": true
+      },
+      "setCookie": [
+        "sid=<0 chars, opaque>; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax",
+        "__Host-wrc.x-csrf-token=<0 chars, opaque>; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax"
+      ],
+      "cookieExpired": true
+    },
+    {
+      "label": "replay cookie after logout",
+      "request": "GET /me",
+      "status": 401,
+      "body": {
+        "error": "no valid session"
+      },
+      "setCookie": []
+    },
+    {
+      "label": "csrf-token over plain http (no forwarded https)",
+      "request": "GET /csrf-token",
+      "status": 200,
+      "body": {
+        "csrfToken": "<128 chars, per-session token>"
+      },
+      "setCookie": [
+        "__Host-wrc.x-csrf-token=<195 chars, opaque>; Path=/; HttpOnly; Secure; SameSite=Lax"
+      ],
+      "sessionCookieIssued": false
+    }
+  ]
+}

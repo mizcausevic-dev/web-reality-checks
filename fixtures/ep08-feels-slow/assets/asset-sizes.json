@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-10-25T08:16:07.279Z",
+  "hero-large.png": {
+    "bytes": 12173721,
+    "width": 4000,
+    "height": 2250,
+    "encoding": "PNG, lossless"
+  },
+  "hero-sized.webp": {
+    "bytes": 17004,
+    "width": 1600,
+    "height": 900,
+    "encoding": "WebP, quality 80"
+  },
+  "slotWidthCssPx": 1600,
+  "note": "Same synthetic scene, deterministic (seeded noise). Sizes are file bytes on disk, not transfer time."
+}
