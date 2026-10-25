@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-10-25T18:29:06.498Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "scope": "function-level permission check (may this role perform this action at all?); not object ownership",
+  "csrfLibrary": "csrf-csrf 3.1.0 (same pin as EP03), double-submit token bound to the server-side session id",
+  "initialState": {
+    "announcements": 1,
+    "memberHasPublishPermission": false,
+    "adminHasPublishPermission": true
+  },
+  "ui": {
+    "memberSeesPublishButton": false,
+    "adminSeesPublishButton": true,
+    "memberPageMarker": "read-only",
+    "memberSeesPublishButtonOnFlawedVersionPage": false
+  },
+  "log": [
+    {
+      "label": "member publishes (flawed endpoint)",
+      "request": "POST /vuln/announcements",
+      "status": 201,
+      "body": {
+        "endpoint": "vulnerable",
+        "published": true,
+        "id": 2,
+        "publishedBy": "u_member"
+      },
+      "announcementsAfter": 2,
+      "session": "member, valid",
+      "csrf": "valid"
+    },
+    {
+      "label": "member publishes (corrected endpoint)",
+      "request": "POST /announcements",
+      "status": 403,
+      "body": {
+        "error": "forbidden",
+        "code": "PERMISSION_DENIED",
+        "required": "announcement:publish"
+      },
+      "announcementsAfter": 2,
+      "session": "member, valid",
+      "csrf": "valid",
+      "countBefore": 2
+    },
+    {
+      "label": "member publishes with role=admin claims (corrected)",
+      "request": "POST /announcements",
+      "status": 403,
+      "body": {
+        "error": "forbidden",
+        "code": "PERMISSION_DENIED",
+        "required": "announcement:publish"
+      },
+      "announcementsAfter": 2,
+      "session": "member, valid",
+      "csrf": "valid"
+    },
+    {
+      "label": "member publishes with bad CSRF token (corrected)",
+      "request": "POST /announcements",
+      "status": 403,
+      "body": {
+        "error": "csrf_invalid",
+        "code": "EBADCSRFTOKEN"
+      },
+      "announcementsAfter": 2,
+      "session": "member, valid",
+      "csrf": "invalid"
+    },
+    {
+      "label": "unauthenticated publish (corrected)",
+      "request": "POST /announcements",
+      "status": 401,
+      "body": {
+        "error": "unauthenticated",
+        "code": "NO_SESSION"
+      },
+      "announcementsAfter": 2,
+      "session": "none"
+    },
+    {
+      "label": "unauthenticated publish (flawed)",
+      "request": "POST /vuln/announcements",
+      "status": 401,
+      "body": {
+        "error": "unauthenticated",
+        "code": "NO_SESSION"
+      },
+      "announcementsAfter": 2,
+      "session": "none"
+    },
+    {
+      "label": "administrator publishes (corrected endpoint)",
+      "request": "POST /announcements",
+      "status": 201,
+      "body": {
+        "endpoint": "corrected",
+        "published": true,
+        "id": 3,
+        "publishedBy": "u_admin"
+      },
+      "announcementsAfter": 3,
+      "session": "admin, valid",
+      "csrf": "valid"
+    }
+  ],
+  "finalAnnouncements": [
+    {
+      "id": 1,
+      "title": "Welcome",
+      "published_by": "u_admin"
+    },
+    {
+      "id": 2,
+      "title": "Maintenance window",
+      "published_by": "u_member"
+    },
+    {
+      "id": 3,
+      "title": "Admin notice",
+      "published_by": "u_admin"
+    }
+  ],
+  "summary": {
+    "flawedMemberStatus": 201,
+    "correctedMemberStatus": 403,
+    "correctedMemberErrorCode": "PERMISSION_DENIED",
+    "announcementCountBeforeCorrectedMemberRequest": 2,
+    "announcementCountAfterCorrectedMemberRequest": 2,
+    "forgedRoleStatus": 403,
+    "badCsrfStatus": 403,
+    "badCsrfErrorCode": "EBADCSRFTOKEN",
+    "unauthenticatedCorrectedStatus": 401,
+    "unauthenticatedFlawedStatus": 401,
+    "adminCorrectedStatus": 201,
+    "announcementCountFinal": 3
+  }
+}

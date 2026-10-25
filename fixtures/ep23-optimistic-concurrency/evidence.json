@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-10-25T18:30:09.809Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "clients": "two independent client instances in Node (separate session cookies and local copies). No real browser was used.",
+  "initial": {
+    "title": "Launch plan",
+    "body": "Draft: audience, schedule.",
+    "version": 1
+  },
+  "scenarios": {
+    "flawed_unconditional": {
+      "endpoint": "PUT /vuln/docs/doc_1",
+      "bothLoaded": {
+        "A": {
+          "version": 1,
+          "title": "Launch plan",
+          "body": "Draft: audience, schedule."
+        },
+        "B": {
+          "version": 1,
+          "title": "Launch plan",
+          "body": "Draft: audience, schedule."
+        }
+      },
+      "aSaves": {
+        "changed": "title",
+        "status": 200,
+        "serverAfter": {
+          "title": "Launch plan (approved)",
+          "body": "Draft: audience, schedule.",
+          "version": 2
+        }
+      },
+      "bLocalCopy": {
+        "title": "Launch plan",
+        "body": "Draft: audience, schedule, budget."
+      },
+      "bSaves": {
+        "changed": "body (sends the whole stale document)",
+        "status": 200
+      },
+      "final": {
+        "title": "Launch plan",
+        "body": "Draft: audience, schedule, budget.",
+        "version": 3
+      },
+      "lostUpdate": true
+    },
+    "corrected_conditional": {
+      "endpoint": "PUT /docs/doc_1",
+      "statement": "UPDATE docs SET title=?, body=?, version=version+1, updated_by=? WHERE id=? AND version=?",
+      "aSaves": {
+        "expectedVersion": 1,
+        "status": 200,
+        "newVersion": 2
+      },
+      "bSaves": {
+        "expectedVersion": 1,
+        "status": 409,
+        "error": "version_conflict",
+        "currentVersion": 2,
+        "currentOnServer": {
+          "title": "Launch plan (approved)",
+          "body": "Draft: audience, schedule."
+        }
+      },
+      "bClientAfterConflict": {
+        "state": "conflict",
+        "unsavedLocalCopyPreserved": {
+          "title": "Launch plan",
+          "body": "Draft: audience, schedule, budget."
+        },
+        "putRequestsSent": 1
+      },
+      "serverFinal": {
+        "title": "Launch plan (approved)",
+        "body": "Draft: audience, schedule.",
+        "version": 2
+      },
+      "putStatusesSeenByServer": [
+        200,
+        409
+      ]
+    },
+    "explicit_resolution": {
+      "note": "The merged content was chosen by the person (A title + B body). The fixture does not merge automatically.",
+      "saveWhileConflictedRefusedByClient": "unresolved conflict: call resolve() before saving again",
+      "resolvedBaseVersion": 2,
+      "saveStatus": 200,
+      "newVersion": 3,
+      "serverFinal": {
+        "title": "Launch plan (approved)",
+        "body": "Draft: audience, schedule, budget.",
+        "version": 3
+      }
+    },
+    "concurrent_same_expected_version": {
+      "expectedVersionSentByBoth": 1,
+      "statuses": {
+        "A": 200,
+        "B": 409
+      },
+      "accepted": 1,
+      "maxPutRequestsInFlightTogether": 2,
+      "serverFinal": {
+        "title": "title from A",
+        "body": "Draft: audience, schedule.",
+        "version": 2
+      }
+    },
+    "database_lock": {
+      "how": "a second SQLite connection held BEGIN IMMEDIATE; the server connection used a 50 ms busy timeout",
+      "status": 503,
+      "error": "database_busy",
+      "retryable": true,
+      "isVersionConflict": false,
+      "clientState": "save-failed",
+      "unsavedTitlePreserved": "unsaved title",
+      "loadedVersionKept": 1,
+      "serverVersion": 1
+    }
+  }
+}

@@ -1,0 +1,55 @@
+1
+00:00:00,600 --> 00:00:08,230
+One HTTP request. One hundred and one SELECTs.
+
+2
+00:00:08,230 --> 00:00:13,000
+Counted by instrumentation, not guessed.
+
+3
+00:00:13,000 --> 00:00:19,190
+1 list query: all 100 articles.
+
+4
+00:00:19,190 --> 00:00:26,420
+Then 100 author lookups, one per article.
+
+5
+00:00:26,420 --> 00:00:30,940
+100 articles, 12 authors.
+
+6
+00:00:30,940 --> 00:00:39,980
+One author fetched 14 times; 88 lookups repeat.
+
+7
+00:00:39,980 --> 00:00:46,450
+Fix: one explicit JOIN, ORDER BY article id.
+
+8
+00:00:46,450 --> 00:00:49,690
+Same fields. No loop.
+
+9
+00:00:49,690 --> 00:00:54,960
+Same 100 articles, same order, same shape.
+
+10
+00:00:54,960 --> 00:01:00,230
+The two JSON bodies are byte-for-byte equal.
+
+11
+00:01:00,230 --> 00:01:05,910
+Flawed: 101 SELECTs. Corrected: 1.
+
+12
+00:01:05,910 --> 00:01:15,010
+Control: a hidden extra query shows as 102.
+
+13
+00:01:15,010 --> 00:01:21,530
+We counted queries. We did not measure speed.
+
+14
+00:01:21,530 --> 00:01:29,680
+The interface made one request. The backend multiplied the work.

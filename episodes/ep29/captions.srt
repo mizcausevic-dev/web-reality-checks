@@ -1,0 +1,63 @@
+1
+00:00:00,600 --> 00:00:03,500
+The page still displays $10.00.
+
+2
+00:00:03,500 --> 00:00:08,710
+The submitted request now says unit price: 100 cents.
+
+3
+00:00:08,710 --> 00:00:15,830
+Flawed endpoint: 201 Created. Two mugs stored at $2.00 total.
+
+4
+00:00:15,830 --> 00:00:19,390
+The correct total was $20.00.
+
+5
+00:00:19,390 --> 00:00:24,300
+The trusted field: unitPriceCents from the request body.
+
+6
+00:00:24,300 --> 00:00:31,060
+A price in a request is a claim, not a fact.
+
+7
+00:00:31,060 --> 00:00:37,370
+The expected price is a comparison value only.
+
+8
+00:00:37,370 --> 00:00:46,040
+One BEGIN IMMEDIATE transaction: read catalog, insert order and line snapshot.
+
+9
+00:00:46,040 --> 00:00:51,380
+Altered request: 409 price_changed, current quote $10.00.
+
+10
+00:00:51,380 --> 00:00:59,010
+Orders created: 0. Bad quantities and unknown products are rejected.
+
+11
+00:00:59,010 --> 00:01:04,120
+Page loaded at $10.00. Catalog is now $12.00.
+
+12
+00:01:04,120 --> 00:01:11,150
+409 with the updated quote: $24.00 for two. Orders created: 0.
+
+13
+00:01:11,150 --> 00:01:17,820
+Explicit confirmation of 1200 cents: 201, snapshot $12.00.
+
+14
+00:01:17,820 --> 00:01:26,990
+Mid-transaction reprice by a second connection: blocked. Not a price lock.
+
+15
+00:01:26,990 --> 00:01:31,260
+The client requests the purchase. The server determines the price.
+
+16
+00:01:31,260 --> 00:01:34,250
+Not modelled: taxes, discounts, shipping, inventory, payment.

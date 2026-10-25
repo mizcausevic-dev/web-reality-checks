@@ -1,0 +1,132 @@
+{
+  "n": 28,
+  "title": "Hidden is not denied",
+  "fullTitle": "I Hid the Admin Button. The Admin Action Still Worked.",
+  "slug": "hidden-admin-button",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep28/narration.mp3",
+  "duration": 91.52,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 9.33
+    },
+    {
+      "id": "setup",
+      "start": 9.33,
+      "end": 17.05
+    },
+    {
+      "id": "leak",
+      "start": 17.05,
+      "end": 27.08
+    },
+    {
+      "id": "layers",
+      "start": 27.08,
+      "end": 42.37
+    },
+    {
+      "id": "fix",
+      "start": 42.37,
+      "end": 56.14
+    },
+    {
+      "id": "retest",
+      "start": 56.14,
+      "end": 68.71
+    },
+    {
+      "id": "admin",
+      "start": 68.71,
+      "end": 75.82
+    },
+    {
+      "id": "end",
+      "start": 75.82,
+      "end": 91.52,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.96,
+      "text": "The member's page has no publish button."
+    },
+    {
+      "start": 4.96,
+      "end": 9.33,
+      "text": "Yet the member's request published an announcement."
+    },
+    {
+      "start": 9.33,
+      "end": 12.76,
+      "text": "Controlled test: valid member session, valid CSRF token."
+    },
+    {
+      "start": 12.76,
+      "end": 17.05,
+      "text": "We send the request the hidden button would have sent."
+    },
+    {
+      "start": 17.05,
+      "end": 22.33,
+      "text": "Flawed endpoint: 201 Created. Count goes from 1 to 2."
+    },
+    {
+      "start": 22.33,
+      "end": 27.08,
+      "text": "It checked the session and the token, not permission."
+    },
+    {
+      "start": 27.08,
+      "end": 37.59,
+      "text": "Authentication: who is this? CSRF: did it come from our page?"
+    },
+    {
+      "start": 37.59,
+      "end": 42.37,
+      "text": "Authorization: may this user publish?"
+    },
+    {
+      "start": 42.37,
+      "end": 48.85,
+      "text": "Fix: check the server-side permission before any write."
+    },
+    {
+      "start": 48.85,
+      "end": 56.14,
+      "text": "A role sent by the browser is never read."
+    },
+    {
+      "start": 56.14,
+      "end": 62.84,
+      "text": "Same request: 403 PERMISSION_DENIED. Count stays at 2."
+    },
+    {
+      "start": 62.84,
+      "end": 68.71,
+      "text": "A bad CSRF token fails differently: EBADCSRFTOKEN."
+    },
+    {
+      "start": 68.71,
+      "end": 75.82,
+      "text": "Administrator: 201 Created. Count becomes 3."
+    },
+    {
+      "start": 75.82,
+      "end": 80.87,
+      "text": "A function-level check, not an object-ownership check."
+    },
+    {
+      "start": 80.87,
+      "end": 89.52,
+      "text": "The browser can hide the action. Only the server can deny it."
+    }
+  ]
+}

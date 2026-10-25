@@ -1,0 +1,15 @@
+{
+  "n": 26,
+  "slug": "n-plus-one",
+  "title": "One page, 101 queries",
+  "fullTitle": "Why one page makes 101 database queries",
+  "scenes": [
+    {"id": "fail", "narration": "One page. One HTTP request. Behind it, the database ran one hundred and one SELECT statements. That number comes from a counter wrapped around the queries in this local fixture, not from guesswork.", "captions": ["One HTTP request. One hundred and one SELECTs.", "Counted by instrumentation, not guessed."]},
+    {"id": "split", "narration": "Here is the flawed endpoint. First, one SELECT fetches all one hundred articles. Then, inside a loop, it runs one more SELECT per article to fetch its author. One plus one hundred is one hundred and one.", "captions": ["1 list query: all 100 articles.", "Then 100 author lookups, one per article."]},
+    {"id": "repeat", "narration": "Those hundred articles share only twelve authors. So the same author is fetched again and again. One author is looked up fourteen times. Eighty eight of the lookups repeat an author already fetched.", "captions": ["100 articles, 12 authors.", "One author fetched 14 times; 88 lookups repeat."]},
+    {"id": "fix", "narration": "The correction is one explicit joined SELECT. It returns the same article and author fields, ordered by article ID, so the ordering stays deterministic. The loop disappears.", "captions": ["Fix: one explicit JOIN, ORDER BY article id.", "Same fields. No loop."]},
+    {"id": "equal", "narration": "Render both. The same one hundred articles, in the same order, with the same shape. The two JSON responses are byte for byte identical.", "captions": ["Same 100 articles, same order, same shape.", "The two JSON bodies are byte-for-byte equal."]},
+    {"id": "retest", "narration": "Now compare the counters. Flawed: one hundred and one SELECTs. Corrected: one. To prove the counter would notice, we planted one hidden extra query, and it reported one hundred and two. Setup, sign-in and transaction control are excluded from these counts.", "captions": ["Flawed: 101 SELECTs. Corrected: 1.", "Control: a hidden extra query shows as 102."]},
+    {"id": "end", "sim": null, "narration": "This counted statements. It did not measure speed, and fewer queries do not always mean a faster page. It is one N plus one pattern, not every form. The interface made one request. The backend multiplied the work.", "captions": ["We counted queries. We did not measure speed.", "The interface made one request. The backend multiplied the work."]}
+  ]
+}

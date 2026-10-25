@@ -1,0 +1,137 @@
+{
+  "n": 30,
+  "title": "The job that ran twice",
+  "fullTitle": "Your Scheduled Job Ran Twice. Was the Scheduler Wrong?",
+  "slug": "scheduled-job-twice",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep30/narration.mp3",
+  "duration": 105.68,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 10.82
+    },
+    {
+      "id": "race",
+      "start": 10.82,
+      "end": 23.85
+    },
+    {
+      "id": "key",
+      "start": 23.85,
+      "end": 41.46
+    },
+    {
+      "id": "rerun",
+      "start": 41.46,
+      "end": 51.73
+    },
+    {
+      "id": "one",
+      "start": 51.73,
+      "end": 65.76
+    },
+    {
+      "id": "crash",
+      "start": 65.76,
+      "end": 77.27
+    },
+    {
+      "id": "retry",
+      "start": 77.27,
+      "end": 90.69
+    },
+    {
+      "id": "end",
+      "start": 90.69,
+      "end": 105.68,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 7.41,
+      "text": "One scheduled instant. Two reports in the database."
+    },
+    {
+      "start": 7.41,
+      "end": 10.82,
+      "text": "The application committed both."
+    },
+    {
+      "start": 10.82,
+      "end": 15.71,
+      "text": "Two processes, two connections, one database."
+    },
+    {
+      "start": 15.71,
+      "end": 23.85,
+      "text": "Both checks say absent. The barrier releases both. Both commit."
+    },
+    {
+      "start": 23.85,
+      "end": 33.17,
+      "text": "Unique key on report type + scheduled UTC instant."
+    },
+    {
+      "start": 33.17,
+      "end": 41.46,
+      "text": "Zero changes: verify. Busy: retry. Other constraint: error."
+    },
+    {
+      "start": 41.46,
+      "end": 46.25,
+      "text": "Same stale check, same barrier, same release."
+    },
+    {
+      "start": 46.25,
+      "end": 51.73,
+      "text": "Only one connection can hold the write lock."
+    },
+    {
+      "start": 51.73,
+      "end": 57.74,
+      "text": "One worker commits the complete report."
+    },
+    {
+      "start": 57.74,
+      "end": 65.76,
+      "text": "The other detects it and exits. One row."
+    },
+    {
+      "start": 65.76,
+      "end": 72.47,
+      "text": "Controlled fault: killed after insert, before commit."
+    },
+    {
+      "start": 72.47,
+      "end": 77.27,
+      "text": "Another connection sees zero rows."
+    },
+    {
+      "start": 77.27,
+      "end": 85.1,
+      "text": "Rollback: zero rows. Retry: exactly one report."
+    },
+    {
+      "start": 85.1,
+      "end": 90.69,
+      "text": "Busy is retryable, not completed."
+    },
+    {
+      "start": 90.69,
+      "end": 97.62,
+      "text": "One committed report per logical run. Not exactly-once."
+    },
+    {
+      "start": 97.62,
+      "end": 103.68,
+      "text": "Scheduling starts work. Coordination decides what commits."
+    }
+  ]
+}

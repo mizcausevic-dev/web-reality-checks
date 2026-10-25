@@ -1,0 +1,941 @@
+{
+  "generatedAt": "2026-10-25T18:29:05.055Z",
+  "environment": {
+    "pythonAndSqlite": "3.13.17 3.53.1",
+    "note": "python3 stdlib sqlite3; Node drives via child_process"
+  },
+  "backupReport": {
+    "ok": true,
+    "api": "sqlite3.Connection.backup",
+    "dest": "/tmp/ep25-demo-urCmso/artifacts/good.bak",
+    "bytes": 20480,
+    "pageCount": 5,
+    "backupMsMeasuredOnThisMachine": 14.987
+  },
+  "sourceJournalMode": "wal",
+  "foreignKeyEnforcement": {
+    "applicationConnectionPragma": 1,
+    "orphanInsertRejected": true,
+    "error": "FOREIGN KEY constraint failed",
+    "plainConnectionPragma": 0
+  },
+  "sidecarsNextToBackup": [],
+  "sourceAfterLaterWrite": {
+    "orders": 41
+  },
+  "liveWalControl": {
+    "mainFileBytes": 4096,
+    "walFileBytes": 49472
+  },
+  "timings": {
+    "measuredOnThisMachine": true,
+    "backupMs": 14.987,
+    "restoreMsGoodBackup": 0.507,
+    "caveat": "Tiny synthetic file on one machine. Not a recovery-time estimate for any real system. Not shown in the video."
+  },
+  "scenarios": [
+    {
+      "label": "good backup (Online Backup API, quiescent WAL-mode source)",
+      "exitCode": 0,
+      "ok": true,
+      "failedChecks": [],
+      "statuses": {
+        "restore_open": "pass",
+        "integrity_check": "pass",
+        "foreign_key_check": "pass",
+        "schema_version": "pass",
+        "tables": "pass",
+        "record_counts": "pass",
+        "known_values": "pass",
+        "order_totals_query": "pass"
+      },
+      "restoreMsMeasuredOnThisMachine": 0.507,
+      "detail": {
+        "integrity_check": [
+          "ok"
+        ],
+        "foreign_key_check": [],
+        "schema_version": 3,
+        "tables": [
+          "customers",
+          "orders"
+        ],
+        "record_counts": {
+          "customers": 12,
+          "orders": 40
+        },
+        "known_values": [
+          {
+            "where": "customers.id=1",
+            "column": "email",
+            "expected": "customer01@example.test",
+            "actual": "customer01@example.test"
+          },
+          {
+            "where": "customers.id=12",
+            "column": "name",
+            "expected": "Lev Sandbox",
+            "actual": "Lev Sandbox"
+          },
+          {
+            "where": "orders.id=1",
+            "column": "amount_cents",
+            "expected": 9419,
+            "actual": 9419
+          },
+          {
+            "where": "orders.id=17",
+            "column": "customer_id",
+            "expected": 2,
+            "actual": 2
+          },
+          {
+            "where": "orders.id=40",
+            "column": "status",
+            "expected": "shipped",
+            "actual": "shipped"
+          },
+          {
+            "where": "SUM(orders.amount_cents)",
+            "column": "-",
+            "expected": 244580,
+            "actual": 244580
+          }
+        ],
+        "order_totals_mismatches": [],
+        "order_totals_rows": 12,
+        "order_totals": [
+          [
+            1,
+            "Ada Example",
+            2,
+            9084
+          ],
+          [
+            2,
+            "Bram Sample",
+            3,
+            21369
+          ],
+          [
+            3,
+            "Cleo Test",
+            3,
+            23154
+          ],
+          [
+            4,
+            "Dev Fixture",
+            3,
+            14883
+          ],
+          [
+            5,
+            "Esme Mock",
+            3,
+            11640
+          ],
+          [
+            6,
+            "Farid Demo",
+            4,
+            31844
+          ],
+          [
+            7,
+            "Gwen Synthetic",
+            2,
+            9084
+          ],
+          [
+            8,
+            "Hugo Placeholder",
+            3,
+            19911
+          ],
+          [
+            9,
+            "Ines Dummy",
+            4,
+            18872
+          ],
+          [
+            10,
+            "Jonas Stub",
+            2,
+            7626
+          ],
+          [
+            11,
+            "Kira Trial",
+            4,
+            27520
+          ],
+          [
+            12,
+            "Lev Sandbox",
+            3,
+            14883
+          ]
+        ],
+        "errors": []
+      }
+    },
+    {
+      "label": "not a SQLite database",
+      "exitCode": 1,
+      "ok": false,
+      "failedChecks": [
+        "restore_open"
+      ],
+      "statuses": {
+        "restore_open": "fail",
+        "integrity_check": "skipped",
+        "foreign_key_check": "skipped",
+        "schema_version": "skipped",
+        "tables": "skipped",
+        "record_counts": "skipped",
+        "known_values": "skipped",
+        "order_totals_query": "skipped"
+      },
+      "restoreMsMeasuredOnThisMachine": null,
+      "detail": {
+        "integrity_check": null,
+        "foreign_key_check": null,
+        "schema_version": null,
+        "tables": null,
+        "record_counts": null,
+        "known_values": null,
+        "order_totals_mismatches": null,
+        "order_totals_rows": null,
+        "order_totals": null,
+        "errors": [
+          "restore_open: DatabaseError: file is not a database",
+          "integrity_check: artifact could not be opened",
+          "foreign_key_check: artifact could not be opened",
+          "schema_version: artifact could not be opened",
+          "tables: artifact could not be opened",
+          "record_counts: artifact could not be opened",
+          "known_values: artifact could not be opened",
+          "order_totals_query: artifact could not be opened"
+        ]
+      }
+    },
+    {
+      "label": "valid SQLite, orders table missing",
+      "exitCode": 1,
+      "ok": false,
+      "failedChecks": [
+        "tables",
+        "record_counts",
+        "known_values",
+        "order_totals_query"
+      ],
+      "statuses": {
+        "restore_open": "pass",
+        "integrity_check": "pass",
+        "foreign_key_check": "pass",
+        "schema_version": "pass",
+        "tables": "fail",
+        "record_counts": "fail",
+        "known_values": "fail",
+        "order_totals_query": "fail"
+      },
+      "restoreMsMeasuredOnThisMachine": 0.362,
+      "detail": {
+        "integrity_check": [
+          "ok"
+        ],
+        "foreign_key_check": [],
+        "schema_version": 3,
+        "tables": [
+          "customers"
+        ],
+        "record_counts": null,
+        "known_values": null,
+        "order_totals_mismatches": null,
+        "order_totals_rows": null,
+        "order_totals": null,
+        "errors": [
+          "record_counts: OperationalError: no such table: orders",
+          "known_values: OperationalError: no such table: orders",
+          "order_totals_query: OperationalError: no such table: orders"
+        ]
+      }
+    },
+    {
+      "label": "wrong schema version (user_version 2)",
+      "exitCode": 1,
+      "ok": false,
+      "failedChecks": [
+        "schema_version"
+      ],
+      "statuses": {
+        "restore_open": "pass",
+        "integrity_check": "pass",
+        "foreign_key_check": "pass",
+        "schema_version": "fail",
+        "tables": "pass",
+        "record_counts": "pass",
+        "known_values": "pass",
+        "order_totals_query": "pass"
+      },
+      "restoreMsMeasuredOnThisMachine": 0.509,
+      "detail": {
+        "integrity_check": [
+          "ok"
+        ],
+        "foreign_key_check": [],
+        "schema_version": 2,
+        "tables": [
+          "customers",
+          "orders"
+        ],
+        "record_counts": {
+          "customers": 12,
+          "orders": 40
+        },
+        "known_values": [
+          {
+            "where": "customers.id=1",
+            "column": "email",
+            "expected": "customer01@example.test",
+            "actual": "customer01@example.test"
+          },
+          {
+            "where": "customers.id=12",
+            "column": "name",
+            "expected": "Lev Sandbox",
+            "actual": "Lev Sandbox"
+          },
+          {
+            "where": "orders.id=1",
+            "column": "amount_cents",
+            "expected": 9419,
+            "actual": 9419
+          },
+          {
+            "where": "orders.id=17",
+            "column": "customer_id",
+            "expected": 2,
+            "actual": 2
+          },
+          {
+            "where": "orders.id=40",
+            "column": "status",
+            "expected": "shipped",
+            "actual": "shipped"
+          },
+          {
+            "where": "SUM(orders.amount_cents)",
+            "column": "-",
+            "expected": 244580,
+            "actual": 244580
+          }
+        ],
+        "order_totals_mismatches": [],
+        "order_totals_rows": 12,
+        "order_totals": [
+          [
+            1,
+            "Ada Example",
+            2,
+            9084
+          ],
+          [
+            2,
+            "Bram Sample",
+            3,
+            21369
+          ],
+          [
+            3,
+            "Cleo Test",
+            3,
+            23154
+          ],
+          [
+            4,
+            "Dev Fixture",
+            3,
+            14883
+          ],
+          [
+            5,
+            "Esme Mock",
+            3,
+            11640
+          ],
+          [
+            6,
+            "Farid Demo",
+            4,
+            31844
+          ],
+          [
+            7,
+            "Gwen Synthetic",
+            2,
+            9084
+          ],
+          [
+            8,
+            "Hugo Placeholder",
+            3,
+            19911
+          ],
+          [
+            9,
+            "Ines Dummy",
+            4,
+            18872
+          ],
+          [
+            10,
+            "Jonas Stub",
+            2,
+            7626
+          ],
+          [
+            11,
+            "Kira Trial",
+            4,
+            27520
+          ],
+          [
+            12,
+            "Lev Sandbox",
+            3,
+            14883
+          ]
+        ],
+        "errors": []
+      }
+    },
+    {
+      "label": "orphan order, same record counts (FK was OFF when written)",
+      "exitCode": 1,
+      "ok": false,
+      "failedChecks": [
+        "foreign_key_check",
+        "order_totals_query"
+      ],
+      "statuses": {
+        "restore_open": "pass",
+        "integrity_check": "pass",
+        "foreign_key_check": "fail",
+        "schema_version": "pass",
+        "tables": "pass",
+        "record_counts": "pass",
+        "known_values": "pass",
+        "order_totals_query": "fail"
+      },
+      "restoreMsMeasuredOnThisMachine": 4.618,
+      "detail": {
+        "integrity_check": [
+          "ok"
+        ],
+        "foreign_key_check": [
+          [
+            "orders",
+            23,
+            "customers",
+            0
+          ]
+        ],
+        "schema_version": 3,
+        "tables": [
+          "customers",
+          "orders"
+        ],
+        "record_counts": {
+          "customers": 12,
+          "orders": 40
+        },
+        "known_values": [
+          {
+            "where": "customers.id=1",
+            "column": "email",
+            "expected": "customer01@example.test",
+            "actual": "customer01@example.test"
+          },
+          {
+            "where": "customers.id=12",
+            "column": "name",
+            "expected": "Lev Sandbox",
+            "actual": "Lev Sandbox"
+          },
+          {
+            "where": "orders.id=1",
+            "column": "amount_cents",
+            "expected": 9419,
+            "actual": 9419
+          },
+          {
+            "where": "orders.id=17",
+            "column": "customer_id",
+            "expected": 2,
+            "actual": 2
+          },
+          {
+            "where": "orders.id=40",
+            "column": "status",
+            "expected": "shipped",
+            "actual": "shipped"
+          },
+          {
+            "where": "SUM(orders.amount_cents)",
+            "column": "-",
+            "expected": 244580,
+            "actual": 244580
+          }
+        ],
+        "order_totals_mismatches": [
+          {
+            "expected": [
+              8,
+              "Hugo Placeholder",
+              3,
+              19911
+            ],
+            "actual": [
+              8,
+              "Hugo Placeholder",
+              2,
+              16274
+            ]
+          }
+        ],
+        "order_totals_rows": 12,
+        "order_totals": [
+          [
+            1,
+            "Ada Example",
+            2,
+            9084
+          ],
+          [
+            2,
+            "Bram Sample",
+            3,
+            21369
+          ],
+          [
+            3,
+            "Cleo Test",
+            3,
+            23154
+          ],
+          [
+            4,
+            "Dev Fixture",
+            3,
+            14883
+          ],
+          [
+            5,
+            "Esme Mock",
+            3,
+            11640
+          ],
+          [
+            6,
+            "Farid Demo",
+            4,
+            31844
+          ],
+          [
+            7,
+            "Gwen Synthetic",
+            2,
+            9084
+          ],
+          [
+            8,
+            "Hugo Placeholder",
+            2,
+            16274
+          ],
+          [
+            9,
+            "Ines Dummy",
+            4,
+            18872
+          ],
+          [
+            10,
+            "Jonas Stub",
+            2,
+            7626
+          ],
+          [
+            11,
+            "Kira Trial",
+            4,
+            27520
+          ],
+          [
+            12,
+            "Lev Sandbox",
+            3,
+            14883
+          ]
+        ],
+        "errors": []
+      }
+    },
+    {
+      "label": "one wrong amount, same record counts, no orphans",
+      "exitCode": 1,
+      "ok": false,
+      "failedChecks": [
+        "known_values",
+        "order_totals_query"
+      ],
+      "statuses": {
+        "restore_open": "pass",
+        "integrity_check": "pass",
+        "foreign_key_check": "pass",
+        "schema_version": "pass",
+        "tables": "pass",
+        "record_counts": "pass",
+        "known_values": "fail",
+        "order_totals_query": "fail"
+      },
+      "restoreMsMeasuredOnThisMachine": 0.603,
+      "detail": {
+        "integrity_check": [
+          "ok"
+        ],
+        "foreign_key_check": [],
+        "schema_version": 3,
+        "tables": [
+          "customers",
+          "orders"
+        ],
+        "record_counts": {
+          "customers": 12,
+          "orders": 40
+        },
+        "known_values": [
+          {
+            "where": "customers.id=1",
+            "column": "email",
+            "expected": "customer01@example.test",
+            "actual": "customer01@example.test"
+          },
+          {
+            "where": "customers.id=12",
+            "column": "name",
+            "expected": "Lev Sandbox",
+            "actual": "Lev Sandbox"
+          },
+          {
+            "where": "orders.id=1",
+            "column": "amount_cents",
+            "expected": 9419,
+            "actual": 9419
+          },
+          {
+            "where": "orders.id=17",
+            "column": "customer_id",
+            "expected": 2,
+            "actual": 2
+          },
+          {
+            "where": "orders.id=40",
+            "column": "status",
+            "expected": "shipped",
+            "actual": "shipped"
+          },
+          {
+            "where": "SUM(orders.amount_cents)",
+            "column": "-",
+            "expected": 244580,
+            "actual": 244680
+          }
+        ],
+        "order_totals_mismatches": [
+          {
+            "expected": [
+              8,
+              "Hugo Placeholder",
+              3,
+              19911
+            ],
+            "actual": [
+              8,
+              "Hugo Placeholder",
+              3,
+              20011
+            ]
+          }
+        ],
+        "order_totals_rows": 12,
+        "order_totals": [
+          [
+            1,
+            "Ada Example",
+            2,
+            9084
+          ],
+          [
+            2,
+            "Bram Sample",
+            3,
+            21369
+          ],
+          [
+            3,
+            "Cleo Test",
+            3,
+            23154
+          ],
+          [
+            4,
+            "Dev Fixture",
+            3,
+            14883
+          ],
+          [
+            5,
+            "Esme Mock",
+            3,
+            11640
+          ],
+          [
+            6,
+            "Farid Demo",
+            4,
+            31844
+          ],
+          [
+            7,
+            "Gwen Synthetic",
+            2,
+            9084
+          ],
+          [
+            8,
+            "Hugo Placeholder",
+            3,
+            20011
+          ],
+          [
+            9,
+            "Ines Dummy",
+            4,
+            18872
+          ],
+          [
+            10,
+            "Jonas Stub",
+            2,
+            7626
+          ],
+          [
+            11,
+            "Kira Trial",
+            4,
+            27520
+          ],
+          [
+            12,
+            "Lev Sandbox",
+            3,
+            14883
+          ]
+        ],
+        "errors": []
+      }
+    },
+    {
+      "label": "CONTROL: main file only copied from live WAL database",
+      "exitCode": 1,
+      "ok": false,
+      "failedChecks": [
+        "schema_version",
+        "tables",
+        "record_counts",
+        "known_values",
+        "order_totals_query"
+      ],
+      "statuses": {
+        "restore_open": "pass",
+        "integrity_check": "pass",
+        "foreign_key_check": "pass",
+        "schema_version": "fail",
+        "tables": "fail",
+        "record_counts": "fail",
+        "known_values": "fail",
+        "order_totals_query": "fail"
+      },
+      "restoreMsMeasuredOnThisMachine": 0.488,
+      "detail": {
+        "integrity_check": [
+          "ok"
+        ],
+        "foreign_key_check": [],
+        "schema_version": 0,
+        "tables": [],
+        "record_counts": null,
+        "known_values": null,
+        "order_totals_mismatches": null,
+        "order_totals_rows": null,
+        "order_totals": null,
+        "errors": [
+          "record_counts: OperationalError: no such table: customers",
+          "known_values: OperationalError: no such table: customers",
+          "order_totals_query: OperationalError: no such table: customers"
+        ]
+      }
+    },
+    {
+      "label": "CONTROL: Online Backup API on the same live WAL database",
+      "exitCode": 0,
+      "ok": true,
+      "failedChecks": [],
+      "statuses": {
+        "restore_open": "pass",
+        "integrity_check": "pass",
+        "foreign_key_check": "pass",
+        "schema_version": "pass",
+        "tables": "pass",
+        "record_counts": "pass",
+        "known_values": "pass",
+        "order_totals_query": "pass"
+      },
+      "restoreMsMeasuredOnThisMachine": 0.562,
+      "detail": {
+        "integrity_check": [
+          "ok"
+        ],
+        "foreign_key_check": [],
+        "schema_version": 3,
+        "tables": [
+          "customers",
+          "orders"
+        ],
+        "record_counts": {
+          "customers": 12,
+          "orders": 40
+        },
+        "known_values": [
+          {
+            "where": "customers.id=1",
+            "column": "email",
+            "expected": "customer01@example.test",
+            "actual": "customer01@example.test"
+          },
+          {
+            "where": "customers.id=12",
+            "column": "name",
+            "expected": "Lev Sandbox",
+            "actual": "Lev Sandbox"
+          },
+          {
+            "where": "orders.id=1",
+            "column": "amount_cents",
+            "expected": 9419,
+            "actual": 9419
+          },
+          {
+            "where": "orders.id=17",
+            "column": "customer_id",
+            "expected": 2,
+            "actual": 2
+          },
+          {
+            "where": "orders.id=40",
+            "column": "status",
+            "expected": "shipped",
+            "actual": "shipped"
+          },
+          {
+            "where": "SUM(orders.amount_cents)",
+            "column": "-",
+            "expected": 244580,
+            "actual": 244580
+          }
+        ],
+        "order_totals_mismatches": [],
+        "order_totals_rows": 12,
+        "order_totals": [
+          [
+            1,
+            "Ada Example",
+            2,
+            9084
+          ],
+          [
+            2,
+            "Bram Sample",
+            3,
+            21369
+          ],
+          [
+            3,
+            "Cleo Test",
+            3,
+            23154
+          ],
+          [
+            4,
+            "Dev Fixture",
+            3,
+            14883
+          ],
+          [
+            5,
+            "Esme Mock",
+            3,
+            11640
+          ],
+          [
+            6,
+            "Farid Demo",
+            4,
+            31844
+          ],
+          [
+            7,
+            "Gwen Synthetic",
+            2,
+            9084
+          ],
+          [
+            8,
+            "Hugo Placeholder",
+            3,
+            19911
+          ],
+          [
+            9,
+            "Ines Dummy",
+            4,
+            18872
+          ],
+          [
+            10,
+            "Jonas Stub",
+            2,
+            7626
+          ],
+          [
+            11,
+            "Kira Trial",
+            4,
+            27520
+          ],
+          [
+            12,
+            "Lev Sandbox",
+            3,
+            14883
+          ]
+        ],
+        "errors": []
+      }
+    }
+  ]
+}

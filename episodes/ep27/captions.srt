@@ -1,0 +1,63 @@
+1
+00:00:00,600 --> 00:00:07,850
+Results for react appear. Then results for 're' replace them.
+
+2
+00:00:07,850 --> 00:00:12,200
+Simulated controller, not recorded browser evidence.
+
+3
+00:00:12,200 --> 00:00:16,340
+Request order: re, then react.
+
+4
+00:00:16,340 --> 00:00:23,780
+Response order, released by the test: react, then re.
+
+5
+00:00:23,780 --> 00:00:29,660
+The late response still says query 're', request req-1.
+
+6
+00:00:29,660 --> 00:00:34,240
+The flawed code renders whatever arrives last.
+
+7
+00:00:34,240 --> 00:00:40,710
+Every search increments a generation counter and captures it.
+
+8
+00:00:40,710 --> 00:00:45,750
+On return: is my generation still current?
+
+9
+00:00:45,750 --> 00:00:55,150
+Same release schedule, corrected controller.
+
+10
+00:00:55,150 --> 00:00:59,570
+Generation 1 is not generation 2: result discarded.
+
+11
+00:00:59,570 --> 00:01:05,090
+Its finally block is discarded too, so loading stays correct.
+
+12
+00:01:05,090 --> 00:01:09,370
+Guard in success, error, and finally.
+
+13
+00:01:09,370 --> 00:01:14,360
+An obsolete failure cannot replace current state.
+
+14
+00:01:14,360 --> 00:01:20,940
+Clear and dispose invalidate pending generations.
+
+15
+00:01:20,940 --> 00:01:30,820
+Abort is an optimisation; debouncing does not order responses.
+
+16
+00:01:30,820 --> 00:01:41,040
+The last response is not always the latest answer.

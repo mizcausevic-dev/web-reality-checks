@@ -1,0 +1,75 @@
+1
+00:00:00,600 --> 00:00:04,930
+Tab A saves a new title: 200 OK.
+
+2
+00:00:04,930 --> 00:00:10,890
+Tab B saves. The old title is back. No error anywhere.
+
+3
+00:00:10,890 --> 00:00:14,840
+Two independent clients load the same document at version 1.
+
+4
+00:00:14,840 --> 00:00:18,400
+Separate sessions in a local test, not real browsers.
+
+5
+00:00:18,400 --> 00:00:22,340
+A edits the title. B edits only the body.
+
+6
+00:00:22,340 --> 00:00:27,150
+B's copy still holds the old title, and saving sends everything.
+
+7
+00:00:27,150 --> 00:00:32,490
+The flawed update only asks: does the ID match?
+
+8
+00:00:32,490 --> 00:00:39,010
+Nothing asks which version B was looking at. Last writer wins.
+
+9
+00:00:39,010 --> 00:00:42,150
+Send expectedVersion with the edit.
+
+10
+00:00:42,150 --> 00:00:47,800
+One atomic UPDATE: match id AND version, replace, increment.
+
+11
+00:00:47,800 --> 00:00:53,450
+Check rows changed. Never a separate read, then write.
+
+12
+00:00:53,450 --> 00:00:58,050
+A saves against version 1: 200, now version 2.
+
+13
+00:00:58,050 --> 00:01:04,180
+B sends version 1, matches no row: 409 with the current version.
+
+14
+00:01:04,180 --> 00:01:09,770
+B's unsaved text is kept. Both versions are shown.
+
+15
+00:01:09,770 --> 00:01:15,980
+A person resolves it. No automatic merge, no overwrite retry.
+
+16
+00:01:15,980 --> 00:01:23,030
+Only a version mismatch is a 409. A locked database is a 503.
+
+17
+00:01:23,030 --> 00:01:27,920
+Two racing saves, same version: exactly one is accepted.
+
+18
+00:01:27,920 --> 00:01:32,260
+Conflict detection, not real-time collaboration, not a CRDT.
+
+19
+00:01:32,260 --> 00:01:35,690
+Before saving, check what you are replacing.

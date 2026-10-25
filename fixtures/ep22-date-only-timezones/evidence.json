@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-10-25T18:29:07.354Z",
+  "node": "v22.23.4",
+  "temporalAvailable": false,
+  "task": {
+    "title": "File the quarterly report",
+    "deadline": "2026-01-15",
+    "eventAt": "2026-01-15T15:00:00Z"
+  },
+  "zones": [
+    "UTC",
+    "America/New_York",
+    "Asia/Tokyo"
+  ],
+  "validation": {
+    "deadlineParsed": {
+      "year": 2026,
+      "month": 1,
+      "day": 15,
+      "iso": "2026-01-15"
+    },
+    "rejects": [
+      {
+        "input": "2026-02-30",
+        "rejected": true,
+        "reason": "day out of range for that month: 2026-02-30"
+      },
+      {
+        "input": "2025-02-29",
+        "rejected": true,
+        "reason": "day out of range for that month: 2025-02-29"
+      },
+      {
+        "input": "2026-13-01",
+        "rejected": true,
+        "reason": "month out of range: 2026-13-01"
+      }
+    ]
+  },
+  "jsReading": {
+    "code": "new Date(\"2026-01-15\")",
+    "toISOString": "2026-01-15T00:00:00.000Z",
+    "meaning": "date-only ISO form is read as UTC midnight"
+  },
+  "flawed": [
+    {
+      "zone": "UTC",
+      "input": "2026-01-15",
+      "instantIso": "2026-01-15T00:00:00.000Z",
+      "date": "2026-01-15",
+      "time": "00:00"
+    },
+    {
+      "zone": "America/New_York",
+      "input": "2026-01-15",
+      "instantIso": "2026-01-15T00:00:00.000Z",
+      "date": "2026-01-14",
+      "time": "19:00"
+    },
+    {
+      "zone": "Asia/Tokyo",
+      "input": "2026-01-15",
+      "instantIso": "2026-01-15T00:00:00.000Z",
+      "date": "2026-01-15",
+      "time": "09:00"
+    }
+  ],
+  "corrected": [
+    {
+      "zone": "UTC",
+      "input": "2026-01-15",
+      "date": "2026-01-15",
+      "label": "15 Jan 2026"
+    },
+    {
+      "zone": "America/New_York",
+      "input": "2026-01-15",
+      "date": "2026-01-15",
+      "label": "15 Jan 2026"
+    },
+    {
+      "zone": "Asia/Tokyo",
+      "input": "2026-01-15",
+      "date": "2026-01-15",
+      "label": "15 Jan 2026"
+    }
+  ],
+  "event": [
+    {
+      "instantIso": "2026-01-15T15:00:00Z",
+      "zone": "UTC",
+      "date": "2026-01-15",
+      "time": "15:00",
+      "offsetMinutes": 0,
+      "offset": "UTC+00:00"
+    },
+    {
+      "instantIso": "2026-01-15T15:00:00Z",
+      "zone": "America/New_York",
+      "date": "2026-01-15",
+      "time": "10:00",
+      "offsetMinutes": -300,
+      "offset": "UTC-05:00"
+    },
+    {
+      "instantIso": "2026-01-15T15:00:00Z",
+      "zone": "Asia/Tokyo",
+      "date": "2026-01-16",
+      "time": "00:00",
+      "offsetMinutes": 540,
+      "offset": "UTC+09:00"
+    }
+  ],
+  "previousDateZones": [
+    "America/New_York"
+  ],
+  "zoneRules": {
+    "note": "New York is not a fixed offset: same zone name, different offset in January and July",
+    "january": "UTC-05:00",
+    "july": "UTC-04:00"
+  },
+  "twelveHourHack": {
+    "note": "adding twelve hours (noon UTC) is not a fix",
+    "newYork": "2026-01-15",
+    "tokyo": "2026-01-15",
+    "kiritimati": "2026-01-16"
+  },
+  "machineZoneRuns": {
+    "note": "dates.mjs output re-computed in child processes with different TZ environment variables",
+    "runs": [
+      {
+        "tz": "UTC",
+        "explicitZoneOutputSha12": "6ffa8c11435e",
+        "dateOnlyIso": "2026-01-15T00:00:00.000Z",
+        "dateTimeNoOffsetIso": "2026-01-15T00:00:00.000Z"
+      },
+      {
+        "tz": "America/New_York",
+        "explicitZoneOutputSha12": "6ffa8c11435e",
+        "dateOnlyIso": "2026-01-15T00:00:00.000Z",
+        "dateTimeNoOffsetIso": "2026-01-15T05:00:00.000Z"
+      },
+      {
+        "tz": "Asia/Tokyo",
+        "explicitZoneOutputSha12": "6ffa8c11435e",
+        "dateOnlyIso": "2026-01-15T00:00:00.000Z",
+        "dateTimeNoOffsetIso": "2026-01-14T15:00:00.000Z"
+      },
+      {
+        "tz": "Pacific/Kiritimati",
+        "explicitZoneOutputSha12": "6ffa8c11435e",
+        "dateOnlyIso": "2026-01-15T00:00:00.000Z",
+        "dateTimeNoOffsetIso": "2026-01-14T10:00:00.000Z"
+      },
+      {
+        "tz": "America/Los_Angeles",
+        "explicitZoneOutputSha12": "6ffa8c11435e",
+        "dateOnlyIso": "2026-01-15T00:00:00.000Z",
+        "dateTimeNoOffsetIso": "2026-01-15T08:00:00.000Z"
+      }
+    ],
+    "explicitZoneOutputIdentical": true
+  },
+  "html": {
+    "flawed": "<table data-mode=\"flawed\" data-task=\"File the quarterly report\"><thead><tr><th>Zone</th><th>Deadline (date only)</th><th>Meeting (instant)</th></tr></thead><tbody><tr data-zone=\"UTC\"><td>UTC</td><td class=\"deadline\">2026-01-15</td><td class=\"event\">2026-01-15 15:00 (UTC+00:00)</td></tr><tr data-zone=\"America/New_York\"><td>America/New_York</td><td class=\"deadline\">2026-01-14</td><td class=\"event\">2026-01-15 10:00 (UTC-05:00)</td></tr><tr data-zone=\"Asia/Tokyo\"><td>Asia/Tokyo</td><td class=\"deadline\">2026-01-15</td><td class=\"event\">2026-01-16 00:00 (UTC+09:00)</td></tr></tbody></table>",
+    "corrected": "<table data-mode=\"corrected\" data-task=\"File the quarterly report\"><thead><tr><th>Zone</th><th>Deadline (date only)</th><th>Meeting (instant)</th></tr></thead><tbody><tr data-zone=\"UTC\"><td>UTC</td><td class=\"deadline\">2026-01-15</td><td class=\"event\">2026-01-15 15:00 (UTC+00:00)</td></tr><tr data-zone=\"America/New_York\"><td>America/New_York</td><td class=\"deadline\">2026-01-15</td><td class=\"event\">2026-01-15 10:00 (UTC-05:00)</td></tr><tr data-zone=\"Asia/Tokyo\"><td>Asia/Tokyo</td><td class=\"deadline\">2026-01-15</td><td class=\"event\">2026-01-16 00:00 (UTC+09:00)</td></tr></tbody></table>"
+  }
+}

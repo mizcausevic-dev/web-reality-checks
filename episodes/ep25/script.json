@@ -1,0 +1,69 @@
+{
+  "n": 25,
+  "slug": "restore-tests",
+  "title": "Can you restore it?",
+  "fullTitle": "Your Backup Says 'Successful.' Can You Actually Restore It?",
+  "hero": {
+    "scene": "fail",
+    "t": 7
+  },
+  "scenes": [
+    {
+      "id": "success",
+      "narration": "The backup job reports success. A file exists, and the SQLite Online Backup call returned without error. Nothing has been opened, and nothing read back.",
+      "captions": [
+        "Backup reports success: a file exists, the call returned no error.",
+        "Nothing has been opened. Nothing has been read back."
+      ]
+    },
+    {
+      "id": "question",
+      "narration": "What has that established? A file was written. Not that the data opens, that every order still points at a customer, or that the numbers match. A successful backup is not yet a successful restore.",
+      "captions": [
+        "Established: a file was written.",
+        "Not yet shown: it opens, the links hold, the numbers match."
+      ]
+    },
+    {
+      "id": "restore",
+      "narration": "Restore it into a new, isolated path. The source is never overwritten or opened. It was a quiet WAL-mode database, copied with the Online Backup API, not by copying the main file alone. The copy holds the backup's data, not later source writes.",
+      "captions": [
+        "Restore into a fresh path. The source is never overwritten or opened.",
+        "The copy holds the backup's data, not later source writes."
+      ]
+    },
+    {
+      "id": "checks",
+      "narration": "Run the structural check and the foreign-key check separately. Integrity check answers ok. Foreign-key check returns no rows. Different questions: a database can pass the first and still hold an order whose customer is gone. Then schema version three.",
+      "captions": [
+        "integrity_check → ok.  foreign_key_check → no rows.",
+        "Different questions. Passing one does not answer the other."
+      ]
+    },
+    {
+      "id": "values",
+      "narration": "Then the data. Twelve customers, forty orders. Known values match. And the application's own order-total query returns all twelve customer totals as expected. Counts alone could never prove that.",
+      "captions": [
+        "12 customers, 40 orders. Known values match.",
+        "The app's real order-total query: 12 of 12 totals as expected."
+      ]
+    },
+    {
+      "id": "fail",
+      "narration": "Now deliberately invalid backups. A text file named like a backup: validation reports the failure instead of crashing. A copy with the same counts passes integrity check, but one order points at a missing customer, and the foreign-key check fails. Another has one wrong amount, and the totals expose it.",
+      "captions": [
+        "Invalid artifacts fail validation with a structured result, not a crash.",
+        "Same counts can still hide an orphan or a wrong value."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "This is one small synthetic database. It says nothing about recovery time or recovery point, files, object storage, secrets, or infrastructure. A backup is a claim. The restore is the test.",
+      "captions": [
+        "One small synthetic database. No recovery-time or recovery-point claim.",
+        "The restore is the test."
+      ]
+    }
+  ]
+}

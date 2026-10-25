@@ -1,0 +1,16 @@
+{
+  "name": "ep28-hidden-admin-button-fixture",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "EP28 fixture: function-level permission check on a publish action. Node 22 node:sqlite, express, cookie-parser, csrf-csrf double-submit tokens (same pins as ep03). Loopback only. Synthetic users only.",
+  "scripts": {
+    "test": "node --test test.mjs",
+    "demo": "node demo.mjs"
+  },
+  "dependencies": {
+    "cookie-parser": "1.4.7",
+    "csrf-csrf": "3.1.0",
+    "express": "4.21.2"
+  }
+}

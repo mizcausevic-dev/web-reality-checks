@@ -1,0 +1,122 @@
+{
+  "n": 26,
+  "title": "One page, 101 queries",
+  "fullTitle": "Why one page makes 101 database queries",
+  "slug": "n-plus-one",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep26/narration.mp3",
+  "duration": 91.68,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 13
+    },
+    {
+      "id": "split",
+      "start": 13,
+      "end": 26.42
+    },
+    {
+      "id": "repeat",
+      "start": 26.42,
+      "end": 39.98
+    },
+    {
+      "id": "fix",
+      "start": 39.98,
+      "end": 49.69
+    },
+    {
+      "id": "equal",
+      "start": 49.69,
+      "end": 60.23
+    },
+    {
+      "id": "retest",
+      "start": 60.23,
+      "end": 75.01
+    },
+    {
+      "id": "end",
+      "start": 75.01,
+      "end": 91.68,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 8.23,
+      "text": "One HTTP request. One hundred and one SELECTs."
+    },
+    {
+      "start": 8.23,
+      "end": 13,
+      "text": "Counted by instrumentation, not guessed."
+    },
+    {
+      "start": 13,
+      "end": 19.19,
+      "text": "1 list query: all 100 articles."
+    },
+    {
+      "start": 19.19,
+      "end": 26.42,
+      "text": "Then 100 author lookups, one per article."
+    },
+    {
+      "start": 26.42,
+      "end": 30.94,
+      "text": "100 articles, 12 authors."
+    },
+    {
+      "start": 30.94,
+      "end": 39.98,
+      "text": "One author fetched 14 times; 88 lookups repeat."
+    },
+    {
+      "start": 39.98,
+      "end": 46.45,
+      "text": "Fix: one explicit JOIN, ORDER BY article id."
+    },
+    {
+      "start": 46.45,
+      "end": 49.69,
+      "text": "Same fields. No loop."
+    },
+    {
+      "start": 49.69,
+      "end": 54.96,
+      "text": "Same 100 articles, same order, same shape."
+    },
+    {
+      "start": 54.96,
+      "end": 60.23,
+      "text": "The two JSON bodies are byte-for-byte equal."
+    },
+    {
+      "start": 60.23,
+      "end": 65.91,
+      "text": "Flawed: 101 SELECTs. Corrected: 1."
+    },
+    {
+      "start": 65.91,
+      "end": 75.01,
+      "text": "Control: a hidden extra query shows as 102."
+    },
+    {
+      "start": 75.01,
+      "end": 81.53,
+      "text": "We counted queries. We did not measure speed."
+    },
+    {
+      "start": 81.53,
+      "end": 89.68,
+      "text": "The interface made one request. The backend multiplied the work."
+    }
+  ]
+}

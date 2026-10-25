@@ -1,0 +1,157 @@
+{
+  "n": 23,
+  "title": "Two tabs, one document",
+  "fullTitle": "Two Tabs. One Document. Where Did My Changes Go?",
+  "slug": "optimistic-concurrency",
+  "hero": {
+    "scene": "rewind",
+    "t": 6
+  },
+  "audio": "ep23/narration.mp3",
+  "duration": 97.69,
+  "scenes": [
+    {
+      "id": "lost",
+      "start": 0,
+      "end": 10.89
+    },
+    {
+      "id": "rewind",
+      "start": 10.89,
+      "end": 18.4
+    },
+    {
+      "id": "diverge",
+      "start": 18.4,
+      "end": 27.15
+    },
+    {
+      "id": "flawed",
+      "start": 27.15,
+      "end": 39.01
+    },
+    {
+      "id": "fix",
+      "start": 39.01,
+      "end": 53.45
+    },
+    {
+      "id": "retest",
+      "start": 53.45,
+      "end": 64.18
+    },
+    {
+      "id": "compare",
+      "start": 64.18,
+      "end": 75.98
+    },
+    {
+      "id": "limits",
+      "start": 75.98,
+      "end": 92.26
+    },
+    {
+      "id": "end",
+      "start": 92.26,
+      "end": 97.69,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.93,
+      "text": "Tab A saves a new title: 200 OK."
+    },
+    {
+      "start": 4.93,
+      "end": 10.89,
+      "text": "Tab B saves. The old title is back. No error anywhere."
+    },
+    {
+      "start": 10.89,
+      "end": 14.84,
+      "text": "Two independent clients load the same document at version 1."
+    },
+    {
+      "start": 14.84,
+      "end": 18.4,
+      "text": "Separate sessions in a local test, not real browsers."
+    },
+    {
+      "start": 18.4,
+      "end": 22.34,
+      "text": "A edits the title. B edits only the body."
+    },
+    {
+      "start": 22.34,
+      "end": 27.15,
+      "text": "B's copy still holds the old title, and saving sends everything."
+    },
+    {
+      "start": 27.15,
+      "end": 32.49,
+      "text": "The flawed update only asks: does the ID match?"
+    },
+    {
+      "start": 32.49,
+      "end": 39.01,
+      "text": "Nothing asks which version B was looking at. Last writer wins."
+    },
+    {
+      "start": 39.01,
+      "end": 42.15,
+      "text": "Send expectedVersion with the edit."
+    },
+    {
+      "start": 42.15,
+      "end": 47.8,
+      "text": "One atomic UPDATE: match id AND version, replace, increment."
+    },
+    {
+      "start": 47.8,
+      "end": 53.45,
+      "text": "Check rows changed. Never a separate read, then write."
+    },
+    {
+      "start": 53.45,
+      "end": 58.05,
+      "text": "A saves against version 1: 200, now version 2."
+    },
+    {
+      "start": 58.05,
+      "end": 64.18,
+      "text": "B sends version 1, matches no row: 409 with the current version."
+    },
+    {
+      "start": 64.18,
+      "end": 69.77,
+      "text": "B's unsaved text is kept. Both versions are shown."
+    },
+    {
+      "start": 69.77,
+      "end": 75.98,
+      "text": "A person resolves it. No automatic merge, no overwrite retry."
+    },
+    {
+      "start": 75.98,
+      "end": 83.03,
+      "text": "Only a version mismatch is a 409. A locked database is a 503."
+    },
+    {
+      "start": 83.03,
+      "end": 87.92,
+      "text": "Two racing saves, same version: exactly one is accepted."
+    },
+    {
+      "start": 87.92,
+      "end": 92.26,
+      "text": "Conflict detection, not real-time collaboration, not a CRDT."
+    },
+    {
+      "start": 92.26,
+      "end": 95.69,
+      "text": "Before saving, check what you are replacing."
+    }
+  ]
+}

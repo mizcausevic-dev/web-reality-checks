@@ -1,0 +1,137 @@
+{
+  "n": 29,
+  "title": "Who sets the price?",
+  "fullTitle": "The Browser Said $10. What Price Did the Server Trust?",
+  "slug": "server-side-price",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep29/narration.mp3",
+  "duration": 96.25,
+  "scenes": [
+    {
+      "id": "tamper",
+      "start": 0,
+      "end": 8.71
+    },
+    {
+      "id": "fail",
+      "start": 8.71,
+      "end": 19.39
+    },
+    {
+      "id": "leak",
+      "start": 19.39,
+      "end": 31.06
+    },
+    {
+      "id": "fix",
+      "start": 31.06,
+      "end": 46.04
+    },
+    {
+      "id": "retest",
+      "start": 46.04,
+      "end": 59.01
+    },
+    {
+      "id": "change",
+      "start": 59.01,
+      "end": 71.15
+    },
+    {
+      "id": "confirm",
+      "start": 71.15,
+      "end": 86.99
+    },
+    {
+      "id": "end",
+      "start": 86.99,
+      "end": 96.25,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 3.5,
+      "text": "The page still displays $10.00."
+    },
+    {
+      "start": 3.5,
+      "end": 8.71,
+      "text": "The submitted request now says unit price: 100 cents."
+    },
+    {
+      "start": 8.71,
+      "end": 15.83,
+      "text": "Flawed endpoint: 201 Created. Two mugs stored at $2.00 total."
+    },
+    {
+      "start": 15.83,
+      "end": 19.39,
+      "text": "The correct total was $20.00."
+    },
+    {
+      "start": 19.39,
+      "end": 24.3,
+      "text": "The trusted field: unitPriceCents from the request body."
+    },
+    {
+      "start": 24.3,
+      "end": 31.06,
+      "text": "A price in a request is a claim, not a fact."
+    },
+    {
+      "start": 31.06,
+      "end": 37.37,
+      "text": "The expected price is a comparison value only."
+    },
+    {
+      "start": 37.37,
+      "end": 46.04,
+      "text": "One BEGIN IMMEDIATE transaction: read catalog, insert order and line snapshot."
+    },
+    {
+      "start": 46.04,
+      "end": 51.38,
+      "text": "Altered request: 409 price_changed, current quote $10.00."
+    },
+    {
+      "start": 51.38,
+      "end": 59.01,
+      "text": "Orders created: 0. Bad quantities and unknown products are rejected."
+    },
+    {
+      "start": 59.01,
+      "end": 64.12,
+      "text": "Page loaded at $10.00. Catalog is now $12.00."
+    },
+    {
+      "start": 64.12,
+      "end": 71.15,
+      "text": "409 with the updated quote: $24.00 for two. Orders created: 0."
+    },
+    {
+      "start": 71.15,
+      "end": 77.82,
+      "text": "Explicit confirmation of 1200 cents: 201, snapshot $12.00."
+    },
+    {
+      "start": 77.82,
+      "end": 86.99,
+      "text": "Mid-transaction reprice by a second connection: blocked. Not a price lock."
+    },
+    {
+      "start": 86.99,
+      "end": 91.26,
+      "text": "The client requests the purchase. The server determines the price."
+    },
+    {
+      "start": 91.26,
+      "end": 94.25,
+      "text": "Not modelled: taxes, discounts, shipping, inventory, payment."
+    }
+  ]
+}

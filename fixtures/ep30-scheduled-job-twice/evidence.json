@@ -1,0 +1,194 @@
+{
+  "fixture": "ep30-scheduled-job-twice",
+  "logicalRun": {
+    "report_type": "daily_sales",
+    "scheduled_utc": "2026-03-02T02:00:00Z"
+  },
+  "expectedReport": {
+    "window": {
+      "from": "2026-03-01T02:00:00Z",
+      "to": "2026-03-02T02:00:00Z"
+    },
+    "row_count": 7,
+    "total_cents": 12325,
+    "by_region": {
+      "east": 2500,
+      "north": 2050,
+      "south": 4575,
+      "west": 3200
+    }
+  },
+  "config": {
+    "node": "v22.23.4",
+    "journal_mode": "wal",
+    "busy_timeout_ms_default": 5000,
+    "workers": "separate OS processes (child_process.fork), one connection each, one shared database file"
+  },
+  "flawed": {
+    "events": [
+      "B: checked, found 0",
+      "A: checked, found 0",
+      "barrier: all workers arrived, releasing",
+      "A: inserted",
+      "B: inserted"
+    ],
+    "workerPids": [
+      10541,
+      10542
+    ],
+    "parentPid": 10534,
+    "results": [
+      {
+        "worker": "A",
+        "outcome": "inserted"
+      },
+      {
+        "worker": "B",
+        "outcome": "inserted"
+      }
+    ],
+    "reportRowsForOneRun": 2,
+    "rows": [
+      {
+        "id": 1,
+        "worker": "B",
+        "status": "complete",
+        "row_count": 7,
+        "total_cents": 12325
+      },
+      {
+        "id": 2,
+        "worker": "A",
+        "status": "complete",
+        "row_count": 7,
+        "total_cents": 12325
+      }
+    ]
+  },
+  "corrected": {
+    "events": [
+      "A: checked, found 0",
+      "B: checked, found 0",
+      "barrier: all workers arrived, releasing",
+      "A: committed",
+      "B: already-committed"
+    ],
+    "results": [
+      {
+        "worker": "A",
+        "outcome": "committed"
+      },
+      {
+        "worker": "B",
+        "outcome": "already-committed",
+        "verifiedCommittedBy": "A"
+      }
+    ],
+    "reportRowsForOneRun": 1,
+    "rows": [
+      {
+        "id": 1,
+        "worker": "A",
+        "status": "complete",
+        "row_count": 7,
+        "total_cents": 12325
+      }
+    ],
+    "exitCodes": [
+      0,
+      0
+    ]
+  },
+  "preCommitFailure": {
+    "insertedInsideOpenTransaction": true,
+    "rowsVisibleToOtherConnectionWhileOpen": 0,
+    "workerExit": {
+      "code": null,
+      "signal": "SIGKILL"
+    },
+    "resultMessageFromCrashedWorker": null,
+    "rowsAfterCrash": 0,
+    "retry": [
+      {
+        "worker": "A-retry",
+        "outcome": "committed"
+      }
+    ],
+    "rowsAfterRetry": 1,
+    "rows": [
+      {
+        "id": 1,
+        "worker": "A-retry",
+        "status": "complete",
+        "row_count": 7,
+        "total_cents": 12325
+      }
+    ]
+  },
+  "exceptionBeforeCommit": {
+    "first": [
+      {
+        "worker": "B",
+        "outcome": "failed-rolled-back"
+      }
+    ],
+    "exitCode": 3,
+    "rowsAfterFailure": 0,
+    "retry": [
+      {
+        "worker": "B-retry",
+        "outcome": "committed"
+      }
+    ],
+    "rowsAfterRetry": 1
+  },
+  "lockContention": {
+    "busyTimeoutMs": 30,
+    "first": [
+      {
+        "worker": "A",
+        "outcome": "retryable-busy",
+        "errcode": 5,
+        "errstr": "database is locked",
+        "message": "database is locked"
+      }
+    ],
+    "exitCode": 75,
+    "treatedAs": "retryable database failure (not \"already completed\")",
+    "rowsAfterBusy": 0,
+    "retry": [
+      {
+        "worker": "A-retry",
+        "outcome": "committed"
+      }
+    ],
+    "rowsAfterRetry": 1
+  },
+  "otherConstraint": {
+    "results": [
+      {
+        "worker": "A",
+        "outcome": "constraint-violation",
+        "errcode": 2067,
+        "errstr": "constraint failed",
+        "message": "UNIQUE constraint failed: reports.ref"
+      }
+    ],
+    "exitCode": 4,
+    "reportRowsForRequestedRun": 0
+  },
+  "booleanGuard": {
+    "localCallsPerProcess": [
+      [
+        "inserted",
+        "skipped-by-boolean"
+      ],
+      [
+        "inserted",
+        "skipped-by-boolean"
+      ]
+    ],
+    "reportRowsForOneRun": 2
+  },
+  "guarantee": "One committed database report per logical run (report_type, scheduled_utc). Not exactly-once execution; external effects need their own coordination."
+}

@@ -1,0 +1,122 @@
+{
+  "n": 25,
+  "title": "Can you restore it?",
+  "fullTitle": "Your Backup Says 'Successful.' Can You Actually Restore It?",
+  "slug": "restore-tests",
+  "hero": {
+    "scene": "fail",
+    "t": 7
+  },
+  "audio": "ep25/narration.mp3",
+  "duration": 100.95,
+  "scenes": [
+    {
+      "id": "success",
+      "start": 0,
+      "end": 11.05
+    },
+    {
+      "id": "question",
+      "start": 11.05,
+      "end": 24.26
+    },
+    {
+      "id": "restore",
+      "start": 24.26,
+      "end": 41.5
+    },
+    {
+      "id": "checks",
+      "start": 41.5,
+      "end": 55.55
+    },
+    {
+      "id": "values",
+      "start": 55.55,
+      "end": 66.91
+    },
+    {
+      "id": "fail",
+      "start": 66.91,
+      "end": 88
+    },
+    {
+      "id": "end",
+      "start": 88,
+      "end": 100.95,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 6.35,
+      "text": "Backup reports success: a file exists, the call returned no error."
+    },
+    {
+      "start": 6.35,
+      "end": 11.05,
+      "text": "Nothing has been opened. Nothing has been read back."
+    },
+    {
+      "start": 11.05,
+      "end": 15.18,
+      "text": "Established: a file was written."
+    },
+    {
+      "start": 15.18,
+      "end": 24.26,
+      "text": "Not yet shown: it opens, the links hold, the numbers match."
+    },
+    {
+      "start": 24.26,
+      "end": 33.66,
+      "text": "Restore into a fresh path. The source is never overwritten or opened."
+    },
+    {
+      "start": 33.66,
+      "end": 41.5,
+      "text": "The copy holds the backup's data, not later source writes."
+    },
+    {
+      "start": 41.5,
+      "end": 47.65,
+      "text": "integrity_check → ok.  foreign_key_check → no rows."
+    },
+    {
+      "start": 47.65,
+      "end": 55.55,
+      "text": "Different questions. Passing one does not answer the other."
+    },
+    {
+      "start": 55.55,
+      "end": 59.97,
+      "text": "12 customers, 40 orders. Known values match."
+    },
+    {
+      "start": 59.97,
+      "end": 66.91,
+      "text": "The app's real order-total query: 12 of 12 totals as expected."
+    },
+    {
+      "start": 66.91,
+      "end": 77.45,
+      "text": "Invalid artifacts fail validation with a structured result, not a crash."
+    },
+    {
+      "start": 77.45,
+      "end": 88,
+      "text": "Same counts can still hide an orphan or a wrong value."
+    },
+    {
+      "start": 88,
+      "end": 95.04,
+      "text": "One small synthetic database. No recovery-time or recovery-point claim."
+    },
+    {
+      "start": 95.04,
+      "end": 98.95,
+      "text": "The restore is the test."
+    }
+  ]
+}

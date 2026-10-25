@@ -1,0 +1,137 @@
+{
+  "n": 22,
+  "title": "Dates moved back a day",
+  "fullTitle": "Your Deadline Moved Back a Day. Nobody Edited It.",
+  "slug": "date-only-timezones",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep22/narration.mp3",
+  "duration": 89.35,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 7.34
+    },
+    {
+      "id": "string",
+      "start": 7.34,
+      "end": 17.91
+    },
+    {
+      "id": "utc",
+      "start": 17.91,
+      "end": 27.84
+    },
+    {
+      "id": "leak",
+      "start": 27.84,
+      "end": 41.66
+    },
+    {
+      "id": "split",
+      "start": 41.66,
+      "end": 51.55
+    },
+    {
+      "id": "fix",
+      "start": 51.55,
+      "end": 63.46
+    },
+    {
+      "id": "retest",
+      "start": 63.46,
+      "end": 75.48
+    },
+    {
+      "id": "end",
+      "start": 75.48,
+      "end": 89.35,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 5.66,
+      "text": "Same deadline, two screens: Jan 15 and Jan 14."
+    },
+    {
+      "start": 5.66,
+      "end": 7.34,
+      "text": "Nobody edited it."
+    },
+    {
+      "start": 7.34,
+      "end": 10.51,
+      "text": "Stored value: \"2026-01-15\"."
+    },
+    {
+      "start": 10.51,
+      "end": 17.91,
+      "text": "A calendar date: no time, no zone."
+    },
+    {
+      "start": 17.91,
+      "end": 21.22,
+      "text": "new Date(\"2026-01-15\") → 2026-01-15T00:00:00.000Z"
+    },
+    {
+      "start": 21.22,
+      "end": 27.84,
+      "text": "Date-only form = UTC midnight. Other formats differ."
+    },
+    {
+      "start": 27.84,
+      "end": 35.28,
+      "text": "New York shows 2026-01-14. Tokyo shows 2026-01-15."
+    },
+    {
+      "start": 35.28,
+      "end": 41.66,
+      "text": "Computed by Intl.DateTimeFormat in this fixture."
+    },
+    {
+      "start": 41.66,
+      "end": 46.99,
+      "text": "Deadline: a calendar date. Meeting: an instant."
+    },
+    {
+      "start": 46.99,
+      "end": 51.55,
+      "text": "Convert instants. Do not convert dates."
+    },
+    {
+      "start": 51.55,
+      "end": 59.8,
+      "text": "Validate the date, then render it. No Date object."
+    },
+    {
+      "start": 59.8,
+      "end": 63.46,
+      "text": "Every zone shows 2026-01-15."
+    },
+    {
+      "start": 63.46,
+      "end": 68.08,
+      "text": "Meeting: 2026-01-15T15:00:00Z, shown per zone."
+    },
+    {
+      "start": 68.08,
+      "end": 75.48,
+      "text": "New York 10:00. Tokyo 00:00 on the 16th."
+    },
+    {
+      "start": 75.48,
+      "end": 82.16,
+      "text": "Named zones, not fixed offsets. DST not covered here."
+    },
+    {
+      "start": 82.16,
+      "end": 87.35,
+      "text": "A date is not always a moment."
+    }
+  ]
+}

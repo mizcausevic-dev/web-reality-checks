@@ -1,0 +1,150 @@
+{
+  "n": 27,
+  "title": "Results jump backward",
+  "fullTitle": "You Typed 'React.' Why Did Results for 'Re' Come Back?",
+  "slug": "stale-search-responses",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep27/narration.mp3",
+  "duration": 103.04,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 12.2,
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE"
+    },
+    {
+      "id": "order",
+      "start": 12.2,
+      "end": 23.78,
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE"
+    },
+    {
+      "id": "late",
+      "start": 23.78,
+      "end": 34.24,
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE"
+    },
+    {
+      "id": "guard",
+      "start": 34.24,
+      "end": 45.75,
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE"
+    },
+    {
+      "id": "retest",
+      "start": 45.75,
+      "end": 55.15,
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE"
+    },
+    {
+      "id": "discard",
+      "start": 55.15,
+      "end": 65.09,
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE"
+    },
+    {
+      "id": "failure",
+      "start": 65.09,
+      "end": 74.36,
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE"
+    },
+    {
+      "id": "paths",
+      "start": 74.36,
+      "end": 90.82,
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE"
+    },
+    {
+      "id": "end",
+      "start": 90.82,
+      "end": 103.04,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 7.85,
+      "text": "Results for react appear. Then results for 're' replace them."
+    },
+    {
+      "start": 7.85,
+      "end": 12.2,
+      "text": "Simulated controller, not recorded browser evidence."
+    },
+    {
+      "start": 12.2,
+      "end": 16.34,
+      "text": "Request order: re, then react."
+    },
+    {
+      "start": 16.34,
+      "end": 23.78,
+      "text": "Response order, released by the test: react, then re."
+    },
+    {
+      "start": 23.78,
+      "end": 29.66,
+      "text": "The late response still says query 're', request req-1."
+    },
+    {
+      "start": 29.66,
+      "end": 34.24,
+      "text": "The flawed code renders whatever arrives last."
+    },
+    {
+      "start": 34.24,
+      "end": 40.71,
+      "text": "Every search increments a generation counter and captures it."
+    },
+    {
+      "start": 40.71,
+      "end": 45.75,
+      "text": "On return: is my generation still current?"
+    },
+    {
+      "start": 45.75,
+      "end": 55.15,
+      "text": "Same release schedule, corrected controller."
+    },
+    {
+      "start": 55.15,
+      "end": 59.57,
+      "text": "Generation 1 is not generation 2: result discarded."
+    },
+    {
+      "start": 59.57,
+      "end": 65.09,
+      "text": "Its finally block is discarded too, so loading stays correct."
+    },
+    {
+      "start": 65.09,
+      "end": 69.37,
+      "text": "Guard in success, error, and finally."
+    },
+    {
+      "start": 69.37,
+      "end": 74.36,
+      "text": "An obsolete failure cannot replace current state."
+    },
+    {
+      "start": 74.36,
+      "end": 80.94,
+      "text": "Clear and dispose invalidate pending generations."
+    },
+    {
+      "start": 80.94,
+      "end": 90.82,
+      "text": "Abort is an optimisation; debouncing does not order responses."
+    },
+    {
+      "start": 90.82,
+      "end": 101.04,
+      "text": "The last response is not always the latest answer."
+    }
+  ]
+}

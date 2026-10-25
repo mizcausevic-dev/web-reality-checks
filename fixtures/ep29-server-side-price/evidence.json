@@ -1,0 +1,285 @@
+{
+  "generatedAt": "2026-10-25T18:30:31.594Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "db": "temporary SQLite file (node:sqlite), deleted after the run",
+  "currency": "USD",
+  "unit": "integer cents",
+  "maxQuantity": 100,
+  "scenarios": {
+    "flawed_tampered_price": {
+      "endpoint": "POST /vuln/orders",
+      "pageDisplays": "$10.00",
+      "catalogUnitPriceCents": 1000,
+      "submitted": {
+        "productId": "p_mug",
+        "quantity": 2,
+        "unitPriceCents": 100
+      },
+      "status": 201,
+      "response": {
+        "orderId": 1,
+        "via": "flawed",
+        "productId": "p_mug",
+        "quantity": 2,
+        "currency": "USD",
+        "unitPriceCents": 100,
+        "lineTotalCents": 200,
+        "totalCents": 200
+      },
+      "expectedTotalCents": 2000,
+      "storedTotalCents": 200,
+      "underpricedByCents": 1800,
+      "orderCount": 1,
+      "orderLineCount": 1,
+      "orders": [
+        {
+          "orderId": 1,
+          "via": "flawed",
+          "totalCents": 200,
+          "productId": "p_mug",
+          "quantity": 2,
+          "unitPriceCents": 100,
+          "lineTotalCents": 200
+        }
+      ]
+    },
+    "corrected_tampered_price": {
+      "endpoint": "POST /orders",
+      "submitted": {
+        "productId": "p_mug",
+        "quantity": 2,
+        "expectedUnitPriceCents": 100
+      },
+      "status": 409,
+      "response": {
+        "error": "price_changed",
+        "message": "The price you were shown is not the current price. No order was created.",
+        "quote": {
+          "productId": "p_mug",
+          "quantity": 2,
+          "currency": "USD",
+          "expectedUnitPriceCents": 100,
+          "currentUnitPriceCents": 1000,
+          "currentDisplay": "$10.00",
+          "totalCents": 2000,
+          "totalDisplay": "$20.00"
+        },
+        "requiresConfirmation": true,
+        "confirmWith": {
+          "confirmPriceCents": 1000
+        }
+      },
+      "orderCount": 0,
+      "orderLineCount": 0,
+      "orders": []
+    },
+    "corrected_honest_request": {
+      "endpoint": "POST /orders",
+      "submitted": {
+        "productId": "p_mug",
+        "quantity": 2,
+        "expectedUnitPriceCents": 1000
+      },
+      "status": 201,
+      "response": {
+        "orderId": 2,
+        "via": "corrected",
+        "productId": "p_mug",
+        "quantity": 2,
+        "currency": "USD",
+        "unitPriceCents": 1000,
+        "lineTotalCents": 2000,
+        "totalCents": 2000
+      },
+      "orderCount": 1,
+      "orderLineCount": 1,
+      "orders": [
+        {
+          "orderId": 2,
+          "via": "corrected",
+          "totalCents": 2000,
+          "productId": "p_mug",
+          "quantity": 2,
+          "unitPriceCents": 1000,
+          "lineTotalCents": 2000
+        }
+      ]
+    },
+    "corrected_price_changed_then_confirmed": {
+      "pageLoadedAt": "$10.00",
+      "catalogChangedTo": 1200,
+      "step1": {
+        "submitted": {
+          "productId": "p_mug",
+          "quantity": 2,
+          "expectedUnitPriceCents": 1000
+        },
+        "status": 409,
+        "response": {
+          "error": "price_changed",
+          "message": "The price you were shown is not the current price. No order was created.",
+          "quote": {
+            "productId": "p_mug",
+            "quantity": 2,
+            "currency": "USD",
+            "expectedUnitPriceCents": 1000,
+            "currentUnitPriceCents": 1200,
+            "currentDisplay": "$12.00",
+            "totalCents": 2400,
+            "totalDisplay": "$24.00"
+          },
+          "requiresConfirmation": true,
+          "confirmWith": {
+            "confirmPriceCents": 1200
+          }
+        },
+        "orderCount": 0
+      },
+      "step2_retry_without_confirmation": {
+        "status": 409,
+        "error": "price_changed"
+      },
+      "step3_confirmed": {
+        "submitted": {
+          "productId": "p_mug",
+          "quantity": 2,
+          "expectedUnitPriceCents": 1000,
+          "confirmPriceCents": 1200
+        },
+        "status": 201,
+        "response": {
+          "orderId": 3,
+          "via": "corrected",
+          "productId": "p_mug",
+          "quantity": 2,
+          "currency": "USD",
+          "unitPriceCents": 1200,
+          "lineTotalCents": 2400,
+          "totalCents": 2400
+        }
+      },
+      "orderCount": 1,
+      "orderLineCount": 1,
+      "orders": [
+        {
+          "orderId": 3,
+          "via": "corrected",
+          "totalCents": 2400,
+          "productId": "p_mug",
+          "quantity": 2,
+          "unitPriceCents": 1200,
+          "lineTotalCents": 2400
+        }
+      ]
+    },
+    "transaction_with_begin_immediate": {
+      "note": "second connection (worker thread, busy timeout 0) tries to reprice p_mug after the catalog read, inside the order transaction",
+      "secondConnectionDuringTransaction": "busy",
+      "catalogPriceAfterBlockedAttempt": 1000,
+      "orderStatus": 201,
+      "snapshotUnitPriceCents": 1000,
+      "secondConnectionAfterCommit": "ok",
+      "catalogPriceNow": 1200,
+      "orderCount": 1,
+      "orderLineCount": 1,
+      "orders": [
+        {
+          "orderId": 4,
+          "via": "corrected",
+          "totalCents": 2000,
+          "productId": "p_mug",
+          "quantity": 2,
+          "unitPriceCents": 1000,
+          "lineTotalCents": 2000
+        }
+      ]
+    },
+    "control_no_transaction": {
+      "note": "catalog read and insert are separate statements; the same second connection reprices in the gap",
+      "secondConnectionDuringGap": "ok",
+      "snapshotUnitPriceCents": 1000,
+      "catalogPriceAtInsertTime": 1200,
+      "orderCount": 1,
+      "orderLineCount": 1,
+      "orders": [
+        {
+          "orderId": 5,
+          "via": "no_transaction_control",
+          "totalCents": 2000,
+          "productId": "p_mug",
+          "quantity": 2,
+          "unitPriceCents": 1000,
+          "lineTotalCents": 2000
+        }
+      ]
+    },
+    "rejected_inputs": {
+      "results": [
+        {
+          "case": "quantity 0",
+          "status": 400,
+          "error": "invalid_request"
+        },
+        {
+          "case": "quantity -1",
+          "status": 400,
+          "error": "invalid_request"
+        },
+        {
+          "case": "quantity 1.5",
+          "status": 400,
+          "error": "invalid_request"
+        },
+        {
+          "case": "quantity \"2\" (string)",
+          "status": 400,
+          "error": "invalid_request"
+        },
+        {
+          "case": "quantity 101 (max 100)",
+          "status": 400,
+          "error": "invalid_request"
+        },
+        {
+          "case": "expected price \"1000\" (string)",
+          "status": 400,
+          "error": "invalid_request"
+        },
+        {
+          "case": "unknown product",
+          "status": 404,
+          "error": "unknown_product"
+        },
+        {
+          "case": "unavailable product",
+          "status": 409,
+          "error": "product_unavailable"
+        }
+      ],
+      "orderCount": 0,
+      "orderLineCount": 0,
+      "orders": []
+    }
+  },
+  "summary": {
+    "page_displays": "$10.00",
+    "flawed_status": 201,
+    "flawed_stored_total_cents": 200,
+    "flawed_correct_total_cents": 2000,
+    "corrected_tamper_status": 409,
+    "corrected_tamper_orders": 0,
+    "honest_status": 201,
+    "honest_snapshot_cents": 1000,
+    "changed_price_status": 409,
+    "changed_price_quote_cents": 1200,
+    "changed_price_total_cents": 2400,
+    "orders_after_unconfirmed": 0,
+    "confirmed_status": 201,
+    "confirmed_snapshot_cents": 1200,
+    "txn_second_connection": "busy",
+    "txn_snapshot_cents": 1000,
+    "control_second_connection": "ok",
+    "control_snapshot_cents": 1000,
+    "control_catalog_at_insert_cents": 1200
+  }
+}

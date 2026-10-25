@@ -1,0 +1,324 @@
+{
+  "generatedAt": "2026-10-25T18:30:52.146Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "note": "Synthetic contacts. The browser is a plain object (SIMULATED CLIENT STATE), not a real browser. Backups, logs, exports and third-party copies are out of scope.",
+  "targetContact": "c_1003",
+  "scenarios": {
+    "flawed": {
+      "before": {
+        "primaryGet": 200,
+        "primary": true,
+        "searchIndex": true,
+        "cachedQueriesContainingIt": [],
+        "cacheEntries": []
+      },
+      "browserFetch": {
+        "ids": [
+          "c_1003",
+          "c_1004"
+        ],
+        "fetches": 1,
+        "xCache": "miss"
+      },
+      "search_harbourline_before_delete": {
+        "query": "harbourline",
+        "status": 200,
+        "xCache": "hit",
+        "ids": [
+          "c_1003",
+          "c_1004"
+        ]
+      },
+      "deleteVuln": 204,
+      "afterDelete": {
+        "primaryGet": 404,
+        "primary": false,
+        "searchIndex": true,
+        "cachedQueriesContainingIt": [
+          "harbourline"
+        ],
+        "cacheEntries": [
+          "harbourline"
+        ],
+        "outboxEvents": 0
+      },
+      "search_harbourline_cached": {
+        "query": "harbourline",
+        "status": 200,
+        "xCache": "hit",
+        "ids": [
+          "c_1003",
+          "c_1004"
+        ]
+      },
+      "search_dana_uncached": {
+        "query": "dana",
+        "status": 200,
+        "xCache": "miss",
+        "ids": [
+          "c_1003"
+        ]
+      },
+      "browserDisplayed": [
+        "c_1003",
+        "c_1004"
+      ]
+    },
+    "corrected": {
+      "browserFetch": {
+        "ids": [
+          "c_1003",
+          "c_1004"
+        ],
+        "fetches": 1,
+        "xCache": "miss"
+      },
+      "browserFetchDana": {
+        "ids": [
+          "c_1003"
+        ],
+        "fetches": 1,
+        "xCache": "miss"
+      },
+      "search_harbourline": {
+        "query": "harbourline",
+        "status": 200,
+        "xCache": "hit",
+        "ids": [
+          "c_1003",
+          "c_1004"
+        ]
+      },
+      "search_dana": {
+        "query": "dana",
+        "status": 200,
+        "xCache": "hit",
+        "ids": [
+          "c_1003"
+        ]
+      },
+      "cacheEntriesBefore": [
+        "harbourline",
+        "dana"
+      ],
+      "delete": {
+        "status": 202,
+        "body": {
+          "contactId": "c_1003",
+          "eventId": 1,
+          "cleanup": "pending"
+        }
+      },
+      "afterDeleteBeforeWorker": {
+        "primaryGet": 404,
+        "primary": false,
+        "searchIndex": true,
+        "cachedQueriesContainingIt": [
+          "harbourline",
+          "dana"
+        ],
+        "cacheEntries": [
+          "harbourline",
+          "dana"
+        ],
+        "outbox": [
+          {
+            "eventId": 1,
+            "type": "contact.deleted",
+            "contactId": "c_1003",
+            "status": "pending",
+            "attempts": 0,
+            "stepsDone": [],
+            "lastError": null
+          }
+        ]
+      },
+      "attempt1": {
+        "eventId": 1,
+        "type": "contact.deleted",
+        "contactId": "c_1003",
+        "status": "pending",
+        "attempts": 1,
+        "stepsDone": [
+          "search_index"
+        ],
+        "lastError": "injected failure: cache"
+      },
+      "afterAttempt1": {
+        "primary": false,
+        "searchIndex": false,
+        "cachedQueriesContainingIt": [
+          "harbourline",
+          "dana"
+        ],
+        "cacheEntries": [
+          "harbourline",
+          "dana"
+        ]
+      },
+      "search_harbourline_during_failure": {
+        "query": "harbourline",
+        "status": 200,
+        "xCache": "hit",
+        "ids": [
+          "c_1003",
+          "c_1004"
+        ]
+      },
+      "search_ravi_during_failure": {
+        "query": "ravi",
+        "status": 200,
+        "xCache": "miss",
+        "ids": [
+          "c_1004"
+        ]
+      },
+      "browserRefreshDuringFailure": {
+        "ids": [
+          "c_1003",
+          "c_1004"
+        ],
+        "fetches": 2,
+        "xCache": "hit"
+      },
+      "attempt2": {
+        "eventId": 1,
+        "type": "contact.deleted",
+        "contactId": "c_1003",
+        "status": "processed",
+        "attempts": 2,
+        "stepsDone": [
+          "search_index",
+          "cache"
+        ],
+        "lastError": null
+      },
+      "afterAttempt2": {
+        "primary": false,
+        "searchIndex": false,
+        "cachedQueriesContainingIt": [],
+        "cacheEntries": []
+      },
+      "verifyBackend": {
+        "primary": false,
+        "searchIndex": false,
+        "cachedQueriesContainingIt": []
+      },
+      "browserStillDisplays_beforeRefresh": {
+        "harbourline": [
+          "c_1003",
+          "c_1004"
+        ],
+        "dana": [
+          "c_1003"
+        ]
+      },
+      "browserRefreshed": {
+        "harbourline": [
+          "c_1004"
+        ],
+        "dana": []
+      },
+      "replay": {
+        "replays": 2,
+        "stateUnchanged": true,
+        "newContactId": "c_1006",
+        "newContactIdDiffersFromDeleted": true,
+        "newContactStillIndexed": true,
+        "finalOutbox": [
+          {
+            "eventId": 1,
+            "type": "contact.deleted",
+            "contactId": "c_1003",
+            "status": "processed",
+            "attempts": 2,
+            "stepsDone": [
+              "search_index",
+              "cache"
+            ],
+            "lastError": null
+          }
+        ]
+      }
+    },
+    "retriesExhausted": {
+      "maxAttempts": 3,
+      "attempts": [
+        {
+          "eventId": 1,
+          "type": "contact.deleted",
+          "contactId": "c_1003",
+          "status": "pending",
+          "attempts": 1,
+          "stepsDone": [
+            "search_index"
+          ],
+          "lastError": "injected failure: cache"
+        },
+        {
+          "eventId": 1,
+          "type": "contact.deleted",
+          "contactId": "c_1003",
+          "status": "pending",
+          "attempts": 2,
+          "stepsDone": [
+            "search_index"
+          ],
+          "lastError": "injected failure: cache"
+        },
+        {
+          "eventId": 1,
+          "type": "contact.deleted",
+          "contactId": "c_1003",
+          "status": "failed",
+          "attempts": 3,
+          "stepsDone": [
+            "search_index"
+          ],
+          "lastError": "injected failure: cache"
+        }
+      ],
+      "finalEvent": {
+        "eventId": 1,
+        "type": "contact.deleted",
+        "contactId": "c_1003",
+        "status": "failed",
+        "attempts": 3,
+        "stepsDone": [
+          "search_index"
+        ],
+        "lastError": "injected failure: cache"
+      },
+      "alerts": [
+        {
+          "kind": "cleanup_failed",
+          "eventId": 1,
+          "contactId": "c_1003",
+          "attempts": 3,
+          "step": "cache",
+          "error": "injected failure: cache"
+        }
+      ],
+      "stillStale": {
+        "primary": false,
+        "searchIndex": false,
+        "cachedQueriesContainingIt": [
+          "harbourline"
+        ],
+        "cacheEntries": [
+          "harbourline"
+        ],
+        "search_harbourline": {
+          "query": "harbourline",
+          "status": 200,
+          "xCache": "hit",
+          "ids": [
+            "c_1003",
+            "c_1004"
+          ]
+        }
+      },
+      "workerPassAfterFailed": []
+    }
+  }
+}

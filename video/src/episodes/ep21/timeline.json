@@ -1,0 +1,150 @@
+{
+  "n": 21,
+  "title": "Deleted, still showing",
+  "fullTitle": "I Deleted the Record. Why Is It Still Showing Up?",
+  "slug": "deletion-copies",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep21/narration.mp3",
+  "duration": 105.03,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 12.33,
+      "sim": "SIMULATED CLIENT STATE"
+    },
+    {
+      "id": "copies",
+      "start": 12.33,
+      "end": 20.28,
+      "sim": "SIMULATED CLIENT STATE"
+    },
+    {
+      "id": "flawed_stale",
+      "start": 20.28,
+      "end": 30.26,
+      "sim": "SIMULATED CLIENT STATE"
+    },
+    {
+      "id": "fix_outbox",
+      "start": 30.26,
+      "end": 47.32
+    },
+    {
+      "id": "partial_fail",
+      "start": 47.32,
+      "end": 57.11
+    },
+    {
+      "id": "retry",
+      "start": 57.11,
+      "end": 73.42
+    },
+    {
+      "id": "verify",
+      "start": 73.42,
+      "end": 79
+    },
+    {
+      "id": "refresh",
+      "start": 79,
+      "end": 88.8
+    },
+    {
+      "id": "end",
+      "start": 88.8,
+      "end": 105.03,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 6.07,
+      "text": "Record lookup: 404. Search: still returns c_1003."
+    },
+    {
+      "start": 6.07,
+      "end": 12.33,
+      "text": "The open results page still shows her too."
+    },
+    {
+      "start": 12.33,
+      "end": 15.39,
+      "text": "One ID, c_1003, four homes."
+    },
+    {
+      "start": 15.39,
+      "end": 20.28,
+      "text": "Primary table, search index, response cache, open browser."
+    },
+    {
+      "start": 20.28,
+      "end": 25.6,
+      "text": "Flawed delete: primary row only. Outbox events: 0."
+    },
+    {
+      "start": 25.6,
+      "end": 30.26,
+      "text": "Index and cached response still return c_1003."
+    },
+    {
+      "start": 30.26,
+      "end": 38.79,
+      "text": "One transaction: delete the row and insert the outbox event."
+    },
+    {
+      "start": 38.79,
+      "end": 47.32,
+      "text": "The outbox records intent. It is not atomic across destinations."
+    },
+    {
+      "start": 47.32,
+      "end": 51.89,
+      "text": "Index entry removed. Cache invalidation fails once."
+    },
+    {
+      "start": 51.89,
+      "end": 57.11,
+      "text": "Event stays pending. The cache still serves c_1003."
+    },
+    {
+      "start": 57.11,
+      "end": 64.79,
+      "text": "Attempt two succeeds. Processed only after both steps."
+    },
+    {
+      "start": 64.79,
+      "end": 73.42,
+      "text": "Replay is safe. Exhausted retries: failed state and alert."
+    },
+    {
+      "start": 73.42,
+      "end": 79,
+      "text": "Backend verified: primary, index and cache are clean."
+    },
+    {
+      "start": 79,
+      "end": 85.74,
+      "text": "The open page keeps its old results until it fetches again."
+    },
+    {
+      "start": 85.74,
+      "end": 88.8,
+      "text": "After refresh: only c_1004 remains."
+    },
+    {
+      "start": 88.8,
+      "end": 95.6,
+      "text": "Deletion is a workflow when data has more than one home."
+    },
+    {
+      "start": 95.6,
+      "end": 103.03,
+      "text": "Not a privacy-erasure system. Backups, logs, exports, third parties: out of scope."
+    }
+  ]
+}

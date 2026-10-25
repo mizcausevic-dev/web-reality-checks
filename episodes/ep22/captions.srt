@@ -1,0 +1,63 @@
+1
+00:00:00,600 --> 00:00:05,660
+Same deadline, two screens: Jan 15 and Jan 14.
+
+2
+00:00:05,660 --> 00:00:07,340
+Nobody edited it.
+
+3
+00:00:07,340 --> 00:00:10,510
+Stored value: "2026-01-15".
+
+4
+00:00:10,510 --> 00:00:17,910
+A calendar date: no time, no zone.
+
+5
+00:00:17,910 --> 00:00:21,220
+new Date("2026-01-15") → 2026-01-15T00:00:00.000Z
+
+6
+00:00:21,220 --> 00:00:27,840
+Date-only form = UTC midnight. Other formats differ.
+
+7
+00:00:27,840 --> 00:00:35,280
+New York shows 2026-01-14. Tokyo shows 2026-01-15.
+
+8
+00:00:35,280 --> 00:00:41,660
+Computed by Intl.DateTimeFormat in this fixture.
+
+9
+00:00:41,660 --> 00:00:46,990
+Deadline: a calendar date. Meeting: an instant.
+
+10
+00:00:46,990 --> 00:00:51,550
+Convert instants. Do not convert dates.
+
+11
+00:00:51,550 --> 00:00:59,800
+Validate the date, then render it. No Date object.
+
+12
+00:00:59,800 --> 00:01:03,460
+Every zone shows 2026-01-15.
+
+13
+00:01:03,460 --> 00:01:08,080
+Meeting: 2026-01-15T15:00:00Z, shown per zone.
+
+14
+00:01:08,080 --> 00:01:15,480
+New York 10:00. Tokyo 00:00 on the 16th.
+
+15
+00:01:15,480 --> 00:01:22,160
+Named zones, not fixed offsets. DST not covered here.
+
+16
+00:01:22,160 --> 00:01:27,350
+A date is not always a moment.

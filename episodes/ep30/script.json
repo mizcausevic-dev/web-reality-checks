@@ -1,0 +1,73 @@
+{
+  "n": 30,
+  "slug": "scheduled-job-twice",
+  "title": "The job that ran twice",
+  "fullTitle": "Your Scheduled Job Ran Twice. Was the Scheduler Wrong?",
+  "scenes": [
+    {
+      "id": "fail",
+      "narration": "One scheduled instant. Two reports in the database. Two invocations reached one logical job, and the application committed both. Coordination was the application's job.",
+      "captions": [
+        "One scheduled instant. Two reports in the database.",
+        "The application committed both."
+      ]
+    },
+    {
+      "id": "race",
+      "narration": "Two real worker processes, each with its own connection to one shared database. Each checks whether the report exists. Both see nothing. A test barrier releases them together, and each inserts and commits.",
+      "captions": [
+        "Two processes, two connections, one database.",
+        "Both checks say absent. The barrier releases both. Both commit."
+      ]
+    },
+    {
+      "id": "key",
+      "narration": "The repair: a unique key on report type and scheduled UTC instant, inside an immediate write transaction. Zero changes means the run exists, so verify it. Busy means retry later. Another constraint is a real error. Neither means already completed.",
+      "captions": [
+        "Unique key on report type + scheduled UTC instant.",
+        "Zero changes: verify. Busy: retry. Other constraint: error."
+      ]
+    },
+    {
+      "id": "rerun",
+      "narration": "Run both workers again, with the same stale check and the same barrier. Both reach for the write lock at once. Only one connection can hold it.",
+      "captions": [
+        "Same stale check, same barrier, same release.",
+        "Only one connection can hold the write lock."
+      ]
+    },
+    {
+      "id": "one",
+      "narration": "The first worker computes the small report from the source rows, stores the complete result, and commits. The second inserts nothing, finds the committed report, verifies it, and exits. One row.",
+      "captions": [
+        "One worker commits the complete report.",
+        "The other detects it and exits. One row."
+      ]
+    },
+    {
+      "id": "crash",
+      "narration": "Now fail a worker after its insert but before the commit. The row exists only inside that open transaction. Another connection sees nothing. Then the process is killed.",
+      "captions": [
+        "Controlled fault: killed after insert, before commit.",
+        "Another connection sees zero rows."
+      ]
+    },
+    {
+      "id": "retry",
+      "narration": "Rollback leaves no row, and no incomplete placeholder was ever committed. A retry commits exactly one report. A lock that stays busy is a retryable failure with zero rows, not proof that anyone finished.",
+      "captions": [
+        "Rollback: zero rows. Retry: exactly one report.",
+        "Busy is retryable, not completed."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "The guarantee: one committed database report per logical run, not exactly once execution. Outside effects need their own coordination. A boolean in memory cannot coordinate processes. Scheduling starts work. Coordination decides what commits.",
+      "captions": [
+        "One committed report per logical run. Not exactly-once.",
+        "Scheduling starts work. Coordination decides what commits."
+      ]
+    }
+  ]
+}

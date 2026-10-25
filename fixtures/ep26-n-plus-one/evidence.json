@@ -1,0 +1,230 @@
+{
+  "fixture": "ep26-n-plus-one",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "scopeLabel": "article-list",
+  "countingPolicy": {
+    "counted": "SELECT statements executed through the wrapper (prepare().all/get) while the article-list scope is active",
+    "excludedFromCount": [
+      "setup: schema + seed run on the raw connection, never logged",
+      "authentication: the session lookup is logged but runs outside the scope",
+      "transaction control: BEGIN / COMMIT run via wrapper.exec inside the scope and are logged as excluded",
+      "instrumentation: the wrapper issues no SQL of its own"
+    ],
+    "nonSelectInScope": "reported separately as otherScoped; must be 0 for the \"101 SELECTs\" claim"
+  },
+  "seed": {
+    "articles": 100,
+    "authors": 12,
+    "nullAuthorIds": 0,
+    "foreignKeys": "PRAGMA foreign_keys = ON; foreign_key_check returned no rows"
+  },
+  "flawed": {
+    "endpoint": "GET /vuln/articles",
+    "status": 200,
+    "selectCount": 101,
+    "headerXDbSelects": "101",
+    "otherScoped": 0,
+    "statementsLoggedInScope": 103,
+    "excludedInScope": [
+      "BEGIN",
+      "COMMIT"
+    ],
+    "listQueries": 1,
+    "authorLookups": 100,
+    "distinctAuthorsLookedUp": 12,
+    "lookupsThatRepeatedAnEarlierAuthor": 88,
+    "mostRepeatedAuthor": {
+      "id": 1,
+      "handle": "apetrov",
+      "name": "Ana Petrov",
+      "lookups": 14,
+      "articleIds": [
+        1,
+        13,
+        24,
+        29,
+        32,
+        36,
+        37,
+        38,
+        39,
+        42,
+        48,
+        59,
+        61,
+        97
+      ]
+    },
+    "lookupsPerAuthor": {
+      "apetrov": 14,
+      "clindqvist": 12,
+      "evarga": 12,
+      "fabara": 9,
+      "ghollis": 9,
+      "hruiz": 9,
+      "bokafor": 8,
+      "dmarlowe": 8,
+      "ichen": 7,
+      "lbrandt": 6,
+      "jsantos": 3,
+      "knovak": 3
+    },
+    "scopedSqlLog": {
+      "note": "first 5 and last 1 of the counted SELECTs, copied from the instrumentation log",
+      "first5": [
+        {
+          "seq": 4,
+          "sql": "SELECT id, title, published_on, author_id FROM articles ORDER BY id",
+          "params": [],
+          "rows": 100,
+          "counted": true
+        },
+        {
+          "seq": 5,
+          "sql": "SELECT id, name, handle FROM authors WHERE id = ?",
+          "params": [
+            1
+          ],
+          "rows": 1,
+          "counted": true
+        },
+        {
+          "seq": 6,
+          "sql": "SELECT id, name, handle FROM authors WHERE id = ?",
+          "params": [
+            4
+          ],
+          "rows": 1,
+          "counted": true
+        },
+        {
+          "seq": 7,
+          "sql": "SELECT id, name, handle FROM authors WHERE id = ?",
+          "params": [
+            5
+          ],
+          "rows": 1,
+          "counted": true
+        },
+        {
+          "seq": 8,
+          "sql": "SELECT id, name, handle FROM authors WHERE id = ?",
+          "params": [
+            6
+          ],
+          "rows": 1,
+          "counted": true
+        }
+      ],
+      "last1": [
+        {
+          "seq": 104,
+          "sql": "SELECT id, name, handle FROM authors WHERE id = ?",
+          "params": [
+            12
+          ],
+          "rows": 1,
+          "counted": true
+        }
+      ],
+      "total": 101
+    },
+    "bodyBytes": 13544,
+    "bodySha256": "612b997f80170466e5fe7e98ace52f96c5441f39e994179709a76e0607f3b577"
+  },
+  "corrected": {
+    "endpoint": "GET /articles",
+    "status": 200,
+    "selectCount": 1,
+    "headerXDbSelects": "1",
+    "otherScoped": 0,
+    "statementsLoggedInScope": 3,
+    "excludedInScope": [
+      "BEGIN",
+      "COMMIT"
+    ],
+    "scopedSqlLog": {
+      "note": "the complete counted log",
+      "statements": [
+        {
+          "seq": 108,
+          "sql": "SELECT a.id AS article_id, a.title AS title, a.published_on AS published_on, u.id AS author_id, u.name AS author_name, u.handle AS author_handle FROM articles a JOIN authors u ON u.id = a.author_id ORDER BY a.id",
+          "params": [],
+          "rows": 100,
+          "counted": true
+        }
+      ]
+    },
+    "bodyBytes": 13544,
+    "bodySha256": "612b997f80170466e5fe7e98ace52f96c5441f39e994179709a76e0607f3b577"
+  },
+  "equivalence": {
+    "byteEqual": true,
+    "sha256Equal": true,
+    "articleCount": 100,
+    "orderedById": true,
+    "keys": [
+      "id",
+      "title",
+      "published_on",
+      "author"
+    ],
+    "authorKeys": [
+      "id",
+      "name",
+      "handle"
+    ],
+    "sampleArticles": [
+      {
+        "id": 1,
+        "title": "Routing: a worked example (1)",
+        "published_on": "2026-01-01",
+        "author": {
+          "id": 1,
+          "name": "Ana Petrov",
+          "handle": "apetrov"
+        }
+      },
+      {
+        "id": 2,
+        "title": "Search: a worked example (2)",
+        "published_on": "2026-01-02",
+        "author": {
+          "id": 4,
+          "name": "Dev Marlowe",
+          "handle": "dmarlowe"
+        }
+      },
+      {
+        "id": 3,
+        "title": "Indexes: a field guide (3)",
+        "published_on": "2026-01-03",
+        "author": {
+          "id": 5,
+          "name": "Esi Varga",
+          "handle": "evarga"
+        }
+      }
+    ]
+  },
+  "excludedStatementsObserved": {
+    "note": "statements the wrapper saw outside the article-list scope across the whole demo run (login INSERT + one session SELECT per request)",
+    "outsideScopeTotal": 3,
+    "byKind": {
+      "INSERT": 1,
+      "SELECT": 2
+    }
+  },
+  "knownPositiveControl": {
+    "note": "endpoint doctored to run ONE hidden extra SELECT; the counter must notice",
+    "flawedWithHiddenQuery": 102,
+    "correctedWithHiddenQuery": 2,
+    "detected": true
+  },
+  "notClaimed": [
+    "No latency, throughput or timing result is measured or claimed.",
+    "Fewer queries do not universally mean better performance.",
+    "No index, pagination or caching change is part of the fix.",
+    "This is one N+1 shape (a per-row lookup in a loop), not every form of it."
+  ]
+}

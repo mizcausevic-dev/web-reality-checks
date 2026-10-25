@@ -1,0 +1,14 @@
+{
+  "n": 22, "slug": "date-only-timezones", "title": "Dates moved back a day",
+  "fullTitle": "Your Deadline Moved Back a Day. Nobody Edited It.",
+  "scenes": [
+    {"id": "fail", "narration": "Same task, same deadline, two screens. One says January fifteenth. The other says January fourteenth. Nobody edited anything.", "captions": ["Same deadline, two screens: Jan 15 and Jan 14.", "Nobody edited it."]},
+    {"id": "string", "narration": "The stored value is a plain string: two thousand twenty-six, oh one, fifteen. A calendar date, with no time of day and no time zone.", "captions": ["Stored value: \"2026-01-15\".", "A calendar date: no time, no zone."]},
+    {"id": "utc", "narration": "Then the code calls new Date on that string. JavaScript reads this date-only form as midnight UTC, so a date quietly becomes a moment. Other string formats are read differently.", "captions": ["new Date(\"2026-01-15\") → 2026-01-15T00:00:00.000Z", "Date-only form = UTC midnight. Other formats differ."]},
+    {"id": "leak", "narration": "Now format that moment in New York. Midnight UTC is seven in the evening on January fourteenth. In Tokyo it is nine in the morning on the fifteenth, so only some viewers see the bug.", "captions": ["New York shows 2026-01-14. Tokyo shows 2026-01-15.", "Computed by Intl.DateTimeFormat in this fixture."]},
+    {"id": "split", "narration": "These are two kinds of value. A deadline is a calendar date. A meeting is an instant. Convert instants between zones. Leave dates alone.", "captions": ["Deadline: a calendar date. Meeting: an instant.", "Convert instants. Do not convert dates."]},
+    {"id": "fix", "narration": "The repair: validate it as a real calendar date, so February thirtieth is rejected, then render year, month and day directly. No conversion. Adding twelve hours is not a fix.", "captions": ["Validate the date, then render it. No Date object.", "Every zone shows 2026-01-15."]},
+    {"id": "retest", "narration": "The meeting really is an instant: fifteen hundred UTC. Show it in named zones and the clock changes correctly: ten in the morning in New York, and midnight, already January sixteenth, in Tokyo.", "captions": ["Meeting: 2026-01-15T15:00:00Z, shown per zone.", "New York 10:00. Tokyo 00:00 on the 16th."]},
+    {"id": "end", "sim": null, "narration": "Use named zones, not fixed offsets. Future recurring local schedules need zone rules, and daylight saving was kept out of this demo. A date is not always a moment.", "captions": ["Named zones, not fixed offsets. DST not covered here.", "A date is not always a moment."]}
+  ]
+}

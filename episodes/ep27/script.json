@@ -1,0 +1,91 @@
+{
+  "n": 27,
+  "slug": "stale-search-responses",
+  "title": "Results jump backward",
+  "fullTitle": "You Typed 'React.' Why Did Results for 'Re' Come Back?",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "scenes": [
+    {
+      "id": "fail",
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE",
+      "narration": "You typed react. Results for react appear. Then results for R E arrive and replace them, while the box still says react. This is a simulated controller, not a browser recording.",
+      "captions": [
+        "Results for react appear. Then results for 're' replace them.",
+        "Simulated controller, not recorded browser evidence."
+      ]
+    },
+    {
+      "id": "order",
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE",
+      "narration": "Request one, for R E, leaves first. Request two, for react, leaves second. The test releases the react response first. Request order is not response order.",
+      "captions": [
+        "Request order: re, then react.",
+        "Response order, released by the test: react, then re."
+      ]
+    },
+    {
+      "id": "late",
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE",
+      "narration": "Now the earlier request answers. Its response carries its own query and its own request ID. The flawed code never looks. It renders whatever arrives last.",
+      "captions": [
+        "The late response still says query 're', request req-1.",
+        "The flawed code renders whatever arrives last."
+      ]
+    },
+    {
+      "id": "guard",
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE",
+      "narration": "The fix is a generation counter. Every search increments it and captures the value. When an answer returns, ask: is my generation still current? If not, it belongs to the past.",
+      "captions": [
+        "Every search increments a generation counter and captures it.",
+        "On return: is my generation still current?"
+      ]
+    },
+    {
+      "id": "retest",
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE",
+      "narration": "Replay the exact same release schedule. Request two answers first. It is current, so react results are shown. Then request one answers.",
+      "captions": [
+        "Same release schedule, corrected controller."
+      ]
+    },
+    {
+      "id": "discard",
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE",
+      "narration": "Its generation is one. The current generation is two. The result is discarded, and so is its finally block, so the wrong request cannot clear the loading state.",
+      "captions": [
+        "Generation 1 is not generation 2: result discarded.",
+        "Its finally block is discarded too, so loading stays correct."
+      ]
+    },
+    {
+      "id": "failure",
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE",
+      "narration": "Failures need the same guard. Success, error, and finally all check the generation. An old failure cannot put an error over current results.",
+      "captions": [
+        "Guard in success, error, and finally.",
+        "An obsolete failure cannot replace current state."
+      ]
+    },
+    {
+      "id": "paths",
+      "sim": "SIMULATED CONTROLLER · NOT BROWSER EVIDENCE",
+      "narration": "Clearing the query or disposing the component also bumps the counter, so pending answers are ignored. Aborting superseded requests is an optimisation; an abort does not prove the server stopped, and correctness holds without it. Debouncing alone does not order responses.",
+      "captions": [
+        "Clear and dispose invalidate pending generations.",
+        "Abort is an optimisation; debouncing does not order responses."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "This is local interface control, not distributed ordering, and server request IDs need not be ordered. The last response is not always the latest answer.",
+      "captions": [
+        "The last response is not always the latest answer."
+      ]
+    }
+  ]
+}

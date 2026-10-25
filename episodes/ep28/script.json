@@ -1,0 +1,72 @@
+{
+  "n": 28,
+  "slug": "hidden-admin-button",
+  "title": "Hidden is not denied",
+  "fullTitle": "I Hid the Admin Button. The Admin Action Still Worked.",
+  "scenes": [
+    {
+      "id": "fail",
+      "narration": "The member's page has no publish button. The interface hides it. Yet a member's request just published an announcement. Hidden is not denied.",
+      "captions": [
+        "The member's page has no publish button.",
+        "Yet the member's request published an announcement."
+      ]
+    },
+    {
+      "id": "setup",
+      "narration": "Controlled test. A valid member session, a valid CSRF token, and the exact request the hidden button would have sent.",
+      "captions": [
+        "Controlled test: valid member session, valid CSRF token.",
+        "We send the request the hidden button would have sent."
+      ]
+    },
+    {
+      "id": "leak",
+      "narration": "The flawed endpoint answers two hundred and one. It checked the session and the token. It never asked whether this user may publish. The count goes from one to two.",
+      "captions": [
+        "Flawed endpoint: 201 Created. Count goes from 1 to 2.",
+        "It checked the session and the token, not permission."
+      ]
+    },
+    {
+      "id": "layers",
+      "narration": "Three separate questions. Authentication: who is this? No session is a four oh one. CSRF: did this come from our page? A bad token is a four oh three with its own error code. Authorisation: may this user publish? Only that one stops the member.",
+      "captions": [
+        "Authentication: who is this? CSRF: did it come from our page?",
+        "Authorization: may this user publish?"
+      ]
+    },
+    {
+      "id": "fix",
+      "narration": "The repair adds one gate. Resolve the user from the session, look up their current permission in the server's own store, and check it before anything is written. A role field sent by the browser is never read.",
+      "captions": [
+        "Fix: check the server-side permission before any write.",
+        "A role sent by the browser is never read."
+      ]
+    },
+    {
+      "id": "retest",
+      "narration": "Repeat the same member request, same session, same valid token. Four oh three, permission denied. The count stays at two, so nothing was created. A bad token fails differently, with its own error code.",
+      "captions": [
+        "Same request: 403 PERMISSION_DENIED. Count stays at 2.",
+        "A bad CSRF token fails differently: EBADCSRFTOKEN."
+      ]
+    },
+    {
+      "id": "admin",
+      "narration": "Now the administrator sends the request. Two hundred and one, and the count becomes three. The check allows who it should.",
+      "captions": [
+        "Administrator: 201 Created. Count becomes 3."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "This is a function-level check: may this role perform this action at all? It does not decide which objects someone may touch. That needs ownership checks. The browser can hide the action. Only the server can deny it.",
+      "captions": [
+        "A function-level check, not an object-ownership check.",
+        "The browser can hide the action. Only the server can deny it."
+      ]
+    }
+  ]
+}

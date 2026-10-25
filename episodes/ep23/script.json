@@ -1,0 +1,17 @@
+{
+  "n": 23,
+  "slug": "optimistic-concurrency",
+  "title": "Two tabs, one document",
+  "fullTitle": "Two Tabs. One Document. Where Did My Changes Go?",
+  "scenes": [
+    {"id": "lost", "narration": "Tab A saves a new title and the server answers two hundred OK. Then tab B saves, and the old title is back, with no error anywhere.", "captions": ["Tab A saves a new title: 200 OK.", "Tab B saves. The old title is back. No error anywhere."]},
+    {"id": "rewind", "narration": "Rewind. Two independent clients, separate sessions in a local test rather than real browsers, both load the document at version one.", "captions": ["Two independent clients load the same document at version 1.", "Separate sessions in a local test, not real browsers."]},
+    {"id": "diverge", "narration": "A edits the title. B edits only the body, but B's local copy still holds the old title, and saving sends the whole document.", "captions": ["A edits the title. B edits only the body.", "B's copy still holds the old title, and saving sends everything."]},
+    {"id": "flawed", "narration": "The flawed endpoint runs an unconditional update: set the title and body wherever the ID matches. Nothing asks which version B was looking at, so the last writer wins.", "captions": ["The flawed update only asks: does the ID match?", "Nothing asks which version B was looking at. Last writer wins."]},
+    {"id": "fix", "narration": "The repair sends expectedVersion with the edit. One atomic statement: where the ID and the version both match, replace the content and increment the version. The server then checks how many rows changed. Never a read followed by a write.", "captions": ["Send expectedVersion with the edit.", "One atomic UPDATE: match id AND version, replace, increment.", "Check rows changed. Never a separate read, then write."]},
+    {"id": "retest", "narration": "Replay. A saves against version one: two hundred, now version two. B also sends version one, matches no row, and receives four oh nine with the current server version.", "captions": ["A saves against version 1: 200, now version 2.", "B sends version 1, matches no row: 409 with the current version."]},
+    {"id": "compare", "narration": "B's unsaved text is kept, and both versions are shown side by side. A person chooses: take theirs, keep mine, or write a merge. The client never retries by overwriting.", "captions": ["B's unsaved text is kept. Both versions are shown.", "A person resolves it. No automatic merge, no overwrite retry."]},
+    {"id": "limits", "narration": "Only a version mismatch is a conflict. A locked database returns five oh three, a retryable failure. If two saves race on the same version, exactly one wins. This detects conflicts. It is not real-time collaboration, and not a C R D T.", "captions": ["Only a version mismatch is a 409. A locked database is a 503.", "Two racing saves, same version: exactly one is accepted.", "Conflict detection, not real-time collaboration, not a CRDT."]},
+    {"id": "end", "sim": null, "narration": "Before saving, check what you are replacing.", "captions": ["Before saving, check what you are replacing."]}
+  ]
+}

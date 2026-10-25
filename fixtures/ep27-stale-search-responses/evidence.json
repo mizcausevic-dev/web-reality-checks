@@ -1,0 +1,1735 @@
+{
+  "generatedBy": "fixtures/ep27-stale-search-responses/demo.mjs",
+  "label": "SIMULATED CONTROLLER: framework-free state machine driven by a mock API. Not recorded browser evidence. No DOM, no timers, no machine timing.",
+  "scope": "Local UI concurrency control for one search box. Not a general distributed-ordering solution.",
+  "mockApi": {
+    "synthetic": true,
+    "requestIds": "req-<n> assigned in creation order for the demo only; the controller never compares ids",
+    "resultsBy": {
+      "re": [
+        "redis",
+        "redux",
+        "regex",
+        "request"
+      ],
+      "react": [
+        "react",
+        "react-dom",
+        "react-router"
+      ]
+    },
+    "responseShape": "{requestId, query, items}"
+  },
+  "scenarios": [
+    {
+      "id": "stale_success",
+      "title": "Stale success: \"re\" answers after \"react\"",
+      "releaseSchedule": [
+        {
+          "do": "type",
+          "query": "re"
+        },
+        {
+          "do": "type",
+          "query": "react"
+        },
+        {
+          "do": "release",
+          "request": 2
+        },
+        {
+          "do": "release",
+          "request": 1
+        }
+      ],
+      "flawed": {
+        "stateWrites": 6,
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "re"
+            },
+            "writes": 1,
+            "after": {
+              "query": "re",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "type",
+              "query": "react"
+            },
+            "writes": 2,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 2
+            },
+            "writes": 4,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 1
+            },
+            "writes": 6,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "re",
+              "generation": null
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"re\"",
+            "query": "re",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "start \"react\"",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 3,
+            "kind": "write",
+            "event": "success \"react\" (req-2)",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2"
+          },
+          {
+            "seq": 4,
+            "kind": "write",
+            "event": "finally",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2"
+          },
+          {
+            "seq": 5,
+            "kind": "write",
+            "event": "success \"re\" (req-1)",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "re",
+            "resultsRequestId": "req-1"
+          },
+          {
+            "seq": 6,
+            "kind": "write",
+            "event": "finally",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "re",
+            "resultsRequestId": "req-1"
+          }
+        ],
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "re",
+          "resultsRequestId": "req-1",
+          "items": [
+            "redis",
+            "redux",
+            "regex",
+            "request"
+          ],
+          "generation": null
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "released",
+            "signalAborted": false
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      },
+      "corrected": {
+        "stateWrites": 4,
+        "discards": [
+          {
+            "path": "success",
+            "generation": 1,
+            "current": 2,
+            "query": "re",
+            "requestId": "req-1"
+          },
+          {
+            "path": "finally",
+            "generation": 1,
+            "current": 2
+          }
+        ],
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "re"
+            },
+            "writes": 1,
+            "after": {
+              "query": "re",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 1
+            }
+          },
+          {
+            "step": {
+              "do": "type",
+              "query": "react"
+            },
+            "writes": 2,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 2
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 2
+            },
+            "writes": 4,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": 2
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 1
+            },
+            "writes": 4,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": 2
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"re\" gen 1",
+            "query": "re",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 1
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "start \"react\" gen 2",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 3,
+            "kind": "write",
+            "event": "success \"react\" (req-2) gen 2",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          },
+          {
+            "seq": 4,
+            "kind": "write",
+            "event": "finally gen 2",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          },
+          {
+            "seq": 5,
+            "kind": "discard",
+            "event": "discard success (gen 1 != 2)",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          },
+          {
+            "seq": 6,
+            "kind": "discard",
+            "event": "discard finally (gen 1 != 2)",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          }
+        ],
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "react",
+          "resultsRequestId": "req-2",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": 2
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "released",
+            "signalAborted": false
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "stale_failure",
+      "title": "Stale failure: the \"re\" request fails after \"react\" succeeded",
+      "releaseSchedule": [
+        {
+          "do": "type",
+          "query": "re"
+        },
+        {
+          "do": "type",
+          "query": "react"
+        },
+        {
+          "do": "release",
+          "request": 2
+        },
+        {
+          "do": "fail",
+          "request": 1,
+          "message": "network error (simulated)"
+        }
+      ],
+      "flawed": {
+        "stateWrites": 6,
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "re"
+            },
+            "writes": 1,
+            "after": {
+              "query": "re",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "type",
+              "query": "react"
+            },
+            "writes": 2,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 2
+            },
+            "writes": 4,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "fail",
+              "request": 1,
+              "message": "network error (simulated)"
+            },
+            "writes": 6,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": "network error (simulated)",
+              "resultsFor": "react",
+              "generation": null
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"re\"",
+            "query": "re",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "start \"react\"",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 3,
+            "kind": "write",
+            "event": "success \"react\" (req-2)",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2"
+          },
+          {
+            "seq": 4,
+            "kind": "write",
+            "event": "finally",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2"
+          },
+          {
+            "seq": 5,
+            "kind": "write",
+            "event": "error \"network error (simulated)\"",
+            "query": "react",
+            "loading": false,
+            "error": "network error (simulated)",
+            "resultsFor": "react",
+            "resultsRequestId": "req-2"
+          },
+          {
+            "seq": 6,
+            "kind": "write",
+            "event": "finally",
+            "query": "react",
+            "loading": false,
+            "error": "network error (simulated)",
+            "resultsFor": "react",
+            "resultsRequestId": "req-2"
+          }
+        ],
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": "network error (simulated)",
+          "resultsFor": "react",
+          "resultsRequestId": "req-2",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": null
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "failed",
+            "signalAborted": false
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      },
+      "corrected": {
+        "stateWrites": 4,
+        "discards": [
+          {
+            "path": "error",
+            "generation": 1,
+            "current": 2,
+            "message": "network error (simulated)",
+            "abort": false
+          },
+          {
+            "path": "finally",
+            "generation": 1,
+            "current": 2
+          }
+        ],
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "re"
+            },
+            "writes": 1,
+            "after": {
+              "query": "re",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 1
+            }
+          },
+          {
+            "step": {
+              "do": "type",
+              "query": "react"
+            },
+            "writes": 2,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 2
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 2
+            },
+            "writes": 4,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": 2
+            }
+          },
+          {
+            "step": {
+              "do": "fail",
+              "request": 1,
+              "message": "network error (simulated)"
+            },
+            "writes": 4,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": 2
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"re\" gen 1",
+            "query": "re",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 1
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "start \"react\" gen 2",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 3,
+            "kind": "write",
+            "event": "success \"react\" (req-2) gen 2",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          },
+          {
+            "seq": 4,
+            "kind": "write",
+            "event": "finally gen 2",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          },
+          {
+            "seq": 5,
+            "kind": "discard",
+            "event": "discard error (gen 1 != 2)",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          },
+          {
+            "seq": 6,
+            "kind": "discard",
+            "event": "discard finally (gen 1 != 2)",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          }
+        ],
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "react",
+          "resultsRequestId": "req-2",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": 2
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "failed",
+            "signalAborted": false
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "loading",
+      "title": "Loading: the older request finishes while \"react\" is still pending",
+      "releaseSchedule": [
+        {
+          "do": "type",
+          "query": "re"
+        },
+        {
+          "do": "type",
+          "query": "react"
+        },
+        {
+          "do": "release",
+          "request": 1
+        },
+        {
+          "do": "release",
+          "request": 2
+        }
+      ],
+      "flawed": {
+        "stateWrites": 6,
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "re"
+            },
+            "writes": 1,
+            "after": {
+              "query": "re",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "type",
+              "query": "react"
+            },
+            "writes": 2,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 1
+            },
+            "writes": 4,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "re",
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 2
+            },
+            "writes": 6,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": null
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"re\"",
+            "query": "re",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "start \"react\"",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 3,
+            "kind": "write",
+            "event": "success \"re\" (req-1)",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": "re",
+            "resultsRequestId": "req-1"
+          },
+          {
+            "seq": 4,
+            "kind": "write",
+            "event": "finally",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "re",
+            "resultsRequestId": "req-1"
+          },
+          {
+            "seq": 5,
+            "kind": "write",
+            "event": "success \"react\" (req-2)",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2"
+          },
+          {
+            "seq": 6,
+            "kind": "write",
+            "event": "finally",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2"
+          }
+        ],
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "react",
+          "resultsRequestId": "req-2",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": null
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "released",
+            "signalAborted": false
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      },
+      "corrected": {
+        "stateWrites": 4,
+        "discards": [
+          {
+            "path": "success",
+            "generation": 1,
+            "current": 2,
+            "query": "re",
+            "requestId": "req-1"
+          },
+          {
+            "path": "finally",
+            "generation": 1,
+            "current": 2
+          }
+        ],
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "re"
+            },
+            "writes": 1,
+            "after": {
+              "query": "re",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 1
+            }
+          },
+          {
+            "step": {
+              "do": "type",
+              "query": "react"
+            },
+            "writes": 2,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 2
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 1
+            },
+            "writes": 2,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 2
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 2
+            },
+            "writes": 4,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": 2
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"re\" gen 1",
+            "query": "re",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 1
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "start \"react\" gen 2",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 3,
+            "kind": "discard",
+            "event": "discard success (gen 1 != 2)",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 4,
+            "kind": "discard",
+            "event": "discard finally (gen 1 != 2)",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 5,
+            "kind": "write",
+            "event": "success \"react\" (req-2) gen 2",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          },
+          {
+            "seq": 6,
+            "kind": "write",
+            "event": "finally gen 2",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-2",
+            "generation": 2
+          }
+        ],
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "react",
+          "resultsRequestId": "req-2",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": 2
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "released",
+            "signalAborted": false
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "cleared",
+      "title": "Query cleared while \"re\" is pending",
+      "releaseSchedule": [
+        {
+          "do": "type",
+          "query": "re"
+        },
+        {
+          "do": "clear"
+        },
+        {
+          "do": "release",
+          "request": 1
+        }
+      ],
+      "flawed": {
+        "stateWrites": 4,
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "re"
+            },
+            "writes": 1,
+            "after": {
+              "query": "re",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "clear"
+            },
+            "writes": 2,
+            "after": {
+              "query": "",
+              "loading": false,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 1
+            },
+            "writes": 4,
+            "after": {
+              "query": "",
+              "loading": false,
+              "error": null,
+              "resultsFor": "re",
+              "generation": null
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"re\"",
+            "query": "re",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "clear",
+            "query": "",
+            "loading": false,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 3,
+            "kind": "write",
+            "event": "success \"re\" (req-1)",
+            "query": "",
+            "loading": false,
+            "error": null,
+            "resultsFor": "re",
+            "resultsRequestId": "req-1"
+          },
+          {
+            "seq": 4,
+            "kind": "write",
+            "event": "finally",
+            "query": "",
+            "loading": false,
+            "error": null,
+            "resultsFor": "re",
+            "resultsRequestId": "req-1"
+          }
+        ],
+        "final": {
+          "query": "",
+          "loading": false,
+          "error": null,
+          "resultsFor": "re",
+          "resultsRequestId": "req-1",
+          "items": [
+            "redis",
+            "redux",
+            "regex",
+            "request"
+          ],
+          "generation": null
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      },
+      "corrected": {
+        "stateWrites": 2,
+        "discards": [
+          {
+            "path": "success",
+            "generation": 1,
+            "current": 2,
+            "query": "re",
+            "requestId": "req-1"
+          },
+          {
+            "path": "finally",
+            "generation": 1,
+            "current": 2
+          }
+        ],
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "re"
+            },
+            "writes": 1,
+            "after": {
+              "query": "re",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 1
+            }
+          },
+          {
+            "step": {
+              "do": "clear"
+            },
+            "writes": 2,
+            "after": {
+              "query": "",
+              "loading": false,
+              "error": null,
+              "resultsFor": null,
+              "generation": 2
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 1
+            },
+            "writes": 2,
+            "after": {
+              "query": "",
+              "loading": false,
+              "error": null,
+              "resultsFor": null,
+              "generation": 2
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"re\" gen 1",
+            "query": "re",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 1
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "clear gen 2",
+            "query": "",
+            "loading": false,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 3,
+            "kind": "discard",
+            "event": "discard success (gen 1 != 2)",
+            "query": "",
+            "loading": false,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 4,
+            "kind": "discard",
+            "event": "discard finally (gen 1 != 2)",
+            "query": "",
+            "loading": false,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          }
+        ],
+        "final": {
+          "query": "",
+          "loading": false,
+          "error": null,
+          "resultsFor": null,
+          "resultsRequestId": null,
+          "items": [],
+          "generation": 2
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "disposed",
+      "title": "Component disposed while \"react\" is pending",
+      "releaseSchedule": [
+        {
+          "do": "type",
+          "query": "react"
+        },
+        {
+          "do": "dispose"
+        },
+        {
+          "do": "release",
+          "request": 1
+        }
+      ],
+      "flawed": {
+        "stateWrites": 3,
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "react"
+            },
+            "writes": 1,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "dispose"
+            },
+            "writes": 1,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": null
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 1
+            },
+            "writes": 3,
+            "after": {
+              "query": "react",
+              "loading": false,
+              "error": null,
+              "resultsFor": "react",
+              "generation": null
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"react\"",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null
+          },
+          {
+            "seq": 2,
+            "kind": "write",
+            "event": "success \"react\" (req-1)",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-1"
+          },
+          {
+            "seq": 3,
+            "kind": "write",
+            "event": "finally",
+            "query": "react",
+            "loading": false,
+            "error": null,
+            "resultsFor": "react",
+            "resultsRequestId": "req-1"
+          }
+        ],
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "react",
+          "resultsRequestId": "req-1",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": null
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ],
+        "writesAtDispose": 1,
+        "writesAfterDispose": 2
+      },
+      "corrected": {
+        "stateWrites": 1,
+        "discards": [
+          {
+            "path": "success",
+            "generation": 1,
+            "current": 2,
+            "query": "react",
+            "requestId": "req-1"
+          },
+          {
+            "path": "finally",
+            "generation": 1,
+            "current": 2
+          }
+        ],
+        "perStep": [
+          {
+            "step": {
+              "do": "type",
+              "query": "react"
+            },
+            "writes": 1,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 1
+            }
+          },
+          {
+            "step": {
+              "do": "dispose"
+            },
+            "writes": 1,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 2
+            }
+          },
+          {
+            "step": {
+              "do": "release",
+              "request": 1
+            },
+            "writes": 1,
+            "after": {
+              "query": "react",
+              "loading": true,
+              "error": null,
+              "resultsFor": null,
+              "generation": 2
+            }
+          }
+        ],
+        "timeline": [
+          {
+            "seq": 1,
+            "kind": "write",
+            "event": "start \"react\" gen 1",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 1
+          },
+          {
+            "seq": 2,
+            "kind": "dispose",
+            "event": "dispose gen 2",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 3,
+            "kind": "discard",
+            "event": "discard success (gen 1 != 2)",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          },
+          {
+            "seq": 4,
+            "kind": "discard",
+            "event": "discard finally (gen 1 != 2)",
+            "query": "react",
+            "loading": true,
+            "error": null,
+            "resultsFor": null,
+            "resultsRequestId": null,
+            "generation": 2
+          }
+        ],
+        "final": {
+          "query": "react",
+          "loading": true,
+          "error": null,
+          "resultsFor": null,
+          "resultsRequestId": null,
+          "items": [],
+          "generation": 2
+        },
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ],
+        "writesAtDispose": 1,
+        "writesAfterDispose": 0
+      }
+    }
+  ],
+  "abortComparison": {
+    "schedule": [
+      {
+        "do": "type",
+        "query": "re"
+      },
+      {
+        "do": "type",
+        "query": "react"
+      },
+      {
+        "do": "release",
+        "request": 2
+      },
+      {
+        "do": "release",
+        "request": 1
+      }
+    ],
+    "runs": {
+      "guardOnly": {
+        "options": {
+          "abortSuperseded": false,
+          "apiHonorsAbort": true
+        },
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "react",
+          "resultsRequestId": "req-2",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": 2
+        },
+        "discards": [
+          {
+            "path": "success",
+            "generation": 1,
+            "current": 2,
+            "query": "re",
+            "requestId": "req-1"
+          },
+          {
+            "path": "finally",
+            "generation": 1,
+            "current": 2
+          }
+        ],
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "released",
+            "signalAborted": false
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      },
+      "guardPlusAbort": {
+        "options": {
+          "abortSuperseded": true,
+          "apiHonorsAbort": true
+        },
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "react",
+          "resultsRequestId": "req-2",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": 2
+        },
+        "discards": [
+          {
+            "path": "error",
+            "generation": 1,
+            "current": 2,
+            "message": "The operation was aborted.",
+            "abort": true
+          },
+          {
+            "path": "finally",
+            "generation": 1,
+            "current": 2
+          }
+        ],
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "aborted",
+            "signalAborted": true
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      },
+      "guardPlusAbortServerIgnoresSignal": {
+        "options": {
+          "abortSuperseded": true,
+          "apiHonorsAbort": false
+        },
+        "final": {
+          "query": "react",
+          "loading": false,
+          "error": null,
+          "resultsFor": "react",
+          "resultsRequestId": "req-2",
+          "items": [
+            "react",
+            "react-dom",
+            "react-router"
+          ],
+          "generation": 2
+        },
+        "discards": [
+          {
+            "path": "success",
+            "generation": 1,
+            "current": 2,
+            "query": "re",
+            "requestId": "req-1"
+          },
+          {
+            "path": "finally",
+            "generation": 1,
+            "current": 2
+          }
+        ],
+        "requests": [
+          {
+            "n": 1,
+            "id": "req-1",
+            "query": "re",
+            "state": "released",
+            "signalAborted": true
+          },
+          {
+            "n": 2,
+            "id": "req-2",
+            "query": "react",
+            "state": "released",
+            "signalAborted": false
+          }
+        ]
+      }
+    },
+    "finalStateIdentical": true,
+    "note": "Abort is an optimisation. Correctness comes from the generation guard. A client-side abort does not prove the server stopped executing."
+  }
+}
