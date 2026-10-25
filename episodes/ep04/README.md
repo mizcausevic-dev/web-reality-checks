@@ -13,7 +13,6 @@
 - Executed: `cd fixtures/ep04-pglite-notes && node --test test.mjs` → `# tests 6  # pass 6  # fail 0` (create/search/edit/delete on a filesystem dir; close + reopen same dir keeps the note; a different dir sees 0; **known-positive**: `memory://` loses the note after close; `relaxedDurability` refused; constructor guards). Run time ≈ 57 s here because each fresh data dir runs Postgres `initdb`.
 - Executed: `node fixtures/ep04-pglite-notes/demo.mjs` → `evidence.json`: engine `PostgreSQL 18.6 (PGlite 0.5.11)`, fs type `filesystem`; create → `{id 1, "Groceries", "milk, eggs, coffee"}`; search `coffee` → **1** match; close + reopen same dir → count **1** (then edit body → `milk, eggs, coffee, bread`); different dir → **0**; `memory://` create, close, reopen → **0**; delete data dir, reopen → **0**; `relaxedDurability: false`.
 - Executed: `node build-vendor.mjs` → 14 files, 17.4 MB copied to `app/vendor/pglite/`; `precache-manifest.js` lists 19 assets; `serve.mjs` smoke-tested with curl (200 + correct MIME for `.html/.js/.mjs/.wasm`, 404 for path traversal). `app.js` and `sw.js` pass `node --check` only — they were **not run in a browser**.
-- Executed: `cd video && npx tsc --noEmit` → no errors. `video/src/episodes/ep04/timeline.json` was generated with `--no-audio` (word-count estimate, 104.2 s, 18 captions) for type-checking; the orchestrator regenerates it from real narration.
 - Scenes 1–3 (`create`, `engine`, `memory_vs_disk`) carry sim tag `LOCAL FIXTURE · NODE + PGLITE` and show only numbers from `evidence.json`.
 - **Blocked** (no browser in this environment; scenes 4–8 carry sim tag `BROWSER STEPS NOT EXECUTED HERE · ILLUSTRATIVE` and show expected behaviour, not results). Exact manual steps are in `fixtures/ep04-pglite-notes/browser-test-checklist.md`:
   - Blocked — scene 4 `reload`: online load at `http://127.0.0.1:8787/`, confirm all requests same-origin, engine ready, SW `activated · 19 assets cached`, IndexedDB database present; create "Groceries"; wait for `create → id 1`; reload → note present with id 1. (checklist §1–2)
@@ -22,7 +21,6 @@
   - Blocked — scene 7 `clean_profile`: open a fresh profile (Chromium `--user-data-dir=<empty>` / Firefox `about:profiles`) at the same address → `notes: 0`. (checklist §4)
   - Blocked — scene 8 `clear_data`: DevTools → Application → Clear site data (IndexedDB, Cache Storage, service workers) in the original profile; reload → SW re-installs, initdb re-runs, `notes: 0`. (checklist §5)
   - Node analogues for scenes 7 and 8 **were** executed (different dir → 0; deleted dir → 0) and are labelled as such on screen.
-- Not executed: narration audio, render, thumbnail — the orchestrator does these and fills `render-evidence.json`. No MP4 is claimed.
 
 ## Build and render
 ```
@@ -44,9 +42,8 @@ Browser verification (separate, manual): `node fixtures/ep04-pglite-notes/serve.
 - The `~16 MB` / `~17 MB` engine-size figures are the vendored file sizes measured by `build-vendor.mjs` (uncompressed), not download sizes over the wire.
 - Not tested: multi-tab concurrency (PGlite is single-connection), quota/eviction, export/backup (`dumpDataDir`), any server sync (none exists).
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep04/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep04 → episodes/ep04/ep04.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 101.83 s, 8847885 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep04/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep04 → episodes/ep04/ep04.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 101.83 s, 8847885 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

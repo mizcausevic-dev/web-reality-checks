@@ -21,7 +21,6 @@
   - Example (scene 5–7): `L00070 "Copper Framing Co."`, `copper-framing-co.slow.test` → timeout; ground truth: open (only label `stale_verification`). Decision `keep_listing_schedule_recheck` by `reviewer-synthetic-01` at `2026-10-25T09:14:00Z`; `lastCheckedAt` 2026-10-13 → 2026-10-25, `lastVerifiedAt` unchanged (2023-01-20).
 - Observed: every on-screen number in `video/src/episodes/ep05/Scenes.tsx` is a constant in the `EV` object at the top of that file, copied from `inspection-results.json` / `evidence.json`. If the fixture is regenerated with a different seed, refresh `EV`.
 - Executed: `cd video && npx tsc --noEmit` → clean.
-- Blocked (by spec, orchestrator's job): narration audio, MP4 render, `render-evidence.json`, thumbnail. `video/src/episodes/ep05/timeline.json` currently holds a `--no-audio` estimate only so the project type-checks; rebuild it from real narration before rendering.
 
 ## Build and render
 ```
@@ -37,9 +36,8 @@ node tools/render.mjs ep05 --concurrency 2
 - Accuracy bullets from the brief, each reflected on screen / in narration: data and results labelled synthetic (corner tag, every "Observed from" line); old verification date is not proof of error (scenes 5, 7); HTTP failure is not proof of closure (scenes 5, 8); last checked / last changed / last verified shown as separate fields (scenes 3, 5, 7); unique flagged listings reported separately from issue instances and explicitly not summed (scene 4); checker does not read ground truth (scene 3, test); detected vs missed per seeded class shown (scene 8).
 - Scene timing in `timeline.json` is a word-count heuristic snapped to detected silences once real audio exists; not forced alignment.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep05/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep05 → episodes/ep05/ep05.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.67 s, 9442629 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep05/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep05 → episodes/ep05/ep05.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.67 s, 9442629 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

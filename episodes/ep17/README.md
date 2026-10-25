@@ -20,10 +20,8 @@
   - API failure: 2 failed polls (503 at t=90, t=120); value 21.2 retained with explicit warning; `connection: disconnected`; age continues from `sourceObservedAt` (120 s at t=120); recovery poll at t=150 → 200, connected, same `collectedAt`, age 150.
   - Polling faster: 5 s vs 30 s polling over 599 s → 119 vs 19 polls, collector sampled exactly once in both, identical age (570 s) at t=570.
   - Timestamp checks: +45 s future → `impossible-future`, age `null`; missing / `"yesterday-ish"` → `invalid-timestamp`, age `null`.
-- Executed: `node tools/build-timeline.mjs ep17 --no-audio` → `video/src/episodes/ep17/timeline.json` (estimated 102.21 s from 254 narration words) and `episodes/ep17/captions.srt`. These are placeholders until the orchestrator supplies narration audio and rebuilds.
 - Executed: `cd video && npx tsc --noEmit` → no errors in `src/episodes/ep17/*`. (Pre-existing errors in other episodes' folders were not touched.)
 - Predicted: narration ~254 words ≈ 100 s of speech; final scene timing depends on the real audio.
-- Blocked: no narration audio generated, no MP4 rendered, no QA stills rendered (orchestrator step; also `video/src/Root.tsx` currently references episodes whose `Scenes.tsx` is missing, so a bundle would not build until those land).
 - Not executed: a WebSocket/SSE variant. The claim "a push transport delivers the same stale upstream reading sooner" is stated as reasoning, not demonstrated by this fixture.
 
 ## Build and render
@@ -44,9 +42,8 @@ node tools/render.mjs ep17 --concurrency 2
 - The stale threshold (300 s) and connection window (90 s) are this fixture's policies, not universal values.
 - Not tested: partial/garbled responses, clock skew, retries/backoff, multiple sources, aggregation windows.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep17/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep17 → episodes/ep17/ep17.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.57 s, 9851334 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep17/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep17 → episodes/ep17/ep17.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.57 s, 9851334 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

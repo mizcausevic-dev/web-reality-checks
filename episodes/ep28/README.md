@@ -14,8 +14,6 @@
 - Executed: `node --test fixtures/ep28-hidden-admin-button/test.mjs` -> `# tests 12`, `# pass 12`, `# fail 0` (includes a known-positive control: the member publishes through the flawed endpoint with a valid session and valid CSRF token).
 - Executed: `node fixtures/ep28-hidden-admin-button/demo.mjs` -> `evidence.json`: flawed member publish 201 (count 1 to 2); corrected member 403 `PERMISSION_DENIED` (count 2 to 2); forged role claim 403; bad CSRF token 403 `EBADCSRFTOKEN`; no session 401 on both routes; administrator on the corrected route 201 (count 2 to 3).
 - Observed: database announcement counts are read directly from the sqlite store after each request, not inferred from responses.
-- Executed: `video/src/episodes/ep28/timeline.json` and `captions.srt` were generated with `--no-audio` (word-count estimate only). They must be rebuilt from the real narration.
-- Not executed: narration audio, video render, inspection frames. No MP4 is claimed to exist; the orchestrator renders and fills `render-evidence.json`.
 
 ## Build and render
 ```
@@ -40,3 +38,9 @@ node tools/render.mjs ep28 --concurrency 2
 - Sign-in is a test harness (`/_fixture/login/:user`); sessions have no expiry or rotation.
 - Only the publish route is covered. Every other privileged route needs its own check and test. The application is not claimed to be fully secure.
 - The flawed endpoint is hand-constructed and must never be deployed.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep28/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep28 → episodes/ep28/ep28.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 91.53 s, 7455611 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

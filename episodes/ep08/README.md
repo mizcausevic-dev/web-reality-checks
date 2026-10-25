@@ -26,7 +26,6 @@
   7. ≥5 trials per variant per condition; report the median; keep every raw value.
   8. LCP via `PerformanceObserver({type:'largest-contentful-paint', buffered:true})`; interaction via `PerformanceObserver({type:'event', durationThreshold:16})` on the single scripted click, reported as a **lab measurement of one scripted interaction**, not a field INP assessment; TBT is not a substitute.
   9. Add results under a `browserLab` key in `evidence.json` with the conditions, then the Blocked lines above become Executed.
-- Timeline: `video/src/episodes/ep08/timeline.json` was built with `--no-audio` (word-count estimate, 103.78 s). The orchestrator rebuilds it from real narration; scene boundaries will then snap to detected silences (heuristic, not forced alignment).
 
 ## Build and render
 ```
@@ -35,7 +34,6 @@ node tools/build-timeline.mjs ep08      # from video/public/ep08/narration.mp3, 
 node tools/gen-root.mjs
 node tools/render.mjs ep08 --concurrency 2
 ```
-No MP4, audio or thumbnail is claimed by this README; the orchestrator renders and fills `render-evidence.json`.
 
 ## Limitations
 - **Nothing in a browser was measured.** Byte size is a file property and Node CPU time is a proxy for the click's main-thread work; neither is a user-perceived latency. The video says so on screen (persistent sim tag `LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT`) and states that loading and interaction are different tests.
@@ -44,9 +42,8 @@ No MP4, audio or thumbnail is claimed by this README; the orchestrator renders a
 - Raw Node timings vary by roughly ±20 % between runs in the shared container; the median is quoted and the raw list is kept. Re-running `demo.mjs` yields different absolute values; the video quotes the recorded `evidence.json`.
 - One image and one handler were corrected. Fonts, CSS, scripts and other interactions were not examined. No claim is made about the page's overall performance.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep08/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep08 → episodes/ep08/ep08.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.37 s, 9347719 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep08/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep08 → episodes/ep08/ep08.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.37 s, 9347719 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

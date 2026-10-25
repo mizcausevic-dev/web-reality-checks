@@ -11,9 +11,8 @@
 - Executed: `node --test fixtures/ep23-optimistic-concurrency/test.mjs` -> `# tests 16  # pass 16  # fail 0` (includes a known-positive control, an HTTP barrier test and a six-thread/six-connection barrier test asserting exactly one accepted update).
 - Executed: `node fixtures/ep23-optimistic-concurrency/demo.mjs` -> `evidence.json`: flawed path A 200 (v2) then B 200 (v3), final title back to "Launch plan"; corrected path A 200 (v2), B 409 with `currentVersion` 2, server final v2, B sent one PUT; explicit person-chosen merge saved with `expectedVersion` 2 -> 200 (v3); concurrent same-version saves -> one 200 and one 409; locked database -> 503, not 409, server still v1.
 - Executed: `cd video && npx tsc --noEmit` -> no errors in `src/episodes/ep23/` (an unrelated error in another episode folder may be present while that episode is being built).
-- Executed: `node tools/build-timeline.mjs ep23 --no-audio` -> provisional `timeline.json` / `captions.srt` from a word-count estimate; the orchestrator rebuilds them from real narration.
 - Narration: 250 words (`script.json`).
-- Blocked / not executed: no real browsers, no narration audio, no render (the orchestrator fills `render-evidence.json`). Scene frames were not visually inspected by this builder.
+- Blocked / not executed: no real browsers.
 
 ## Build and render
 ```
@@ -35,3 +34,9 @@ node tools/render.mjs ep23 --concurrency 2
 - Simulated: the "tabs" are Node client objects; the conflict screen in scene `compare` is an illustration of the client state the fixture holds, not a real UI.
 - Measured: only status codes, versions and document text shown in `evidence.json`; no timings are claimed.
 - Scope: one integer version per whole document; no field-level merge, history, or deletion. The cross-thread test uses SQLite rollback-journal mode only.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep23/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep23 → episodes/ep23/ep23.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 97.7 s, 8354289 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

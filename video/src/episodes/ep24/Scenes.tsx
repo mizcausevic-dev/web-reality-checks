@@ -199,13 +199,13 @@ const Verify: React.FC<SceneProps> = ({t}) => {
   return (
     <>
       <Overline y={110} color={C.green}>Verified · each user sees only their own page</Overline>
-      <Pane x={M} y={165} w={840} h={220} jar="Alice's cookie jar" greeting="Welcome back, Alice" sub="u_alice · render #4 · BYPASS" accent={C.green} o={ep(t, 0.3, 0.9)} />
-      <Pane x={M + 888} y={165} w={840} h={220} jar="Bob's cookie jar" greeting="Welcome back, Bob" sub="u_bob · render #5 · BYPASS" accent={C.green} o={ep(t, 1.0, 1.6)} />
-      {limit(0, M, 410, 'Already delivered stays delivered', "Bob's earlier leaked response cannot be retracted by new headers or a purge.")}
-      {limit(1, M + 888, 410, 'Vary: Cookie is not a universal fix', 'This fixture does not rely on Vary. Not a general recommendation.')}
-      {limit(2, M, 570, 'no-store has limits', 'It does not claim to remove every earlier copy, log or historical artifact.')}
-      {limit(3, M + 888, 570, 'Identity-aware caching is a separate design', 'Authorisation, partitioning, invalidation and data classification.')}
-      <Txt x={M} y={760} w={W - 2 * M} size={26} color={C.dim} o={ep(t, 6.4, 7)}>Executed: node --test fixtures/ep24-shared-cache-leak/test.mjs → # tests 18 · # pass 18 · # fail 0</Txt>
+      <Pane x={M} y={165} w={840} h={250} jar="Alice's cookie jar" greeting="Welcome back, Alice" sub="u_alice · render #4 · BYPASS" accent={C.green} o={ep(t, 0.3, 0.9)} />
+      <Pane x={M + 888} y={165} w={840} h={250} jar="Bob's cookie jar" greeting="Welcome back, Bob" sub="u_bob · render #5 · BYPASS" accent={C.green} o={ep(t, 1.0, 1.6)} />
+      {limit(0, M, 440, 'Already delivered stays delivered', "Bob's earlier leaked response cannot be retracted by new headers or a purge.")}
+      {limit(1, M + 888, 440, 'Vary: Cookie is not a universal fix', 'This fixture does not rely on Vary. Not a general recommendation.')}
+      {limit(2, M, 600, 'no-store has limits', 'It does not claim to remove every earlier copy, log or historical artifact.')}
+      {limit(3, M + 888, 600, 'Identity-aware caching is a separate design', 'Authorisation, partitioning, invalidation and data classification.')}
+      <Txt x={M} y={790} w={W - 2 * M} size={26} color={C.dim} o={ep(t, 6.4, 7)}>Executed: node --test fixtures/ep24-shared-cache-leak/test.mjs → # tests 18 · # pass 18 · # fail 0</Txt>
     </>
   );
 };

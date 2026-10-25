@@ -21,8 +21,6 @@
   - corrected, 5 concurrent requests, one key: **1 order** (all five `201` with the same `orderId`; 4 replayed, 4 waited)
   - corrected, two purchases, two keys: 2 orders
 - Executed: `cd video && npx tsc --noEmit` → clean.
-- Executed: `node tools/build-timeline.mjs ep15 --no-audio` → provisional `video/src/episodes/ep15/timeline.json` (102.6 s estimated, 22 captions) so the composition type-checks. The orchestrator regenerates it from real narration audio.
-- Blocked (by spec, for the builder): narration audio, render, thumbnail, `render-evidence.json` — produced by the orchestrator. No MP4 is claimed here.
 - Predicted: the vulnerable-endpoint behaviour in the first scene is an illustrative checkout mock-up (plain `Box` chrome), labelled "Illustrative checkout"; the counts on it are from `evidence.json`.
 
 ## Build and render
@@ -53,9 +51,8 @@ node tools/render.mjs ep15 --concurrency 2
 - Session harness (`GET /login/:user`) is not production authentication. The vulnerable fixture binds to 127.0.0.1 on an ephemeral port and must never be deployed.
 - `node:sqlite` is marked experimental in Node 22; it prints an `ExperimentalWarning`.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep15/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep15 → episodes/ep15/ep15.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.93 s, 8485468 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep15/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep15 → episodes/ep15/ep15.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.93 s, 8485468 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

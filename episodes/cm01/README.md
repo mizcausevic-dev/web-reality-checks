@@ -8,7 +8,7 @@
 - Conceptual: the four-panel method scene (`method`, tag CONCEPTUAL ILLUSTRATION). Promotional: the call-to-action card.
 - Persistent tag per scene: `FOOTAGE FROM EPISODE NN` where real frames are on screen, `CONCEPTUAL ILLUSTRATION`, or `PROMOTIONAL FILM`.
 
-## Build and render (orchestrator)
+## Build and render
 ```
 cd video && npm install
 node tools/build-timeline.mjs cm01        # from video/public/cm01/narration.mp3, or --no-audio
@@ -17,6 +17,10 @@ node tools/render.mjs cm01 --concurrency 2
 ```
 
 ## Limitations
-- `video/src/episodes/cm01/timeline.json` was generated with `--no-audio` (word-count estimate, about 64 s). No narration audio was generated and no MP4 was rendered by the builder; the orchestrator rebuilds the timeline from real narration.
 - Real frames are cropped from 1920x1080 stills and scaled; they were not re-rendered.
 - The trailer does not claim the repairs cover anything beyond the demonstrated paths.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/cm01/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs cm01 → episodes/cm01/cm01.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 66.3 s, 5717121 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.

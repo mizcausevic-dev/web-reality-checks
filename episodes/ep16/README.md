@@ -18,7 +18,6 @@
   - C. corrected, window pre-exhausted: first request 429 with `Retry-After: 3` at 7 725 virtual ms → retry at 10 889 ms → 200; exactly one retry.
 - Observed: all `ms` values are **virtual fixture time** (scaled clock, 10 virtual ms per real ms); event order and counts are what the tests assert, not millisecond positions.
 - Predicted (not executed): behaviour in a real browser. `fetch`/`AbortController` here are Node's.
-- Blocked: no narration audio generated and no MP4 rendered by the builder; the orchestrator does both and fills `render-evidence.json`. `video/src/episodes/ep16/timeline.json` currently comes from `build-timeline.mjs ep16 --no-audio` and must be rebuilt once `video/public/ep16/narration.mp3` exists.
 
 ## Build and render
 ```
@@ -39,12 +38,11 @@ Type-check: `cd video && npx tsc --noEmit` (passes).
 - The flawed client's immediate-retry loop is bounded only so the tests terminate; real flawed clients may have no bound.
 - Scene 1's keystroke→request animation runs slower than the fixture's 80 ms spacing for legibility; the counts it displays are the fixture's. Scene 7's ruler positions use the recorded virtual-ms values.
 
-## Orchestrator note (observed during production)
+## Test timing note (observed during production)
 - Observed: `node --test fixtures/ep16-rate-limit/test.mjs` passed 17/17 on three consecutive runs on an idle 2-vCPU box, and failed 1/17 once while a video render saturated both cores. The limiter and typing tests run on a scaled virtual clock, so heavy CPU contention can shift one timing assertion. Run the suite on an idle machine; a single failure under load is a scheduling artefact, not a limiter defect.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep16/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep16 → episodes/ep16/ep16.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.27 s, 9507725 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep16/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep16 → episodes/ep16/ep16.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.27 s, 9507725 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

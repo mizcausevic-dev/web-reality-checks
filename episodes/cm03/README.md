@@ -16,7 +16,11 @@ node tools/render.mjs cm03 --concurrency 2
 ```
 
 ## Limits
-- The committed `timeline.json` was generated with `--no-audio` (word-count estimate, about 70 s). The orchestrator rebuilds it from the real narration; scene timings will shift and scene components are written to scale to `dur`.
-- No audio and no video were generated for this package. No MP4 exists yet.
 - Episodes 21, 22 and 24 had no rendered frames when this package was built, so no real footage of them is used.
 - Episode 12's lifecycle is a model, not a browser capture, and the film does not claim otherwise.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/cm03/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs cm03 → episodes/cm03/cm03.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 63.37 s, 5299989 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

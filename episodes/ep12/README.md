@@ -15,9 +15,7 @@
 - Executed: `node --test fixtures/ep12-sw-update/test.mjs` → `# tests 14  # pass 14  # fail 0` (byte-different `sw.js`; distinct precache names; activate cleanup keeps only the current `wrc-ep12-*` cache and spares foreign caches; a known-positive control showing an unversioned cache name leaves nothing to clean; `SKIP_WAITING` handled and other messages ignored; first install claims with no notice; byte-identical script → no update; Build 2 waits behind Build 1 with the page still controlled by Build 1 and both caches present; approval → activation → `wrc-ep12-v1` deleted → `controllerchange` → one reload; guard ignores a second event; server build switching and `no-cache` on `/sw.js`).
 - Executed: `node fixtures/ep12-sw-update/demo.mjs` → `fixtures/ep12-sw-update/evidence.json`: model steps 1–2 (Build 1 active, controller, cache `wrc-ep12-v1`), 3–4 (server → Build 2, tab unchanged), 5–7 (Build 2 `installed`/waiting, notice `true`, caches `wrc-ep12-v1, wrc-ep12-v2`), 8–9 (`SKIP_WAITING` → Build 2 active, controller Build 2, caches `[wrc-ep12-v2]`, `reloads: 1`, second `controllerchange` `ignored`). Real loopback server: `/` → `Build 1` then `Build 2` after switching; `/sw.js` `Cache-Control: no-cache`, `const BUILD = 1;` vs `2`, 2502 bytes each, byte-different.
 - Observed (in the Remotion scenes): all displayed values are constants copied from `evidence.json` into `EV` at the top of `Scenes.tsx`.
-- Predicted: scene durations in `video/src/episodes/ep12/timeline.json` were generated with `--no-audio` (word-count estimate, 104.17 s). The orchestrator regenerates them from real narration.
 - **Blocked: the real browser service-worker lifecycle was not executed** (no browser in the build environment). `install`/`activate`/`controllerchange` events, the actual reload and DevTools states are depicted from the Node model and labelled illustrative. Manual verification: `cd fixtures/ep12-sw-update && node generate-sw.mjs && node serve.mjs --build 1`, then follow `browser-test-checklist.md` steps 1–10 (open tab → confirm controller → keep open → `curl /__set-build/2` → click Check for update → observe waiting worker and both caches → "Update available" → Approve → one reload → Build 2, only `wrc-ep12-v2` left).
-- Blocked: no narration generated, no MP4 rendered, no frames inspected (orchestrator steps). `render-evidence.json` is not present.
 
 ## Build and render
 ```
@@ -36,9 +34,8 @@ node tools/render.mjs ep12 --concurrency 2
 - No lifecycle event was faked as a browser capture and no `controllerchange` reload loop is possible: one guard per document, one reload.
 - The model omits `updateViaCache`, imported scripts, scope rules, the browser's 24-hour byte-check and navigation-triggered update checks, and multiple registrations. The fetch handler is a minimal cache-first strategy for demonstration, not a production caching policy.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep12/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep12 → episodes/ep12/ep12.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 100.4 s, 8671291 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep12/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep12 → episodes/ep12/ep12.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 100.4 s, 8671291 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

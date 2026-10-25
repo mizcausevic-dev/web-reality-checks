@@ -13,7 +13,6 @@
 - Executed: `node fixtures/ep21-deletion-copies/demo.mjs` → `evidence.json`: flawed delete leaves lookup 404 but cached search → `c_1003, c_1004` and the index row present with 0 outbox events; corrected run: attempt 1 pending (attempts 1, stepsDone `[search_index]`), attempt 2 processed (attempts 2); simulated browser refresh `harbourline` → `[c_1004]`; replay ×2 leaves state unchanged and the next new contact is `c_1006`; retries exhausted after 3 attempts → `failed` and 1 alert.
 - Observed: numbers on screen are copied from `evidence.json`.
 - Predicted / Blocked: no real browser behaviour (HTTP cache, service workers, multiple tabs) was executed.
-- Not executed here: narration audio, MP4 render, thumbnail. The orchestrator renders and fills `render-evidence.json`. `video/src/episodes/ep21/timeline.json` and `captions.srt` were generated with `--no-audio` for type-checking only and must be rebuilt from the real narration.
 - Executed: `cd video && npx tsc --noEmit` passes.
 
 ## Accuracy items covered
@@ -37,3 +36,9 @@ node tools/render.mjs ep21 --concurrency 2
 - Not tested: concurrent workers, real process crashes, cache re-population races, retry backoff, real alert delivery, real browser caching.
 - Whole-cache invalidation is a fixture simplification, not a recommended general design.
 - Narration is 257 words across nine scenes (script.json).
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep21/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep21 → episodes/ep21/ep21.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 105.03 s, 8837823 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

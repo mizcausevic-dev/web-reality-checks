@@ -14,10 +14,9 @@
 - Executed: `node --test fixtures/ep24-shared-cache-leak/test.mjs` -> `# tests 18`, `# pass 18`, `# fail 0`.
 - Executed: `node fixtures/ep24-shared-cache-leak/demo.mjs` -> `evidence.json`: Alice `200 MISS`; Bob `200 HIT` with viewer `u_alice` (renderSeq 1 for both); header-present variant still `HIT`/`u_alice`; unauthenticated `401`; purge `true` (entries 1 -> 0); retest of four requests all `200 BYPASS`, each viewer only their own id, four distinct renderSeq, shared-cache counters unchanged (reads 2, writes 1).
 - Executed: `cd video && npx tsc --noEmit` -> no errors in `src/episodes/ep24/` (other episodes in progress may report their own errors).
-- Executed: `node tools/build-timeline.mjs ep24 --no-audio` -> provisional `timeline.json` / `captions.srt` (word-count estimate; orchestrator rebuilds from real audio).
 - Narration: 237 words across eight scenes.
 - Observed: all numbers shown in the video (statuses, `HIT`/`MISS`/`BYPASS`, render numbers, cache counters, purge result, test counts) are copied from `evidence.json` and the test run; they are hard-coded in `Scenes.tsx`, not read at render time.
-- Blocked / not executed: no real browser, CDN or proxy; no narration audio; no render (orchestrator fills `render-evidence.json`).
+- Blocked / not executed: no real browser, CDN or proxy.
 
 ## Build and render
 ```
@@ -41,3 +40,9 @@ node tools/render.mjs ep24 --concurrency 2
 - The retest uses cookie jars, not browsers; browser cache, service workers and storage partitioning are not exercised. No HTTP caching semantics (RFC 9111) are implemented.
 - Only `GET /dashboard` is repaired. No TTL, eviction, concurrency or multi-process behaviour.
 - Caption timing in the provisional timeline is a word-count heuristic.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep24/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep24 → episodes/ep24/ep24.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 99.6 s, 8528594 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

@@ -14,7 +14,6 @@
 - Executed: `node fixtures/ep22-date-only-timezones/demo.mjs` → `evidence.json`: flawed `2026-01-15 / 2026-01-14 / 2026-01-15`; corrected `2026-01-15` in all three; event `15:00 / 10:00 / 00:00 on 2026-01-16`; explicit-zone output identical under five machine `TZ` values.
 - Observed: New York flawed date is `2026-01-14` (19:00), computed by `Intl.DateTimeFormat` in the test itself.
 - Observed (this engine only): `new Date("2026-02-30")` rolls over to `2026-03-02` instead of failing.
-- Not executed: audio, render, MP4. None exists yet; the orchestrator renders and fills `render-evidence.json`.
 
 ## Accuracy items and where they are covered
 - Validate calendar dates, not shape: narration (scene `fix`), tests, on-screen rejects.
@@ -30,9 +29,14 @@ node tools/build-timeline.mjs ep22    # from narration audio in video/public/ep2
 node tools/gen-root.mjs
 node tools/render.mjs ep22 --concurrency 2
 ```
-Note: `video/src/episodes/ep22/timeline.json` and `episodes/ep22/captions.srt` currently come from a `--no-audio` run (estimated timing) so type-checking works; rebuild from the real narration.
 
 ## Limitations
 - Computed in Node 22 / V8 only; browsers and other engines were not tested.
 - Daylight-saving transitions and recurring local-time schedules are explained, not demonstrated or tested.
 - The scene visuals are an illustrative layout driven by fixture output, not a screenshot of a real task app.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep22/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep22 → episodes/ep22/ep22.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 89.37 s, 7176749 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

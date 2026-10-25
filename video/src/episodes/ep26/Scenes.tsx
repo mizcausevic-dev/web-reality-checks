@@ -148,7 +148,7 @@ const Fix: React.FC<SceneProps> = ({t}) => {
   const done = collapse >= 1;
   return (
     <>
-      <Tree reveal={EV.authorLookups} collapse={collapse} color={() => C.amber} listTitle={done ? '1 joined SELECT' : '1 list SELECT'} listSub={done ? 'articles + authors, ORDER BY a.id' : 'articles ORDER BY id'} listAccent={done ? C.green : C.cyan} rootSub={done ? 'GET /articles' : 'GET /vuln/articles'} />
+      <Tree reveal={EV.authorLookups} collapse={collapse} color={() => C.amber} listTitle={done ? '1 joined SELECT' : '1 list SELECT'} listSub={done ? 'articles + authors JOIN' : 'articles ORDER BY id'} listAccent={done ? C.green : C.cyan} rootSub={done ? 'GET /articles' : 'GET /vuln/articles'} />
       <Code x={M} y={120} w={640} size={26} title="corrected query" hi={[2, 3]} hiColor={C.green} o={ep(t, 0.3, 0.9)} lines={[
         'SELECT a.id, a.title, a.published_on,',
         '       u.id, u.name, u.handle',

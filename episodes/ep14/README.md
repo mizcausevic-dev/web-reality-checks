@@ -15,7 +15,6 @@
 - Executed: `node fixtures/ep14-upload-stages/demo.mjs` → `evidence.json`: valid CSV **82 file bytes travelled as a 232-byte request body** (150 B multipart overhead), 100 % sent, **202** `job_89b35fbbbe7a`, result before ready **409**, polls `accepted` ×5 then `ready` (the count of pre-ready polls varies with scheduling between runs), result **200** (rows 3, totalAmount 114.75), same job as Bob **404**. PNG-as-CSV: 100 % sent, **415** "binary content (NUL byte) is not CSV". Oversized 66723-byte body: **413**. Invalid rows: 100 % sent, **202** `job_a664e78fb5bf`, then **failed** — `line 3: invalid email "not-an-email"; line 4: amount is not a number "lots"`, result **409**, as Bob **404**.
 - Observed: all timestamps in `evidence.json` are `Date.now()` in one loopback process and are labelled "fixture-measured"; they are not representative of real networks or servers.
 - Blocked: the browser uploader (`public/`) was not run; no browser is available in the build environment. Browser `upload.onprogress` behaviour is therefore described, not demonstrated. The transfer numbers shown come from the Node client (bytes written to the socket) and are labelled "fixture-measured transfer bytes, includes multipart overhead".
-- Predicted: `video/src/episodes/ep14/timeline.json` was generated with `--no-audio` (word-count estimate) so the project type-checks; the orchestrator regenerates it from real narration. No MP4 is claimed here; the orchestrator fills `render-evidence.json`.
 
 ## Build and render
 ```
@@ -35,9 +34,8 @@ Type-check: `cd video && npx tsc --noEmit` passes for `src/episodes/ep14/*`.
 - Session handling (`GET /login/:user`) is a test harness, not production authentication. Multipart parsing buffers the whole size-limited body rather than streaming to disk.
 - Scenes recreate a browser uploader with plain illustrative chrome and carry the `SIMULATED LOCAL FIXTURE` tag; no real product UI is mimicked.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep14/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep14 → episodes/ep14/ep14.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.07 s, 8445528 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep14/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep14 → episodes/ep14/ep14.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.07 s, 8445528 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

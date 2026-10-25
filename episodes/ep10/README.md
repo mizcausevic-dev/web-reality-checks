@@ -12,8 +12,6 @@
 - Executed: `node --test fixtures/ep10-dns-caches/test.mjs` → `# tests 13  # pass 13  # fail 0` (state assertions at t=0, 10, 15, 20, 30, 60, 75; a known-positive control asserting the wrong address is actually served and cached at t=15; TTL-lowering-not-retroactive; expiry-does-not-push; independent recovery times; clock monotonicity; evidence shape).
 - Executed: `node fixtures/ep10-dns-caches/demo.mjs` → `fixtures/ep10-dns-caches/evidence.json`: 10 queries, **0 resolution failures**, 4 failed connections (all to 192.0.2.20), resolver A recovered at t=60, resolver B at t=75. Per-query rows `{t, client, resolver, cacheHit, answer, ttlRemaining, connect}`; snapshots at each assertion time; authoritative change log; cache-write log.
 - Observed (in the Remotion scenes): all values are constants copied from `evidence.json` (`EVENTS`, `WRITES`, `AUTH`, `SUMMARY` at the top of `Scenes.tsx`); the board state at any virtual time is derived from those constants, not hand-placed.
-- Predicted: scene durations in `video/src/episodes/ep10/timeline.json` were generated with `--no-audio` (word-count estimate). The orchestrator regenerates them from real narration.
-- Blocked: no narration generated, no MP4 rendered, no frames inspected (orchestrator steps). `render-evidence.json` is not present.
 
 ## Build and render
 ```
@@ -40,9 +38,8 @@ Full version: `fixtures/ep10-dns-caches/diagnostic-checklist.md`.
 3. **TLS** — handshake with SNI against the intended address; certificate covers the name; a mismatch after a DNS change usually means the name now points at an unprovisioned host.
 4. **HTTP** — status and origin headers via `--resolve`; Host-header routing; separate HTTP cache state from DNS cache state before concluding "the fix did not propagate".
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep10/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep10 → episodes/ep10/ep10.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 104.57 s, 9448657 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep10/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep10 → episodes/ep10/ep10.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 104.57 s, 9448657 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

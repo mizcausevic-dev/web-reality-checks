@@ -19,8 +19,6 @@
   - v4 with simulated commit failure → **503**, state digest unchanged, no event record; v4 retried → 200 applied.
   - 6 concurrent deliveries of new event v5 → 6 × 200; applied 1, duplicate 5, records added 1.
   - replay of v2, v3, v1, v3, v2, v1 → 6 × 200 duplicate; state digest `0d4e457d205b2702` before and after; records 5 → 5.
-- Predicted: timings in the placeholder `video/src/episodes/ep18/timeline.json` were produced with `--no-audio` (word-count estimate); the orchestrator rebuilds it from the real narration.
-- Blocked (by design of this task): no narration audio generated, no MP4 rendered, no frames inspected. `render-evidence.json` is filled by the orchestrator.
 
 ## Build and render
 ```
@@ -40,9 +38,8 @@ node tools/render.mjs ep18 --concurrency 2
 - Simulated: the commit failure (`X-Fault: fail-commit`) and the receiver clock. Not tested: secret rotation, provider-side retry scheduling, multi-process concurrency against a shared database, record retention/expiry.
 - The fixture binds 127.0.0.1 on an ephemeral port; the signing scheme and secret are fixture-only.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep18/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep18 → episodes/ep18/ep18.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 111.93 s, 9135471 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep18/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep18 → episodes/ep18/ep18.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 111.93 s, 9135471 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

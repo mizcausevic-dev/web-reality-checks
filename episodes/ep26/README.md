@@ -12,7 +12,6 @@
 - Executed: `node fixtures/ep26-n-plus-one/demo.mjs` → `evidence.json`: flawed 101 SELECTs, corrected 1, bodies byte-equal (13544 bytes), 12 distinct authors across 100 lookups (88 repeats), most-fetched author 14 times, control 102 / 2.
 - Observed: the video displays these numbers; the values in `Scenes.tsx` are copied from `evidence.json` and `seed-data.json`.
 - Not measured: latency or any timing. The video does not claim a speed-up.
-- Blocked / not done by the builder: no audio generated, no video rendered, no MP4 exists yet (orchestrator step). `video/src/episodes/ep26/timeline.json` was generated with `--no-audio` (estimated timing) only so the project type-checks.
 
 ## Build and render
 ```
@@ -35,3 +34,9 @@ node tools/render.mjs ep26 --concurrency 2
 - Simulated local fixture, synthetic data, in-memory SQLite, no ORM. Nothing here says how a networked database or a particular ORM behaves.
 - The query tree is an illustration of the logged statements (each square = one logged author lookup); layout is not a measurement.
 - Fixture limitations are listed in `fixtures/ep26-n-plus-one/README.md`.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep26/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep26 → episodes/ep26/ep26.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 91.67 s, 10147256 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

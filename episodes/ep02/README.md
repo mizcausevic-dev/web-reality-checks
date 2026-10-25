@@ -14,9 +14,7 @@
 ## Evidence
 - Executed: `node --test fixtures/ep02-duplicate-purchase-events/test.mjs` → `# tests 8  # pass 8  # fail 0` (Node v22.23.4). Includes a known-positive control asserting the flawed page emits 3 envelopes for one order, and a documented-LIMIT test asserting that replaying the same completion action still emits again (deliberately not fixed).
 - Executed: `node fixtures/ep02-duplicate-purchase-events/demo.mjs` → `fixtures/ep02-duplicate-purchase-events/evidence.json`: flawed run `receivedCount: 3` (emitters `app.purchaseHandler` @ `09:00:00.000Z`, `tagManager.purchaseTrigger` @ `.007Z`, `ConfirmationComponent.onMount` @ `.021Z`, all `event: purchase`, all `transaction_id: T-20261025-0001`); corrected run `completeOrder → 1`, `remountConfirmation() ×2 → 1`, `receivedCount: 1`, emitter `app.purchaseHandler`, `purchaseListenersOnBus: 1`.
-- Executed: `cd video && npx tsc --noEmit` → no errors in `src/episodes/ep02/` (checked with a placeholder `timeline.json` from `build-timeline.mjs ep02 --no-audio`; the orchestrator regenerates it from real audio).
 - Observed: every number shown in `video/src/episodes/ep02/Scenes.tsx` (3, 1, the three emitter names, the three timestamps, the per-action counts) is copied from `evidence.json`.
-- Blocked: no narration audio generated, no MP4 rendered, no inspection frames — the orchestrator does those and fills `render-evidence.json`.
 - Predicted: narration is 258 words; at the builder's 2.55 words/s estimate that is ≈101 s speech, ≈104 s total with lead/tail. Actual timing comes from the generated audio.
 
 ## Build and render
@@ -44,9 +42,8 @@ Fonts: the renderer uses Inter and DejaVu Sans Mono if installed; otherwise syst
 - Scope of the fix: one owner per business event in the tested scenario. It does not make the analytics pipeline correct in general and does not provide idempotency.
 - The event-ownership checklist is in `fixtures/ep02-duplicate-purchase-events/README.md`.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep02/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep02 → episodes/ep02/ep02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 112.4 s, 9964178 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep02/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep02 → episodes/ep02/ep02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 112.4 s, 9964178 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

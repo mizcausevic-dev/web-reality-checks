@@ -11,9 +11,7 @@
 - Executed: `node --test fixtures/ep27-stale-search-responses/test.mjs` → `# tests 22`, `# pass 22`, `# fail 0`.
 - Executed: `node fixtures/ep27-stale-search-responses/demo.mjs` → `evidence.json` with five scenarios (stale success, stale failure, loading, cleared, disposed), each with the exact release schedule and flawed/corrected state timelines, plus an abort comparison. Key values shown in the video: flawed final = query `react` with results for `re`; corrected final = results for `react`, discards `success, finally`; stale failure → flawed error `network error (simulated)`, corrected none and discards `error, finally`; loading → flawed `false`, corrected `true`; cleared → flawed shows results for `re`, corrected none; disposed → 2 writes after dispose (flawed) vs 0 (corrected); final state identical with and without abort.
 - Executed: `cd video && npx tsc --noEmit` → no errors.
-- Executed: `node tools/build-timeline.mjs ep27 --no-audio` → provisional `timeline.json` and `captions.srt` (word-count estimate, to be rebuilt from real narration).
 - Predicted: how a browser UI framework would behave with this logic follows from the state machine; it was not run in a browser.
-- Blocked: no narration audio, no render (orchestrator fills `render-evidence.json`). No MP4 is claimed.
 
 ## Accuracy bullets
 - Guard applied in success, error and finally paths (scenes `guard`, `discard`, `failure`).
@@ -36,4 +34,9 @@ node tools/render.mjs ep27 --concurrency 2
 ## Limitations
 - Entirely simulated: the controller and mock API are not a recording of a real browser or server. The search UI drawn in the video is a plain illustrative box.
 - Not tested: real fetch/abort semantics, server behaviour, framework lifecycles, retries, caching.
-- Caption/scene timing in the provisional timeline is a word-count heuristic; the orchestrator re-aligns to real audio.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep27/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep27 → episodes/ep27/ep27.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 103.03 s, 8353640 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

@@ -13,8 +13,6 @@
 - Executed: `node --test fixtures/ep11-consent-gate/test.mjs` → `# tests 10  # pass 10  # fail 0` (two known-positive controls assert the flawed page emits after rejection, before any choice, and after a reload with stored rejection).
 - Executed: `node fixtures/ep11-consent-gate/demo.mjs` → `evidence.json`: flawed run **4** optional requests (1 `no_choice`, 3 `rejected`); corrected no-choice **0**, rejected **0**, reload-with-stored-rejection **0**, accepted **3**, after withdraw **3** (unchanged), 1 unsent event dropped, 0 listeners left. `collector-log-flawed.json` (4 events) and `collector-log-corrected.json` (3 events, all `accepted`) are the real collector contents and are what the `logs` scene displays.
 - Observed: `cd video && npx tsc --noEmit` passes for `src/episodes/ep11/*`.
-- Predicted: scene durations in `video/src/episodes/ep11/timeline.json` were produced with `--no-audio` (word-count estimate, 101.4 s). They will be rebuilt from the real narration by the orchestrator.
-- Blocked: narration audio, MP4 render, frame inspection and `render-evidence.json` are produced by the orchestrator, not here. No MP4 is claimed.
 
 ## Build and render
 ```
@@ -42,9 +40,8 @@ node tools/render.mjs ep11 --concurrency 2
 5. Persist the choice and honour a stored rejection on reload before anything optional runs.
 6. Prove it with a collector: count requests per state, and keep a known-positive control that fails on the flawed build.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep11/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep11 → episodes/ep11/ep11.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.17 s, 8884931 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep11/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep11 → episodes/ep11/ep11.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 106.17 s, 8884931 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

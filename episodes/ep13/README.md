@@ -12,9 +12,7 @@
 ## Evidence
 - Executed: `node --test fixtures/ep13-api-key-capability/test.mjs` → `# tests 16  # pass 16  # fail 0`. Includes known-positive controls: the synthetic secret **does** authorise the privileged operation (200); the scanner **does** find the planted secret in both `app.js` and `index.html`; the served flawed bundle **does** contain the secret; the upstream **would** perform `delete_project` for the secret-holder.
 - Executed: `node fixtures/ep13-api-key-capability/demo.mjs` → `evidence.json`. Upstream: public id as bearer **403**, no credential 401, secret **200** (rotate_webhook and delete_project). Backend: unauthenticated **401**, viewer **403**, maintainer **200** (exactly 1 upstream call, made by the backend; `secretInResponse: false` across all 5 backend responses), over-broad `delete_project` **400** with no upstream call. Scanner: flawed bundle **2 secret-like** + 2 identifier-like; corrected bundle **0 secret-like** + 2 identifier-like, after the control run.
-- Executed: `node tools/build-timeline.mjs ep13 --no-audio` → provisional `video/src/episodes/ep13/timeline.json` (estimated 109.7 s from a 2.55 words/s rate; to be rebuilt from real narration audio by the orchestrator). Narration: 258 words.
 - Executed: `cd video && npx tsc --noEmit` passes for `src/episodes/ep13/*` (at the time of writing, unrelated in-progress episodes from other builders may show their own errors).
-- Predicted: scene durations in `Scenes.tsx` are tuned for roughly 7–14 s per scene; the orchestrator's audio-aligned timeline will set the real values.
 - Blocked (not done here, by spec): narration audio, render, `render-evidence.json`, thumbnail, git.
 
 ## Build and render
@@ -44,9 +42,8 @@ node tools/render.mjs ep13 --concurrency 2
 - **Rotation is not implemented.** The fixture shows removal from the bundle; it states, but does not demonstrate, that a real leaked secret would additionally require revocation or rotation at the issuer.
 - The flawed bundle must never be deployed; everything binds to 127.0.0.1 on ephemeral ports.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep13/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep13 → episodes/ep13/ep13.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 109.6 s, 9765509 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep13/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep13 → episodes/ep13/ep13.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 109.6 s, 9765509 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

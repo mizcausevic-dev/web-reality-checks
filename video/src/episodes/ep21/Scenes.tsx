@@ -146,7 +146,7 @@ const FixOutbox: React.FC<SceneProps> = ({t}) => {
       <Box x={1480} y={450} w={344} h={150} title="2 · Response cache" sub="clear the whole cache" accent={step2 > 0.9 ? C.green : C.line} o={ep(t, 4.8, 5.3)} />
       <Svg>
         <Arrow x1={446} y1={444} x2={446} y2={506} p={ep(t, 2.4, 3)} color={C.cyan} />
-        <Arrow x1={M + 700} y1={595} x2={1000} y2={430} p={toWorker} color={C.cyan} label="read event" labelDy={-26} />
+        <Arrow x1={M + 700} y1={595} x2={1000} y2={430} p={toWorker} color={C.cyan} label="read event" labelDy={-48} />
         <Arrow x1={1340} y1={380} x2={1480} y2={270} p={step1} color={C.cyan} />
         <Arrow x1={1340} y1={450} x2={1480} y2={520} p={step2} color={C.cyan} />
       </Svg>

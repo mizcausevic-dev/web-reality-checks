@@ -20,8 +20,6 @@
   - Missing routes `/csr/missing/`, `/ssg/missing/`: 404 on both, no shell served.
   - Identical title, description and `robots=noindex` on both raw responses; SSG hrefs equal `article.json` hrefs; the CSR data file carries the same hrefs.
 - Executed: rendered-DOM capture with `chrome-headless-shell` (HeadlessChrome/157.0.8080.0, Remotion bundle) launched as `--headless=new --no-sandbox --no-zygote --disable-gpu --disable-dev-shm-usage --no-proxy-server --user-data-dir=<tmp> --remote-debugging-port=0 about:blank`, then CDP `Target.createTarget` → (`Emulation.setScriptExecutionDisabled` for JS-off) → `Page.navigate` → `Page.loadEventFired` + 1.5 s settle → `Runtime.evaluate(document.documentElement.outerHTML)`. Plain `--dump-dom` hung in this container, so the DevTools protocol was used instead; the saved captures are in `fixtures/ep19-initial-html/captures/dom-*.html`.
-- Observed: `episodes/ep19/captions.srt` and `video/src/episodes/ep19/timeline.json` were generated with `--no-audio` (estimated speech duration 101.96 s, total 104.56 s) so the composition type-checks; the orchestrator regenerates them from real narration.
-- Not executed: narration audio, MP4 render, frame inspection (orchestrator). `render-evidence.json` is filled by the orchestrator.
 - The browser pages shown in scenes 1, 3 and 4 are illustrative recreations drawn with the kit's plain `Box` chrome; the numbers on them come from `evidence.json`. Scene 6 (crawl / render / index / rank) is labelled `CONCEPTUAL ILLUSTRATION` and measures nothing.
 
 ## Build and render
@@ -40,9 +38,8 @@ node tools/render.mjs ep19 --concurrency 2
 - Measurement is string/regex counting of known synthetic content, not a DOM parser. Loopback only; no HTTPS; no real network; no caching behaviour tested.
 - Caption timing in the generated SRT is proportional to word count (heuristic alignment, not forced alignment).
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep19/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep19 → episodes/ep19/ep19.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 107.2 s, 9447060 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep19/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep19 → episodes/ep19/ep19.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 107.2 s, 9447060 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

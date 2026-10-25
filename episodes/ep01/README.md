@@ -38,9 +38,8 @@ Fonts: the renderer uses Inter and DejaVu Sans Mono if installed; otherwise syst
 5. Client-side state (roles in the UI, hidden buttons, ids in URLs) is treated as untrusted input.
 6. Error responses do not confirm the existence of objects the caller cannot access.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep01/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep01 → episodes/ep01/ep01.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 98.8 s, 7264149 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep01/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep01 → episodes/ep01/ep01.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 98.8 s, 7264149 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

@@ -14,9 +14,8 @@
 - Executed: `node --test fixtures/ep20-https-visibility/test.mjs` → `# tests 18  # pass 18  # fail 0` (URL splitting with a known-positive control; matrix schema; observer-never-sees-content/certificate invariants; variant consistency; checklist covers every accuracy id under a real scene; every script scene tagged; scope-notes content).
 - Executed: `node fixtures/ep20-https-visibility/demo.mjs` → `evidence.json`: resolution name `example.test`, port `443`, request line `GET /account?tab=billing HTTP/1.1`, fragment `#history`, `fragmentInRequestTarget: false`. Observer tally over the matrix: 5 visible (DNS question, destination IP, port, timing/volume, SNI), 5 encrypted (TLS 1.3 certificate, method/path/query, headers, cookies, body), 1 not-sent (URL fragment). Browser: 11 visible. Endpoint: 9 visible, 2 not-sent (DNS question, URL fragment).
 - Executed: `cd video && npx tsc --noEmit` → no errors in `src/episodes/ep20/`.
-- Executed: `node tools/build-timeline.mjs ep20 --no-audio` → provisional `video/src/episodes/ep20/timeline.json` and `episodes/ep20/captions.srt` (word-count estimate, 104.56 s; to be rebuilt by the orchestrator from real narration audio).
 - Predicted: DNS, TCP, TLS handshake and HTTP behaviour as drawn follow from the cited specifications under the stated scope; none of it was observed on a network.
-- Blocked: no packet capture, no real TLS session, no narration audio, no render (orchestrator fills `render-evidence.json`).
+- Blocked: no packet capture and no real TLS session; the episode is conceptual.
 
 ## Build and render
 ```
@@ -45,11 +44,9 @@ node tools/render.mjs ep20 --concurrency 2
 - Entirely conceptual. Nothing about the drawn record sizes, timings, certificate fields or key agreement is measured; they are schematic.
 - Not covered: HTTP/3 over QUIC, TLS 1.2, session resumption, 0-RTT, OCSP, client certificates, traffic-analysis attacks beyond the statement that sizes and timing alone do not reveal exact content.
 - The illustrative browser chrome in `navigate` is a plain `Box`, labelled illustrative; it mimics no product.
-- Caption timing in the provisional timeline is a word-count heuristic; the orchestrator re-aligns to real audio.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep20/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep20 → episodes/ep20/ep20.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.33 s, 10721034 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep20/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep20 → episodes/ep20/ep20.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.33 s, 10721034 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

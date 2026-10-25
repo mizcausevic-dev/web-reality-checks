@@ -17,10 +17,8 @@
 - Executed: `node fixtures/ep09-keyboard-form/audit.mjs` → `audit-results.json`: flawed **3 / 11 checks pass** (fails: labelled inputs 0/3, placeholder-only 3, outline:none ×2, no :focus-visible, no `<form>`, submit not keyboard-operable, Enter does not submit, errors not associable); corrected **11 / 11 pass** (tab order `name → email → password → button[type=submit]`, 0 dangling `aria-describedby`, 0 positive tabindex).
 - Executed: `node fixtures/ep09-keyboard-form/demo.mjs` → `evidence.json`: flawed — 3 tab stops, submit unreachable, Enter in a field → nothing, Tab leaves the form, Enter/Space → nothing. Corrected — 4 tab stops; Enter in password field submits; `email` and `password` rejected with `aria-invalid="true"`, `aria-describedby="email-error"` / `"password-hint password-error"`; focus → `#email`; values preserved; after correction Tab → button → Space → accepted; 7 keystrokes (Tab Tab Tab Enter Tab Tab Space) excluding typing.
 - Executed: `cd video && npx tsc --noEmit` → clean.
-- Executed: `node tools/build-timeline.mjs ep09 --no-audio` → provisional `timeline.json` (94.76 s estimated, 8 scenes, 16 captions). Rebuild from real narration when audio exists.
 - Blocked: no browser in this environment, so focus visibility, tab order and Enter/Space behaviour are modelled from markup and HTML semantics, not captured from a rendered page. `demo.mjs` and the video label this.
 - Blocked: no screen reader available. The `label for`, `aria-describedby`, `aria-invalid` and `role=status` associations are implemented; what any browser + screen-reader pair announces was **not verified** and is not claimed.
-- Blocked (by spec): no narration audio generated, no MP4 rendered here; the orchestrator fills `render-evidence.json`.
 
 ## Video notes
 - All scenes except `end` carry the persistent tag `ILLUSTRATIVE RECREATION · KEYBOARD TEST`. The form is re-created with plain `Box` chrome at `127.0.0.1 · <variant>/index.html`; it is not a real product.
@@ -43,9 +41,8 @@ node tools/render.mjs ep09 --concurrency 2
 - The repair covers this one form. Modals, custom selects, date pickers and multi-step flows each need their own keyboard test.
 - The flawed version is a hand-built teaching fixture, not derived from any real product.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep09/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep09 → episodes/ep09/ep09.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 92.87 s, 7965079 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep09/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep09 → episodes/ep09/ep09.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 92.87 s, 7965079 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

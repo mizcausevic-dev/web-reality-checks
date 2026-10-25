@@ -13,9 +13,7 @@
 - Executed: `cd fixtures/ep03-sign-in-session && node --test test.mjs` → `# tests 12  # pass 12  # fail 0` (includes a known-positive control: without `regenerate()` the pre-auth session id survives login).
 - Executed: `node fixtures/ep03-sign-in-session/demo.mjs` → `evidence.json`: wrong password **401**; correct password **200** with `Set-Cookie sid=<opaque id>; Path=/; Expires=…; HttpOnly; Secure; SameSite=Lax`, `hasDomainAttribute: false`; session id **changed: true**; replay of pre-auth cookie after login **401**; `GET /me` with cookie **200** (`u_alice`, `member`); `GET /admin/audit` anonymous **401**, alice **403** (`required: admin, actual: member`), carol **200**; `POST /login` without CSRF header **403**; `GET /logout` **405**; `POST /logout` without CSRF header **403**; `POST /logout` with token **200**, `cookieExpired: true`; replay after logout **401**; request without `X-Forwarded-Proto: https` → `sessionCookieIssued: false`. Hash: `$argon2id$v=19$m=65536,t=3,p=4$…`, 97 chars, `differ: true`, `containsPassword: false`.
 - Verified: `cd video && npx tsc --noEmit` passes with `video/src/episodes/ep03/*`.
-- Executed: `node tools/build-timeline.mjs ep03 --no-audio` → `video/src/episodes/ep03/timeline.json` (estimated 104.6 s, no audio; to be rebuilt by the orchestrator once narration exists).
 - Blocked: real HTTPS handshake, certificate validation, and a browser's `Secure`/`HttpOnly`/`SameSite` enforcement — no trusted local CA and no browser were available. Attributes were verified on the `Set-Cookie` header only.
-- Not executed: narration audio and MP4 render (orchestrator fills `render-evidence.json`).
 - The session ids shown on screen (`IXbv8tHA…`, `KCWMieVO…`) are the first eight characters of the ids recorded in `evidence.json` for one run; they are random and differ on every run.
 
 ## Build and render
@@ -49,9 +47,8 @@ node tools/render.mjs ep03 --concurrency 2
 - Correct cookie attributes, a fresh session id and CSRF tokens address the demonstrated concerns only; the application is not claimed to be fully secure.
 - Timeline durations in `timeline.json` are a word-count estimate until real narration audio is supplied.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep03/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep03 → episodes/ep03/ep03.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 119.53 s, 9885270 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep03/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep03 → episodes/ep03/ep03.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 119.53 s, 9869705 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

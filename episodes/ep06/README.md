@@ -22,7 +22,6 @@
   - Dataset: open+high by org — org_acme 5, org_globex 6, org_initech 2; 13 across all orgs. The video shows 5 vs 13.
 - Measured-in-fixture: `totalMsMeasuredInFixture` values in `evidence.json` are `process.hrtime` deltas around a local mock and an in-memory filter (about 0.07–1.1 ms). They are **not** shown in the video and say nothing about real model latency.
 - Verified: `cd video && npx tsc --noEmit` reports no errors in `src/episodes/ep06/*`. All ten scene components server-render at t = 0…9 s with no element below y = 920.
-- Not executed: narration audio, render, thumbnail — the orchestrator does these and fills `render-evidence.json`. `video/src/episodes/ep06/timeline.json` was generated with `--no-audio` for type-checking only and should be regenerated from the real narration.
 
 ## Build and render
 ```
@@ -40,9 +39,8 @@ node tools/render.mjs ep06 --concurrency 2
 - The assistant window in scene 1 is an illustrative `Box`, not a real product UI.
 - Scene boundaries from `build-timeline.mjs` are a word-count/silence heuristic, not forced alignment.
 
-
-## Render evidence (orchestrator)
-- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4), saved to video/public/ep06/narration.mp3; timeline rebuilt from the real audio (scene boundaries snapped to detected silences; line-level caption timing proportional to word count).
-- Executed: node tools/render.mjs ep06 → episodes/ep06/ep06.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.8 s, 9661007 bytes). Thumbnail 1280x720 and hero 1600x900 rendered as Remotion stills.
-- Verified: independent ffprobe pass in VERIFICATION.md; fixture tests re-run in the same pass.
-- Observed: inspection frames in frames/ reviewed by the orchestrator for clipping and overlap.
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/ep06/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs ep06 → episodes/ep06/ep06.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 110.8 s, 9661007 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.

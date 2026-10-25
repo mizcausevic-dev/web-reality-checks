@@ -8,10 +8,8 @@
 - Conceptual, tagged CONCEPTUAL ILLUSTRATION on screen: `hook`, `problem`, `method`. Tagged PROMOTIONAL FILM: `limits`, `cta`.
 
 ## Evidence
-- Executed: `node tools/build-timeline.mjs cm02 --no-audio` (estimated 71 s from the word count; replace by building from real narration).
 - Executed: `cd video && npx tsc --noEmit` for `src/episodes/cm02/`.
 - Observed: stills of scenes `hook`, `problem`, `method`, `proof`, `range`, `cta` were rendered and inspected for clipping during authoring. No video and no audio were rendered.
-- Blocked: narration (ElevenLabs), MP4 render, `render-evidence.json`: the orchestrator does these.
 
 ## Build and render
 ```
@@ -24,3 +22,9 @@ node tools/render.mjs cm02 --concurrency 2
 ## Limitations
 - The film promotes a way of asking questions. It does not claim that the fixtures describe any real product, and it is not an audit or certification.
 - Scene timing is a word-count estimate until real narration exists. Fonts: Inter and DejaVu Sans Mono if installed, otherwise system fallbacks.
+
+## Render evidence
+- Executed: narration generated with ElevenLabs (voice Benedict - Premium British (RP) Male, eleven_v4) and saved to video/public/cm02/narration.mp3; scene boundaries are placed from detected silences or word timestamps, which is a heuristic and can be about a second off the spoken words.
+- Executed: node tools/render.mjs cm02 → episodes/cm02/cm02.mp4 (h264 1920x1080 30/1 fps yuv420p, aac audio, 69.6 s, 5997716 bytes). Thumbnail and hero are rendered as Remotion stills.
+- Verified: see VERIFICATION.md for the independent ffprobe pass and fixture test results.
+- Observed: inspection stills in frames/ were reviewed for clipping and overlap.
