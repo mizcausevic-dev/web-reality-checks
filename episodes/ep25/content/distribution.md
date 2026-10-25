@@ -25,12 +25,12 @@ What this does not cover: one tiny synthetic database, no recovery-time or recov
 
 Chapters
 00:00 Backup reports success
-00:10 What success established
+00:11 What success established
 00:24 Restore into a fresh path
 00:41 Two checks, two questions
-00:56 Known values and the real query
-01:07 Invalid backups fail validation
-01:27 What this does not cover
+00:55 Known values and the real query
+01:06 Invalid backups fail validation
+01:28 What this does not cover
 
 Fixture, tests and video source: github.com/mizcausevic-dev/web-reality-checks
 Articles (technical, business, general reader): episodes/ep25/content/ in the repo.

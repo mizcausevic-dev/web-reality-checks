@@ -136,13 +136,13 @@ No. It takes SQLite's write lock for one short transaction, so the catalog read 
 [YouTube link]
 
 - 00:00 The page says $10, the request says $1
-- 00:09 Flawed endpoint: 201 Created at $2.00
+- 00:08 Flawed endpoint: 201 Created at $2.00
 - 00:19 The trusted field: unitPriceCents
 - 00:31 The repair: catalog authority in one transaction
-- 00:47 Retest: 409 price_changed, 0 orders
-- 01:00 A legitimate change: 409 with the $24.00 quote
-- 01:14 Confirmation: snapshot at $12.00
-- 01:29 What is not modeled
+- 00:46 Retest: 409 price_changed, 0 orders
+- 00:59 A legitimate change: 409 with the $24.00 quote
+- 01:11 Confirmation: snapshot at $12.00
+- 01:26 What is not modeled
 
 Related episodes: [You Clicked Pay Once. Why Did the App Create Two Orders?](../../ep15/content/article-technical.md) and [Your AI-Built App Works. Is It Safe to Launch?](../../ep01/content/article-technical.md)
 

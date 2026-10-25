@@ -147,12 +147,12 @@ Only inside one process. In the fixture, two processes each skipped their own re
 
 00:00 Two reports for one scheduled run
 00:10 Two processes pass the same stale check
-00:22 The repair: a unique key on the logical run
-00:38 Rerun with the same barrier
-00:49 One worker commits, one verifies
-01:01 Killed before commit: nothing visible
-01:12 Rollback, retry, and busy is not done
-01:25 What the guarantee is and is not
+00:23 The repair: a unique key on the logical run
+00:41 Rerun with the same barrier
+00:51 One worker commits, one verifies
+01:05 Killed before commit: nothing visible
+01:17 Rollback, retry, and busy is not done
+01:30 What the guarantee is and is not
 
 Related episodes: [You Clicked Pay Once. Why Did the App Create Two Orders?](../../ep15/content/article-technical.md) and [Your Webhook Arrived Twice. Then an Older Update Arrived.](../../ep18/content/article-technical.md)
 

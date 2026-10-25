@@ -150,11 +150,11 @@ No. Aborting is a useful optimization, but a client abort does not prove the ser
 [YouTube link]
 
 - 00:00 The fail: results for "re" replace "react"
-- 00:13 Request order is not response order
+- 00:12 Request order is not response order
 - 00:23 The late response still says "re"
-- 00:33 The fix: a generation counter
+- 00:34 The fix: a generation counter
 - 00:45 Retest: same release schedule
-- 00:54 Generation 1 is not generation 2: discarded
+- 00:55 Generation 1 is not generation 2: discarded
 - 01:05 Failures need the same guard
 - 01:14 Clear, dispose, abort and debounce
 - 01:30 The last response is not always the latest

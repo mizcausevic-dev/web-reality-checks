@@ -150,14 +150,14 @@ Not from the server. A client keeps what it downloaded until it fetches again. R
 [YouTube link]
 
 - 00:00 Record gone, search still returns it
-- 00:11 One contact, four homes
+- 00:12 One contact, four homes
 - 00:20 Flawed delete: primary row only
-- 00:29 The fix: delete plus outbox event
-- 00:46 Partial failure: cache invalidation fails
-- 00:56 Retry, replay and exhausted retries
-- 01:11 Verify the backend copies
-- 01:17 The open page until refresh
-- 01:27 What this does not cover
+- 00:30 The fix: delete plus outbox event
+- 00:47 Partial failure: cache invalidation fails
+- 00:57 Retry, replay and exhausted retries
+- 01:13 Verify the backend copies
+- 01:19 The open page until refresh
+- 01:28 What this does not cover
 
 Related episodes: [Your Website Updated. Why Am I Still Seeing the Old Version?](../../ep12/content/article-technical.md) and [You Clicked Pay Once. Why Did the App Create Two Orders?](../../ep15/content/article-technical.md)
 

@@ -27,13 +27,13 @@ What this does not fix: this is not a price lock. Taxes, discounts, shipping, in
 
 Chapters
 00:00 The page says $10, the request says $1
-00:09 Flawed endpoint: 201 Created at $2.00
+00:08 Flawed endpoint: 201 Created at $2.00
 00:19 The trusted field: unitPriceCents
 00:31 The repair: catalog authority in one transaction
-00:47 Retest: 409 price_changed, 0 orders
-01:00 A legitimate change: 409 with the $24.00 quote
-01:14 Confirmation: snapshot at $12.00
-01:29 What is not modeled
+00:46 Retest: 409 price_changed, 0 orders
+00:59 A legitimate change: 409 with the $24.00 quote
+01:11 Confirmation: snapshot at $12.00
+01:26 What is not modeled
 
 Fixture, tests and video source: github.com/mizcausevic-dev/web-reality-checks
 Articles (technical, business, general reader): episodes/ep29/content/ in the repo.
