@@ -125,9 +125,9 @@ async function apiError(r) {
   return new ApiError(`HTTP ${r.status} ${String(msg).slice(0, 300)}`.trim());
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-async function retrying(fn, tries = 3) {
+async function retrying(fn, tries = 4) {
   for (let i = 0; ; i++) {
-    try { const r = await fn(); if ((r.status === 429 || r.status >= 500) && i < tries - 1) { await sleep(1000 * 2 ** i); continue; } return r; }
+    try { const r = await fn(); if ((r.status === 429 || r.status === 409 || r.status >= 500) && i < tries - 1) { await sleep(1000 * 2 ** i); continue; } return r; }
     catch (e) { if (i >= tries - 1) throw e; await sleep(1000 * 2 ** i); }
   }
 }
@@ -210,6 +210,9 @@ async function ensurePlaylist(state, o) {
   const rel = rd('SERIES_RELEASE.md');
   const title = (section(rel, /### Playlist title[^\n]*\n/, /\n### /) ?? '').match(/^1\. `([^`]+)`/m)?.[1] ?? 'Web Reality Checks';
   const description = sanitize((section(rel, /### Playlist description[^\n]*\n/, /\n## /) ?? '').replace(/^```\n?|\n?```$/g, ''));
+  // Reuse an existing playlist with this exact title (a failed earlier run may have created it), so reruns never duplicate it.
+  const ex = await retrying(async () => fetch(`${API()}/youtube/v3/playlists?part=snippet&mine=true&maxResults=50`, {headers: await authz()}));
+  if (ex.ok) { const hit = ((await ex.json().catch(() => ({}))).items ?? []).find((p) => p.snippet?.title === title); if (hit) return (state.playlistId = hit.id); }
   const r = await retrying(async () => fetch(`${API()}/youtube/v3/playlists?part=snippet,status`, {method: 'POST', headers: await authz({'Content-Type': 'application/json'}),
     body: JSON.stringify({snippet: {title, description}, status: {privacyStatus: o.privacy}})}));
   if (!r.ok) throw await apiError(r);

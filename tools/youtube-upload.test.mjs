@@ -43,6 +43,7 @@ before(async () => {
         return j(200, {id: 'vid_TEST1'});
       }
       if (u.pathname === '/upload/youtube/v3/thumbnails/set') return j(200, {});
+      if (u.pathname === '/youtube/v3/playlists' && req.method === 'GET') return j(200, {items: []});
       if (u.pathname === '/youtube/v3/playlists') return j(200, {id: 'PL_TEST'});
       if (u.pathname === '/youtube/v3/playlistItems') return j(200, {id: 'PLI_TEST'});
       if (u.pathname === '/upload/youtube/v3/captions') return j(200, {id: 'CAP_TEST'});
