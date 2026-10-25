@@ -10,23 +10,23 @@ Medium tags (5): Data Quality, Data Engineering, Node.js, Software Engineering, 
 
 The directory has 10,000 listings, and that is the only number it has. Run five automated checks over the rows and you get 3,875 issue instances on 3,303 distinct listings, and the largest single flag, a failed website check, landed 1,038 times on businesses that are open (local synthetic fixture).
 
-This is episode five of Web Reality Checks. The dataset is generated from a fixed seed, every business and hostname is invented, and the ground truth that says what was planted lives in a separate file the checker is forbidden to read. That setup lets us say exactly how many problems exist, how many the checker found, how many it missed, and how badly the headline number lies if you add the columns together.
+This is episode five of Web Reality Checks. The dataset is generated from a fixed seed, every business is invented, and the ground truth that says what was planted lives in a separate file the checker is forbidden to read. That lets us say how many problems exist, how many the checker found, how many it missed, and how badly the headline number lies if you add the columns together.
 
 ## What actually happens
 
-A listing count measures how many rows exist. It says nothing about how many are right, because a row can be present and still be a duplicate, point at a URL that does not parse, lack a phone number, or hold an address nobody has confirmed in three years. These problems do not partition the data. One row can carry several at once.
+A listing count measures how many rows exist, not how many are right. A row can be present and still be a duplicate, point at a URL that does not parse, or hold an address nobody has confirmed in three years. These problems do not partition the data. One row can carry several at once.
 
-That overlap drives the most common reporting mistake in this space. A dashboard shows a column per check: 1,136 unreachable sites, 921 stale verifications, 636 duplicate candidates, and so on. Someone sums the column and announces "3,875 bad listings." But a listing with a stale date and a timed-out website is one listing with two flags. The sum of per-code counts is the count of issue instances. The count of distinct flagged listings is a smaller number, and the only way to get it is to group instances by listing ID and count the groups.
+That overlap drives the most common reporting mistake in this space. A dashboard shows a column per check: 1,136 unreachable sites, 921 stale verifications, 636 duplicate candidates. Someone sums the column and announces "3,875 bad listings." But a listing with a stale date and a timed-out website is one listing with two flags. The sum of per-code counts is issue instances. Distinct flagged listings is a smaller number, found only by grouping instances by listing ID and counting the groups.
 
-The second mechanism is what a probe can see. A website check observes one response at one moment: 200, 410, connection refused, DNS miss, timeout. It observes nothing about whether the business behind the hostname exists. Hosting lapses, DNS migrations and slow servers all produce failures on open businesses; a closed business with prepaid hosting answers 200 for years. The probe result is evidence about a server. Treating it as a closure verdict converts a transport fact into a business fact with no step that justifies the conversion.
+The second mechanism is what a probe can see. A website check observes one response at one moment: 200, 410, connection refused, DNS miss, timeout. It observes nothing about whether the business behind the hostname exists. Hosting lapses and slow servers produce failures on open businesses; a closed business with prepaid hosting answers 200 for years. Treating a probe result as a closure verdict converts a transport fact into a business fact with no step that justifies the conversion.
 
-The third mechanism is timestamps. "Last checked," "last changed" and "last verified" are three events with three actors: a probe, an editor, and a human who confirmed the row against the world. Directories that store one date, or let a re-check advance the verification date, lose the ability to tell a confirmed row from a merely probed one.
+The third mechanism is timestamps. "Last checked," "last changed" and "last verified" are three events with three actors: a probe, an editor, and a human. Store one date, or let a re-check advance the verification date, and you can no longer tell a confirmed row from a merely probed one.
 
 ## The fixture
 
-`fixtures/ep05-directory-quality/` is plain Node 22 ESM with zero dependencies. `generate.mjs` uses its own mulberry32 PRNG seeded with `20261025` to build exactly 10,000 listings and a separate `ground-truth.json`. It seeds six overlapping defect classes: duplicates (320 groups, 640 labelled rows), malformed URLs (250), missing required fields (300), old verification timestamps (900), changed addresses (400) and closures (350), plus 200 harmless edited rows with no label (local synthetic fixture). A fixed "now" of `2026-10-25` makes every age reproducible.
+`fixtures/ep05-directory-quality/` is plain Node 22 ESM with zero dependencies. `generate.mjs` uses its own mulberry32 PRNG seeded with `20261025` to build exactly 10,000 listings and a separate `ground-truth.json`. It seeds six overlapping defect classes: duplicates (320 groups, 640 labelled rows), malformed URLs (250), missing required fields (300), old verification timestamps (900), changed addresses (400) and closures (350) (local synthetic fixture). A fixed "now" of `2026-10-25` makes every age reproducible.
 
-`check.mjs` runs five checks on the public rows only: completeness, duplicate candidates, URL syntax, website availability and verification age. The website check never touches the network. It calls an in-process mock responder keyed by the hostname's second-level label:
+`check.mjs` runs five checks on the public rows only. The website check never touches the network; it calls an in-process mock responder keyed by the hostname's second-level label:
 
 ```js
 export const mockResponder = (hostname) => {
@@ -42,9 +42,9 @@ export const mockResponder = (hostname) => {
 };
 ```
 
-The bucket is world behavior, not a quality label. The generator gives about 12% of open businesses slow, down or nx sites, and 30% of seeded closures keep a site answering 200. The checker only sees responses, as a real probe would.
+The bucket is world behavior, not a quality label. About 12% of open businesses get slow, down or nx sites, and 30% of seeded closures keep a site answering 200.
 
-The verification check emits two separate codes, because age and edit-after-verification are different facts, and the evidence payload carries the policy in plain text:
+The verification check emits two codes, because age and edit-after-verification are different facts, and the evidence payload carries the policy in plain text:
 
 ```js
 if (days > STALE_DAYS) out.push({listingId: l.id, check: 'verification', code: 'stale_verification', evidence: {verifiedDaysAgo: days, note: 'age is a reason to re-verify, not evidence the row is wrong'}});
@@ -58,7 +58,7 @@ export const REVIEW_CODES = new Set(['site_unreachable', 'site_gone', 'duplicate
 export const PRIORITY = {site_gone: 1, duplicate_candidate: 2, site_unreachable: 3, edited_since_verified: 4, stale_verification: 5};
 ```
 
-`inspect()` returns `totalIssueInstances` and `uniqueFlaggedListings` as two fields and builds one review-queue card per listing carrying all of its judgement flags. `evaluate()` is a separate function, called only after inspection, that compares the result with ground truth and reports detected versus missed per seeded class.
+`inspect()` returns `totalIssueInstances` and `uniqueFlaggedListings` as two fields and builds one review-queue card per listing. `evaluate()` is separate, runs only after inspection, and reports detected versus missed per seeded class.
 
 ## The test that proves it
 
@@ -69,63 +69,63 @@ export const PRIORITY = {site_gone: 1, duplicate_candidate: 2, site_unreachable:
 - `unique flagged listings is reported separately from total issue instances and is never their sum`
 - `KNOWN-POSITIVE CONTROL: website failures occur on businesses that are OPEN in ground truth`
 - `KNOWN-POSITIVE CONTROL: some seeded defects are missed by the checker (and are reported as missed)`
-- `evaluation happens AFTER checking and does not change the checker output`
 - `review queue holds only judgement-call codes, one entry per listing, with evidence`
 
-The two controls are the ones most teams would not write. The first asserts `unreachableButOpen.count` is greater than zero, with the message "if this were 0 the 'lead, not proof' lesson would be untestable." The second asserts that `changed_address`, `closed` and `malformed_url` each have misses and that `detected + missed === seeded` for every class. A checker claiming to find everything would fail this suite, which is the correct outcome.
+The two controls are the ones most teams would not write. The first asserts `unreachableButOpen.count` is greater than zero: "if this were 0 the 'lead, not proof' lesson would be untestable." The second asserts that `changed_address`, `closed` and `malformed_url` each have misses and that `detected + missed === seeded` for every class.
 
-From `evidence.json` (local synthetic fixture): 10,000 listings, 3,875 issue instances, 3,303 distinct flagged listings, 6,697 clean. Per code: `site_unreachable` 1,136, `stale_verification` 921, `duplicate_candidate` 636 (318 pairs), `edited_since_verified` 525, `missing_required` 300, `malformed_url` 231, `site_gone` 126. Each code fires at most once per listing, so the overlap lives across codes: 2,775 flagged listings carry one flag, 485 carry two, 42 carry three, one carries four. Mock responder calls 8,922; real network calls 0.
+From `evidence.json` (local synthetic fixture): 10,000 listings, 3,875 issue instances, 3,303 distinct flagged listings, 6,697 clean. Per code: `site_unreachable` 1,136, `stale_verification` 921, `duplicate_candidate` 636 (318 pairs), `edited_since_verified` 525, `missing_required` 300, `malformed_url` 231, `site_gone` 126. Each code fires at most once per listing, so overlap lives across codes: 2,775 flagged listings carry one flag, 485 two, 42 three, one four. Mock responder calls 8,922; real network calls 0.
 
 ## The repair
 
-There is no single bug to patch. The repair is a set of reporting and routing rules, written in `review-rules.md` and enforced by the code and tests above.
+There is no single bug to patch. The repair is the set of reporting and routing rules in `review-rules.md`, enforced by the tests above.
 
 Report two numbers, never one. `uniqueFlaggedListings` counts listings; `totalIssueInstances` counts issues. A test fails if they are ever equal while overlap exists.
 
-Route by evidence type. `missing_required` and `malformed_url` are deterministic and do not enter the review queue on their own. `site_gone`, `duplicate_candidate`, `site_unreachable`, `edited_since_verified` and `stale_verification` each suggest something without proving it. They go to a human, one card per listing, every flag on the card, sorted by highest-priority flag.
+Route by evidence type. `missing_required` and `malformed_url` are deterministic and never enter the review queue on their own. The five judgement codes go to a human, one card per listing, every flag on the card, sorted by highest-priority flag.
 
 Make closure expensive. `mark_closed` requires two independent signals, for example site gone plus phone disconnected. A single failed website check is never sufficient. The weak-signal path is `keep_listing_schedule_recheck`, which advances `lastCheckedAt` and re-probes later.
 
-Record decisions as evidence: `listingId`, `decision`, `reason`, the `evidence` seen, `reviewedAt`, `reviewer` and `fieldsUpdated`. A re-check never advances `lastVerifiedAt`. Only a `verify_*` decision does.
+Record decisions as evidence: `listingId`, `decision`, `reason`, `evidence`, `reviewedAt`, `reviewer` and `fieldsUpdated`. A re-check never advances `lastVerifiedAt`. Only a `verify_*` decision does.
 
 ## Retest
 
 The worked example from `evidence.json` (local synthetic fixture): `L00070`, "Copper Framing Co.", website `copper-framing-co.slow.test`. The mock returned a timeout, so the checker emitted `site_unreachable`. The listing also carried `stale_verification`: last verified `2023-01-20`. In ground truth, which the checker never saw, the only label is `stale_verification`. The business is open.
 
-The decision recorded is `keep_listing_schedule_recheck` by `reviewer-synthetic-01` at `2026-10-25T09:14:00Z`. `lastCheckedAt` moved from `2026-10-13` to `2026-10-25`. `lastVerifiedAt` stayed at `2023-01-20`, because nothing was verified. The final test asserts `'lastVerifiedAt' in d.fieldsUpdated` is false.
+The decision is `keep_listing_schedule_recheck` by `reviewer-synthetic-01` at `2026-10-25T09:14:00Z`. `lastCheckedAt` moved from `2026-10-13` to `2026-10-25`. `lastVerifiedAt` stayed at `2023-01-20`, because nothing was verified. The final test asserts `'lastVerifiedAt' in d.fieldsUpdated` is false.
 
 Across the dataset, 1,038 of the 1,136 `site_unreachable` flags landed on listings with no `closed` label in ground truth (local synthetic fixture). Treating a failed probe as a closure would have hidden over a thousand open businesses.
 
-Detected versus missed per seeded class (local synthetic fixture): duplicate 640 seeded, 636 detected, 4 missed. malformed_url 250 / 231 / 19. missing_required 300 / 300 / 0. stale_verification 900 / 900 / 0. changed_address 400 / 210 / 190. closed 350 / 224 / 126. The README explains each miss: 190 moved businesses with no edit trail leave no signal in the public row; 126 closures still answer 200 or had a malformed URL that was never probed; 19 typo domains like `.okk.test` are syntactically valid; 4 duplicates are hard variants with a new phone, shortened name and reworded street. All are reported as missed, not dropped.
+Detected versus missed per seeded class (local synthetic fixture): duplicate 640 seeded, 636 detected, 4 missed. malformed_url 250 / 231 / 19. missing_required 300 / 300 / 0. stale_verification 900 / 900 / 0. changed_address 400 / 210 / 190. closed 350 / 224 / 126. Moved businesses with no edit trail leave no signal in the public row; closures still answering 200 are invisible to a probe; typo domains like `.okk.test` are syntactically valid. All are reported as missed, not dropped.
 
 ## What this does not prove
 
-- Everything is simulated: generated dataset, mock responses, synthetic reviewer. The detection rates are properties of this dataset and this checker, not of any real directory.
-- Real HTTP behavior is not modelled: redirects, TLS errors, bot blocks, parked domains and rate limits all produce signals this fixture never sees.
-- Duplicate detection is exact-key blocking after normalization, not fuzzy matching. Base phones are unique by construction, so every detected pair here is a seeded pair. Real shared office lines would produce false candidates, which is why `duplicate_candidate` routes to review.
-- The one recorded decision shows the record shape. It is not a workflow, and there is no persistence beyond JSON files.
+
+- Everything is simulated: generated dataset, mock responses, synthetic reviewer. The detection rates belong to this dataset and this checker, not to any real directory.
+- Real HTTP behavior is not modelled: redirects, TLS errors, bot blocks and parked domains all produce signals this fixture never sees.
+- Duplicate detection is exact-key blocking after normalization, not fuzzy matching. Base phones are unique by construction, so every detected pair here is seeded. Real shared office lines would produce false candidates, which is why the code routes to review.
+- The one recorded decision shows the record shape, not a workflow.
 
 ## Launch checklist
 
-1. Quality reports show distinct flagged listings and total issue instances as two numbers, and nobody sums the per-check columns.
-2. `lastCheckedAt`, `lastChangedAt` and `lastVerifiedAt` are three stored fields, and an automated re-check can only touch the first.
+1. Quality reports show distinct flagged listings and total issue instances as two numbers; nobody sums the per-check columns.
+2. `lastCheckedAt`, `lastChangedAt` and `lastVerifiedAt` are three stored fields; a re-check can only touch the first.
 3. A failed website probe routes to review as a lead. No code path marks a listing closed on one failed probe.
 4. Closure requires two independent signals, and the policy is written down.
 5. Deterministic defects go to a repair queue, not a human review queue.
 6. Each review card carries every flag and its evidence for that listing.
 7. Every decision records evidence, timestamp and reviewer identity.
-8. The checker is evaluated against a labelled set it never reads, and misses are reported per class.
+8. The checker is evaluated against a labelled set it never reads; misses are reported per class.
 
 ## FAQ
 
 **Why is the number of flagged listings smaller than the number of issues?**
-Because problems overlap. One listing can have a stale verification date and an unreachable website at once, which is two issue instances on one listing. In the fixture that gap is 3,875 instances against 3,303 listings (local synthetic fixture). Summing per-check columns counts listings more than once.
+Because problems overlap. One listing can have a stale verification date and an unreachable website at once: two issue instances, one listing. In the fixture the gap is 3,875 instances against 3,303 listings (local synthetic fixture). Summing per-check columns counts listings more than once.
 
 **Does a failed website check mean the business closed?**
-No. A timeout, refused connection or DNS miss describes the server at one moment, not the business. In the fixture, 1,038 failed checks landed on businesses that are open in ground truth (local synthetic fixture). Treat it as a lead, route it to review, and require a second independent signal before marking closed.
+No. A timeout, refused connection or DNS miss describes the server at one moment, not the business. In the fixture, 1,038 failed checks landed on open businesses (local synthetic fixture). Treat it as a lead, route it to review, and require a second independent signal before marking closed.
 
 **What is the difference between last checked and last verified?**
-Last checked records that an automated probe ran. Last verified records that a human confirmed the row against the real business. A re-check should move only the first. If one date serves both roles, you can no longer tell a confirmed row from a merely probed one.
+Last checked records that an automated probe ran. Last verified records that a human confirmed the row against the real business. A re-check should move only the first. If one date serves both roles, you cannot tell a confirmed row from a merely probed one.
 
 ## Watch the episode
 

@@ -9,7 +9,7 @@ All numbers and outcomes below come from the local synthetic fixture in `fixture
 1. `That API Key Is in Your JavaScript. Is That Always a Leak?` (58) : the series title; names the discovery and leaves the answer open, which is the episode's point.
 2. `Public Key or Secret? Test the Lock, Not the Label` (50) : states the method in the title; lands search intent around public vs secret keys.
 3. `We Found Two Keys in a Bundle. Only One Was a Leak.` (51) : concrete scene from the fixture; the "only one" invites the viewer to learn how to tell.
-4. `A Public Identifier Names Something. A Secret Grants Capability.` (63, over limit; shorten to `An Identifier Names. A Secret Grants Capability.` at 48) : the closing thesis for shares.
+4. `An Identifier Names Something. A Secret Grants Power.` (53) : the closing thesis compressed for shares; "power" stands in for "capability" to fit.
 5. `Moving the Key to a Backend Is Not Enough` (41) : for engineers who already know the first half and may be relying on a forwarding proxy.
 6. `Deleting a Leaked Key Does Not Revoke It` (40) : the rotation point as a standalone hook; useful for the incident-response audience.
 
@@ -53,42 +53,42 @@ Everything here runs on a deliberately built local fixture with a fictional vend
 
 ### Post 1: engineers
 
-Two credential-shaped strings in a shipped bundle. One named PUBLIC, one named SECRET. Which one is the leak? Neither name can tell you.
+Two credential-shaped strings in a shipped bundle. One named PUBLIC, one SECRET. Which is the leak? Neither name can tell you.
 
-Episode 13 of Web Reality Checks. The method is one question: what does each value actually do at the upstream?
+Episode 13 of Web Reality Checks asks: what does each value actually do at the upstream?
 
-Present the public identifier as a bearer credential to the privileged endpoint: 403. It names a project and authorizes nothing. Present the synthetic secret: 200, operation performed. Every copy of the bundle is a copy of that capability. "Public" was a tested fact, not a promise from the constant name.
+Public identifier as a bearer at the privileged endpoint: 403. Names a project, authorizes nothing. Synthetic secret: 200, operation performed. Every copy of the bundle is a copy of that capability. "Public" was a tested fact, not a promise.
 
-The repair is where teams get complacent. Moving the secret to a backend is necessary and not sufficient. A backend that forwards whatever operation the browser requests is the same leak with an extra hop. The fixture's backend authenticates (no session, 401), validates the operation against a one-entry allow-list (delete_project, 400, no upstream call), and authorizes the role (viewer, 403) before it uses its own credential for its own project. One upstream call per allowed request, no secret in any response body or header.
+Moving the secret to a backend is necessary, not sufficient. A backend that forwards whatever the browser requests is the same leak with an extra hop. Ours authenticates (401), checks a one-entry allow-list (delete_project: 400, no upstream call) and authorizes the role (viewer: 403) before using its own credential.
 
-Two controls make the result mean something. The secret test proves the planted value grants capability; without it, finding it in a bundle proves nothing. The scanner proves it can see the planted secret in the flawed bundle before it is allowed to report 0 in the corrected one. 16 tests, 16 pass.
+Two controls: the secret test proves the planted value grants capability, and the scanner proves it sees that value in the flawed bundle before it may report 0. 16 tests, 16 pass.
 
-Limits: zero in scanned JS, HTML, config and source maps is not zero in logs, caches, SSR pages or history. Vendor browser keys with limited capability are a different policy this fixture does not test. CORS is not auth. A real leaked secret must be rotated; removal revokes no copies.
+Limits: zero in scanned assets is not zero in logs or caches. Vendor browser keys with limited capability are a policy this fixture does not test. CORS is not auth. A leaked secret must be rotated; removal revokes no copies.
 
-Synthetic fixture, loopback only, fictional vendor. Video, fixture, tests: github.com/mizcausevic-dev/web-reality-checks
+github.com/mizcausevic-dev/web-reality-checks
 
 #WebSecurity #APISecurity #SoftwareEngineering
 
 ### Post 2: non-technical leaders
 
-Someone emails: "Your website is leaking API keys." Your team looks and says one is labelled public, so it is fine. Nobody has checked what it can do.
+Someone emails: "Your website is leaking API keys." Your team says one is labelled public, so it is fine. Nobody checked what it can do.
 
-Episode 13 of Web Reality Checks reproduces that moment on a local fixture with a fictional vendor and two invented values. The team's instinct, to trust the label, is the mistake the episode is about.
+Episode 13 of Web Reality Checks reproduces that moment on a local fixture with a fictional vendor and two invented values.
 
-The right test is simple. Show each value to the service that issued it and ask it to do something privileged. The one labelled public was refused. The one labelled secret was accepted, and the action ran. The first value is an address: it names a building, anyone can read it, it opens nothing. The second is a master key, and every visitor who loaded the site had a copy.
+The right test: show each value to the issuing service and ask for something privileged. Public: refused. Secret: accepted, action ran. The first is an address: it opens nothing. The second is a master key, and every visitor who loaded the site had a copy.
 
-The fix is to keep the key on your own servers. The trap is a server that hands the key's power to anyone who asks. In the episode, the backend checks who is asking, whether they are allowed, and whether the request is one of the few actions it offers at all, before it acts. A request for a destructive action is refused outright.
+The fix is to keep the key on your own servers. The trap is a server that hands the key's power to anyone who asks. The episode's backend checks who is asking, whether they are allowed, and whether the request is an action it offers.
 
 Five questions for your team or vendor:
 1. For each key-shaped value in our website code, who tested what the issuer does when shown it?
 2. Where does each secret live now?
 3. Does our backend decide what it will do, or forward whatever the browser asks?
-4. What exactly was scanned, and was the scanner proven to catch a planted secret first?
-5. If a real secret ever shipped, has it been rotated at the issuer? Deleting it from the code recalls no copies.
+4. Was the scanner proven to catch a planted secret first?
+5. If a real secret ever shipped, has it been rotated? Deleting it recalls no copies.
 
 "It says public" is a label, not an answer.
 
-Synthetic fixture, no real product. Video and write-ups: github.com/mizcausevic-dev/web-reality-checks
+github.com/mizcausevic-dev/web-reality-checks
 
 #ProductManagement #StartupSecurity #Leadership
 
@@ -98,17 +98,17 @@ Synthetic fixture, no real product. Video and write-ups: github.com/mizcausevic-
 
 2/ A credential is a string, and strings carry no authority. Authority lives at the upstream, which decides what it will perform for whoever presents the bytes. So ask the upstream. Present each value to the privileged endpoint and record what happens.
 
-3/ Public identifier presented as a bearer credential: 403. It names a project and authorizes nothing. Synthetic secret: 200, operation performed. Anyone who downloaded the bundle holds that capability. That is the leak, and the constant names had nothing to do with it. (Local synthetic fixture.)
+3/ Public identifier presented as a bearer credential: 403. It names a project and authorizes nothing. Synthetic secret: 200, operation performed. Anyone who downloaded the bundle holds that capability. That is the leak; the names had nothing to do with it. (Synthetic fixture.)
 
-4/ "Public" was safe here because it was tested and refused, not because of the word. Some real vendors ship browser keys with deliberately limited capability. This fixture models one fictional vendor and settles nothing about theirs. Test your key against your vendor's privileged operations.
+4/ "Public" was safe here because it was tested and refused, not because of the word. Some real vendors ship browser keys with deliberately limited capability. This fixture models one fictional vendor and settles nothing about theirs. Test your key against your vendor's ops.
 
-5/ The repair: secret moves to backend-only config. But a backend that forwards whatever the browser asks is the leak with an extra hop. Ours authenticates (401), validates the operation against an allow-list (delete_project: 400, no upstream call), authorizes the role (viewer: 403), then calls with its own credential.
+5/ The repair: secret moves to backend-only config. But a backend that forwards whatever the browser asks is the leak with an extra hop. Ours authenticates (401), checks an operation allow-list (delete_project: 400, no upstream call), authorizes the role (viewer: 403).
 
 6/ Maintainer, allowed operation: 200. Exactly one upstream call, made by the backend. No secret in any response body or header. The upstream would have performed delete_project for the secret holder; a control test proves it, so the 400 is the allow-list doing real work.
 
-7/ Scan the corrected JS, HTML, config payload and source maps if produced: 0 secret-like strings. The scanner first proved it finds the planted secret in the flawed bundle, or it refuses to report. Zero in tested assets is not zero in logs, caches, SSR pages or history. CORS is not auth.
+7/ Scan the corrected JS, HTML, config payload and source maps if produced: 0 secret-like strings. The scanner first proved it finds the planted secret in the flawed bundle, or it refuses to report. Zero in tested assets is not zero in logs, caches or history. CORS is not auth.
 
-8/ If this were a real production secret, removing it from the bundle would revoke no copies. Rotation at the issuer is a separate required step. 16 tests, 16 pass, synthetic fixture, fictional vendor. Fixture, tests, video, three write-ups: github.com/mizcausevic-dev/web-reality-checks
+8/ If this were a real production secret, removing it from the bundle would revoke no copies. Rotation at the issuer is a separate required step. 16 tests, 16 pass, synthetic fixture, fictional vendor. Fixture, tests, video: github.com/mizcausevic-dev/web-reality-checks
 
 ## Reddit / Hacker News
 

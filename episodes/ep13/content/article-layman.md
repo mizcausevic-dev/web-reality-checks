@@ -8,44 +8,44 @@ Medium tags (5): Technology, Privacy, Security, Explainer, Software
 
 ![A shipped JavaScript bundle opened in an inspector shows two credential-shaped strings, one labelled public and one labelled secret, with the caption asking which one is a leak](../hero.png)
 
-Imagine a shop that hands every customer a flyer. Printed on the flyer are two things: the shop's street address, and a copy of the key to the stockroom. Nobody minds the address being on there. It is on the sign outside anyway. The key is a different matter. Every customer who took a flyer can now open the stockroom, and asking for the flyers back does nothing, because people have already photographed them.
+Imagine a shop that hands every customer a flyer. Printed on it are the shop's street address and a copy of the key to the stockroom. Nobody minds the address; it is on the sign outside anyway. The key is a different matter. Every customer who took a flyer can now open the stockroom, and asking for the flyers back does nothing, because people have already photographed them.
 
-That flyer is what a website sends to your browser. Every site you visit delivers a bundle of code to your device so the page can work, and whatever is written in that code is in the hands of every visitor. Sometimes those bundles contain strings that look like keys. The question episode 13 of Web Reality Checks asks is simple: how do you tell the address from the stockroom key?
+That flyer is what a website sends to your browser. Every site delivers a bundle of code to your device so the page can work, and whatever is in that code is in the hands of every visitor. Sometimes it contains strings that look like keys. Episode 13 of Web Reality Checks asks: how do you tell the address from the stockroom key?
 
 ## What the episode shows
 
-We built a small pretend system on a laptop: a made-up online service, a website that talks to it, and the code that website sends to browsers. Nothing is real, no real company is involved, and both of the "keys" were invented for the demonstration (local synthetic fixture).
+We built a small pretend system on a laptop: a made-up online service, a website that talks to it, and the code that website sends to browsers. Nothing is real, no company is involved, and both "keys" were invented for the demonstration (local synthetic fixture).
 
-Open the website's code and two key-shaped strings fall out. One is labelled public. One is labelled secret. The lazy answer is to trust the labels. The episode does not. Instead it asks the pretend service directly: if someone shows up holding this string, what will you do for them?
+Open the website's code and two key-shaped strings fall out. One is labelled public, one secret. The lazy answer is to trust the labels. The episode instead asks the pretend service directly: if someone shows up holding this string, what will you do for them?
 
-Holding the one labelled public and asking for a privileged action, the service says no, status 403, which means "you are not allowed." The string identifies a project, the way an address identifies a building, and that is all it does. Holding the one labelled secret and asking for the same action, the service says yes, status 200, and performs it (local synthetic fixture). That string is the stockroom key. Everyone who downloaded the site had a copy.
+Holding the one labelled public and asking for a privileged action, the service says no, status 403, "you are not allowed." The string identifies a project, the way an address identifies a building, and that is all. Holding the one labelled secret and asking for the same action, the service says yes, status 200, and performs it (local synthetic fixture). That string is the stockroom key. Everyone who downloaded the site had a copy.
 
-Here is the part that matters. The public one turned out to be harmless, but the episode did not know that from its name. It knew because it tried the key in the lock and the lock refused. A label is a promise from whoever wrote it. The lock does not read labels.
+The public one turned out to be harmless, but the episode did not know that from its name. It knew because it tried the key in the lock and the lock refused. A label is a promise from whoever wrote it.
 
 ## The fix, and the trap inside the fix
 
-The repair sounds obvious: take the key off the flyer. In software terms, the website stops carrying the secret, and a separate part of the system, the backend, which runs on the company's own servers rather than on your device, holds the key instead. When the website needs the privileged action, it asks the backend.
+The repair sounds obvious: take the key off the flyer. The website stops carrying the secret, and the backend, the part that runs on the company's own servers rather than on your device, holds it instead and performs the privileged action on the website's behalf.
 
-The trap is a backend that does whatever it is asked. Picture a stockroom key kept behind the counter, handed over to anyone who says "stockroom, please." The key is technically off the flyer and nothing has improved. The backend in the episode does three things before it touches the key: it checks that you are signed in, it checks that the action you asked for is one of the few it offers at all, and it checks that your account is allowed to do that one. In the episode a visitor with no account gets 401, a signed-in visitor without the right role gets 403, and the one person who is allowed gets 200. When that allowed person asks for a bigger, destructive action the pretend service would happily perform, the backend refuses with 400 and never makes the call (local synthetic fixture).
+The trap is a backend that does whatever it is asked. Picture the stockroom key kept behind the counter and handed to anyone who says "stockroom, please." Nothing has improved. The backend in the episode checks three things before it touches the key: that you are signed in, that the action is one of the few it offers at all, and that your account is allowed to do it. No account, 401. Wrong role, 403. The one person allowed, 200. When that person asks for a bigger, destructive action the pretend service would happily perform, the backend refuses with 400 and never makes the call (local synthetic fixture).
 
-Then the episode scans the repaired code the way a stranger would, looking at the JavaScript, the HTML and the configuration the site sends. It finds zero secret-shaped strings. The address is still there, on purpose, because it was tested and refused. And before trusting that zero, the scanner first proves it can find the key in the flawed version, because a detector that has never found anything might just be broken.
+Then the episode scans the repaired code the way a stranger would, in the JavaScript, HTML and configuration the site sends, and finds zero secret-shaped strings. The address is still there, on purpose, because it was tested and refused. Before trusting that zero, the scanner first proves it can find the key in the flawed version.
 
 ## What this means for you
 
-- When you hear that a website "leaked a key," the real question is what that key could do. Some values in website code are addresses: public by nature and harmless. Some are stockroom keys. Nobody can tell which from the name, and a company that says "it is labelled public" has not answered the question. "We tested it and the service refused it" is the answer.
-- If a company you use admits a real secret was in its website code, taking it out of the code is only step one. Copies already exist in browsers, caches and search engines. The key has to be cancelled and replaced at the source, the way you would change a lock rather than ask for the key back. If they only mention removal, ask about replacement.
-- You cannot see any of this from a working website. The leaking version in the episode worked perfectly, because the key is exactly what made the privileged action succeed. A smooth, polished site tells you nothing about what it handed out along the way.
+- When you hear that a website "leaked a key," the real question is what that key could do. Some values in website code are addresses. Some are stockroom keys. Nobody can tell which from the name. "It is labelled public" is not an answer; "we tested it and the service refused it" is.
+- If a company admits a real secret was in its website code, taking it out is only step one. Copies already exist in browsers, caches and search engines. The key has to be cancelled and replaced at the source, the way you would change a lock rather than ask for the key back.
+- You cannot see any of this from a working website. The leaking version in the episode worked perfectly, because the key is what made the privileged action succeed. A polished site tells you nothing about what it handed out.
 
 ## FAQ
 
 **What is an API key, in plain terms?**
-A string that a website or app shows to another service to identify itself or to prove it is allowed to act. Some keys only identify, like an address. Some authorize actions, like a key to a door. The name on the key does not tell you which; what the service does when shown it does.
+A string a website or app shows to another service to identify itself or prove it is allowed to act. Some keys only identify, like an address. Some authorize actions, like a door key. The name does not tell you which; the service's reaction does.
 
 **If a key was in a website's code, is my data at risk?**
-It depends entirely on what that key could do, which only the issuing service can answer. In the episode, one shipped value could do nothing privileged and one could. The company should say which, based on a test rather than a label, and should rotate any key that could act.
+It depends on what that key could do, which only the issuing service can answer. In the episode, one shipped value could do nothing privileged and one could. The company should say which, based on a test, and rotate any key that could act.
 
 **Why isn't removing the key from the website enough?**
-Because your browser, and everyone else's, already downloaded the old version. Caches and search engines keep copies. Until the service that issued the key cancels it, every one of those copies still works. The episode shows the removal and is explicit that replacement is a separate step.
+Because your browser, and everyone else's, already downloaded the old version. Caches and search engines keep copies. Until the issuing service cancels the key, every copy still works. The episode shows the removal and states that replacement is a separate step.
 
 ## Watch the episode
 
@@ -55,6 +55,6 @@ Related episodes: [Your AI-Built App Works. Is It Safe to Launch?](../../ep01/co
 
 > This episode uses a deliberately constructed local fixture with synthetic data. Nothing here is a finding about a real product or company. Fixture, tests and video source: github.com/mizcausevic-dev/web-reality-checks
 
-An address names a place. A key opens it. Everything else is a label somebody wrote, and the lock has never read one.
+An address names a place. A key opens it. Everything else is a label, and locks do not read labels.
 
 Miz Causevic, Kinetic Gain LLC

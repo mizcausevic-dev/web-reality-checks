@@ -10,7 +10,7 @@ Medium tags (5): Web Development, Node.js, JavaScript, Software Engineering, UX 
 
 The bar says 100%. The file is not ready. Nothing is wrong with the bar: it was measuring something else, and the interface never said so.
 
-This is episode 14 of Web Reality Checks. An upload is four separate stages, and a single progress bar only ever reports the first. The fixture is a small CSV uploader with synthetic data. It shows a file reach 100%, get accepted, and still not be usable; then a second file reach 100%, get accepted, and fail. Then it replaces the bar with four statuses that each report something the system can measure.
+This is episode 14 of Web Reality Checks. An upload is four separate stages, and a single progress bar only ever reports the first. The fixture is a small CSV uploader with synthetic data. It shows a file reach 100%, get accepted, and still not be usable; then a second file reach 100%, get accepted, and fail. Then it replaces the bar with four statuses the system can actually measure.
 
 ## What actually happens
 
@@ -21,9 +21,9 @@ Pull an upload apart and there are four stages, each settled by a different comp
 3. **Processing.** A worker parses the stored file and validates rows, ending in `ready` or `failed`. The server does not measure a percentage for this stage, so it does not report one.
 4. **Availability.** The result endpoint answers `200` only when the job is `ready`, otherwise `409` with the current status and reason.
 
-The mechanism behind the misleading bar sits in stage 1. The bytes being counted are request-body bytes: multipart part headers, the file, and the boundaries. In the fixture an 82-byte file traveled as a 232-byte request body, 150 bytes of overhead (local synthetic fixture). The bar is accurate about bytes and silent about everything after the socket drains. The server may still reject the body. The worker may still fail the rows. The bar reads 100% in every case, because 100% of the body did leave.
+The mechanism behind the misleading bar sits in stage 1. The bytes being counted are request-body bytes: multipart part headers, the file, and the boundaries. In the fixture an 82-byte file traveled as a 232-byte request body, 150 bytes of overhead (local synthetic fixture). The bar is accurate about bytes and silent about everything after the socket drains. The server may still reject the body. The worker may still fail the rows. The bar reads 100% either way, because 100% of the body did leave.
 
-A demo hides this because on the happy path the stages collapse into one visual moment: the bar fills, the server accepts, the worker finishes within the same millisecond, the result appears. You have to build a fixture where the stages can come apart.
+A demo hides this because on the happy path the stages collapse into one visual moment. You have to build a fixture where they can come apart.
 
 ## The fixture
 
@@ -70,7 +70,7 @@ xhr.upload.onprogress = function (e) {
 };
 ```
 
-One detail matters for reading the evidence. The worker's `setPace(ms)` delays the start of processing; tests and demo set it to 400 ms so the not-ready state can be observed through polling. That delay is artificial, labeled in `evidence.json`, and never a measured processing time.
+One detail matters for reading the evidence. The worker's `setPace(ms)` delays the start of processing; tests and demo set it to 400 ms so the not-ready state is observable through polling. That delay is artificial, labeled in `evidence.json`, and never a measured processing time.
 
 ## The test that proves it
 
@@ -85,9 +85,9 @@ One detail matters for reading the evidence. The worker's `setPace(ms)` delays t
 - `status access: another user's job -> 404; absent job -> 404; unauthenticated -> 401`
 - `uploads directory is not reachable through the served paths`
 
-The success test asserts the stages separately: the last progress event is 100% and `sentBytes` equals the request body length, which is larger than the file; the response is 202; an immediate status read is `accepted` or `processing` and the result endpoint returns 409; after polling, status is `ready` and the result is 200 with 3 rows and `totalAmount` 114.75. It also asserts that at least one poll observed a non-ready state, so the suite fails if the stages ever collapse into one.
+The success test asserts the stages separately: the last progress event is 100% and `sentBytes` equals the request body length, which is larger than the file; the response is 202; the result endpoint returns 409 right after; after polling, status is `ready` and the result is 200 with 3 rows and `totalAmount` 114.75. It also asserts that at least one poll observed a non-ready state, so the suite fails if the stages ever collapse into one.
 
-The known-positive control is the one most teams skip. It states the flawed policy ("accept if the filename ends in `.csv` or the MIME is `text/csv`"), shows it would accept PNG bytes, then shows `sniffCsv` rejecting them. The assertion message says why: "the flaw must be observable or the content check proves nothing."
+The known-positive control is the one most teams skip. It states the flawed policy (accept if the filename ends in `.csv` or the MIME is `text/csv`), shows it accepting PNG bytes, then shows `sniffCsv` rejecting them. The assertion message says why: "the flaw must be observable or the content check proves nothing."
 
 `demo.mjs` writes `evidence.json`. From that file (local synthetic fixture; fixture-measured transfer bytes, multipart overhead included): the valid CSV was 82 file bytes in a 232-byte request body, 8 progress events, the last at 100%; response 202 with `job_89b35fbbbe7a`; result before ready 409; five polls saw `accepted`, the sixth saw `ready`; result 200 with `rows: 3`, `totalAmount: 114.75`; the same job as Bob, 404. The poll count varies with scheduling between runs.
 
@@ -100,17 +100,17 @@ The server already keeps the stages separate. The repair is in what the interfac
 - **Processing**, as a plain state from the status endpoint. No percentage, because the server does not report one, because the worker does not measure one.
 - **Available**, only when status is `ready`, with a link to the result.
 
-Every number on screen traces back to a measurement: socket bytes, a response, the worker finishing. A fabricated processing percentage traces to nothing, which is why the fixture refuses to draw one.
+Every number on screen traces back to a measurement: socket bytes, a response, the worker finishing. A fabricated processing percentage traces to nothing, so the fixture refuses to draw one.
 
 ## Retest
 
 From `evidence.json` (local synthetic fixture), the three paths a single bar cannot distinguish:
 
-- **PNG bytes labeled `totally.csv` / `text/csv`.** 210 file bytes in a 361-byte request body, 12 progress events, last at 100%. Response 415, reason "binary content (NUL byte) is not CSV", with `claimedFilename` and `claimedType` echoed back and the note "client filename and MIME type were not trusted." No job created.
+- **PNG bytes labeled `totally.csv` / `text/csv`.** 210 file bytes in a 361-byte request body, 100% sent. Response 415, reason "binary content (NUL byte) is not CSV", with the note "client filename and MIME type were not trusted." No job created.
 - **Oversized body.** 66,576 file bytes in a 66,723-byte request body, 100% sent. Response 413, `limitBytes: 65536`, note "limit applies to the request body, multipart overhead included." No job created.
 - **Valid shape, invalid rows.** 81 file bytes in a 231-byte request body, 100% sent. Response 202 with `job_a664e78fb5bf`. Seven polls saw `accepted`, the eighth saw `failed`. Reason: `validation failed: line 3: invalid email "not-an-email"; line 4: amount is not a number "lots"`. Result endpoint 409 with `status: failed`. As Bob, 404.
 
-In all three the transfer stage read 100%. The four-status view shows a green transfer line and a red line somewhere below it, which is the truth.
+In all three the transfer stage read 100%. The four-status view shows a green transfer line and a red line below it, which is the truth.
 
 ## What this does not prove
 

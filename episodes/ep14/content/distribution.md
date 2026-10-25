@@ -52,7 +52,7 @@ file upload, upload progress bar, xmlhttprequest, upload progress events, length
 
 ### Pinned comment (≤ 300 chars)
 
-Everything here runs on a deliberately built local fixture with synthetic users and files. Transfer bytes are fixture-measured on loopback, the 400 ms processing delay is artificial and labeled, and the browser uploader was provided but not executed. Source and 8 tests: github.com/mizcausevic-dev/web-reality-checks
+Everything here runs on a deliberately built local fixture with synthetic users and files. Transfer bytes are fixture-measured on loopback, the 400 ms delay is artificial and labeled, and the browser uploader was not executed. Source and 8 tests: github.com/mizcausevic-dev/web-reality-checks
 
 ## LinkedIn
 
@@ -60,19 +60,19 @@ Everything here runs on a deliberately built local fixture with synthetic users 
 
 An 82-byte file traveled as a 232-byte request body. The bar hit 100%. Then 202. Then 409.
 
-Episode 14 of Web Reality Checks pulls an upload into its four stages, because a progress bar only ever shows one.
+Episode 14 of Web Reality Checks pulls an upload into four stages, because a progress bar only shows one.
 
-Transfer: XHR upload.onprogress, loaded / total, only when lengthComputable. Those are request-body bytes, multipart overhead included. 100% means the body left the browser. Nothing more.
+Transfer: XHR upload.onprogress, loaded / total, only when lengthComputable. Request-body bytes, multipart overhead included. 100% means the body left the browser. Nothing more.
 
-Acceptance: the response arrives after the last byte, as a separate event. 202 Accepted plus a job ID means stored and queued. Result right now: 409. A PNG renamed .csv also reached 100%, then got 415 from the content sniffer; no job created.
+Acceptance: the response arrives after the last byte. 202 plus a job ID means stored and queued. Result right now: 409. A PNG renamed .csv also hit 100%, then got 415 from the content sniffer; no job.
 
-Processing: the worker reports a state, not a percentage, because it does not measure one. A CSV with a bad email on line 3 and "lots" as an amount on line 4 went 100%, 202, then failed with a line-level reason.
+Processing: the worker reports a state, not a percentage, because it does not measure one. A CSV with a bad email on line 3 and "lots" on line 4 went 100%, 202, then failed with a reason.
 
-Availability: the result endpoint answers 200 only on ready. Another user asking for the job gets 404, same as an absent job.
+Availability: result 200 only on ready. Another user asking for the job gets 404, same as an absent job.
 
-The repair is in the UI, not the server: four statuses, each sourced from the component that can measure it, and no invented processing bar.
+The repair is in the UI: four statuses, each sourced from the component that measures it, no invented processing bar.
 
-8 tests, 8 pass, including a known-positive control that shows a label-trusting policy would have accepted the PNG. Synthetic fixture, loopback only, labeled 400 ms artificial pacing, browser uploader provided but not executed.
+8 tests, 8 pass, including a known-positive control showing a label-trusting policy would have accepted the PNG. Synthetic fixture, loopback only, labeled 400 ms artificial pacing, browser uploader not executed.
 
 Video, fixture, tests: github.com/mizcausevic-dev/web-reality-checks
 
@@ -80,26 +80,26 @@ Video, fixture, tests: github.com/mizcausevic-dev/web-reality-checks
 
 ### Post 2: non-technical leaders
 
-Your customer saw 100%, closed the tab, and the import had already failed. Nobody lied. The bar just answered a different question.
+Your customer saw 100%, closed the tab, and the import had failed. Nobody lied. The bar answered a different question.
 
-Episode 14 of Web Reality Checks. An upload has four stages: the file leaves the browser, the server accepts or refuses it, a worker processes it, and the result becomes available. A progress bar reports the first stage only, and it fills before the other three have even started.
+Episode 14 of Web Reality Checks. An upload has four stages: the file leaves the browser, the server accepts or refuses it, a worker processes it, the result becomes available. A progress bar reports only the first.
 
-On a small fixture with made-up files, a clean file went 100%, accepted, ready. A file with two bad rows went 100%, accepted, then failed, with a reason naming the lines. A fake spreadsheet went 100% and was then refused. Same full bar every time.
+On a small fixture with made-up files, a clean file went 100%, accepted, ready. A file with two bad rows went 100%, accepted, then failed, naming the lines. A fake spreadsheet went 100% and was refused. Same full bar every time.
 
-Think of a courier app that says "Collected" the moment the driver takes the parcel. True, and almost useless if intake, inspection and pickup are never shown.
+A courier app that says "Collected" when the driver takes the parcel is true, and useless if intake, inspection and pickup are never shown.
 
 Five questions for your team:
 1. What exactly does our progress bar measure?
 2. When the server rejects a file, what does the user see, and when?
-3. Does our interface say that "accepted" is not "done"?
+3. Does our interface say "accepted" is not "done"?
 4. If we show a processing percentage, what measures it?
-5. Can one customer see another customer's job by guessing a number?
+5. Can one customer see another's job by guessing a number?
 
-The fix in the episode shows four short statuses and admits "no percentage: the server does not report one." It says less and all of it is true.
+The fix shows four short statuses and admits "no percentage: the server does not report one." It says less, and all of it is true.
 
 Synthetic fixture, no real product. Video and write-ups: github.com/mizcausevic-dev/web-reality-checks
 
-#ProductManagement #CustomerExperience #Leadership
+#ProductManagement #CustomerExperience
 
 ## X/Twitter thread
 

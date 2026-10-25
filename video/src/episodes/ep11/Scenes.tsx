@@ -160,7 +160,7 @@ const Fix: React.FC<SceneProps> = ({t}) => {
         'teardown(): remove listeners,',
         '            drop unsent queue',
       ]} />
-      <Txt x={M} y={860} w={W - 2 * M} size={26} color={C.dim} o={ep(t, 5.6, 6.1)}>Withdrawal closes the gate, removes optional listeners and clears the unsent queue. The stored preference may remain.</Txt>
+      <Txt x={M} y={906} w={W - 2 * M} size={26} color={C.dim} o={ep(t, 5.6, 6.1)}>Withdrawal closes the gate, removes optional listeners and clears the unsent queue. The stored preference may remain.</Txt>
     </>
   );
 };

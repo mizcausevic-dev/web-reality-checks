@@ -48,29 +48,29 @@ data quality, directory listings, duplicate detection, dead link checker, websit
 
 ### Pinned comment (≤ 300 chars)
 
-Every listing in this episode is synthetic: 10,000 rows generated from a fixed seed, invented names, 555 phone numbers, .test hostnames, website checks against a local mock. No real site was contacted and nothing here is about a real directory. Fixture and 17 tests: github.com/mizcausevic-dev/web-reality-checks
+Every listing here is synthetic: 10,000 rows from a fixed seed, invented names, 555 numbers, .test hostnames, website checks against a local mock. No real site was contacted; nothing here is about a real directory. Fixture and 17 tests: github.com/mizcausevic-dev/web-reality-checks
 
 ## LinkedIn
 
 ### Post 1: engineers
 
-3,875 issue instances. 3,303 flagged listings. If your quality dashboard shows the first number as "bad listings," it is wrong by 572.
+3,875 issue instances. 3,303 flagged listings. If your dashboard calls the first number "bad listings," it is wrong by 572.
 
-Episode 5 of Web Reality Checks. We generated exactly 10,000 synthetic directory listings from a fixed seed, planted six overlapping defect classes, and kept the ground truth in a file the checker is forbidden to read (a test scans check.mjs for any reference to it).
+Episode 5 of Web Reality Checks. 10,000 synthetic directory listings from a fixed seed, six overlapping defect classes planted, ground truth in a file the checker never reads (a test proves it).
 
-Five checks on the public rows: completeness, duplicate candidates, URL syntax, website availability via a local mock responder (8,922 mock calls, 0 real), verification age. Per code: site_unreachable 1,136, stale_verification 921, duplicate_candidate 636, edited_since_verified 525, missing_required 300, malformed_url 231, site_gone 126. Sum them and you get instances, not listings. 485 listings carried two flags, 42 carried three, one carried four.
+Five checks on the public rows: completeness, duplicates, URL syntax, website availability via a local mock (0 real calls), verification age. Each code fires once per listing, so summing the per-code column gives instances, not listings. 485 listings carried two flags, 42 three, one four.
 
 Three things I would push on any team:
 
-1. Report uniqueFlaggedListings and totalIssueInstances as two fields. A test asserts unique < instances whenever overlap exists.
+1. Report uniqueFlaggedListings and totalIssueInstances as two fields. A test asserts unique < instances.
 
-2. A failed website probe is a lead. 1,038 of the 1,136 site_unreachable flags landed on businesses that are open in ground truth. Route to review; mark_closed needs two independent signals.
+2. A failed probe is a lead. 1,038 of 1,136 site_unreachable flags were on open businesses. Route to review; mark_closed needs two independent signals.
 
 3. lastCheckedAt, lastChangedAt, lastVerifiedAt are three fields. A re-check moves only the first.
 
-The checker missed 190 of 400 moved businesses and 126 of 350 closures. Reported as missed, by design. 17 tests, 17 pass, two known-positive controls.
+The checker missed 190 of 400 moved businesses and 126 of 350 closures. Reported, not hidden. 17 tests, 17 pass.
 
-All synthetic, not a finding about any real directory. Fixture: github.com/mizcausevic-dev/web-reality-checks
+All synthetic; not a finding about any real directory. github.com/mizcausevic-dev/web-reality-checks
 
 #DataQuality #DataEngineering #SoftwareEngineering
 
@@ -78,42 +78,42 @@ All synthetic, not a finding about any real directory. Fixture: github.com/mizca
 
 Your directory says 10,000 listings. How many are right? If the only metric is the count, the honest answer is "unknown."
 
-Episode 5 of Web Reality Checks. We built a synthetic directory of exactly 10,000 invented businesses, planted known problems, and ran the kind of automated checks a real directory would run.
+Episode 5 of Web Reality Checks. A synthetic directory of exactly 10,000 invented businesses, known problems planted, the checks a real directory would run.
 
-Two findings worth carrying into your next review.
+Two findings for your next review.
 
-First, flags overlap. The checks raised 3,875 issues on 3,303 listings. One entry can have an old verification date and a dead link at the same time. Add the columns and you overstate the problem, size a cleanup to a number that does not exist, and declare it a failure when it succeeds.
+First, flags overlap. The checks raised 3,875 issues on 3,303 listings. One entry can have an old verification date and a dead link at once. Add the columns and you overstate the problem and size a cleanup to a number that does not exist.
 
-Second, a failed check is not a verdict. 1,038 failed website checks landed on businesses that are open. A directory that deletes on a failed probe removes real businesses and never tells them.
+Second, a failed check is not a verdict. 1,038 failed website checks landed on open businesses. A directory that deletes on a failed probe removes real businesses and never tells them.
 
-Think of a warehouse ledger. It says 10,000 pallets. It cannot say how many labels are torn or how many pallets moved bays. Only a walk-through can, and a walk-through that phones a supplier who does not pick up has a lead, not a closure.
+A warehouse ledger says 10,000 pallets. It cannot say how many labels are torn. Only a walk-through can.
 
 Five questions for your team or vendor:
-1. Do you report flagged listings and issue instances as two numbers?
+1. Flagged listings and issue instances: two numbers or one?
 2. What happens to a listing when its website fails a check?
-3. Are last checked, last changed and last verified three separate fields?
-4. Have you measured what your checker misses, against a labelled set?
+3. Are last checked, last changed and last verified three fields?
+4. Have you measured what your checker misses?
 5. What does a reviewer's decision record?
 
-Synthetic data, no real directory. Video and write-ups: github.com/mizcausevic-dev/web-reality-checks
+Synthetic data, no real directory. github.com/mizcausevic-dev/web-reality-checks
 
 #ProductManagement #DataQuality #Leadership
 
 ## X/Twitter thread
 
-1/ A directory says it has 10,000 listings. We built one with exactly that many synthetic rows, planted known problems, ran five checks, and the count hid everything. 3,875 issues. 3,303 flagged listings. 1,038 "dead" websites on open businesses. Episode 5 of Web Reality Checks. Thread.
+1/ A directory says 10,000 listings. We built one with exactly that many synthetic rows, planted known problems, ran five checks. The count hid everything. 3,875 issues. 3,303 flagged listings. 1,038 "dead" websites on open businesses. Episode 5 of Web Reality Checks. Thread.
 
-2/ Flags overlap. One row can be a duplicate candidate, carry a stale verification date and have a timed-out site at once. Count issues: 3,875. Count listings with issues: 3,303. 485 rows had two flags, 42 had three, one had four. Sum the per-check columns and you invent 572 listings that do not exist.
+2/ Flags overlap. One row can be a duplicate candidate, carry a stale verification date and have a timed-out site at once. Issues: 3,875. Listings with issues: 3,303. 485 rows had two flags, 42 had three, one had four. Sum the columns and you invent 572 listings that do not exist.
 
-3/ Five checks ran on the public rows only: completeness, duplicate candidates, URL syntax, website availability, verification age. Website checks hit a local mock responder keyed by hostname. 8,922 mock calls. 0 real network calls. The checker never reads ground truth; a test scans its source to prove it.
+3/ Five checks on the public rows only: completeness, duplicate candidates, URL syntax, website availability, verification age. Website checks hit a local mock keyed by hostname. 8,922 mock calls, 0 real. The checker never reads ground truth; a test scans its source to prove it.
 
-4/ The headline: site_unreachable fired 1,136 times. 1,038 of those were businesses that are open in ground truth. Example: Copper Framing Co., website timed out, ground truth says open, only real issue is nobody verified the row since Jan 2023. A probe describes a server, not a business.
+4/ site_unreachable fired 1,136 times. 1,038 of those were businesses open in ground truth. Example: Copper Framing Co., site timed out, ground truth says open, only real issue is nobody verified the row since Jan 2023. A probe describes a server, not a business.
 
 5/ So a failed check routes to a review queue, one card per listing, every flag on the card, highest-priority flag first. mark_closed needs two independent signals. One timeout never qualifies. The decision records evidence, timestamp and reviewer identity.
 
-6/ Three dates, three meanings. lastCheckedAt: a probe ran. lastChangedAt: someone edited. lastVerifiedAt: a human confirmed. The reviewer chose keep_listing_schedule_recheck. lastCheckedAt moved to 2026-10-25. lastVerifiedAt stayed at 2023-01-20. Nothing was verified, so nothing moved.
+6/ Three dates, three meanings. lastCheckedAt: a probe ran. lastChangedAt: someone edited. lastVerifiedAt: a human confirmed. Decision: keep_listing_schedule_recheck. lastCheckedAt moved to 2026-10-25. lastVerifiedAt stayed at 2023-01-20. Nothing verified, nothing moved.
 
-7/ The checker also missed things, by design reported, not hidden: 190 of 400 moved businesses left no trace in the row. 126 of 350 closures still had a site answering 200. 19 typo domains passed a syntax check. 17 tests, 17 pass, two known-positive controls assert these misses exist.
+7/ The checker also missed things, reported rather than hidden: 190 of 400 moved businesses left no trace in the row. 126 of 350 closures still had a site answering 200. 19 typo domains passed a syntax check. 17 tests, 17 pass, two known-positive controls assert the misses exist.
 
 8/ A failed website check is a lead, not proof. All data synthetic, seeded, .test hostnames, 555 numbers; not a finding about any real directory. Fixture, tests, video and three write-ups: github.com/mizcausevic-dev/web-reality-checks
 
