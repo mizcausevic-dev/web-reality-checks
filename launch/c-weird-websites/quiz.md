@@ -86,3 +86,9 @@ Miz Causevic, Kinetic Gain LLC
 **Tags:** website quiz, why do websites do weird things, tech quiz for beginners, web explainer, charged twice online, website shows old version, time zone bug, deleted but still showing, cache explained, Web Reality Checks, software testing explained, general knowledge tech
 
 **Thumbnail concept.** Dark background, large "5 questions" numeral in cyan beside the headline "Weird websites quiz", and three A/B/C option chips with the C chip glowing green. Small kicker "Web Reality Checks · Quiz". Uses the visual system only (no photography).
+
+<!-- timings:start -->
+## Final timings (built from the narration)
+
+Film `qz03`, 172.4 s. Scene starts: hook 00:00, q1 00:10, a1 00:32, q2 00:42, a2 01:05, q3 01:16, a3 01:36, q4 01:44, a4 02:05, q5 02:14, a5 02:35, close 02:43. Each question scene includes six silent seconds of think time inserted by `tools/build-quiz.mjs`. Scene boundaries come from transcript word timestamps.
+<!-- timings:end -->

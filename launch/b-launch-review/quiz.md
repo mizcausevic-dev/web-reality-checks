@@ -1,6 +1,6 @@
 # Quiz: "Launch Review Quiz: Five Questions Your Demo Can't Answer" (qz02)
 
-Film id `qz02` · tag "Quiz" · audience: founders, product managers, buyers · runtime estimate about 2.5 to 3 minutes (about 393 narration words plus six silent seconds per question; the real length comes from the narration take). Built with `node tools/build-quiz.mjs qz02` from one narration take (`raw.mp3`), one paragraph per scene.
+Film id `qz02` · tag "Quiz" · audience: founders, product managers, buyers · runtime 191.9 s (narration plus six silent seconds per question, built from the real take). Built with `node tools/build-quiz.mjs qz02` from one narration take (`raw.mp3`), one paragraph per scene.
 
 ## Opening hook (scene `hook`)
 "Five questions from the launch review your demo never shows. Each answer comes from a real test result in the Web Reality Checks repository. Question, three options, six seconds to think, then the answer."
@@ -89,3 +89,9 @@ This episode uses a deliberately constructed local fixture with synthetic data. 
 
 ## Label
 Scenes carry the label SIMULATED LOCAL FIXTURE (question and answer scenes) or PROMOTIONAL FILM (hook, close). All values are copied from the fixtures named above; none is estimated.
+
+<!-- timings:start -->
+## Final timings (built from the narration)
+
+Film `qz02`, 191.9 s. Scene starts: hook 00:00, q1 00:12, a1 00:36, q2 00:45, a2 01:08, q3 01:16, a3 01:43, q4 01:53, a4 02:18, q5 02:27, a5 02:50, close 02:57. Each question scene includes six silent seconds of think time inserted by `tools/build-quiz.mjs`. Scene boundaries come from transcript word timestamps.
+<!-- timings:end -->

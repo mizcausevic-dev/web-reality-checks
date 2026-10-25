@@ -8,7 +8,7 @@ A green test run is not evidence unless the same test could have gone red. The t
 
 Audience: engineers and people reviewing AI-assisted code. Tone: dry, specific, no hype. No testimonials, no view counts, no claims beyond what the repository shows.
 
-**Runtime target:** 55 to 75 s. The timings below are estimates from word counts (157 narrated words at about 2.55 words per second, plus a 0.6 s lead and a 2 s tail, about 64 s). The orchestrator replaces them with the real timeline after narration is generated.
+**Runtime target:** 55 to 75 s. The timings below come from the built timeline (66.3 s, from the real narration).
 
 ## Storyboard
 
@@ -88,3 +88,9 @@ Miz Causevic, Kinetic Gain LLC
 | Title and call-to-action cards | Promotional |
 
 Fixture results come from local synthetic fixtures. The lost response in episode 15 is a controlled server-side socket destroy, not a real network partition.
+
+<!-- timings:start -->
+## Final timings (built from the narration)
+
+Film `cm01`, 66.3 s. Scene starts: hook 00:00, problem 00:07, method 00:18, proof 00:31, access 00:40, range 00:47, cta 00:55. Scene boundaries come from detected silences (a heuristic that can be about a second off).
+<!-- timings:end -->

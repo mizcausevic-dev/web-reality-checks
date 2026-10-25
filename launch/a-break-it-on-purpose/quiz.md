@@ -102,14 +102,14 @@ On screen: "Score yourself.", the command `node --test fixtures/ep26-n-plus-one/
 
 Five multiple-choice questions for engineers, each answerable from a runnable fixture in the Web Reality Checks repository: N+1 query counts, idempotency keys, 409 versus 503, a spoofed identity against a repaired endpoint, and a dashboard that says Live. Pause for the 6 second countdown, then check the answer and the evidence file behind it.
 
-Chapters (estimated, replace after rendering):
+Chapters (from the built timeline):
 00:00 Intro
-00:10 Question 1: query count
-00:45 Question 2: idempotency key
-01:18 Question 3: 409 or 503
-01:51 Question 4: spoofed identity
-02:23 Question 5: stale data
-02:55 Score yourself
+00:09 Question 1: query count
+00:44 Question 2: idempotency key
+01:20 Question 3: 409 or 503
+01:54 Question 4: spoofed identity
+02:28 Question 5: stale data
+03:02 Score yourself
 
 Repository: github.com/mizcausevic-dev/web-reality-checks
 Article: [article link]
@@ -126,3 +126,9 @@ Miz Causevic, Kinetic Gain LLC
 ## What is real in this video
 
 All five answers come from the repository's fixtures. The cards, options, countdown and evidence chips are designed graphics, not recordings. Episode 17 results come from a simulated pipeline with one compressed clock. The video uses no frames from episodes 23 and 26, whose films may not be rendered yet; their facts come from the fixtures only.
+
+<!-- timings:start -->
+## Final timings (built from the narration)
+
+Film `qz01`, 195.4 s. Scene starts: hook 00:00, q1 00:09, a1 00:31, q2 00:44, a2 01:08, q3 01:20, a3 01:42, q4 01:54, a4 02:17, q5 02:28, a5 02:51, close 03:02. Each question scene includes six silent seconds of think time inserted by `tools/build-quiz.mjs`. Scene boundaries come from transcript word timestamps.
+<!-- timings:end -->

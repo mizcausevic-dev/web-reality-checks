@@ -1,12 +1,12 @@
 # Commercial: "The Launch Review Your Demo Never Shows" (cm02)
 
-Film id `cm02` · tag "Launch film" · kicker "Official trailer" · target 55 to 75 s (estimate from 175 narration words: about 71 s; the real length comes from the narration audio) · 1920×1080, 30 fps · audience: founders, product managers, buyers.
+Film id `cm02` · tag "Launch film" · kicker "Official trailer" · target 55 to 75 s (built length 69.6 s from the real narration) · 1920×1080, 30 fps · audience: founders, product managers, buyers.
 
 ## Concept
 A launch demo ends with a green "Demo complete." The trailer starts there and asks what the demo cannot answer: another customer's data, a retried payment, a "Live" label over old data. It then shows the method (Flaw, Control, Repair, Retest), two moments of real footage with real numbers, maps the series to ten questions across five arcs, states plainly that it is not an audit or a certification, and ends on the repository.
 
 ## Storyboard
-Durations are estimates from `node tools/build-timeline.mjs cm02 --no-audio`; the orchestrator rebuilds them from the narration.
+Durations come from `node tools/build-timeline.mjs cm02` run on the real narration (69.6 s).
 
 | Scene id | Seconds (est.) | Visual | On-screen text | Persistent label |
 |---|---|---|---|---|
@@ -70,15 +70,15 @@ Playlist: [YouTube playlist link]
 Repository: https://github.com/mizcausevic-dev/web-reality-checks
 
 0:00 The demo went perfectly
-0:08 What a demo never shows
-0:20 The method
-0:30 Real footage: Episode 15
-0:39 Real footage: Episode 17
+0:07 What a demo never shows
+0:18 The method
+0:29 Real footage: Episode 15
+0:37 Real footage: Episode 17
 0:46 Five arcs, ten questions
-0:54 What this is not
-1:02 Run the tests
+0:53 What this is not
+1:00 Run the tests
 
-(Chapter times are estimates; the orchestrator replaces them from `video/src/episodes/cm02/timeline.json`.)
+(Chapter times are scene starts from `video/src/episodes/cm02/timeline.json`.)
 
 This episode uses a deliberately constructed local fixture with synthetic data. Nothing here is a finding about a real product or company. Fixture, tests and video source: github.com/mizcausevic-dev/web-reality-checks
 
@@ -95,3 +95,9 @@ This episode uses a deliberately constructed local fixture with synthetic data. 
 **Conceptual (labelled CONCEPTUAL ILLUSTRATION on screen):** the demo window in `hook`, the three question cards in `problem` (their snippets illustrate the questions and are not output), and the four-step diagram in `method`. `limits` and `cta` are promotional cards.
 
 Nothing in the film claims the fixtures describe a real product. Cropped frames hide their baked-in caption strip; their own on-screen labels (for example SIMULATED LOCAL FIXTURE) remain visible.
+
+<!-- timings:start -->
+## Final timings (built from the narration)
+
+Film `cm02`, 69.6 s. Scene starts: hook 00:00, problem 00:07, method 00:18, proof 00:29, live 00:37, range 00:46, limits 00:53, cta 01:00. Scene boundaries come from detected silences (a heuristic that can be about a second off).
+<!-- timings:end -->

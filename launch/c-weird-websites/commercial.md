@@ -2,7 +2,7 @@
 
 **Concept.** A 70-second trailer for a general audience. It opens on the most relatable glitch (one tap on Pay, two orders), widens to four more strange moments, explains the method in one sentence (Flaw, Control, Repair, Retest), proves it with real frames and real test numbers from Episode 15, shows the everyday objects used to explain each moment, states the limits, and ends on the repository.
 
-**Runtime target.** 55 to 75 seconds. Estimated 70 s from the narration word count (about 171 words) before real audio exists. The orchestrator rebuilds the timeline from the narration take.
+**Runtime target.** 55 to 75 seconds. Built length 63.4 s from the real narration.
 
 **Script file.** `episodes/cm03/script.json` (n 103, tag "Launch film", kicker "Official trailer"). **Scenes:** `video/src/episodes/cm03/Scenes.tsx`.
 
@@ -84,3 +84,9 @@ Miz Causevic, Kinetic Gain LLC
 **Conceptual (labelled on screen):**
 - The method boxes, the limits list, and the everyday-object cards.
 - The cards for episodes 21, 22 and 24 (their episodes were not rendered when this package was built). The values on them (`c_1003`, `404`, January 14 in New York, "Welcome back, Alice" shown to Bob) are copied from those fixtures' `evidence.json`; the layout is an illustration, not product output.
+
+<!-- timings:start -->
+## Final timings (built from the narration)
+
+Film `cm03`, 63.4 s. Scene starts: hook 00:00, problem 00:05, method 00:16, proof 00:28, range 00:39, limits 00:47, cta 00:56. Scene boundaries come from detected silences (a heuristic that can be about a second off).
+<!-- timings:end -->
