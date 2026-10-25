@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T07:59:54.418Z",
+  "generatedAt": "2026-10-25T08:08:14.410Z",
   "modelIsSimulated": true,
   "note": "Deterministic mock model; no real model API was called. One application design, not every AI request. Timings labelled measured-in-fixture are process.hrtime deltas inside this local process (mock model + in-memory filter), not network or real-model latencies.",
   "question": "How many open support tickets are high priority?",
@@ -29,46 +29,46 @@
   },
   "runs": {
     "happy": {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "ok": true,
       "count": 5,
       "reason": null,
       "answer": "There are 5 open high-priority support tickets in your organisation.",
       "steps": 12,
-      "totalMsMeasuredInFixture": 1.082,
+      "totalMsMeasuredInFixture": 1.926,
       "modelCalls": 2,
       "toolCalls": 1
     },
     "scope_probe": {
-      "requestId": "req_2fb1f31c37e9",
+      "requestId": "req_2f3a4bafea8d",
       "ok": false,
       "count": null,
       "reason": "invalid_tool_call",
       "answer": "I could not complete that request: the tool request was invalid.",
       "steps": 5,
-      "totalMsMeasuredInFixture": 0.112,
+      "totalMsMeasuredInFixture": 0.12,
       "modelCalls": 1,
       "toolCalls": 0
     },
     "retry": {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "ok": true,
       "count": 5,
       "reason": null,
       "answer": "There are 5 open high-priority support tickets in your organisation.",
       "steps": 15,
-      "totalMsMeasuredInFixture": 0.179,
+      "totalMsMeasuredInFixture": 18.301,
       "modelCalls": 2,
       "toolCalls": 2
     },
     "failure": {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "ok": false,
       "count": null,
       "reason": "tool_unavailable",
       "answer": "I could not retrieve the ticket count right now: the ticket store did not respond. No count is available.",
       "steps": 12,
-      "totalMsMeasuredInFixture": 0.067,
+      "totalMsMeasuredInFixture": 0.178,
       "modelCalls": 1,
       "toolCalls": 2
     }

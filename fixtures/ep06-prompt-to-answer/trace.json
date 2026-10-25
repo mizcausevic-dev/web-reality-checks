@@ -3,24 +3,24 @@
   "modelIsSimulated": true,
   "steps": [
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 1,
       "lane": "ui",
       "event": "question.submitted",
       "text": "How many open support tickets are high priority?",
-      "atMs": 0.083
+      "atMs": 0.055
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 2,
       "lane": "app",
       "event": "scope.resolved",
       "source": "server-side session",
       "orgId": "org_acme",
-      "atMs": 0.191
+      "atMs": 0.112
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 3,
       "lane": "app",
       "event": "messages.assembled",
@@ -28,10 +28,10 @@
       "tools": [
         "countTickets"
       ],
-      "atMs": 0.237
+      "atMs": 0.142
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 4,
       "lane": "model",
       "event": "response.received",
@@ -42,29 +42,29 @@
         "status": "open",
         "priority": "high"
       },
-      "atMs": 0.454
+      "atMs": 0.234
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 5,
       "lane": "app",
       "event": "toolcall.validated",
       "name": "countTickets",
       "ok": true,
       "errors": [],
-      "atMs": 0.776
+      "atMs": 1.602
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 6,
       "lane": "app",
       "event": "scope.enforced",
       "orgId": "org_acme",
       "ignoredModelClaims": [],
-      "atMs": 0.857
+      "atMs": 1.675
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 7,
       "lane": "tool",
       "event": "execute",
@@ -78,10 +78,10 @@
         "priority": "high"
       },
       "readOnly": true,
-      "atMs": 0.87
+      "atMs": 1.689
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 8,
       "lane": "data",
       "event": "query",
@@ -92,10 +92,10 @@
         "priority": "high"
       },
       "count": 5,
-      "atMs": 0.953
+      "atMs": 1.778
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 9,
       "lane": "tool",
       "event": "result",
@@ -110,54 +110,54 @@
           "orgId": "org_acme"
         }
       },
-      "atMs": 0.966
+      "atMs": 1.792
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 10,
       "lane": "app",
       "event": "toolresult.returned_to_model",
       "callId": "call_1",
       "count": 5,
-      "atMs": 1.047
+      "atMs": 1.888
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 11,
       "lane": "model",
       "event": "response.received",
       "simulated": true,
       "type": "text",
-      "atMs": 1.07
+      "atMs": 1.913
     },
     {
-      "requestId": "req_7d7ac48d7b5f",
+      "requestId": "req_ce178742981a",
       "seq": 12,
       "lane": "ui",
       "event": "answer.displayed",
       "answer": "There are 5 open high-priority support tickets in your organisation.",
       "countShown": 5,
-      "atMs": 1.082
+      "atMs": 1.926
     },
     {
-      "requestId": "req_2fb1f31c37e9",
+      "requestId": "req_2f3a4bafea8d",
       "seq": 13,
       "lane": "ui",
       "event": "question.submitted",
       "text": "How many open support tickets are high priority?",
-      "atMs": 0.002
+      "atMs": 0.003
     },
     {
-      "requestId": "req_2fb1f31c37e9",
+      "requestId": "req_2f3a4bafea8d",
       "seq": 14,
       "lane": "app",
       "event": "scope.resolved",
       "source": "server-side session",
       "orgId": "org_acme",
-      "atMs": 0.008
+      "atMs": 0.01
     },
     {
-      "requestId": "req_2fb1f31c37e9",
+      "requestId": "req_2f3a4bafea8d",
       "seq": 15,
       "lane": "app",
       "event": "messages.assembled",
@@ -165,10 +165,10 @@
       "tools": [
         "countTickets"
       ],
-      "atMs": 0.018
+      "atMs": 0.022
     },
     {
-      "requestId": "req_2fb1f31c37e9",
+      "requestId": "req_2f3a4bafea8d",
       "seq": 16,
       "lane": "model",
       "event": "response.received",
@@ -180,10 +180,10 @@
         "priority": "high",
         "accountId": "org_globex"
       },
-      "atMs": 0.031
+      "atMs": 0.037
     },
     {
-      "requestId": "req_2fb1f31c37e9",
+      "requestId": "req_2f3a4bafea8d",
       "seq": 17,
       "lane": "app",
       "event": "toolcall.validated",
@@ -192,27 +192,27 @@
       "errors": [
         "$.accountId: not permitted"
       ],
-      "atMs": 0.112
+      "atMs": 0.12
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 18,
       "lane": "ui",
       "event": "question.submitted",
       "text": "How many open support tickets are high priority?",
-      "atMs": 0.001
+      "atMs": 0.002
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 19,
       "lane": "app",
       "event": "scope.resolved",
       "source": "server-side session",
       "orgId": "org_acme",
-      "atMs": 0.01
+      "atMs": 0.009
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 20,
       "lane": "app",
       "event": "messages.assembled",
@@ -223,7 +223,7 @@
       "atMs": 0.015
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 21,
       "lane": "model",
       "event": "response.received",
@@ -234,29 +234,29 @@
         "status": "open",
         "priority": "high"
       },
-      "atMs": 0.024
+      "atMs": 0.025
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 22,
       "lane": "app",
       "event": "toolcall.validated",
       "name": "countTickets",
       "ok": true,
       "errors": [],
-      "atMs": 0.048
+      "atMs": 0.051
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 23,
       "lane": "app",
       "event": "scope.enforced",
       "orgId": "org_acme",
       "ignoredModelClaims": [],
-      "atMs": 0.054
+      "atMs": 0.058
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 24,
       "lane": "tool",
       "event": "execute",
@@ -270,29 +270,29 @@
         "priority": "high"
       },
       "readOnly": true,
-      "atMs": 0.059
+      "atMs": 0.064
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 25,
       "lane": "tool",
       "event": "error",
       "attempt": 1,
       "transient": true,
       "message": "simulated transient error: ticket store unavailable",
-      "atMs": 0.132
+      "atMs": 18.105
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 26,
       "lane": "app",
       "event": "retry.scheduled",
       "attempt": 2,
       "reason": "transient error on a read-only, idempotent tool",
-      "atMs": 0.141
+      "atMs": 18.152
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 27,
       "lane": "tool",
       "event": "execute",
@@ -306,10 +306,10 @@
         "priority": "high"
       },
       "readOnly": true,
-      "atMs": 0.146
+      "atMs": 18.168
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 28,
       "lane": "data",
       "event": "query",
@@ -320,10 +320,10 @@
         "priority": "high"
       },
       "count": 5,
-      "atMs": 0.158
+      "atMs": 18.239
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 29,
       "lane": "tool",
       "event": "result",
@@ -338,54 +338,54 @@
           "orgId": "org_acme"
         }
       },
-      "atMs": 0.161
+      "atMs": 18.246
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 30,
       "lane": "app",
       "event": "toolresult.returned_to_model",
       "callId": "call_1",
       "count": 5,
-      "atMs": 0.169
+      "atMs": 18.261
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 31,
       "lane": "model",
       "event": "response.received",
       "simulated": true,
       "type": "text",
-      "atMs": 0.177
+      "atMs": 18.295
     },
     {
-      "requestId": "req_24c282fbf0c9",
+      "requestId": "req_d9fbfe3217f2",
       "seq": 32,
       "lane": "ui",
       "event": "answer.displayed",
       "answer": "There are 5 open high-priority support tickets in your organisation.",
       "countShown": 5,
-      "atMs": 0.179
+      "atMs": 18.301
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 33,
       "lane": "ui",
       "event": "question.submitted",
       "text": "How many open support tickets are high priority?",
-      "atMs": 0.001
+      "atMs": 0.004
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 34,
       "lane": "app",
       "event": "scope.resolved",
       "source": "server-side session",
       "orgId": "org_acme",
-      "atMs": 0.004
+      "atMs": 0.012
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 35,
       "lane": "app",
       "event": "messages.assembled",
@@ -393,10 +393,10 @@
       "tools": [
         "countTickets"
       ],
-      "atMs": 0.009
+      "atMs": 0.028
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 36,
       "lane": "model",
       "event": "response.received",
@@ -407,29 +407,29 @@
         "status": "open",
         "priority": "high"
       },
-      "atMs": 0.016
+      "atMs": 0.048
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 37,
       "lane": "app",
       "event": "toolcall.validated",
       "name": "countTickets",
       "ok": true,
       "errors": [],
-      "atMs": 0.024
+      "atMs": 0.079
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 38,
       "lane": "app",
       "event": "scope.enforced",
       "orgId": "org_acme",
       "ignoredModelClaims": [],
-      "atMs": 0.03
+      "atMs": 0.094
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 39,
       "lane": "tool",
       "event": "execute",
@@ -443,29 +443,29 @@
         "priority": "high"
       },
       "readOnly": true,
-      "atMs": 0.033
+      "atMs": 0.103
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 40,
       "lane": "tool",
       "event": "error",
       "attempt": 1,
       "transient": true,
       "message": "simulated transient error: ticket store unavailable",
-      "atMs": 0.055
+      "atMs": 0.152
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 41,
       "lane": "app",
       "event": "retry.scheduled",
       "attempt": 2,
       "reason": "transient error on a read-only, idempotent tool",
-      "atMs": 0.057
+      "atMs": 0.158
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 42,
       "lane": "tool",
       "event": "execute",
@@ -479,26 +479,26 @@
         "priority": "high"
       },
       "readOnly": true,
-      "atMs": 0.06
+      "atMs": 0.163
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 43,
       "lane": "tool",
       "event": "error",
       "attempt": 2,
       "transient": true,
       "message": "simulated transient error: ticket store unavailable",
-      "atMs": 0.065
+      "atMs": 0.173
     },
     {
-      "requestId": "req_4685a9bbcf7a",
+      "requestId": "req_9e98bd82663c",
       "seq": 44,
       "lane": "app",
       "event": "answer.failure",
       "answer": "I could not retrieve the ticket count right now: the ticket store did not respond. No count is available.",
       "fabricatedCount": false,
-      "atMs": 0.067
+      "atMs": 0.178
     }
   ]
 }

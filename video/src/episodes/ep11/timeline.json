@@ -1,0 +1,128 @@
+{
+  "n": 11,
+  "title": "Reject All, then what?",
+  "fullTitle": "I Clicked 'Reject All.' What Did the Website Actually Do?",
+  "slug": "consent-gate",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": null,
+  "duration": 101.42,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 12.36,
+      "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
+    },
+    {
+      "id": "layers",
+      "start": 12.36,
+      "end": 25.31,
+      "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
+    },
+    {
+      "id": "gap",
+      "start": 25.31,
+      "end": 42.17,
+      "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
+    },
+    {
+      "id": "fix",
+      "start": 42.17,
+      "end": 59.03,
+      "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
+    },
+    {
+      "id": "retest",
+      "start": 59.03,
+      "end": 71.97,
+      "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
+    },
+    {
+      "id": "logs",
+      "start": 71.97,
+      "end": 87.66,
+      "sim": "SIMULATED ANALYTICS · LOCAL COLLECTOR"
+    },
+    {
+      "id": "end",
+      "start": 87.66,
+      "end": 101.42,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 5.44,
+      "text": "Click 'Reject optional'. The banner goes away."
+    },
+    {
+      "start": 5.44,
+      "end": 12.36,
+      "text": "The simulated analytics module keeps sending: 4 requests in total."
+    },
+    {
+      "start": 12.36,
+      "end": 18.19,
+      "text": "Four parts: consent UI, preference store, analytics module, collector."
+    },
+    {
+      "start": 18.19,
+      "end": 25.31,
+      "text": "The collector is local and simulated. No real service is contacted."
+    },
+    {
+      "start": 25.31,
+      "end": 33.34,
+      "text": "The buttons write the preference. Nothing executing ever reads it."
+    },
+    {
+      "start": 33.34,
+      "end": 42.17,
+      "text": "No cookie is needed for this: an in-memory ID is enough."
+    },
+    {
+      "start": 42.17,
+      "end": 49.59,
+      "text": "A consent state machine drives one gate: open only in 'accepted'."
+    },
+    {
+      "start": 49.59,
+      "end": 59.03,
+      "text": "init, track and flush each check the gate. Withdraw removes listeners, clears the queue."
+    },
+    {
+      "start": 59.03,
+      "end": 66.09,
+      "text": "No choice 0 · Rejected 0 · Reload with stored rejection 0."
+    },
+    {
+      "start": 66.09,
+      "end": 71.97,
+      "text": "Accepted 3 · Withdraw: unsent event dropped, count stays 3."
+    },
+    {
+      "start": 71.97,
+      "end": 80.23,
+      "text": "Flawed: 4 requests, 3 marked 'rejected'. Corrected: 3, all 'accepted'."
+    },
+    {
+      "start": 80.23,
+      "end": 87.66,
+      "text": "Stopping future requests does not delete data already collected."
+    },
+    {
+      "start": 87.66,
+      "end": 93.82,
+      "text": "First-party does not mean necessary or exempt. Not a legal certification."
+    },
+    {
+      "start": 93.82,
+      "end": 99.42,
+      "text": "The button is a promise. The requests show the implementation."
+    }
+  ]
+}

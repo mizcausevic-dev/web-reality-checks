@@ -1,0 +1,17 @@
+{
+  "n": 15,
+  "slug": "idempotency",
+  "title": "Paid once, two orders",
+  "fullTitle": "You Clicked Pay Once. Why Did the App Create Two Orders?",
+  "scenes": [
+    {"id": "fail", "narration": "One tap on Pay. Two orders in the database. The customer did not click twice. The app treated every request as a new intention.", "captions": ["One tap on Pay. Two orders in the database.", "The app treated every request as a new intention."]},
+    {"id": "commit", "narration": "Follow the first request. It reaches the server, passes validation, and the database commits order one. From the server's view, the work is done.", "captions": ["The first request reaches the server. The database commits order 1.", "From the server's view, the work is done."]},
+    {"id": "lost", "narration": "Then the response is lost. Here the server deliberately destroys the socket after the commit. The client sees a network error and cannot know whether the order exists. No network gives you exactly-once delivery.", "captions": ["The response is lost after the commit (controlled fault).", "The client sees a network error and cannot know if the order exists.", "No network gives you exactly-once delivery."]},
+    {"id": "retry", "narration": "So the client retries. Disabling the button would not have helped: this is a retry after an error, not a double click.", "captions": ["The client retries.", "Disabling the button would not help: this is a retry, not a double click."]},
+    {"id": "dup", "narration": "The vulnerable endpoint has no memory of the first request. It inserts again. Two attempts, two orders.", "captions": ["The vulnerable endpoint has no memory of the first request.", "Two attempts, two orders."]},
+    {"id": "fix", "narration": "The repair: one idempotency key per checkout attempt, reused on every retry, scoped to the session user and the operation, never a client-supplied user ID. Validated fields are normalised into a fingerprint. Order and key record are written in one transaction, and a unique constraint makes the first writer win. No check-then-insert race.", "captions": ["Fix: one Idempotency-Key per checkout attempt, reused on retries.", "Scoped to the session user and operation; fingerprint of validated fields.", "Order + key record in ONE transaction; UNIQUE makes the first writer win."]},
+    {"id": "retest", "narration": "Same scenario: commit, lose the response, retry with the same key. The second request finds the stored record and returns the original result.", "captions": ["Retest: commit, lose the response, retry with the same key.", "The second request finds the stored record and returns the original result."]},
+    {"id": "count", "narration": "Two attempts, one order. Same key, different quantity: four twenty-two. Five concurrent requests, one key: one order. Two separate purchases need two separate keys.", "captions": ["Two attempts, one order.", "Same key, different payload: 422. Five concurrent, one key: one order.", "Two separate purchases need two separate keys."]},
+    {"id": "end", "sim": null, "narration": "A new request is not always a new intention. Two limits: the transaction covers the local database, not an external payment provider; and expired key records let a late enough retry count as new.", "captions": ["A new request is not always a new intention.", "Limits: the transaction does not cover an external payment provider.", "Expired key records let a late enough retry count as new."]}
+  ]
+}
