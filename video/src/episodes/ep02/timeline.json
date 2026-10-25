@@ -1,0 +1,162 @@
+{
+  "n": 2,
+  "title": "Three purchase events",
+  "fullTitle": "One Click. Three Purchase Events. Here’s What Went Wrong.",
+  "slug": "duplicate-purchase-events",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep02/narration.mp3",
+  "duration": 112.39,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 12.48,
+      "sim": "LOCAL EVENT COLLECTOR — NOT GA4"
+    },
+    {
+      "id": "rewind",
+      "start": 12.48,
+      "end": 21.84
+    },
+    {
+      "id": "emitters",
+      "start": 21.84,
+      "end": 37.2,
+      "sim": "LOCAL EVENT COLLECTOR — NOT GA4"
+    },
+    {
+      "id": "inspect",
+      "start": 37.2,
+      "end": 49.58,
+      "sim": "LOCAL EVENT COLLECTOR — NOT GA4"
+    },
+    {
+      "id": "problem",
+      "start": 49.58,
+      "end": 69.83
+    },
+    {
+      "id": "choose",
+      "start": 69.83,
+      "end": 76.96
+    },
+    {
+      "id": "fix",
+      "start": 76.96,
+      "end": 86.87
+    },
+    {
+      "id": "retest",
+      "start": 86.87,
+      "end": 92.86,
+      "sim": "LOCAL EVENT COLLECTOR — NOT GA4"
+    },
+    {
+      "id": "count",
+      "start": 92.86,
+      "end": 107.82,
+      "sim": "LOCAL EVENT COLLECTOR — NOT GA4"
+    },
+    {
+      "id": "end",
+      "start": 107.82,
+      "end": 112.39,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 6.54,
+      "text": "One completed order. Three received purchase envelopes."
+    },
+    {
+      "start": 6.54,
+      "end": 12.48,
+      "text": "Same event, same transaction ID, three senders."
+    },
+    {
+      "start": 12.48,
+      "end": 21.84,
+      "text": "Rewind: one click, one completed order, one confirmation screen."
+    },
+    {
+      "start": 21.84,
+      "end": 29.52,
+      "text": "Three emitters: app handler, tag-manager trigger, component mount."
+    },
+    {
+      "start": 29.52,
+      "end": 37.2,
+      "text": "Each sent its own envelope to the collector."
+    },
+    {
+      "start": 37.2,
+      "end": 43.39,
+      "text": "event: purchase ×3 · transaction_id: identical ×3"
+    },
+    {
+      "start": 43.39,
+      "end": 49.58,
+      "text": "emitter: three sources · ts: milliseconds apart"
+    },
+    {
+      "start": 49.58,
+      "end": 54.08,
+      "text": "Several components claim ownership of one business event."
+    },
+    {
+      "start": 54.08,
+      "end": 61.95,
+      "text": "3 raw envelopes ≠ 3 GA4 conversions. GA4 documents purchase dedup by transaction_id (web)."
+    },
+    {
+      "start": 61.95,
+      "end": 69.83,
+      "text": "That covers purchase, not every event. It hides duplication; it does not fix it."
+    },
+    {
+      "start": 69.83,
+      "end": 76.96,
+      "text": "One authoritative emitter: the handler that runs when the order completes."
+    },
+    {
+      "start": 76.96,
+      "end": 81.91,
+      "text": "Remove the tag-manager trigger. Remove the mount-handler emission."
+    },
+    {
+      "start": 81.91,
+      "end": 86.87,
+      "text": "The component still renders. It no longer reports."
+    },
+    {
+      "start": 86.87,
+      "end": 92.86,
+      "text": "Retest: complete the same order, then remount the component twice."
+    },
+    {
+      "start": 92.86,
+      "end": 96.26,
+      "text": "Received: 1 envelope, from app.purchaseHandler."
+    },
+    {
+      "start": 96.26,
+      "end": 103.06,
+      "text": "Tested scenario only. Not exactly-once across reloads, retries or devices."
+    },
+    {
+      "start": 103.06,
+      "end": 107.82,
+      "text": "Order-level idempotency is a separate design concern."
+    },
+    {
+      "start": 107.82,
+      "end": 110.39,
+      "text": "Fix the emitters. Then verify the reporting."
+    }
+  ]
+}

@@ -20,7 +20,7 @@ export const makeHero = (tl: Timeline & {fullTitle?: string; hero?: {scene: stri
     return (
       <AbsoluteFill style={{background: C.bg, overflow: 'hidden'}}>
         {/* diagram backdrop, shifted up and dimmed */}
-        <div style={{position: 'absolute', left: 0, top: kind === 'hero' ? -60 * scale : -120 * scale, width: 1920, height: 1080, transform: `scale(${scale})`, transformOrigin: 'top left', opacity: 0.55}}>
+        <div style={{position: 'absolute', left: 0, top: kind === 'hero' ? -60 * scale : -30 * scale, width: 1920, height: 1080, transform: `scale(${scale})`, transformOrigin: 'top left', opacity: kind === 'hero' ? 0.55 : 0.4}}>
           {S && <S t={h.t} T={sc.start + h.t} dur={sc.end - sc.start} />}
         </div>
         <div style={{position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(11,12,16,0.15) 0%, rgba(11,12,16,0.55) 45%, rgba(11,12,16,0.96) 75%)`}} />
