@@ -30,7 +30,7 @@ Think of a toll road with a per-car pass good for five trips every ten minutes. 
 
 The search box is the driver. Each keystroke is a trip. A user who types "postgres" without pausing makes eight trips in under a second, and only the first five count. The flawed client then ignores the note and keeps circling. The analogy holds because the budget really is per identity and per time window, the refusal carries a wait time in this fixture, and retrying before that time accomplishes nothing.
 
-The corrected client waits until the user stops typing for a quarter of a second, so a full word becomes one trip. It numbers each request and only shows a result if it is still the newest, so a slow answer for "p" cannot overwrite a fast answer for "postgres". It cancels requests no longer wanted. And when refused, it reads the wait time, rounds it up, waits, and retries once, cancelling even that if the user has moved on.
+The corrected client waits until the user stops typing for a quarter of a second, so a full word becomes one trip. It numbers each request and only shows a result if it is still the newest, so a slow answer for "p" cannot overwrite a fast answer for "postgres". It cancels requests no longer wanted. And when refused, it reads the wait time, rounds it up, waits, and retries once, canceling even that if the user has moved on.
 
 One caution: not every real API sends the wait-time note. The corrected client has a fallback for when it is missing.
 

@@ -77,20 +77,20 @@ github.com/mizcausevic-dev/web-reality-checks
 
 ### Post 2: non-technical leaders
 
-"Search is broken." Engineering checks: nothing is down, the API is healthy, the vendor is fine. Everyone is right. The app is being rate-limited by its own typing.
+"Search is broken." Nothing is down, the API is healthy, the vendor is fine. The app is being rate-limited by its own typing.
 
-Episode 16 of Web Reality Checks reproduces it on a local fixture with made-up data. The API allows five requests per ten seconds per user. The flawed app sends one per keystroke. "Postgres" is eight. The sixth is refused with a note saying how long to wait. The app ignores it and retries at once. Result: 17 requests, 12 refusals, results for "p" under a box reading "postgres".
+Episode 16 of Web Reality Checks shows it on a local fixture with made-up data. The API allows five requests per ten seconds per user. The flawed app sends one per keystroke. "Postgres" is eight. The sixth is refused with a note saying how long to wait. The app ignores it and retries at once. Result: 17 requests, 12 refusals, results for "p" under a box reading "postgres".
 
-A toll pass good for five trips every ten minutes. A driver who loops back through the gate on every wrong turn burns the pass, gets a "come back in three minutes" note, and ignores it. The road is fine.
+A toll pass good for five trips per ten minutes. A driver who loops back through the gate on every wrong turn burns the pass, gets a "come back in three minutes" note, and ignores it. The road is fine.
 
-The corrected app waits for a typing pause, discards stale answers, and when refused, waits as told and retries once. Same typing: 1 request, 0 refusals, correct results.
+The corrected app waits for a typing pause, discards stale answers, and when refused, waits as told and retries once. Same typing: 1 request, 0 refusals.
 
 Five questions:
 1. Does every search box wait for a typing pause? How long?
-2. When a slow old answer arrives after a newer one, what does the user see?
-3. On a 429: how many retries, how long a wait, is the server's wait time read?
-4. Is the retry policy different for writes than reads? It must be.
-5. Is there a deliberately flawed version the tests catch?
+2. A slow old answer arrives after a newer one. What shows?
+3. On a 429: how many retries, how long, is the wait time read?
+4. Is retry policy different for writes than reads? It must be.
+5. Is there a flawed version the tests catch?
 
 Synthetic fixture, no real product. github.com/mizcausevic-dev/web-reality-checks
 

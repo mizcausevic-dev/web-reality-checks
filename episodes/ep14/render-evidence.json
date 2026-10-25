@@ -1,0 +1,38 @@
+{
+  "file": "episodes/ep14/ep14.mp4",
+  "bytes": 8445528,
+  "duration_s": 106.07,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 106.07,
+  "thumbnail": {
+    "file": "episodes/ep14/thumbnail.png",
+    "size": "1280x720",
+    "source": "THUMB-EP14"
+  },
+  "hero": {
+    "file": "episodes/ep14/hero.png",
+    "size": "1600x900",
+    "source": "HERO-EP14"
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending",
+    "scene_fail",
+    "scene_fail_rows",
+    "scene_fix"
+  ]
+}

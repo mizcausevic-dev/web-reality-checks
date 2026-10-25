@@ -80,7 +80,7 @@ Four repairs, in order of how much each buys.
 
 **Sequence guard.** Every request carries a sequence number; a response is applied only if still the latest. The guard runs after headers and again after the body, because the input can change while the body streams.
 
-**Abort.** When the input changes, the obsolete in-flight request is cancelled with `AbortController`. The fixture server logs the abort and stops its synthetic work as a courtesy. Do not rely on that: a browser abort means the client stopped waiting, not that a real server stopped processing or did not count the request. The sequence guard is the correctness.
+**Abort.** When the input changes, the obsolete in-flight request is canceled with `AbortController`. The fixture server logs the abort and stops its synthetic work as a courtesy. Do not rely on that: a browser abort means the client stopped waiting, not that a real server stopped processing or did not count the request. The sequence guard is the correctness.
 
 **Respect Retry-After, bounded.** On 429 the client reads the header, rounds up to whole seconds, and schedules at most one retry of the still-current query. A missing header, which real 429s do not rule out, falls back to the client's own delay. A query change cancels the retry.
 
@@ -104,7 +104,7 @@ From `evidence.json` (local synthetic fixture; `ms` values are virtual fixture t
 - Run B, same scripted typing: 1 request, 0 × 429, 0 stale renders, results for `postgres`.
 - Run B2, typing paused 600 ms after "post": 2 requests, 1 aborted by the client, 1 abort in the server log, 0 stale renders, results for `postgres`. With abort disabled, the server answers "post" and the guard drops it (`corrected client without abort support: the late "post" response is dropped by the sequence guard`).
 - Run C, window pre-exhausted: first request 429 with `Retry-After: 3` at 7 725 ms, retry at 10 889 ms inside the next window, 200. Exactly one retry.
-- Also tested: a second 429 is not retried; a pending retry is cancelled on a query change; `Retry-After: 2.2` becomes a 3 000 ms wait; a missing header uses the fallback delay.
+- Also tested: a second 429 is not retried; a pending retry is canceled on a query change; `Retry-After: 2.2` becomes a 3 000 ms wait; a missing header uses the fallback delay.
 
 Same typing, same server, same budget. Flawed: 17 requests, 12 rejected, wrong results. Corrected: 1, 0, right.
 
@@ -124,7 +124,7 @@ Same typing, same server, same budget. Flawed: 17 requests, 12 rejected, wrong r
 2. Every query-driven view checks a response is still for the current query before rendering. Abort is an optimization on top.
 3. On 429 the client reads `Retry-After`, parses both formats, rounds up, and has a fallback for a missing header.
 4. Retries are bounded, and a test proves a second rejection does not produce a third attempt.
-5. A scheduled retry is cancelled when its query is no longer wanted.
+5. A scheduled retry is canceled when its query is no longer wanted.
 6. The retry policy is scoped to reads. Writes use an idempotency mechanism or do not auto-retry.
 7. A known-positive control exists: a flawed client the suite catches bursting and rendering stale results.
 8. Limiter boundaries (Nth allowed, N+1th rejected, reset at the edge, `Retry-After` never zero) are tested on a controlled clock.
