@@ -1,0 +1,85 @@
+{
+  "n": 102,
+  "slug": "launch-review-trailer",
+  "tag": "Launch film",
+  "kicker": "Official trailer",
+  "title": "The launch review",
+  "fullTitle": "The Launch Review Your Demo Never Shows",
+  "hero": {
+    "scene": "proof",
+    "t": 3
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "sim": "CONCEPTUAL ILLUSTRATION",
+      "narration": "The demo went perfectly. Every screen loaded. So why start a launch review with questions the demo cannot answer?",
+      "captions": [
+        "The demo went perfectly. Every screen loaded.",
+        "So why start a launch review with questions the demo cannot answer?"
+      ]
+    },
+    {
+      "id": "problem",
+      "sim": "CONCEPTUAL ILLUSTRATION",
+      "narration": "A demo shows one person doing everything right. It never shows a customer asking for someone else's data, a payment retried after a lost response, or a dashboard labelled live.",
+      "captions": [
+        "A demo shows one person doing everything right.",
+        "It never shows someone else's data, a retried payment, or a stale \"Live\"."
+      ]
+    },
+    {
+      "id": "method",
+      "sim": "CONCEPTUAL ILLUSTRATION",
+      "narration": "Web Reality Checks turns each question into a short film. Reproduce the flaw. Prove the test can fail. Apply the smallest repair. Run the same test again.",
+      "captions": [
+        "Each question becomes a short film.",
+        "Flaw, control, repair, retest."
+      ]
+    },
+    {
+      "id": "proof",
+      "sim": "FOOTAGE FROM EPISODE 15",
+      "narration": "Pay once, lose the response, retry: two attempts, two orders. After the repair: two attempts, one order. Real numbers from the fixture.",
+      "captions": [
+        "Pay once, lose the response, retry: 2 attempts, 2 orders.",
+        "After the repair: 2 attempts, 1 order."
+      ]
+    },
+    {
+      "id": "live",
+      "sim": "FOOTAGE FROM EPISODE 17",
+      "narration": "Another fixture shows a Live label over a ten-minute-old reading. The label described the page, not the measurement.",
+      "captions": [
+        "A Live label over a ten-minute-old reading.",
+        "The label described the page, not the measurement."
+      ]
+    },
+    {
+      "id": "range",
+      "sim": "FOOTAGE FROM EPISODES 01 AND 16",
+      "narration": "Five arcs, from trust and access to experience and speed, become ten questions you can put to any team or vendor.",
+      "captions": [
+        "Five arcs become ten questions for any team or vendor."
+      ]
+    },
+    {
+      "id": "limits",
+      "sim": "PROMOTIONAL FILM",
+      "narration": "Not an audit, not a certification. The fixtures are synthetic, and every episode states what it does not prove.",
+      "captions": [
+        "Not an audit. Not a certification.",
+        "Synthetic fixtures. Every episode states its limits."
+      ]
+    },
+    {
+      "id": "cta",
+      "sim": "PROMOTIONAL FILM",
+      "narration": "Clone the fixtures, run the tests, and take the questions to your next launch meeting. The repository, linked below.",
+      "captions": [
+        "Clone the fixtures. Run the tests.",
+        "The repository, linked below."
+      ]
+    }
+  ]
+}

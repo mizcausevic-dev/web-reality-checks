@@ -38,7 +38,28 @@ const totalW = W.reduce((a, b) => a + b, 0);
 let acc = 0;
 const cuts = [];
 const used = new Set();
-for (let i = 0; i < script.scenes.length - 1; i++) {
+// Preferred method: cut by word index using ASR word timestamps (video/public/<id>/raw.words.json,
+// the ElevenLabs Scribe transcript of raw.mp3). Used only when the transcript has exactly the script's
+// word count, so index i of the transcript is index i of the script. Cut = midpoint of the gap between
+// the last word of a scene and the first word of the next.
+let asrWords = null;
+const wordsPath = path.join(root, 'video', 'public', id, 'raw.words.json');
+if (fs.existsSync(wordsPath)) {
+  const j = JSON.parse(fs.readFileSync(wordsPath, 'utf8'));
+  const ws = (Array.isArray(j) ? j : j.words).filter((w) => w.type === 'word');
+  if (ws.length === totalW) asrWords = ws;
+  else console.error(`raw.words.json has ${ws.length} words, script has ${totalW}; falling back to silence snapping.`);
+}
+if (asrWords) {
+  let idx = 0;
+  for (let i = 0; i < script.scenes.length - 1; i++) {
+    idx += W[i];
+    const prev = asrWords[idx - 1], next = asrWords[idx];
+    const t = (prev.end + next.start) / 2;
+    cuts.push({after: script.scenes[i].id, t: +t.toFixed(3), silence_len: +(next.start - prev.end).toFixed(3), est: +prev.end.toFixed(3), method: 'asr-word-index'});
+  }
+}
+for (let i = 0; !asrWords && i < script.scenes.length - 1; i++) {
   acc += W[i];
   const est = (acc / totalW) * speechDur;
   let best = null;

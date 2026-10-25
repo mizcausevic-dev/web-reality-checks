@@ -1,0 +1,133 @@
+{
+  "n": 112,
+  "slug": "launch-review-quiz",
+  "tag": "Quiz",
+  "kicker": "Quiz",
+  "title": "Launch review quiz",
+  "fullTitle": "Launch Review Quiz: Five Questions Your Demo Can't Answer",
+  "hero": {
+    "scene": "q1",
+    "t": 3
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "sim": "PROMOTIONAL FILM",
+      "narration": "Five questions from the launch review your demo never shows. Each answer comes from a real test result in the Web Reality Checks repository. Question, three options, six seconds to think, then the answer.",
+      "captions": [
+        "Five questions from the launch review your demo never shows.",
+        "Each answer comes from a real test result in the repository."
+      ]
+    },
+    {
+      "id": "q1",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "Question one. Trust and access. Alice is signed in and asks for Bob's private project. In the flawed version of the app, what does the server answer? A: an error, access refused. B: Bob's project, status two hundred. Or C: not found.",
+      "captions": [
+        "Question 1. Trust and access.",
+        "Alice is signed in and asks for Bob's private project.",
+        "In the flawed version, what does the server answer?"
+      ],
+      "think": 6
+    },
+    {
+      "id": "a1",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "The answer is B. The server checked that Alice was signed in, never that the project was hers. After the repair, the same request returns four oh four.",
+      "captions": [
+        "B: Bob's project, status 200.",
+        "The server never checked who owns the project."
+      ]
+    },
+    {
+      "id": "q2",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "Question two. Duplicates. A customer clicks Pay once. The server saves the order, but the confirmation is lost, so the app tries again. In the flawed version, how many orders exist? A: one. B: two. Or C: three.",
+      "captions": [
+        "Question 2. Duplicates.",
+        "One click, a lost confirmation, an automatic retry.",
+        "In the flawed version, how many orders exist?"
+      ],
+      "think": 6
+    },
+    {
+      "id": "a2",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "B, two. Nothing linked the retry to the first request. With a unique key per purchase, the repaired version ends with one order.",
+      "captions": [
+        "B: two orders.",
+        "With a unique key per purchase, the repair ends with one."
+      ]
+    },
+    {
+      "id": "q3",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "Question three. Data lifecycle. A directory advertises ten thousand listings. Its checker records three thousand, eight hundred seventy-five problems. How many different listings were flagged? A: three thousand, eight hundred seventy-five. B: three thousand, three hundred three. Or C: six thousand, six hundred ninety-seven.",
+      "captions": [
+        "Question 3. Data lifecycle.",
+        "10,000 listings, 3,875 problems recorded.",
+        "How many different listings were flagged?"
+      ],
+      "think": 6
+    },
+    {
+      "id": "a3",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "B, three thousand, three hundred three. Some listings carry several flags, so problems and affected listings are different counts. Ask which one a report shows.",
+      "captions": [
+        "B: 3,303 distinct listings.",
+        "Some listings carry several flags. Ask which count a report shows."
+      ]
+    },
+    {
+      "id": "q4",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "Question four. Freshness. A dashboard shows a green Live label, updated zero seconds ago. Its sensor is sampled every six hundred seconds. Just before the next sample, how old is the reading? A: zero seconds. B: thirty seconds. Or C: five hundred seventy seconds.",
+      "captions": [
+        "Question 4. Freshness.",
+        "A green Live label, \"updated 0 s ago\". The sensor samples every 600 s.",
+        "Just before the next sample, how old is the reading?"
+      ],
+      "think": 6
+    },
+    {
+      "id": "a4",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "C, five hundred seventy seconds, nearly ten minutes. The label described the page refresh, not the measurement. Ask for the age of the data itself.",
+      "captions": [
+        "C: 570 seconds, nearly ten minutes.",
+        "The label described the page refresh, not the measurement."
+      ]
+    },
+    {
+      "id": "q5",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "Question five. Experience and speed. Eight keystrokes in a search box sent seventeen requests in the flawed version, twelve of them rejected. After the repair, how many requests for the same typing? A: eight. B: four. Or C: one.",
+      "captions": [
+        "Question 5. Experience and speed.",
+        "Flawed: 8 keystrokes, 17 requests, 12 rejected.",
+        "After the repair, how many requests for the same typing?"
+      ],
+      "think": 6
+    },
+    {
+      "id": "a5",
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "narration": "C, one. The repaired client waits for typing to pause, ignores stale answers, and respects the retry delay.",
+      "captions": [
+        "C: one request.",
+        "It waits for typing to pause and respects the retry delay."
+      ]
+    },
+    {
+      "id": "close",
+      "sim": "PROMOTIONAL FILM",
+      "narration": "That is the launch review in miniature: ask for the test, not the demo. The ten questions and every fixture are in the repository, linked below. Synthetic fixtures, not an audit or certification.",
+      "captions": [
+        "Ask for the test, not the demo.",
+        "Ten questions and every fixture: the repository, linked below.",
+        "Synthetic fixtures. Not an audit or certification."
+      ]
+    }
+  ]
+}

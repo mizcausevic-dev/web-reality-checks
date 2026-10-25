@@ -1,0 +1,141 @@
+{
+  "n": 102,
+  "title": "The launch review",
+  "tag": "Launch film",
+  "kicker": "Official trailer",
+  "fullTitle": "The Launch Review Your Demo Never Shows",
+  "slug": "launch-review-trailer",
+  "hero": {
+    "scene": "proof",
+    "t": 3
+  },
+  "audio": "cm02/narration.mp3",
+  "duration": 69.6,
+  "scenes": [
+    {
+      "id": "hook",
+      "start": 0,
+      "end": 7.53,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "problem",
+      "start": 7.53,
+      "end": 18.55,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "method",
+      "start": 18.55,
+      "end": 29.42,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "proof",
+      "start": 29.42,
+      "end": 37.47,
+      "sim": "FOOTAGE FROM EPISODE 15"
+    },
+    {
+      "id": "live",
+      "start": 37.47,
+      "end": 46.18,
+      "sim": "FOOTAGE FROM EPISODE 17"
+    },
+    {
+      "id": "range",
+      "start": 46.18,
+      "end": 53.4,
+      "sim": "FOOTAGE FROM EPISODES 01 AND 16"
+    },
+    {
+      "id": "limits",
+      "start": 53.4,
+      "end": 60.28,
+      "sim": "PROMOTIONAL FILM"
+    },
+    {
+      "id": "cta",
+      "start": 60.28,
+      "end": 69.6,
+      "sim": "PROMOTIONAL FILM"
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 3.15,
+      "text": "The demo went perfectly. Every screen loaded."
+    },
+    {
+      "start": 3.15,
+      "end": 7.53,
+      "text": "So why start a launch review with questions the demo cannot answer?"
+    },
+    {
+      "start": 7.53,
+      "end": 11.73,
+      "text": "A demo shows one person doing everything right."
+    },
+    {
+      "start": 11.73,
+      "end": 18.55,
+      "text": "It never shows someone else's data, a retried payment, or a stale \"Live\"."
+    },
+    {
+      "start": 18.55,
+      "end": 25.07,
+      "text": "Each question becomes a short film."
+    },
+    {
+      "start": 25.07,
+      "end": 29.42,
+      "text": "Flaw, control, repair, retest."
+    },
+    {
+      "start": 29.42,
+      "end": 34.16,
+      "text": "Pay once, lose the response, retry: 2 attempts, 2 orders."
+    },
+    {
+      "start": 34.16,
+      "end": 37.47,
+      "text": "After the repair: 2 attempts, 1 order."
+    },
+    {
+      "start": 37.47,
+      "end": 41.53,
+      "text": "A Live label over a ten-minute-old reading."
+    },
+    {
+      "start": 41.53,
+      "end": 46.18,
+      "text": "The label described the page, not the measurement."
+    },
+    {
+      "start": 46.18,
+      "end": 53.4,
+      "text": "Five arcs become ten questions for any team or vendor."
+    },
+    {
+      "start": 53.4,
+      "end": 56.58,
+      "text": "Not an audit. Not a certification."
+    },
+    {
+      "start": 56.58,
+      "end": 60.28,
+      "text": "Synthetic fixtures. Every episode states its limits."
+    },
+    {
+      "start": 60.28,
+      "end": 64.67,
+      "text": "Clone the fixtures. Run the tests."
+    },
+    {
+      "start": 64.67,
+      "end": 67.6,
+      "text": "The repository, linked below."
+    }
+  ]
+}

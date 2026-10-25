@@ -1,0 +1,245 @@
+{
+  "n": 112,
+  "title": "Launch review quiz",
+  "tag": "Quiz",
+  "kicker": "Quiz",
+  "fullTitle": "Launch Review Quiz: Five Questions Your Demo Can't Answer",
+  "slug": "launch-review-quiz",
+  "hero": {
+    "scene": "q1",
+    "t": 3
+  },
+  "audio": "qz02/narration.mp3",
+  "duration": 191.92,
+  "scenes": [
+    {
+      "id": "hook",
+      "start": 0,
+      "end": 12.87,
+      "sim": "PROMOTIONAL FILM"
+    },
+    {
+      "id": "q1",
+      "start": 12.87,
+      "end": 36.18,
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "think": 6
+    },
+    {
+      "id": "a1",
+      "start": 36.18,
+      "end": 45.61,
+      "sim": "SIMULATED LOCAL FIXTURE"
+    },
+    {
+      "id": "q2",
+      "start": 45.61,
+      "end": 68.07,
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "think": 6
+    },
+    {
+      "id": "a2",
+      "start": 68.07,
+      "end": 76.65,
+      "sim": "SIMULATED LOCAL FIXTURE"
+    },
+    {
+      "id": "q3",
+      "start": 76.65,
+      "end": 103.18,
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "think": 6
+    },
+    {
+      "id": "a3",
+      "start": 103.18,
+      "end": 113.3,
+      "sim": "SIMULATED LOCAL FIXTURE"
+    },
+    {
+      "id": "q4",
+      "start": 113.3,
+      "end": 138.46,
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "think": 6
+    },
+    {
+      "id": "a4",
+      "start": 138.46,
+      "end": 147.82,
+      "sim": "SIMULATED LOCAL FIXTURE"
+    },
+    {
+      "id": "q5",
+      "start": 147.82,
+      "end": 170.5,
+      "sim": "SIMULATED LOCAL FIXTURE",
+      "think": 6
+    },
+    {
+      "id": "a5",
+      "start": 170.5,
+      "end": 177.85,
+      "sim": "SIMULATED LOCAL FIXTURE"
+    },
+    {
+      "id": "close",
+      "start": 177.85,
+      "end": 191.921,
+      "sim": "PROMOTIONAL FILM"
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 6.44,
+      "text": "Five questions from the launch review your demo never shows."
+    },
+    {
+      "start": 6.44,
+      "end": 12.87,
+      "text": "Each answer comes from a real test result in the repository."
+    },
+    {
+      "start": 12.87,
+      "end": 16.48,
+      "text": "Question 1. Trust and access."
+    },
+    {
+      "start": 16.48,
+      "end": 23.69,
+      "text": "Alice is signed in and asks for Bob's private project."
+    },
+    {
+      "start": 23.69,
+      "end": 30.18,
+      "text": "In the flawed version, what does the server answer?"
+    },
+    {
+      "start": 36.18,
+      "end": 39.81,
+      "text": "B: Bob's project, status 200."
+    },
+    {
+      "start": 39.81,
+      "end": 45.61,
+      "text": "The server never checked who owns the project."
+    },
+    {
+      "start": 45.61,
+      "end": 48.21,
+      "text": "Question 2. Duplicates."
+    },
+    {
+      "start": 48.21,
+      "end": 55.14,
+      "text": "One click, a lost confirmation, an automatic retry."
+    },
+    {
+      "start": 55.14,
+      "end": 62.07,
+      "text": "In the flawed version, how many orders exist?"
+    },
+    {
+      "start": 68.07,
+      "end": 69.91,
+      "text": "B: two orders."
+    },
+    {
+      "start": 69.91,
+      "end": 76.65,
+      "text": "With a unique key per purchase, the repair ends with one."
+    },
+    {
+      "start": 76.65,
+      "end": 82.12,
+      "text": "Question 3. Data lifecycle."
+    },
+    {
+      "start": 82.12,
+      "end": 88.97,
+      "text": "10,000 listings, 3,875 problems recorded."
+    },
+    {
+      "start": 88.97,
+      "end": 97.18,
+      "text": "How many different listings were flagged?"
+    },
+    {
+      "start": 103.18,
+      "end": 105.88,
+      "text": "B: 3,303 distinct listings."
+    },
+    {
+      "start": 105.88,
+      "end": 113.3,
+      "text": "Some listings carry several flags. Ask which count a report shows."
+    },
+    {
+      "start": 113.3,
+      "end": 115.43,
+      "text": "Question 4. Freshness."
+    },
+    {
+      "start": 115.43,
+      "end": 125.36,
+      "text": "A green Live label, \"updated 0 s ago\". The sensor samples every 600 s."
+    },
+    {
+      "start": 125.36,
+      "end": 132.46,
+      "text": "Just before the next sample, how old is the reading?"
+    },
+    {
+      "start": 138.46,
+      "end": 142.2,
+      "text": "C: 570 seconds, nearly ten minutes."
+    },
+    {
+      "start": 142.2,
+      "end": 147.82,
+      "text": "The label described the page refresh, not the measurement."
+    },
+    {
+      "start": 147.82,
+      "end": 151.61,
+      "text": "Question 5. Experience and speed."
+    },
+    {
+      "start": 151.61,
+      "end": 156.92,
+      "text": "Flawed: 8 keystrokes, 17 requests, 12 rejected."
+    },
+    {
+      "start": 156.92,
+      "end": 164.5,
+      "text": "After the repair, how many requests for the same typing?"
+    },
+    {
+      "start": 170.5,
+      "end": 172.07,
+      "text": "C: one request."
+    },
+    {
+      "start": 172.07,
+      "end": 177.85,
+      "text": "It waits for typing to pause and respects the retry delay."
+    },
+    {
+      "start": 177.85,
+      "end": 181.52,
+      "text": "Ask for the test, not the demo."
+    },
+    {
+      "start": 181.52,
+      "end": 186.25,
+      "text": "Ten questions and every fixture: the repository, linked below."
+    },
+    {
+      "start": 186.25,
+      "end": 189.92,
+      "text": "Synthetic fixtures. Not an audit or certification."
+    }
+  ]
+}
