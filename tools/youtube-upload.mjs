@@ -3,6 +3,7 @@
 // Safe by default: dry run, private uploads, nothing public without --confirm-public, no duplicate uploads.
 //
 //   node tools/youtube-upload.mjs --auth                       one-time consent; prints a refresh token once
+//   node tools/youtube-upload.mjs --auth --store-token         Windows: saves the token to your user environment instead of printing it
 //   node tools/youtube-upload.mjs --ids ep15                   dry run: validates copy, files, quota plan
 //   node tools/youtube-upload.mjs --ids ep15 --upload          upload as PRIVATE, then set the thumbnail
 //   node tools/youtube-upload.mjs --ids ep01..ep30 --upload --playlist --captions
@@ -20,7 +21,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import crypto from 'node:crypto';
-import {spawn} from 'node:child_process';
+import {spawn, spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {Readable} from 'node:stream';
 
@@ -216,7 +217,8 @@ const loadState = () => { try { return JSON.parse(fs.readFileSync(STATE_FILE(), 
 const saveState = (s) => { const t = `${STATE_FILE()}.tmp`; fs.writeFileSync(t, JSON.stringify(s, null, 2)); fs.renameSync(t, STATE_FILE()); };
 
 // ---------- --auth (installed-app loopback flow with PKCE) ----------
-async function auth() {
+async function auth(storeToken) {
+  if (storeToken && process.platform !== 'win32') throw new Error('--store-token is Windows only; run --auth without it and set YOUTUBE_REFRESH_TOKEN yourself');
   for (const k of ['YOUTUBE_CLIENT_ID', 'YOUTUBE_CLIENT_SECRET']) if (!process.env[k]) throw new Error(`BLOCKED: set environment variable ${k} first`);
   const verifier = crypto.randomBytes(48).toString('base64url');
   const challenge = crypto.createHash('sha256').update(verifier).digest('base64url');
@@ -245,6 +247,13 @@ async function auth() {
     body: new URLSearchParams({client_id: process.env.YOUTUBE_CLIENT_ID, client_secret: process.env.YOUTUBE_CLIENT_SECRET, code: code.code, code_verifier: verifier, redirect_uri: code.redirect, grant_type: 'authorization_code'})});
   const j = await r.json().catch(() => ({}));
   if (!r.ok || !j.refresh_token) throw new Error(`token exchange failed: ${j.error ?? r.status} ${j.error_description ?? ''}`.trim());
+  if (storeToken) {
+    // Windows only. The token travels in the child's environment, never on a command line, and is never printed.
+    const r = spawnSync('powershell.exe', ['-NoProfile', '-Command', "[Environment]::SetEnvironmentVariable('YOUTUBE_REFRESH_TOKEN', $env:WRC_TMP_TOKEN, 'User')"], {env: {...process.env, WRC_TMP_TOKEN: j.refresh_token}, stdio: 'ignore'});
+    if (r.status !== 0) throw new Error('could not store the token in the user environment; rerun --auth without --store-token');
+    console.log('SUCCESS. Refresh token stored in the user environment variable YOUTUBE_REFRESH_TOKEN (value not shown). Open a new terminal to use it.');
+    return;
+  }
   console.log('SUCCESS. Copy the refresh token below into the user environment variable YOUTUBE_REFRESH_TOKEN, then clear this terminal.');
   console.log('It is shown once and is not saved anywhere by this tool.\n');
   console.log(j.refresh_token);
@@ -252,10 +261,10 @@ async function auth() {
 
 // ---------- main ----------
 export function parseArgs(argv) {
-  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, titleOption: 1, seriesThumb: null};
+  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, titleOption: 1, seriesThumb: null};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], nx = () => argv[++i];
-    if (a === '--auth') o.auth = true; else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
+    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
     else if (a === '--synthetic') o.synthetic = true; else if (a === '--confirm-public') o.confirmPublic = true; else if (a === '--ids') o.ids = nx(); else if (a === '--privacy') o.privacy = nx();
     else if (a === '--category') o.category = Number(nx()); else if (a === '--max-units') o.maxUnits = Number(nx()); else if (a === '--title-option') o.titleOption = Number(nx()); else if (a === '--series-thumb') o.seriesThumb = nx();
     else throw new Error(`unknown option ${a}`);
@@ -276,7 +285,7 @@ export function expandIds(spec) {
 async function main() {
   const o = parseArgs(process.argv.slice(2));
   API(); TOKEN_URL(); // fail fast if the environment points these at a non-Google, non-loopback host
-  if (o.auth) return auth();
+  if (o.auth) return auth(o.storeToken);
   if (o.upload && !o.ids) throw new Error('BLOCKED: --upload needs an explicit --ids (for example --ids ep15)');
   const films = expandIds(o.ids).map((id) => buildFilm(id, o));
   let bad = 0, units = 0;
