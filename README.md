@@ -4,6 +4,8 @@ Short technical explainer videos (about 90–120 s each) where every on-screen r
 
 Preview gallery: GitHub Pages for this repository (branch `main`, folder `/`) → `index.html`.
 
+Status (2026-10-25): 20 episodes rendered and narrated; independent verification in `VERIFICATION.md`; release copy in `SERIES_RELEASE.md` and each `episodes/epNN/content/`.
+
 ## Layout
 - `briefs/` producer briefs (global rules + per-episode).
 - `fixtures/epNN-slug/` runnable fixture, `test.mjs` (node:test), `demo.mjs` → `evidence.json`.
