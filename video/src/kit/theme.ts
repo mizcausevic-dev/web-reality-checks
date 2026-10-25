@@ -19,8 +19,8 @@ export const C = {
   violet: '#a78bfa',
 };
 export const F = {
-  sans: 'Inter, "Inter Display", "DejaVu Sans", system-ui, sans-serif',
-  mono: '"DejaVu Sans Mono", "Courier New", monospace',
+  sans: 'InterBundled, Inter, "Inter Display", "DejaVu Sans", system-ui, sans-serif',
+  mono: '"DejaVuMonoBundled", "DejaVu Sans Mono", "Courier New", monospace',
 };
 export const W = 1920;
 export const H = 1080;

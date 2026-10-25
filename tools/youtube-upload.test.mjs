@@ -298,3 +298,34 @@ test('--publish on a film that was never uploaded is refused', async () => {
   assert.notEqual(r.status, 0);
   assert.match(r.stderr, /not uploaded yet/);
 });
+
+test('--root with series.json: another series repo uploads with its own playlist, hashtags and channel default', async () => {
+  const sr = fs.mkdtempSync(path.join(os.tmpdir(), 'series-'));
+  try {
+    fs.mkdirSync(path.join(sr, 'episodes', 'ff01', 'content'), {recursive: true});
+    fs.copyFileSync(path.join(ROOT, 'episodes', 'ep15', 'content', 'distribution.md'), path.join(sr, 'episodes', 'ff01', 'content', 'distribution.md'));
+    fs.writeFileSync(path.join(sr, 'episodes', 'ff01', 'ff01.mp4'), Buffer.alloc(2048, 1));
+    fs.writeFileSync(path.join(sr, 'episodes', 'ff01', 'thumbnail.png'), Buffer.alloc(256, 2));
+    fs.writeFileSync(path.join(sr, 'episodes', 'ff01', 'captions.srt'), '1\n00:00:00,000 --> 00:00:01,000\nHi\n');
+    fs.writeFileSync(path.join(sr, 'series.json'), JSON.stringify({name: 'FFmpeg Reality Checks', hashtags: '#FFmpeg #video', playlistTitle: 'FFmpeg Reality Checks: Test Playlist', playlistDescription: 'A test playlist.', channel: '@KGTest', category: 28}));
+    const st = path.join(tmp, 'series-state.json');
+    log.length = 0;
+    const r = await run(['--root', sr, '--ids', 'ff01', '--upload', '--playlist'], env({YOUTUBE_STATE_FILE: st}));
+    assert.equal(r.status, 0, r.stderr + r.stdout);
+    const vid = log.find((l) => l.p.startsWith('/upload/youtube/v3/videos') && l.json);
+    assert.ok(vid.json.snippet.title.endsWith('#FFmpeg #video'), 'hashtags come from series.json');
+    const pl = log.find((l) => l.p.startsWith('/youtube/v3/playlists?') && l.m === 'POST');
+    assert.equal(pl.json.snippet.title, 'FFmpeg Reality Checks: Test Playlist');
+    assert.equal(pl.json.status.privacyStatus, 'private');
+    assert.equal(JSON.parse(fs.readFileSync(st, 'utf8')).films.ff01.videoId, 'vid_TEST1');
+    const bad = await run(['--root', sr, '--ids', 'ff01', '--upload', '--expect-channel', '@Someone'], env({YOUTUBE_STATE_FILE: path.join(tmp, 'series-state2.json')}));
+    assert.notEqual(bad.status, 0);
+    assert.match(bad.stderr, /BLOCKED: token belongs to/);
+  } finally { fs.rmSync(sr, {recursive: true, force: true}); }
+});
+
+test('ids: two-letter prefixes and ranges expand, a bad id is refused', () => {
+  assert.deepEqual(expandIds('ff01..ff03'), ['ff01', 'ff02', 'ff03']);
+  assert.deepEqual(expandIds('ep29..ep30,series'), ['ep29', 'ep30', 'series']);
+  assert.throws(() => buildFilm('x1'), /unsupported id/);
+});

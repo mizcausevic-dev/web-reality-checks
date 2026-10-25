@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {C, F, W, H, M, MV} from './theme';
+import './fonts';
 
 type Kids = {children?: React.ReactNode};
 
@@ -32,8 +33,8 @@ export const Caption: React.FC<{text: string; o?: number}> = ({text, o = 1}) => 
   </div>
 );
 
-export const EpisodeTag: React.FC<{n: number; title: string; label?: string}> = ({n, title, label}) => (
-  <div style={{position: 'absolute', left: M, top: MV, fontFamily: F.sans, fontSize: 20, fontWeight: 600, letterSpacing: 3, color: C.mute, textTransform: 'uppercase'}}>{label ? `Web Reality Checks · ${label} · ${title}` : `Web Reality Checks · ${String(n).padStart(2, '0')} · ${title}`}</div>
+export const EpisodeTag: React.FC<{n: number; title: string; label?: string; series?: string}> = ({n, title, label, series = 'Web Reality Checks'}) => (
+  <div style={{position: 'absolute', left: M, top: MV, fontFamily: F.sans, fontSize: 20, fontWeight: 600, letterSpacing: 3, color: C.mute, textTransform: 'uppercase'}}>{label ? `${series} · ${label} · ${title}` : `${series} · ${String(n).padStart(2, '0')} · ${title}`}</div>
 );
 
 /* ---------- Diagram ---------- */

@@ -8,6 +8,7 @@ export type SceneDef = {id: string; start: number; end: number; sim?: string | n
 export type Cue = {start: number; end: number; text: string};
 export type Timeline = {
   n: number;
+  series?: string; // series name shown in the tag and hero; defaults to Web Reality Checks
   title: string;
   tag?: string; // optional tag text replacing the episode number (launch videos)
   kicker?: string; // optional hero/thumbnail kicker replacing "Episode NN"
@@ -41,7 +42,7 @@ export const makeEpisode = (tl: Timeline, scenes: Record<string, React.FC<SceneP
             </Sequence>
           );
         })}
-        <EpisodeTag n={tl.n} title={tl.title} label={tl.tag} />
+        <EpisodeTag n={tl.n} title={tl.title} label={tl.tag} series={tl.series} />
         {sim && <SimTag label={sim} />}
         {cue && <Caption text={cue.text} o={cueO} />}
         {tl.audio && <Audio src={staticFile(tl.audio)} />}

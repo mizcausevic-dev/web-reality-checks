@@ -26,7 +26,11 @@ import {spawn, spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {Readable} from 'node:stream';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+let ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+// A series repo with the same layout (episodes/<id>/..., optional series.json) can be uploaded with --root <dir>.
+export function setRoot(dir) { ROOT = path.resolve(dir); }
+// series.json (optional): {name, idPrefix, hashtags, playlistTitle, playlistDescription, channel, category}
+export function seriesConfig() { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'series.json'), 'utf8')); } catch { return null; } }
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube.force-ssl'];
 const AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 const LOOPBACK = new Set(['127.0.0.1', 'localhost']);
@@ -97,7 +101,7 @@ export function buildFilm(id, opts = {}) {
     meta.notes = chapters ? [] : ['series-cut/chapters.txt missing: run node tools/build-series-cut.mjs'];
     return finish(meta);
   }
-  if (!/^ep\d\d$/.test(id)) throw new Error(`unsupported id ${id}: this tool handles ep01..ep30 and series`);
+  if (!/^[a-z]{2}\d\d$/.test(id)) throw new Error(`unsupported id ${id}: expected two letters and two digits (for example ep15, ff01) or series`);
   const dp = `episodes/${id}/content/distribution.md`;
   if (!ex(dp)) throw new Error(`missing ${dp}`);
   const p = parseDistribution(rd(dp), opts.titleOption ?? 1);
@@ -206,6 +210,8 @@ async function setThumbnail(videoId, file) {
   if (!r.ok) throw await apiError(r);
 }
 function playlistMeta() {
+  const cfg = seriesConfig();
+  if (cfg?.playlistTitle) return {title: sanitize(cfg.playlistTitle), description: sanitize(cfg.playlistDescription ?? '')};
   const rel = rd('SERIES_RELEASE.md');
   const title = (section(rel, /### Playlist title[^\n]*\n/, /\n### /) ?? '').match(/^1\. `([^`]+)`/m)?.[1] ?? 'Web Reality Checks';
   const description = sanitize((section(rel, /### Playlist description[^\n]*\n/, /\n## /) ?? '').replace(/^```\n?|\n?```$/g, ''));
@@ -298,12 +304,12 @@ async function auth(storeToken) {
 
 // ---------- main ----------
 export function parseArgs(argv) {
-  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, publish: false, titleOption: 1, seriesThumb: null};
+  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, publish: false, titleOption: 1, seriesThumb: null, root: null};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], nx = () => argv[++i];
     if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--title-suffix') o.titleSuffix = nx(); else if (a === '--retitle') o.retitle = true; else if (a === '--publish') o.publish = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
     else if (a === '--synthetic') o.synthetic = true; else if (a === '--confirm-public') o.confirmPublic = true; else if (a === '--ids') o.ids = nx(); else if (a === '--privacy') o.privacy = nx();
-    else if (a === '--category') o.category = Number(nx()); else if (a === '--max-units') o.maxUnits = Number(nx()); else if (a === '--title-option') o.titleOption = Number(nx()); else if (a === '--series-thumb') o.seriesThumb = nx();
+    else if (a === '--category') o.category = Number(nx()); else if (a === '--max-units') o.maxUnits = Number(nx()); else if (a === '--title-option') o.titleOption = Number(nx()); else if (a === '--series-thumb') o.seriesThumb = nx(); else if (a === '--root') o.root = nx();
     else throw new Error(`unknown option ${a}`);
   }
   if (!['private', 'unlisted', 'public'].includes(o.privacy)) throw new Error('--privacy must be private, unlisted or public');
@@ -312,16 +318,19 @@ export function parseArgs(argv) {
   return o;
 }
 export function expandIds(spec) {
-  const range = (a, b) => Array.from({length: b - a + 1}, (_, i) => `ep${String(a + i).padStart(2, '0')}`);
-  if (!spec || spec === 'all') return range(1, 30);
+  const range = (pre, a, b) => Array.from({length: b - a + 1}, (_, i) => `${pre}${String(a + i).padStart(2, '0')}`);
+  if (!spec || spec === 'all') return range('ep', 1, 30);
   return spec.split(',').flatMap((p) => {
-    const m = p.match(/^ep(\d\d)\.\.ep(\d\d)$/);
-    return m ? range(+m[1], +m[2]) : [p];
+    const m = p.match(/^([a-z]{2})(\d\d)\.\.\1(\d\d)$/);
+    return m ? range(m[1], +m[2], +m[3]) : [p];
   });
 }
 
 async function main() {
   const o = parseArgs(process.argv.slice(2));
+  if (o.root) setRoot(o.root);
+  const cfg = seriesConfig();
+  if (cfg) { o.titleSuffix ??= cfg.hashtags ?? null; o.expectChannel ??= cfg.channel ?? null; if (cfg.category && !process.argv.includes('--category')) o.category = cfg.category; }
   API(); TOKEN_URL(); // fail fast if the environment points these at a non-Google, non-loopback host
   if (o.auth) return auth(o.storeToken);
   if (o.whoami) { const c = await currentChannel(); console.log(`This token uploads to: ${c.title} (@${c.handle}) id ${c.id}`); return; }

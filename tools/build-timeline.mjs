@@ -11,11 +11,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {execFileSync, spawnSync} from 'node:child_process';
+import {engineRoot} from './lib.mjs';
 
 const ep = process.argv[2];
 if (!ep) throw new Error('usage: build-timeline.mjs epNN [--no-audio]');
 const noAudio = process.argv.includes('--no-audio');
-const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const root = engineRoot;
 const scriptPath = path.join(root, 'episodes', ep, 'script.json');
 const script = JSON.parse(fs.readFileSync(scriptPath, 'utf8'));
 const audioRel = `${ep}/narration.mp3`;
@@ -93,7 +94,7 @@ scenes.forEach((sc, i) => {
 });
 
 const heroDefault = scenes.find((s) => /leak|fail|freeze|dup|stale|wrong|break/.test(s.id)) ?? scenes[1] ?? scenes[0];
-const timeline = {n: script.n, title: script.title, ...(script.tag ? {tag: script.tag} : {}), ...(script.kicker ? {kicker: script.kicker} : {}), fullTitle: script.fullTitle ?? script.title, slug: script.slug, hero: script.hero ?? {scene: heroDefault.id, t: Math.min(6, Math.max(2, (heroDefault.end - heroDefault.start) - 1))}, audio: hasAudio ? audioRel : null, duration, scenes, captions};
+const timeline = {n: script.n, ...(script.series ? {series: script.series} : {}), title: script.title, ...(script.tag ? {tag: script.tag} : {}), ...(script.kicker ? {kicker: script.kicker} : {}), fullTitle: script.fullTitle ?? script.title, slug: script.slug, hero: script.hero ?? {scene: heroDefault.id, t: Math.min(6, Math.max(2, (heroDefault.end - heroDefault.start) - 1))}, audio: hasAudio ? audioRel : null, duration, scenes, captions};
 const tlDir = path.join(root, 'video', 'src', 'episodes', ep);
 fs.mkdirSync(tlDir, {recursive: true});
 fs.writeFileSync(path.join(tlDir, 'timeline.json'), JSON.stringify(timeline, null, 2));

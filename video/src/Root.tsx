@@ -4,6 +4,12 @@ import {Composition} from 'remotion';
 import {framesFor, Timeline} from './kit/Episode';
 import {FPS, W, H} from './kit/theme';
 import {makeHero} from './kit/Hero';
+import * as cm01 from './episodes/cm01';
+import {scenes as cm01scenes} from './episodes/cm01/Scenes';
+import * as cm02 from './episodes/cm02';
+import {scenes as cm02scenes} from './episodes/cm02/Scenes';
+import * as cm03 from './episodes/cm03';
+import {scenes as cm03scenes} from './episodes/cm03/Scenes';
 import * as ep01 from './episodes/ep01';
 import {scenes as ep01scenes} from './episodes/ep01/Scenes';
 import * as ep02 from './episodes/ep02';
@@ -44,10 +50,47 @@ import * as ep19 from './episodes/ep19';
 import {scenes as ep19scenes} from './episodes/ep19/Scenes';
 import * as ep20 from './episodes/ep20';
 import {scenes as ep20scenes} from './episodes/ep20/Scenes';
+import * as ep21 from './episodes/ep21';
+import {scenes as ep21scenes} from './episodes/ep21/Scenes';
+import * as ep22 from './episodes/ep22';
+import {scenes as ep22scenes} from './episodes/ep22/Scenes';
+import * as ep23 from './episodes/ep23';
+import {scenes as ep23scenes} from './episodes/ep23/Scenes';
+import * as ep24 from './episodes/ep24';
+import {scenes as ep24scenes} from './episodes/ep24/Scenes';
+import * as ep25 from './episodes/ep25';
+import {scenes as ep25scenes} from './episodes/ep25/Scenes';
+import * as ep26 from './episodes/ep26';
+import {scenes as ep26scenes} from './episodes/ep26/Scenes';
+import * as ep27 from './episodes/ep27';
+import {scenes as ep27scenes} from './episodes/ep27/Scenes';
+import * as ep28 from './episodes/ep28';
+import {scenes as ep28scenes} from './episodes/ep28/Scenes';
+import * as ep29 from './episodes/ep29';
+import {scenes as ep29scenes} from './episodes/ep29/Scenes';
+import * as ep30 from './episodes/ep30';
+import {scenes as ep30scenes} from './episodes/ep30/Scenes';
+import * as ff01 from './episodes/ff01';
+import {scenes as ff01scenes} from './episodes/ff01/Scenes';
+import * as qz01 from './episodes/qz01';
+import {scenes as qz01scenes} from './episodes/qz01/Scenes';
+import * as qz02 from './episodes/qz02';
+import {scenes as qz02scenes} from './episodes/qz02/Scenes';
+import * as qz03 from './episodes/qz03';
+import {scenes as qz03scenes} from './episodes/qz03/Scenes';
 
 export const Root: React.FC = () => {
   return (
     <>
+      <Composition id="CM01" component={cm01.Episode} durationInFrames={framesFor(cm01.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-CM01" component={makeHero(cm01.timeline as Timeline, cm01scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-CM01" component={makeHero(cm01.timeline as Timeline, cm01scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="CM02" component={cm02.Episode} durationInFrames={framesFor(cm02.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-CM02" component={makeHero(cm02.timeline as Timeline, cm02scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-CM02" component={makeHero(cm02.timeline as Timeline, cm02scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="CM03" component={cm03.Episode} durationInFrames={framesFor(cm03.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-CM03" component={makeHero(cm03.timeline as Timeline, cm03scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-CM03" component={makeHero(cm03.timeline as Timeline, cm03scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
       <Composition id="EP01" component={ep01.Episode} durationInFrames={framesFor(ep01.timeline as Timeline)} fps={FPS} width={W} height={H} />
       <Composition id="HERO-EP01" component={makeHero(ep01.timeline as Timeline, ep01scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
       <Composition id="THUMB-EP01" component={makeHero(ep01.timeline as Timeline, ep01scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
@@ -108,6 +151,48 @@ export const Root: React.FC = () => {
       <Composition id="EP20" component={ep20.Episode} durationInFrames={framesFor(ep20.timeline as Timeline)} fps={FPS} width={W} height={H} />
       <Composition id="HERO-EP20" component={makeHero(ep20.timeline as Timeline, ep20scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
       <Composition id="THUMB-EP20" component={makeHero(ep20.timeline as Timeline, ep20scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP21" component={ep21.Episode} durationInFrames={framesFor(ep21.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP21" component={makeHero(ep21.timeline as Timeline, ep21scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP21" component={makeHero(ep21.timeline as Timeline, ep21scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP22" component={ep22.Episode} durationInFrames={framesFor(ep22.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP22" component={makeHero(ep22.timeline as Timeline, ep22scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP22" component={makeHero(ep22.timeline as Timeline, ep22scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP23" component={ep23.Episode} durationInFrames={framesFor(ep23.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP23" component={makeHero(ep23.timeline as Timeline, ep23scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP23" component={makeHero(ep23.timeline as Timeline, ep23scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP24" component={ep24.Episode} durationInFrames={framesFor(ep24.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP24" component={makeHero(ep24.timeline as Timeline, ep24scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP24" component={makeHero(ep24.timeline as Timeline, ep24scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP25" component={ep25.Episode} durationInFrames={framesFor(ep25.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP25" component={makeHero(ep25.timeline as Timeline, ep25scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP25" component={makeHero(ep25.timeline as Timeline, ep25scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP26" component={ep26.Episode} durationInFrames={framesFor(ep26.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP26" component={makeHero(ep26.timeline as Timeline, ep26scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP26" component={makeHero(ep26.timeline as Timeline, ep26scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP27" component={ep27.Episode} durationInFrames={framesFor(ep27.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP27" component={makeHero(ep27.timeline as Timeline, ep27scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP27" component={makeHero(ep27.timeline as Timeline, ep27scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP28" component={ep28.Episode} durationInFrames={framesFor(ep28.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP28" component={makeHero(ep28.timeline as Timeline, ep28scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP28" component={makeHero(ep28.timeline as Timeline, ep28scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP29" component={ep29.Episode} durationInFrames={framesFor(ep29.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP29" component={makeHero(ep29.timeline as Timeline, ep29scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP29" component={makeHero(ep29.timeline as Timeline, ep29scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="EP30" component={ep30.Episode} durationInFrames={framesFor(ep30.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-EP30" component={makeHero(ep30.timeline as Timeline, ep30scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-EP30" component={makeHero(ep30.timeline as Timeline, ep30scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="FF01" component={ff01.Episode} durationInFrames={framesFor(ff01.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-FF01" component={makeHero(ff01.timeline as Timeline, ff01scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-FF01" component={makeHero(ff01.timeline as Timeline, ff01scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="QZ01" component={qz01.Episode} durationInFrames={framesFor(qz01.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-QZ01" component={makeHero(qz01.timeline as Timeline, qz01scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-QZ01" component={makeHero(qz01.timeline as Timeline, qz01scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="QZ02" component={qz02.Episode} durationInFrames={framesFor(qz02.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-QZ02" component={makeHero(qz02.timeline as Timeline, qz02scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-QZ02" component={makeHero(qz02.timeline as Timeline, qz02scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
+      <Composition id="QZ03" component={qz03.Episode} durationInFrames={framesFor(qz03.timeline as Timeline)} fps={FPS} width={W} height={H} />
+      <Composition id="HERO-QZ03" component={makeHero(qz03.timeline as Timeline, qz03scenes, 'hero')} durationInFrames={1} fps={FPS} width={1600} height={900} />
+      <Composition id="THUMB-QZ03" component={makeHero(qz03.timeline as Timeline, qz03scenes, 'thumb')} durationInFrames={1} fps={FPS} width={1280} height={720} />
     </>
   );
 };

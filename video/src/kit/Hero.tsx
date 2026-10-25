@@ -25,7 +25,7 @@ export const makeHero = (tl: Timeline & {fullTitle?: string; hero?: {scene: stri
         </div>
         <div style={{position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(11,12,16,0.15) 0%, rgba(11,12,16,0.55) 45%, rgba(11,12,16,0.96) 75%)`}} />
         <div style={{position: 'absolute', left: 64, right: 64, bottom: kind === 'hero' ? 72 : 56, fontFamily: F.sans}}>
-          <div style={{fontSize: kind === 'hero' ? 22 : 24, letterSpacing: 5, textTransform: 'uppercase', color: C.cyan, fontWeight: 700, marginBottom: 18}}>{tl.kicker ? `Web Reality Checks · ${tl.kicker}` : `Web Reality Checks · Episode ${String(tl.n).padStart(2, '0')}`}</div>
+          <div style={{fontSize: kind === 'hero' ? 22 : 24, letterSpacing: 5, textTransform: 'uppercase', color: C.cyan, fontWeight: 700, marginBottom: 18}}>{tl.kicker ? `${tl.series ?? 'Web Reality Checks'} · ${tl.kicker}` : `${tl.series ?? 'Web Reality Checks'} · Episode ${String(tl.n).padStart(2, '0')}`}</div>
           <div style={{fontSize: titleSize, lineHeight: 1.05, fontWeight: 800, color: C.text, letterSpacing: -2, textWrap: 'balance' as never, maxWidth: W - 128}}>{title}</div>
           {kind === 'hero' && <div style={{marginTop: 22, fontSize: 24, color: C.dim}}>Runnable local fixture · regression tests · narrated explainer</div>}
         </div>

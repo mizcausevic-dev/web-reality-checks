@@ -13,3 +13,10 @@ series-cut/
 .env
 youtube-uploads.json
 youtube-uploads.json.tmp
+# work copies created by tools/ship.mjs for other series (the content lives in each series repo)
+/episodes/ff*/
+/video/src/episodes/ff*/
+/video/public/ff*/
+/episodes/rr*/
+/video/src/episodes/rr*/
+/video/public/rr*/
