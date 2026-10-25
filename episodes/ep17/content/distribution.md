@@ -55,47 +55,43 @@ Everything here runs on a deliberately built local fixture with a synthetic sens
 
 ### Post 1: engineers
 
-The panel said Live, updated 0 s ago. The reading behind it was observed 570 seconds earlier. Both true. Same instant.
+The panel said Live, updated 0 s ago. The reading behind it was observed 570 s earlier. Both true. Same instant.
 
-Episode 17 of Web Reality Checks. Four stages on one shared clock: source observes, collector samples every 600 s, API serves the latest stored reading, browser polls every 30 s. Each stage stamps its own time: sourceObservedAt, collectedAt, servedAt.
+Episode 17 of Web Reality Checks. Four stages on one shared clock: source observes, collector samples every 600 s, API serves the latest stored reading, browser polls every 30 s. Each stamps its own time.
 
-The naive label derives "updated N s ago" from the last poll. Every 200 OK resets it to zero. So 19 polls between two collections, 19 × 200, 19 × Live, one reading aging 30 → 570 s. The display answers "is my connection working?" and presents it as "how old is this number?"
+The naive label counts "updated N s ago" from the last poll. Every 200 OK resets it. So 19 polls between collections, 19 × Live, one reading aging 30 → 570 s. It answers "is my connection working?" and calls it "how old is this number?"
 
 The repair, as a pure function:
-- measurementAge = now - sourceObservedAt. Never collectedAt, never servedAt, never poll time. An arriving response does not reset it.
-- connection from the last poll only: disconnected, connected within a 90 s window, else unknown.
-- Connected and stale can both be true. The UI says both.
+- age = now - sourceObservedAt. Never collectedAt, servedAt or poll time.
+- connection from the last poll only: disconnected, connected within 90 s, else unknown.
+- Connected and stale can both be true.
 
-Under failure: collector down, API still 200 with the t=0 reading, age 1200 s, naive label still Live. API down, 503, last value kept with an explicit warning, nothing fabricated. Future timestamp: flagged impossible-future, never a negative age.
+Collector down: API still 200, age 1200 s, naive label still Live. API down: 503, last value kept with a warning. Future timestamp flagged, never negative. Polling every 5 s: 119 polls vs 19, identical age at t=570.
 
-Polling every 5 s instead of 30: 119 polls vs 19, identical age at t=570. Faster delivery of the same old reading.
-
-12 tests, 12 pass, including a known-positive control asserting the naive label is misleading. 300 s threshold is this fixture's policy, not a rule. One shared clock; skew not modeled. Synthetic data only.
-
-Video, fixture, tests: github.com/mizcausevic-dev/web-reality-checks
+12 tests, 12 pass, including a control asserting the naive label misleads. 300 s is this fixture's policy, not a rule. One shared clock; skew not modeled. Synthetic data. github.com/mizcausevic-dev/web-reality-checks
 
 #Observability #DataEngineering #SoftwareEngineering
 
 ### Post 2: non-technical leaders
 
-Your dashboard says Live. Is the number on it current? Those are two different questions, and the label only answers one.
+Your dashboard says Live. Is the number current? Two different questions. The label answers one.
 
-Episode 17 of Web Reality Checks builds a small synthetic pipeline on a laptop with a clock we wind forward by hand. A sensor is sampled every ten simulated minutes. The screen asks the server every thirty seconds. Every answer comes back OK. Every answer resets the label to Live, updated 0 seconds ago. Nineteen times in a row, the same ten-minute-old reading, each time described as fresh.
+Episode 17 of Web Reality Checks builds a synthetic pipeline on a laptop with a clock we wind forward by hand. A sensor is sampled every ten simulated minutes. The screen asks the server every thirty seconds. Every answer is OK and resets the label to Live, updated 0 seconds ago. Nineteen times in a row, the same ten-minute-old reading, called fresh.
 
-Think of a newspaper delivered reliably at 6 a.m. Delivery is fresh. The stories were written yesterday. "Updated just now" is the delivery time. It says nothing about when the information was gathered.
+A newspaper lands at 6 a.m. Delivery is fresh; the stories were written yesterday.
 
-Worse: when the upstream sampler stops working, the server keeps handing out the last reading it has, and the screen stays green. The moment you need the dashboard to warn you is the moment it is most confidently reassuring you.
+Worse: when the sampler stops, the server keeps serving its last reading and the screen stays green. When you most need a warning, it reassures.
 
-The fix is two indicators instead of one word: how old the measurement is, counted from when it was taken, and whether the connection is healthy. Both can be true at once. How old is too old is a product decision; this dashboard chose five minutes, a daily report could choose hours. The failure is hiding the age, not the age itself.
+The fix is two indicators: measurement age and connection health. How old is too old is a product decision; this dashboard chose five minutes.
 
-Five questions for your team or vendor:
-1. Is "updated N seconds ago" counted from the measurement or from the last request?
+Five questions to ask:
+1. Is "updated N seconds ago" counted from the measurement or the last request?
 2. Does each value carry its own observation timestamp?
-3. What is the stale threshold, who chose it, where is it written?
-4. If the upstream sampler fails but the server keeps answering, what does the screen show?
-5. If the server fails, does the screen keep the last value with a warning, or invent one?
+3. What is the stale threshold, and where is it written?
+4. If the sampler fails but the server answers, what does the screen show?
+5. If the server fails, does the screen keep the last value with a warning?
 
-Synthetic fixture, compressed clock, no real product. Video and write-ups: github.com/mizcausevic-dev/web-reality-checks
+Synthetic fixture. github.com/mizcausevic-dev/web-reality-checks
 
 #ProductManagement #Data #Leadership
 
@@ -109,11 +105,11 @@ Synthetic fixture, compressed clock, no real product. Video and write-ups: githu
 
 4/ The repair is two facts, not one word. Measurement age = now - sourceObservedAt, never reset by an arriving response. Connection status from the last poll alone. Connected and stale can both be true, and from t=330 to t=570 in the healthy run, they are.
 
-5/ Break the collector: the API still answers 200 with the t=0 reading because that is the latest it has. Age reaches 1200 s. Connection green. Naive label still Live. Break the API: 503, last value kept with an explicit warning, nothing fabricated, age keeps counting from the source.
+5/ Break the collector: the API still answers 200 with the t=0 reading, the latest it has. Age reaches 1200 s. Connection green. Naive label still Live. Break the API: 503, last value kept with an explicit warning, nothing fabricated, age keeps counting from the source.
 
 6/ Polling faster does not help. 5 s vs 30 s over 599 s: 119 polls vs 19, collector sampled once in both, identical 570 s age at the same instant. A WebSocket would deliver the same old reading sooner (stated as reasoning, not implemented in this fixture).
 
-7/ Policy, not law: 300 s is this dashboard's stale threshold. A daily report could pick hours. Future timestamps are flagged impossible-future, never shown negative. Missing timestamps give an explicit unknown. 12 tests, 12 pass, including a control that asserts the naive label misleads.
+7/ Policy, not law: 300 s is this dashboard's stale threshold. A daily report could pick hours. Future timestamps are flagged, never shown negative. Missing timestamps give an explicit unknown. 12 tests, 12 pass, including a control that asserts the naive label misleads.
 
 8/ Limits: one shared clock, so cross-system skew is not modeled. No sockets or real HTTP. Synthetic sensor, compressed clock. Freshly fetched does not mean freshly observed. Fixture, tests, video, three write-ups: github.com/mizcausevic-dev/web-reality-checks
 

@@ -38,3 +38,6 @@ Type-check: `cd video && npx tsc --noEmit` (passes).
 - The **shared test identity is a harness**, not production authentication.
 - The flawed client's immediate-retry loop is bounded only so the tests terminate; real flawed clients may have no bound.
 - Scene 1's keystroke→request animation runs slower than the fixture's 80 ms spacing for legibility; the counts it displays are the fixture's. Scene 7's ruler positions use the recorded virtual-ms values.
+
+## Orchestrator note (observed during production)
+- Observed: `node --test fixtures/ep16-rate-limit/test.mjs` passed 17/17 on three consecutive runs on an idle 2-vCPU box, and failed 1/17 once while a video render saturated both cores. The limiter and typing tests run on a scaled virtual clock, so heavy CPU contention can shift one timing assertion. Run the suite on an idle machine; a single failure under load is a scheduling artefact, not a limiter defect.
