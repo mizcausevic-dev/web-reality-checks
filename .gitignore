@@ -10,3 +10,6 @@ fixtures/ep08-feels-slow/assets/hero-large.png
 queue.log
 queue/
 series-cut/
+.env
+youtube-uploads.json
+youtube-uploads.json.tmp

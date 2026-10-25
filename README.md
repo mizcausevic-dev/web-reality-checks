@@ -130,7 +130,7 @@ Narration is ElevenLabs, voice "Benedict - Premium British (RP) Male", model `el
 | `episodes/cmNN/`, `episodes/qzNN/` | Launch films and quizzes, same structure |
 | `launch/<package>/` | Article, SEO notes, social copy, commercial and quiz scripts, images |
 | `video/` | Remotion project: `src/kit` design system, `src/episodes/<id>` scenes and `timeline.json` |
-| `tools/` | Timeline, render, verification, site, README and asset generators; `check-limits.mjs` measures social-copy limits |
+| `tools/` | Timeline, render, verification, site, README and asset generators; `check-limits.mjs` measures social-copy limits; `build-series-cut.mjs` rebuilds the full-series MP4; `youtube-upload.mjs` uploads to your own channel (dry run and private by default, mock-API tests included) |
 | `index.html`, `assets/` | Generated GitHub Pages site and graphics |
 
 ## Evidence vocabulary
