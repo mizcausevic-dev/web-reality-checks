@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-25T08:13:11.197Z",
+  "generatedAt": "2026-10-25T19:03:59.050Z",
   "base": "http://127.0.0.1:<ephemeral>",
   "transport": "plain HTTP on loopback; X-Forwarded-Proto: https + trust proxy so Secure cookies are issued. TLS NOT executed.",
   "libraries": {
     "argon2": "0.41.1",
-    "express": "4.21.2",
-    "express-session": "1.18.1",
+    "express": "4.22.3",
+    "express-session": "1.19.0",
     "csrf-csrf": "3.1.0",
     "cookie-parser": "1.4.7"
   },
@@ -21,7 +21,7 @@
     },
     {
       "label": "pre-auth session",
-      "sessionId": "Xpi3dL5R…",
+      "sessionId": "tCpv6pGI…",
       "authenticated": false,
       "note": "anonymous session created when the CSRF token was fetched"
     },
@@ -49,12 +49,12 @@
         "csrfToken": "<128 chars, per-session token>"
       },
       "setCookie": [
-        "__Host-wrc.x-csrf-token=<195 chars, opaque>; Path=/; HttpOnly; Secure; SameSite=Lax",
-        "sid=<86 chars, opaque>; Path=/; Expires=Sun, 25 Oct 2026 08:43:10 GMT; HttpOnly; Secure; SameSite=Lax"
+        "__Host-wrc.x-csrf-token=<opaque id>; Path=/; HttpOnly; Secure; SameSite=Lax",
+        "sid=<opaque id>; Path=/; Expires=Sun, 25 Oct 2026 19:33:58 GMT; HttpOnly; Secure; SameSite=Lax"
       ],
       "sessionCookieAttributes": [
         "Path=/",
-        "Expires=Sun, 25 Oct 2026 08:43:10 GMT",
+        "Expires=Sun, 25 Oct 2026 19:33:58 GMT",
         "HttpOnly",
         "Secure",
         "SameSite=Lax"
@@ -63,8 +63,8 @@
     },
     {
       "label": "session id after login",
-      "before": "Xpi3dL5R…",
-      "after": "41P5g2pU…",
+      "before": "tCpv6pGI…",
+      "after": "1dfuYwxr…",
       "changed": true
     },
     {
@@ -158,8 +158,8 @@
         "ok": true
       },
       "setCookie": [
-        "sid=<0 chars, opaque>; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax",
-        "__Host-wrc.x-csrf-token=<0 chars, opaque>; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax"
+        "sid=<opaque id>; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax",
+        "__Host-wrc.x-csrf-token=<opaque id>; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; Secure; SameSite=Lax"
       ],
       "cookieExpired": true
     },
@@ -180,7 +180,7 @@
         "csrfToken": "<128 chars, per-session token>"
       },
       "setCookie": [
-        "__Host-wrc.x-csrf-token=<195 chars, opaque>; Path=/; HttpOnly; Secure; SameSite=Lax"
+        "__Host-wrc.x-csrf-token=<opaque id>; Path=/; HttpOnly; Secure; SameSite=Lax"
       ],
       "sessionCookieIssued": false
     }

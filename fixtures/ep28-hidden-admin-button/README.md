@@ -16,7 +16,7 @@ Users are synthetic: `u_admin` (role `admin`) and `u_member` (role `member`). No
 
 ```
 cd fixtures/ep28-hidden-admin-button
-npm install --no-audit --no-fund     # express 4.21.2, cookie-parser 1.4.7, csrf-csrf 3.1.0 (same pins as ep03); lockfile committed
+npm install --no-audit --no-fund     # express 4.22.3, cookie-parser 1.4.7, csrf-csrf 3.1.0 (same pins as ep03); lockfile committed
 node --test test.mjs
 node demo.mjs                        # writes evidence.json
 ```

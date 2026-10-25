@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T18:29:06.498Z",
+  "generatedAt": "2026-10-25T19:02:51.278Z",
   "base": "http://127.0.0.1:<ephemeral>",
   "scope": "function-level permission check (may this role perform this action at all?); not object ownership",
   "csrfLibrary": "csrf-csrf 3.1.0 (same pin as EP03), double-submit token bound to the server-side session id",

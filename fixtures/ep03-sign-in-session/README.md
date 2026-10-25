@@ -15,7 +15,7 @@ are recomputed with a fresh random salt on every start.
 
 ```
 cd fixtures/ep03-sign-in-session
-npm install --no-audit --no-fund      # pinned: argon2 0.41.1, express 4.21.2, express-session 1.18.1, csrf-csrf 3.1.0, cookie-parser 1.4.7
+npm install --no-audit --no-fund      # pinned: argon2 0.41.1, express 4.22.3, express-session 1.19.0, csrf-csrf 3.1.0, cookie-parser 1.4.7
 node --test test.mjs
 node demo.mjs                          # writes evidence.json
 node server.mjs                        # optional: leaves a server running for manual curl
@@ -31,7 +31,7 @@ Manual curl must send `-H 'X-Forwarded-Proto: https'` or no session cookie is is
 | `client.mjs` | minimal cookie-jar fetch wrapper used by tests and demo (not a browser) |
 | `test.mjs` | 12 regression tests, including one known-positive control |
 | `demo.mjs` | the exact scenario the video shows; writes `evidence.json` |
-| `evidence.json` | actual statuses, cookie attributes (values redacted as `<n chars, opaque>`), hash prefixes |
+| `evidence.json` | actual statuses, cookie attributes (values redacted as `<opaque id>`), hash prefixes |
 | `sequence-diagram.md` | Mermaid sequence diagram of the exact flow and an object table |
 | `framework-config.md` | every library option used and why |
 | `test-notes.md` | what each test proves and what was not tested |
@@ -90,7 +90,7 @@ $ node --test test.mjs
 ```
 
 `node demo.mjs` → `evidence.json`: wrong password **401**; correct password **200** with
-`Set-Cookie sid=<84 chars, opaque>; Path=/; Expires=…; HttpOnly; Secure; SameSite=Lax`, no `Domain`;
+`Set-Cookie sid=<opaque id>; Path=/; Expires=…; HttpOnly; Secure; SameSite=Lax`, no `Domain`;
 session id **changed** (`IXbv8tHA…` → a different id; values vary per run); replay of pre-auth id
 **401**; `GET /me` with cookie **200** `u_alice`; `/admin/audit` anonymous **401**, as alice/member
 **403**, as carol/admin **200**; `POST /login` without CSRF header **403**; `GET /logout` **405**;

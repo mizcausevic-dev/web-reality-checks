@@ -30,7 +30,7 @@ Sign out is a POST protected by a CSRF token, since `SameSite=Lax` alone would l
 
 ## The fixture
 
-`fixtures/ep03-sign-in-session/` is a loopback-only Node app on `express` 4.21.2, with `argon2` 0.41.1 for hashing, `express-session` 1.18.1 for the session store and cookie, and `csrf-csrf` 3.1.0 plus `cookie-parser` 1.4.7 for CSRF tokens (versions as pinned in the fixture README). Two synthetic users: `alice@example.test` (member) and `carol@example.test` (admin). No cryptography was written by hand.
+`fixtures/ep03-sign-in-session/` is a loopback-only Node app on `express` 4.22.3, with `argon2` 0.41.1 for hashing, `express-session` 1.19.0 for the session store and cookie, and `csrf-csrf` 3.1.0 plus `cookie-parser` 1.4.7 for CSRF tokens (versions as pinned in the fixture README). Two synthetic users: `alice@example.test` (member) and `carol@example.test` (admin). No cryptography was written by hand.
 
 The session configuration carries the cookie policy:
 
@@ -94,7 +94,7 @@ The other policies are refusals: `GET /logout` is 405 with `Allow: POST`; login 
 From `evidence.json` (local synthetic fixture, one run; identifiers are random and differ per run):
 
 - Stored hash: `$argon2id$v=19$m=65536,t=3,p=4$…`, 97 characters; second hash `differ: true`; `containsPassword: false`.
-- `POST /login`, wrong password: 401, no `Set-Cookie`. Correct password: 200, `Set-Cookie: sid=<86 chars, opaque>; Path=/; Expires=…; HttpOnly; Secure; SameSite=Lax`, `hasDomainAttribute: false`.
+- `POST /login`, wrong password: 401, no `Set-Cookie`. Correct password: 200, `Set-Cookie: sid=<opaque id>; Path=/; Expires=…; HttpOnly; Secure; SameSite=Lax`, `hasDomainAttribute: false`.
 - Session id before and after login: `changed: true`. Pre-authentication cookie replayed after login: 401.
 - `GET /me` with the new cookie: 200, `u_alice`, `member`.
 - `GET /admin/audit`: no cookie 401; alice 403 (`required: admin, actual: member`); carol 200.

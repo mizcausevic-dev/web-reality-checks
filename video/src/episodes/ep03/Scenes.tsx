@@ -51,7 +51,7 @@ const Click: React.FC<SceneProps> = ({t}) => {
       <SignInPanel x={M} y={170} w={880} status={st} o={o} />
       <Overline x={M + 960} y={190} color={C.dim}>Observed from the local fixture</Overline>
       <Box x={M + 960} y={240} w={768} h={100} title="POST /login · wrong password" sub="401 invalid credentials · no Set-Cookie" accent={C.red} o={ep(t, 1.8, 2.3)} titleSize={26} />
-      <Box x={M + 960} y={360} w={768} h={100} title="POST /login · correct password" sub="200 · Set-Cookie sid=<84 chars, opaque>" accent={C.green} o={ep(t, 4.7, 5.2)} titleSize={26} />
+      <Box x={M + 960} y={360} w={768} h={100} title="POST /login · correct password" sub="200 · Set-Cookie sid=<opaque id>" accent={C.green} o={ep(t, 4.7, 5.2)} titleSize={26} />
       <Pill x={M + 960} y={490} text="sid=<opaque> ; HttpOnly ; Secure ; SameSite=Lax" color={C.cyan} mono o={cookieO} size={24} />
       <Txt x={M} y={560} w={880} size={28} color={C.dim} o={ep(t, 6, 6.6)}>Illustrative sign-in form. The statuses on the right are the fixture's actual responses.</Txt>
       <Txt x={M} y={800} w={W - 2 * M} align="center" size={32} color={C.amber} o={ep(t, 6.8, 7.4)}>One implementation: email + password, server-side session, opaque cookie. Not every sign-in system works this way.</Txt>
@@ -136,7 +136,7 @@ const FreshSession: React.FC<SceneProps> = ({t}) => {
 const Cookie: React.FC<SceneProps> = ({t}) => {
   const p = ep(t, 0.4, 1.4);
   const attrs: {k: string; v: string; col: string; at: number}[] = [
-    {k: 'sid=<84 chars, opaque>', v: 'random id, never the password or email', col: C.cyan, at: 1.6},
+    {k: 'sid=<opaque id>', v: 'random id, never the password or email', col: C.cyan, at: 1.6},
     {k: 'HttpOnly', v: 'hidden from ordinary page scripts; not a cure for every session attack', col: C.cyan, at: 2.4},
     {k: 'Secure', v: 'sent over HTTPS only', col: C.cyan, at: 3.2},
     {k: 'SameSite=Lax', v: 'defence in depth, not complete CSRF protection', col: C.amber, at: 4.0},

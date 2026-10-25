@@ -6,8 +6,8 @@ All values below are the ones in `server.mjs`; nothing here is aspirational. Ver
 | Library | Version | Role |
 | --- | --- | --- |
 | `argon2` | 0.41.1 (prebuilt native binary installed fine) | Password hashing and verification, `argon2id` |
-| `express` | 4.21.2 | HTTP framework |
-| `express-session` | 1.18.1 | Server-side session + opaque id cookie |
+| `express` | 4.22.3 | HTTP framework |
+| `express-session` | 1.19.0 | Server-side session + opaque id cookie |
 | `csrf-csrf` | 3.1.0 | Double-submit CSRF tokens bound to the session id |
 | `cookie-parser` | 1.4.7 | Required by `csrf-csrf` to read its cookie |
 

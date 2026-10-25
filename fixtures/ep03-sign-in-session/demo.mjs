@@ -11,7 +11,7 @@ const fixture = await createApp();
 const srv = await fixture.listen();
 const base = `http://127.0.0.1:${srv.port}`;
 const log = [];
-const redactCookie = (raw) => raw.replace(/^(\w[\w.-]*=)([^;]*)/, (_, n, v) => `${n}<${v.length} chars, opaque>`);
+const redactCookie = (raw) => raw.replace(/^(\w[\w.-]*=)([^;]*)/, (_, n, v) => `${n}<opaque id>`);
 const note = (label, extra) => log.push({label, ...extra});
 const redactBody = (b) => (b && b.csrfToken ? {...b, csrfToken: `<${b.csrfToken.length} chars, per-session token>`} : b);
 const rec = (label, method, path, r, extra = {}) => log.push({label, request: `${method} ${path}`, status: r.status, body: redactBody(r.body), setCookie: r.setCookie.map(redactCookie), ...extra});
@@ -80,7 +80,7 @@ const evidence = {
   generatedAt: new Date().toISOString(),
   base: 'http://127.0.0.1:<ephemeral>',
   transport: 'plain HTTP on loopback; X-Forwarded-Proto: https + trust proxy so Secure cookies are issued. TLS NOT executed.',
-  libraries: {argon2: '0.41.1', express: '4.21.2', 'express-session': '1.18.1', 'csrf-csrf': '3.1.0', 'cookie-parser': '1.4.7'},
+  libraries: {argon2: '0.41.1', express: '4.22.3', 'express-session': '1.19.0', 'csrf-csrf': '3.1.0', 'cookie-parser': '1.4.7'},
   log,
 };
 fs.writeFileSync(new URL('./evidence.json', import.meta.url), JSON.stringify(evidence, null, 2));
