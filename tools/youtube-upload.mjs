@@ -5,7 +5,8 @@
 //   node tools/youtube-upload.mjs --auth                       one-time consent; prints a refresh token once
 //   node tools/youtube-upload.mjs --auth --store-token         Windows: saves the token to your user environment instead of printing it
 //   node tools/youtube-upload.mjs --ids ep15                   dry run: validates copy, files, quota plan
-//   node tools/youtube-upload.mjs --ids ep15 --upload          upload as PRIVATE, then set the thumbnail
+//   node tools/youtube-upload.mjs --whoami                      shows which channel the token uploads to
+//   node tools/youtube-upload.mjs --ids ep15 --upload --expect-channel @KG303Multimedia          upload as PRIVATE, then set the thumbnail
 //   node tools/youtube-upload.mjs --ids ep01..ep30 --upload --playlist --captions
 //   node tools/youtube-upload.mjs --ids series --upload        the full-series cut (run tools/build-series-cut.mjs first)
 //
@@ -147,6 +148,17 @@ async function accessToken() {
 const authz = async (extra = {}) => ({Authorization: `Bearer ${await accessToken()}`, ...extra});
 const sameHost = (u) => new URL(u).host === new URL(API()).host;
 
+// Which channel does this token upload to? A Google account can own several (personal + Brand Account); the
+// consent screen decides. Uploads are refused unless the channel handle matches --expect-channel.
+export async function currentChannel() {
+  const r = await fetch(`${API()}/youtube/v3/channels?part=snippet&mine=true`, {headers: await authz()});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(`channels.list failed: ${r.status} ${j.error?.message ?? ''}`.trim());
+  const c = j.items?.[0];
+  if (!c) throw new Error('BLOCKED: this token has no YouTube channel. Run --auth again and choose the channel account.');
+  return {id: c.id, title: c.snippet?.title ?? '', handle: String(c.snippet?.customUrl ?? '').replace(/^@/, '').toLowerCase()};
+}
+
 // ---------- upload steps ----------
 export async function startSession(meta, o, size) {
   const status = {privacyStatus: o.privacy, selfDeclaredMadeForKids: false, ...(o.synthetic ? {containsSyntheticMedia: true} : {})};
@@ -234,7 +246,7 @@ async function auth(storeToken) {
     }).listen(0, '127.0.0.1', () => {
       port = srv.address().port;
       const redirect = `http://127.0.0.1:${port}`;
-      const url = `${AUTH_URL}?${new URLSearchParams({client_id: process.env.YOUTUBE_CLIENT_ID, redirect_uri: redirect, response_type: 'code', scope: SCOPES.join(' '), access_type: 'offline', prompt: 'consent', code_challenge: challenge, code_challenge_method: 'S256', state})}`;
+      const url = `${AUTH_URL}?${new URLSearchParams({client_id: process.env.YOUTUBE_CLIENT_ID, redirect_uri: redirect, response_type: 'code', scope: SCOPES.join(' '), access_type: 'offline', prompt: 'consent select_account', code_challenge: challenge, code_challenge_method: 'S256', state})}`;
       console.log(`Open this URL in your browser and approve access:\n\n${url}\n`);
       if (!process.env.YOUTUBE_NO_BROWSER) {
         const [cmd, args] = process.platform === 'win32' ? ['rundll32', ['url.dll,FileProtocolHandler', url]] : process.platform === 'darwin' ? ['open', [url]] : ['xdg-open', [url]];
@@ -261,10 +273,10 @@ async function auth(storeToken) {
 
 // ---------- main ----------
 export function parseArgs(argv) {
-  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, titleOption: 1, seriesThumb: null};
+  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleOption: 1, seriesThumb: null};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], nx = () => argv[++i];
-    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
+    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
     else if (a === '--synthetic') o.synthetic = true; else if (a === '--confirm-public') o.confirmPublic = true; else if (a === '--ids') o.ids = nx(); else if (a === '--privacy') o.privacy = nx();
     else if (a === '--category') o.category = Number(nx()); else if (a === '--max-units') o.maxUnits = Number(nx()); else if (a === '--title-option') o.titleOption = Number(nx()); else if (a === '--series-thumb') o.seriesThumb = nx();
     else throw new Error(`unknown option ${a}`);
@@ -286,7 +298,9 @@ async function main() {
   const o = parseArgs(process.argv.slice(2));
   API(); TOKEN_URL(); // fail fast if the environment points these at a non-Google, non-loopback host
   if (o.auth) return auth(o.storeToken);
+  if (o.whoami) { const c = await currentChannel(); console.log(`This token uploads to: ${c.title} (@${c.handle}) id ${c.id}`); return; }
   if (o.upload && !o.ids) throw new Error('BLOCKED: --upload needs an explicit --ids (for example --ids ep15)');
+  if (o.upload && !o.expectChannel) throw new Error('BLOCKED: --upload needs --expect-channel @handle (run --whoami to see which channel the token uses)');
   const films = expandIds(o.ids).map((id) => buildFilm(id, o));
   let bad = 0, units = 0;
   console.log(`${o.upload ? 'UPLOAD' : 'DRY RUN'} | privacy=${o.privacy} | films=${films.length} | playlist=${o.playlist} captions=${o.captions}`);
@@ -299,7 +313,12 @@ async function main() {
   if (bad) { console.error(`${bad} film(s) have problems; fix them before uploading.`); process.exit(2); }
   if (!o.upload) { console.log('Dry run only. Nothing was sent. Add --upload to upload as private.'); return; }
 
+  const ch = await currentChannel();
+  if (ch.handle !== o.expectChannel.replace(/^@/, '').toLowerCase()) throw new Error(`BLOCKED: token belongs to "${ch.title}" (@${ch.handle}), expected ${o.expectChannel}. Nothing was uploaded. Run --auth again and pick the right channel account.`);
   const state = loadState();
+  if (state.channelId && state.channelId !== ch.id) throw new Error(`BLOCKED: the state file records uploads to a different channel (${state.channelId}). Move or delete it, then rerun.`);
+  state.channelId = ch.id; saveState(state);
+  console.log(`Channel: ${ch.title} (@${ch.handle})`);
   state.films ??= {};
   let used = 0;
   const budget = (n) => { if (used + n > o.maxUnits) { console.log(`Quota budget ${o.maxUnits} reached; rerun later to continue. Progress is saved.`); saveState(state); process.exit(0); } used += n; };

@@ -33,6 +33,7 @@ before(async () => {
       const body = Buffer.concat(chunks);
       log.push({m: req.method, p: u.pathname + u.search, h: req.headers, n: body.length, json: /json/.test(req.headers['content-type'] ?? '') ? safeJson(body) : null});
       const j = (code, o, h = {}) => { res.writeHead(code, {'Content-Type': 'application/json', ...h}); res.end(JSON.stringify(o)); };
+      if (u.pathname === '/youtube/v3/channels') return j(200, {items: [{id: 'UC_TEST', snippet: {title: 'KG Test', customUrl: '@KGTest'}}]});
       if (u.pathname === '/token') return j(200, {access_token: 'fake-access', refresh_token: 'fake-refresh-from-code'});
       if (u.pathname === '/upload/youtube/v3/videos') return j(200, {}, {Location: `${base}/session/1`});
       if (u.pathname === '/session/1') {
@@ -122,7 +123,7 @@ test('--upload without --ids is refused', async () => {
 
 test('missing credentials are reported by variable NAME only', async () => {
   const e = env(); delete e.YOUTUBE_REFRESH_TOKEN;
-  const r = await run(['--ids', 'ep15', '--upload'], e);
+  const r = await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest'], e);
   assert.notEqual(r.status, 0);
   assert.match(r.stderr, /YOUTUBE_REFRESH_TOKEN/);
   assert.ok(!r.stderr.includes('test-client-secret'));
@@ -132,7 +133,7 @@ test('upload survives a dropped connection by resuming, sets thumbnail, playlist
   fs.rmSync(path.join(tmp, 'state.json'), {force: true});
   log.length = 0;
   dropFirstPut = true;
-  const r = await run(['--ids', 'ep15', '--upload', '--playlist', '--captions']);
+  const r = await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest', '--playlist', '--captions']);
   assert.equal(r.status, 0, r.stderr + r.stdout);
   assert.match(r.stdout, /ep15 uploaded \(private\): https:\/\/youtu\.be\/vid_TEST1/);
   const init = log.find((x) => x.p.startsWith('/upload/youtube/v3/videos'));
@@ -156,7 +157,7 @@ test('upload survives a dropped connection by resuming, sets thumbnail, playlist
 
 test('rerun does not upload the same video twice (idempotent)', async () => {
   log.length = 0;
-  const r = await run(['--ids', 'ep15', '--upload', '--playlist', '--captions']);
+  const r = await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest', '--playlist', '--captions']);
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /already uploaded/);
   assert.equal(log.filter((x) => x.p.startsWith('/upload/youtube/v3/videos')).length, 0);
@@ -166,7 +167,7 @@ test('rerun does not upload the same video twice (idempotent)', async () => {
 test('quota budget stops before the step that would exceed it, and saves progress', async () => {
   fs.rmSync(path.join(tmp, 'state.json'), {force: true});
   log.length = 0;
-  const r = await run(['--ids', 'ep15', '--upload', '--playlist', '--captions', '--max-units', '60']);
+  const r = await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest', '--playlist', '--captions', '--max-units', '60']);
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /Quota budget 60 reached/);
   assert.ok(log.some((x) => x.p.includes('thumbnails')));
@@ -175,7 +176,7 @@ test('quota budget stops before the step that would exceed it, and saves progres
 });
 
 test('endpoint override to a non-Google, non-loopback host is rejected (token exfiltration guard)', async () => {
-  const r = await run(['--ids', 'ep15', '--upload'], env({YOUTUBE_API_BASE: 'https://evil.example.com'}));
+  const r = await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest'], env({YOUTUBE_API_BASE: 'https://evil.example.com'}));
   assert.notEqual(r.status, 0);
   assert.match(r.stderr, /must point to loopback/);
 });
@@ -219,4 +220,24 @@ test('--auth rejects a state mismatch', async () => {
   const code = await new Promise((r) => child.on('close', r));
   assert.notEqual(code, 0);
   assert.match(err, /state mismatch/);
+});
+
+test('--upload without --expect-channel is refused', async () => {
+  const r = await run(['--ids', 'ep15', '--upload']);
+  assert.notEqual(r.status, 0);
+  assert.match(r.stderr, /expect-channel/);
+});
+
+test('wrong channel: upload is blocked before anything is sent', async () => {
+  const before = log.length;
+  const r = await run(['--ids', 'ep15', '--upload', '--expect-channel', '@someoneelse']);
+  assert.notEqual(r.status, 0);
+  assert.match(r.stderr, /expected @someoneelse/);
+  assert.equal(log.slice(before).filter((e) => /upload\/youtube/.test(e.p)).length, 0);
+});
+
+test('--whoami prints the channel the token uploads to', async () => {
+  const r = await run(['--whoami']);
+  assert.equal(r.status, 0);
+  assert.match(r.stdout, /KG Test \(@kgtest\)/);
 });
