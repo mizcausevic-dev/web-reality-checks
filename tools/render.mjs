@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {execFileSync, spawnSync} from 'node:child_process';
-import {engineRoot, npx} from './lib.mjs';
+import {engineRoot, npx, freePort} from './lib.mjs';
 
 const ep = process.argv[2];
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > -1 ? process.argv[i + 1] : d; };
@@ -16,7 +16,7 @@ const tl = JSON.parse(fs.readFileSync(path.join(video, 'src', 'episodes', ep, 't
 const compId = ep.toUpperCase();
 const conc = arg('--concurrency', '2');
 
-const r = npx(['remotion', 'render', 'src/index.ts', compId, mp4, '--codec', 'h264', '--pixel-format', 'yuv420p', '--audio-codec', 'aac', '--concurrency', conc, '--log', 'error'], {cwd: video, stdio: 'inherit'});
+const r = npx(['remotion', 'render', 'src/index.ts', compId, mp4, '--codec', 'h264', '--pixel-format', 'yuv420p', '--audio-codec', 'aac', '--concurrency', conc, '--port', String(await freePort()), '--log', 'error'], {cwd: video, stdio: 'inherit'});
 if (r.status !== 0) { console.error('RENDER FAILED'); process.exit(r.status ?? 1); }
 
 const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', mp4]).toString());
@@ -41,7 +41,7 @@ for (const [name, t] of Object.entries(picks)) {
   execFileSync('ffmpeg', ['-y', '-v', 'error', '-ss', String(Math.max(0, t)), '-i', mp4, '-frames:v', '1', path.join(fdir, `${name}.png`)]);
 }
 for (const [id, out] of [[`HERO-${compId}`, 'hero.png'], [`THUMB-${compId}`, 'thumbnail.png']]) {
-  const st = npx(['remotion', 'still', 'src/index.ts', id, path.join(outDir, out), '--log', 'error'], {cwd: video, stdio: 'inherit'});
+  const st = npx(['remotion', 'still', 'src/index.ts', id, path.join(outDir, out), '--port', String(await freePort()), '--log', 'error'], {cwd: video, stdio: 'inherit'});
   if (st.status !== 0) console.error('STILL FAILED', id);
 }
 evidence.thumbnail = {file: path.relative(root, path.join(outDir, 'thumbnail.png')), size: '1280x720', source: `THUMB-${compId}`};

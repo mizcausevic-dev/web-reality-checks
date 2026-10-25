@@ -12,3 +12,14 @@ export function npx(args, opts = {}) {
   const q = (a) => (isWin && /[\s&()^|<>]/.test(a) ? `"${a}"` : a);
   return spawnSync(isWin ? 'npx.cmd' : 'npx', isWin ? args.map(q) : args, {...opts, shell: isWin});
 }
+
+// A free TCP port chosen by the OS. Remotion serves its bundle on port 3000 by default, and another Remotion
+// process on the same machine (a Studio, another render) can already own it, so every render asks for its own.
+import net from 'node:net';
+export function freePort() {
+  return new Promise((resolve, reject) => {
+    const s = net.createServer();
+    s.once('error', reject);
+    s.listen(0, '127.0.0.1', () => { const {port} = s.address(); s.close(() => resolve(port)); });
+  });
+}
