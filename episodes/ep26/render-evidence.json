@@ -1,0 +1,38 @@
+{
+  "file": "episodes/ep26/ep26.mp4",
+  "bytes": 10147256,
+  "duration_s": 91.67,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p"
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  "expected_duration_s": 91.68,
+  "thumbnail": {
+    "file": "episodes/ep26/thumbnail.png",
+    "size": "1280x720",
+    "source": "THUMB-EP26"
+  },
+  "hero": {
+    "file": "episodes/ep26/hero.png",
+    "size": "1600x900",
+    "source": "HERO-EP26"
+  },
+  "frames": [
+    "opening",
+    "quarter",
+    "middle",
+    "three_quarter",
+    "ending",
+    "scene_fail",
+    "scene_fix",
+    "scene_retest"
+  ]
+}

@@ -1,0 +1,95 @@
+1
+00:00:00,600 --> 00:00:04,470
+Five questions from the Web Reality Checks fixtures.
+
+2
+00:00:04,470 --> 00:00:09,300
+Every answer comes from a test or an evidence file.
+
+3
+00:00:09,300 --> 00:00:18,020
+Q1 · Episode 26: flawed list of 100 articles.
+
+4
+00:00:18,020 --> 00:00:25,780
+How many SELECT statements does the counter report?
+
+5
+00:00:31,780 --> 00:00:37,470
+B. 101: one list query plus 100 author lookups.
+
+6
+00:00:37,470 --> 00:00:44,420
+The JOIN reports 1. A hidden extra query shows as 102.
+
+7
+00:00:44,420 --> 00:00:56,200
+Q2 · Episode 15: same key, quantity 1 changed to 3.
+
+8
+00:00:56,200 --> 00:01:02,630
+What does the corrected endpoint return?
+
+9
+00:01:08,630 --> 00:01:14,440
+C. 422: same key, different request.
+
+10
+00:01:14,440 --> 00:01:20,250
+The order count stays at 1.
+
+11
+00:01:20,250 --> 00:01:31,180
+Q3 · Episode 23: a save hits a locked database.
+
+12
+00:01:31,180 --> 00:01:36,650
+What does the fixture return?
+
+13
+00:01:42,650 --> 00:01:47,390
+B. 503: database busy, retryable.
+
+14
+00:01:47,390 --> 00:01:54,970
+409 is only for a failed version check.
+
+15
+00:01:54,970 --> 00:02:04,680
+Q4 · Episode 1: Alice asks for Bob's project,
+
+16
+00:02:04,680 --> 00:02:11,150
+with spoofed user-id claims. What status?
+
+17
+00:02:17,150 --> 00:02:22,950
+C. 404: the server never reads the claims.
+
+18
+00:02:22,950 --> 00:02:28,750
+The control proves the old endpoint returned 200.
+
+19
+00:02:28,750 --> 00:02:38,510
+Q5 · Episode 17: polling every 5 s instead of 30 s.
+
+20
+00:02:38,510 --> 00:02:45,010
+At 570 s, how old is the measurement?
+
+21
+00:02:51,010 --> 00:02:58,690
+C. 570 s: 119 polls instead of 19, one collector sample.
+
+22
+00:02:58,690 --> 00:03:02,880
+Fetching faster does not observe faster.
+
+23
+00:03:02,880 --> 00:03:10,140
+Score yourself. Every answer is in an evidence file.
+
+24
+00:03:10,140 --> 00:03:13,370
+The repository, linked below.

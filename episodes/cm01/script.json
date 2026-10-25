@@ -1,0 +1,80 @@
+{
+ "n": 101,
+ "slug": "break-it-on-purpose",
+ "title": "Break it on purpose",
+ "fullTitle": "Break It on Purpose: Prove the Test Can Fail",
+ "tag": "Launch film",
+ "kicker": "Official trailer",
+ "hero": {
+  "scene": "proof",
+  "t": 5
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "sim": "FOOTAGE FROM EPISODE 01",
+   "narration": "A test goes green. Is the bug fixed? Only if that same test could have gone red.",
+   "captions": [
+    "A test goes green. Is the bug fixed?",
+    "Only if that same test could have gone red."
+   ]
+  },
+  {
+   "id": "problem",
+   "sim": "FOOTAGE FROM EPISODE 15",
+   "narration": "One tap on Pay, two orders. The first request committed, the response was lost, and the retry counted as new. A fix test that never failed proves nothing.",
+   "captions": [
+    "One tap on Pay, two orders.",
+    "The response was lost, and the retry counted as new.",
+    "A fix test that never failed proves nothing."
+   ]
+  },
+  {
+   "id": "method",
+   "sim": "CONCEPTUAL ILLUSTRATION",
+   "narration": "So every episode runs four moves. Flaw: reproduce it on a local fixture. Control: prove the test can fail. Repair: the smallest change. Retest: the same schedule, with real numbers.",
+   "captions": [
+    "Flaw: reproduce it on a local fixture.",
+    "Control: prove the test can fail.",
+    "Repair: the smallest change. Retest: the same schedule."
+   ]
+  },
+  {
+   "id": "proof",
+   "sim": "FOOTAGE FROM EPISODE 15",
+   "narration": "Episode fifteen. The control reports two attempts, two orders. After the repair: two attempts, one order, and thirteen of thirteen tests pass.",
+   "captions": [
+    "Episode 15: the control reports 2 attempts, 2 orders.",
+    "After the repair: 2 attempts, 1 order. 13 of 13 tests pass."
+   ]
+  },
+  {
+   "id": "access",
+   "sim": "FOOTAGE FROM EPISODE 01",
+   "narration": "Episode one. Alice asks for Bob's project. Two hundred before the repair. Four oh four after.",
+   "captions": [
+    "Episode 1: Alice asks for Bob's project.",
+    "200 before the repair. 404 after."
+   ]
+  },
+  {
+   "id": "range",
+   "sim": "FOOTAGE FROM EPISODES 01, 15, 17",
+   "narration": "Duplicates, access, stale data. Local fixtures you run with Node's built-in test runner. Each one says what it does not prove.",
+   "captions": [
+    "Duplicates, access, stale data.",
+    "Local fixtures, Node's built-in test runner.",
+    "Each one says what it does not prove."
+   ]
+  },
+  {
+   "id": "cta",
+   "sim": "PROMOTIONAL FILM",
+   "narration": "Break it on purpose. Then fix it. The repository, linked below, is open. Clone it and fork a fixture for your own stack.",
+   "captions": [
+    "Break it on purpose. Then fix it.",
+    "The repository, linked below. Clone it, fork a fixture."
+   ]
+  }
+ ]
+}

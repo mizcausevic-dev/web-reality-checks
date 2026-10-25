@@ -1,0 +1,215 @@
+{
+  "n": 111,
+  "title": "The fixture quiz",
+  "tag": "Quiz",
+  "kicker": "Quiz",
+  "fullTitle": "Five Questions Your Test Suite Should Answer",
+  "slug": "break-it-quiz",
+  "hero": {
+    "scene": "q2",
+    "t": 3
+  },
+  "audio": "qz01/narration.mp3",
+  "duration": 195.37,
+  "scenes": [
+    {
+      "id": "hook",
+      "start": 0,
+      "end": 9.3,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES"
+    },
+    {
+      "id": "q1",
+      "start": 9.3,
+      "end": 31.78,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+      "think": 6
+    },
+    {
+      "id": "a1",
+      "start": 31.78,
+      "end": 44.42,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES"
+    },
+    {
+      "id": "q2",
+      "start": 44.42,
+      "end": 68.63,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+      "think": 6
+    },
+    {
+      "id": "a2",
+      "start": 68.63,
+      "end": 80.25,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES"
+    },
+    {
+      "id": "q3",
+      "start": 80.25,
+      "end": 102.65,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+      "think": 6
+    },
+    {
+      "id": "a3",
+      "start": 102.65,
+      "end": 114.97,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES"
+    },
+    {
+      "id": "q4",
+      "start": 114.97,
+      "end": 137.15,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+      "think": 6
+    },
+    {
+      "id": "a4",
+      "start": 137.15,
+      "end": 148.75,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES"
+    },
+    {
+      "id": "q5",
+      "start": 148.75,
+      "end": 171.01,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+      "think": 6
+    },
+    {
+      "id": "a5",
+      "start": 171.01,
+      "end": 182.88,
+      "sim": "QUIZ · FACTS FROM LOCAL FIXTURES"
+    },
+    {
+      "id": "close",
+      "start": 182.88,
+      "end": 195.369,
+      "sim": "PROMOTIONAL FILM"
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.47,
+      "text": "Five questions from the Web Reality Checks fixtures."
+    },
+    {
+      "start": 4.47,
+      "end": 9.3,
+      "text": "Every answer comes from a test or an evidence file."
+    },
+    {
+      "start": 9.3,
+      "end": 18.02,
+      "text": "Q1 · Episode 26: flawed list of 100 articles."
+    },
+    {
+      "start": 18.02,
+      "end": 25.78,
+      "text": "How many SELECT statements does the counter report?"
+    },
+    {
+      "start": 31.78,
+      "end": 37.47,
+      "text": "B. 101: one list query plus 100 author lookups."
+    },
+    {
+      "start": 37.47,
+      "end": 44.42,
+      "text": "The JOIN reports 1. A hidden extra query shows as 102."
+    },
+    {
+      "start": 44.42,
+      "end": 56.2,
+      "text": "Q2 · Episode 15: same key, quantity 1 changed to 3."
+    },
+    {
+      "start": 56.2,
+      "end": 62.63,
+      "text": "What does the corrected endpoint return?"
+    },
+    {
+      "start": 68.63,
+      "end": 74.44,
+      "text": "C. 422: same key, different request."
+    },
+    {
+      "start": 74.44,
+      "end": 80.25,
+      "text": "The order count stays at 1."
+    },
+    {
+      "start": 80.25,
+      "end": 91.18,
+      "text": "Q3 · Episode 23: a save hits a locked database."
+    },
+    {
+      "start": 91.18,
+      "end": 96.65,
+      "text": "What does the fixture return?"
+    },
+    {
+      "start": 102.65,
+      "end": 107.39,
+      "text": "B. 503: database busy, retryable."
+    },
+    {
+      "start": 107.39,
+      "end": 114.97,
+      "text": "409 is only for a failed version check."
+    },
+    {
+      "start": 114.97,
+      "end": 124.68,
+      "text": "Q4 · Episode 1: Alice asks for Bob's project,"
+    },
+    {
+      "start": 124.68,
+      "end": 131.15,
+      "text": "with spoofed user-id claims. What status?"
+    },
+    {
+      "start": 137.15,
+      "end": 142.95,
+      "text": "C. 404: the server never reads the claims."
+    },
+    {
+      "start": 142.95,
+      "end": 148.75,
+      "text": "The control proves the old endpoint returned 200."
+    },
+    {
+      "start": 148.75,
+      "end": 158.51,
+      "text": "Q5 · Episode 17: polling every 5 s instead of 30 s."
+    },
+    {
+      "start": 158.51,
+      "end": 165.01,
+      "text": "At 570 s, how old is the measurement?"
+    },
+    {
+      "start": 171.01,
+      "end": 178.69,
+      "text": "C. 570 s: 119 polls instead of 19, one collector sample."
+    },
+    {
+      "start": 178.69,
+      "end": 182.88,
+      "text": "Fetching faster does not observe faster."
+    },
+    {
+      "start": 182.88,
+      "end": 190.14,
+      "text": "Score yourself. Every answer is in an evidence file."
+    },
+    {
+      "start": 190.14,
+      "end": 193.37,
+      "text": "The repository, linked below."
+    }
+  ]
+}

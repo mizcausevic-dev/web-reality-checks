@@ -1,0 +1,145 @@
+{
+  "n": 101,
+  "title": "Break it on purpose",
+  "tag": "Launch film",
+  "kicker": "Official trailer",
+  "fullTitle": "Break It on Purpose: Prove the Test Can Fail",
+  "slug": "break-it-on-purpose",
+  "hero": {
+    "scene": "proof",
+    "t": 5
+  },
+  "audio": "cm01/narration.mp3",
+  "duration": 66.31,
+  "scenes": [
+    {
+      "id": "hook",
+      "start": 0,
+      "end": 7.7,
+      "sim": "FOOTAGE FROM EPISODE 01"
+    },
+    {
+      "id": "problem",
+      "start": 7.7,
+      "end": 18.53,
+      "sim": "FOOTAGE FROM EPISODE 15"
+    },
+    {
+      "id": "method",
+      "start": 18.53,
+      "end": 31.62,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "proof",
+      "start": 31.62,
+      "end": 40.28,
+      "sim": "FOOTAGE FROM EPISODE 15"
+    },
+    {
+      "id": "access",
+      "start": 40.28,
+      "end": 47.03,
+      "sim": "FOOTAGE FROM EPISODE 01"
+    },
+    {
+      "id": "range",
+      "start": 47.03,
+      "end": 55.61,
+      "sim": "FOOTAGE FROM EPISODES 01, 15, 17"
+    },
+    {
+      "id": "cta",
+      "start": 55.61,
+      "end": 66.31,
+      "sim": "PROMOTIONAL FILM"
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 3.94,
+      "text": "A test goes green. Is the bug fixed?"
+    },
+    {
+      "start": 3.94,
+      "end": 7.7,
+      "text": "Only if that same test could have gone red."
+    },
+    {
+      "start": 7.7,
+      "end": 10.41,
+      "text": "One tap on Pay, two orders."
+    },
+    {
+      "start": 10.41,
+      "end": 14.92,
+      "text": "The response was lost, and the retry counted as new."
+    },
+    {
+      "start": 14.92,
+      "end": 18.53,
+      "text": "A fix test that never failed proves nothing."
+    },
+    {
+      "start": 18.53,
+      "end": 22.89,
+      "text": "Flaw: reproduce it on a local fixture."
+    },
+    {
+      "start": 22.89,
+      "end": 26.63,
+      "text": "Control: prove the test can fail."
+    },
+    {
+      "start": 26.63,
+      "end": 31.62,
+      "text": "Repair: the smallest change. Retest: the same schedule."
+    },
+    {
+      "start": 31.62,
+      "end": 35.33,
+      "text": "Episode 15: the control reports 2 attempts, 2 orders."
+    },
+    {
+      "start": 35.33,
+      "end": 40.28,
+      "text": "After the repair: 2 attempts, 1 order. 13 of 13 tests pass."
+    },
+    {
+      "start": 40.28,
+      "end": 43.91,
+      "text": "Episode 1: Alice asks for Bob's project."
+    },
+    {
+      "start": 43.91,
+      "end": 47.03,
+      "text": "200 before the repair. 404 after."
+    },
+    {
+      "start": 47.03,
+      "end": 48.94,
+      "text": "Duplicates, access, stale data."
+    },
+    {
+      "start": 48.94,
+      "end": 51.8,
+      "text": "Local fixtures, Node's built-in test runner."
+    },
+    {
+      "start": 51.8,
+      "end": 55.61,
+      "text": "Each one says what it does not prove."
+    },
+    {
+      "start": 55.61,
+      "end": 59.42,
+      "text": "Break it on purpose. Then fix it."
+    },
+    {
+      "start": 59.42,
+      "end": 64.31,
+      "text": "The repository, linked below. Clone it, fork a fixture."
+    }
+  ]
+}

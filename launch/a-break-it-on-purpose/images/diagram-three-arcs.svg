@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t d">
+<title id="t">Three episodes from three arcs, each with its known-positive control</title><desc id="d">Three columns for episodes 15, 01 and 17, from the arcs Duplicates and ordering, Trust and access, and Delivery and freshness. Each shows the control assertion that proves the flaw is visible, and the repaired result.</desc>
+<style>.f{font-family:Inter,ui-sans-serif,system-ui,sans-serif}.m{font-family:'DejaVu Sans Mono','Courier New',monospace}</style>
+<rect width="1600" height="900" fill="#0b0c10"/><defs><marker id="a3dd6f5" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12 z" fill="#3dd6f5"/></marker><marker id="af5b63d" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12 z" fill="#f5b63d"/></marker><marker id="af5533d" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12 z" fill="#f5533d"/></marker><marker id="a5fe08a" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12 z" fill="#5fe08a"/></marker><marker id="a5e5c57" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12 z" fill="#5e5c57"/></marker><marker id="aa78bfa" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12 z" fill="#a78bfa"/></marker><marker id="a9a978f" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L12,6 L0,12 z" fill="#9a978f"/></marker></defs>
+<text x="68" y="92" class="f" font-size="22" font-weight="700" fill="#3dd6f5" text-anchor="start" letter-spacing="4">ONE METHOD, THREE ARCS</text>
+<text x="68" y="140" class="f" font-size="34" font-weight="700" fill="#f3ede3" text-anchor="start">The control is different each time. The question it answers is the same.</text>
+<rect x="72" y="190" width="464" height="600" rx="20" fill="#171a21" stroke="#a78bfa" stroke-width="2.5"/>
+<text x="100" y="236" class="f" font-size="17" font-weight="700" fill="#a78bfa" text-anchor="start" letter-spacing="2">EPISODE 15 · DUPLICATES &amp; ORDERING</text>
+<text x="100" y="284" class="f" font-size="28" font-weight="800" fill="#f3ede3" text-anchor="start">Lost response, then a retry</text>
+<line x1="100" y1="310" x2="508" y2="310" stroke="#2a2e38" stroke-width="2" stroke-linecap="round"/>
+<text x="100" y="346" class="f" font-size="17" font-weight="700" fill="#f5b63d" text-anchor="start" letter-spacing="3">CONTROL</text>
+<text x="100" y="380.0" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">Retry on the vulnerable</text>
+<text x="100" y="409.4" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">endpoint creates</text>
+<text x="100" y="438.8" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">2 orders</text>
+<rect x="100" y="452" width="408" height="64" rx="12" fill="#0b0c10" stroke="#f5533d" stroke-width="2"/>
+<text x="304.0" y="493" class="m" font-size="24" font-weight="700" fill="#f5533d" text-anchor="middle">2 attempts → 2 orders</text>
+<text x="100" y="566" class="f" font-size="17" font-weight="700" fill="#5fe08a" text-anchor="start" letter-spacing="3">REPAIR + RETEST</text>
+<text x="100" y="600.0" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">Idempotency key, UNIQUE</text>
+<text x="100" y="629.4" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">constraint, one</text>
+<text x="100" y="658.8" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">transaction</text>
+<rect x="100" y="672" width="408" height="64" rx="12" fill="#0b0c10" stroke="#5fe08a" stroke-width="2"/>
+<text x="304.0" y="713" class="m" font-size="24" font-weight="700" fill="#5fe08a" text-anchor="middle">2 attempts → 1 order</text>
+<text x="100" y="772" class="m" font-size="18" font-weight="600" fill="#f3ede3" text-anchor="start"># pass 13  # fail 0</text>
+<rect x="568" y="190" width="464" height="600" rx="20" fill="#171a21" stroke="#3dd6f5" stroke-width="2.5"/>
+<text x="596" y="236" class="f" font-size="17" font-weight="700" fill="#3dd6f5" text-anchor="start" letter-spacing="2">EPISODE 01 · TRUST &amp; ACCESS</text>
+<text x="596" y="284" class="f" font-size="28" font-weight="800" fill="#f3ede3" text-anchor="start">A working interface that leaks</text>
+<line x1="596" y1="310" x2="1004" y2="310" stroke="#2a2e38" stroke-width="2" stroke-linecap="round"/>
+<text x="596" y="346" class="f" font-size="17" font-weight="700" fill="#f5b63d" text-anchor="start" letter-spacing="3">CONTROL</text>
+<text x="596" y="380.0" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">Vulnerable endpoint</text>
+<text x="596" y="409.4" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">returns Bob’s project</text>
+<text x="596" y="438.8" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">to Alice</text>
+<rect x="596" y="452" width="408" height="64" rx="12" fill="#0b0c10" stroke="#f5533d" stroke-width="2"/>
+<text x="800.0" y="493" class="m" font-size="24" font-weight="700" fill="#f5533d" text-anchor="middle">GET p_2002 → 200</text>
+<text x="596" y="566" class="f" font-size="17" font-weight="700" fill="#5fe08a" text-anchor="start" letter-spacing="3">REPAIR + RETEST</text>
+<text x="596" y="600.0" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">Look up by project id</text>
+<text x="596" y="629.4" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">AND session owner</text>
+<rect x="596" y="672" width="408" height="64" rx="12" fill="#0b0c10" stroke="#5fe08a" stroke-width="2"/>
+<text x="800.0" y="713" class="m" font-size="24" font-weight="700" fill="#5fe08a" text-anchor="middle">GET p_2002 → 404</text>
+<text x="596" y="772" class="m" font-size="18" font-weight="600" fill="#f3ede3" text-anchor="start"># pass 7  # fail 0</text>
+<rect x="1064" y="190" width="464" height="600" rx="20" fill="#171a21" stroke="#f5b63d" stroke-width="2.5"/>
+<text x="1092" y="236" class="f" font-size="17" font-weight="700" fill="#f5b63d" text-anchor="start" letter-spacing="2">EPISODE 17 · DELIVERY &amp; FRESHNESS</text>
+<text x="1092" y="284" class="f" font-size="28" font-weight="800" fill="#f3ede3" text-anchor="start">“Live” on ten-minute-old data</text>
+<line x1="1092" y1="310" x2="1500" y2="310" stroke="#2a2e38" stroke-width="2" stroke-linecap="round"/>
+<text x="1092" y="346" class="f" font-size="17" font-weight="700" fill="#f5b63d" text-anchor="start" letter-spacing="3">CONTROL</text>
+<text x="1092" y="380.0" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">Naive label says Live,</text>
+<text x="1092" y="409.4" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">updated 0 s ago,</text>
+<text x="1092" y="438.8" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">on every poll</text>
+<rect x="1092" y="452" width="408" height="64" rx="12" fill="#0b0c10" stroke="#f5533d" stroke-width="2"/>
+<text x="1296.0" y="493" class="m" font-size="24" font-weight="700" fill="#f5533d" text-anchor="middle">19 polls → “Live”</text>
+<text x="1092" y="566" class="f" font-size="17" font-weight="700" fill="#5fe08a" text-anchor="start" letter-spacing="3">REPAIR + RETEST</text>
+<text x="1092" y="600.0" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">Age from sourceObservedAt;</text>
+<text x="1092" y="629.4" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">connection status shown</text>
+<text x="1092" y="658.8" class="f" font-size="21" font-weight="500" fill="#9a978f" text-anchor="start">separately</text>
+<rect x="1092" y="672" width="408" height="64" rx="12" fill="#0b0c10" stroke="#5fe08a" stroke-width="2"/>
+<text x="1296.0" y="713" class="m" font-size="22" font-weight="700" fill="#5fe08a" text-anchor="middle">age 570 s, stale from 330 s</text>
+<text x="1092" y="772" class="m" font-size="18" font-weight="600" fill="#f3ede3" text-anchor="start"># pass 12  # fail 0</text>
+<text x="68" y="836" class="f" font-size="20" font-weight="500" fill="#9a978f" text-anchor="start">Numbers from fixtures/*/evidence.json and the executed node --test output. Episode 17 runs on a simulated pipeline with one compressed clock.</text>
+</svg>

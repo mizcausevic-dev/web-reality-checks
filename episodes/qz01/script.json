@@ -1,0 +1,127 @@
+{
+ "n": 111,
+ "slug": "break-it-quiz",
+ "title": "The fixture quiz",
+ "fullTitle": "Five Questions Your Test Suite Should Answer",
+ "tag": "Quiz",
+ "kicker": "Quiz",
+ "hero": {
+  "scene": "q2",
+  "t": 3
+ },
+ "scenes": [
+  {
+   "id": "hook",
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "Five questions from the Web Reality Checks fixtures. Every answer comes from a test or an evidence file. Think for six seconds, then check yourself.",
+   "captions": [
+    "Five questions from the Web Reality Checks fixtures.",
+    "Every answer comes from a test or an evidence file."
+   ]
+  },
+  {
+   "id": "q1",
+   "think": 6,
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "Question one. Episode twenty-six. The flawed article list serves one hundred articles and looks up each author separately. How many SELECT statements does the counter report? A: one hundred. B: one hundred and one. C: two hundred.",
+   "captions": [
+    "Q1 · Episode 26: flawed list of 100 articles.",
+    "How many SELECT statements does the counter report?"
+   ]
+  },
+  {
+   "id": "a1",
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "B. One hundred and one: one list query, plus one author lookup per article. The repaired JOIN reports one. A hidden extra query is reported as one hundred and two, so the counter can fail.",
+   "captions": [
+    "B. 101: one list query plus 100 author lookups.",
+    "The JOIN reports 1. A hidden extra query shows as 102."
+   ]
+  },
+  {
+   "id": "q2",
+   "think": 6,
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "Question two. Episode fifteen. A retry reuses the same idempotency key, but the quantity changed from one to three. What does the corrected endpoint return? A: two hundred, replaying the old order. B: four oh nine. C: four twenty-two.",
+   "captions": [
+    "Q2 · Episode 15: same key, quantity 1 changed to 3.",
+    "What does the corrected endpoint return?"
+   ]
+  },
+  {
+   "id": "a2",
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "C. Four twenty-two. Same key, different request. The order count stays at one. The key identifies an attempt, and a changed payload is treated as a mistake, not a replay.",
+   "captions": [
+    "C. 422: same key, different request.",
+    "The order count stays at 1."
+   ]
+  },
+  {
+   "id": "q3",
+   "think": 6,
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "Question three. Episode twenty-three. A save hits a locked database. What does the fixture return? A: four oh nine, a version conflict. B: five oh three, retryable, not a conflict. C: two hundred with a warning.",
+   "captions": [
+    "Q3 · Episode 23: a save hits a locked database.",
+    "What does the fixture return?"
+   ]
+  },
+  {
+   "id": "a3",
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "B. Five oh three, database busy, retryable. Four oh nine is only for the version check, where zero rows matched. A lock is a different failure, and the client keeps the unsaved text.",
+   "captions": [
+    "B. 503: database busy, retryable.",
+    "409 is only for a failed version check."
+   ]
+  },
+  {
+   "id": "q4",
+   "think": 6,
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "Question four. Episode one. Alice, signed in, asks the repaired endpoint for Bob's project, with a user parameter and header claiming to be Bob. What status? A: two hundred. B: four oh three. C: four oh four.",
+   "captions": [
+    "Q4 · Episode 1: Alice asks for Bob's project,",
+    "with spoofed user-id claims. What status?"
+   ]
+  },
+  {
+   "id": "a4",
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "C. Four oh four. The server never reads those claims, and absent and inaccessible look the same by policy. The control test shows the vulnerable endpoint returned Bob's project.",
+   "captions": [
+    "C. 404: the server never reads the claims.",
+    "The control proves the old endpoint returned 200."
+   ]
+  },
+  {
+   "id": "q5",
+   "think": 6,
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "Question five. Episode seventeen. The dashboard polls every five seconds instead of every thirty. At nine and a half minutes, how old is the measurement? A: five seconds. B: thirty seconds. C: five hundred and seventy seconds.",
+   "captions": [
+    "Q5 · Episode 17: polling every 5 s instead of 30 s.",
+    "At 570 s, how old is the measurement?"
+   ]
+  },
+  {
+   "id": "a5",
+   "sim": "QUIZ · FACTS FROM LOCAL FIXTURES",
+   "narration": "C. Five hundred and seventy seconds. Polling faster makes one hundred and nineteen polls instead of nineteen, but the collector still sampled once. Fetching faster does not observe faster.",
+   "captions": [
+    "C. 570 s: 119 polls instead of 19, one collector sample.",
+    "Fetching faster does not observe faster."
+   ]
+  },
+  {
+   "id": "close",
+   "sim": "PROMOTIONAL FILM",
+   "narration": "Score yourself. Every fixture runs with Node's built-in test runner, and every answer sits in an evidence file. The repository is linked below. Break something on purpose.",
+   "captions": [
+    "Score yourself. Every answer is in an evidence file.",
+    "The repository, linked below."
+   ]
+  }
+ ]
+}
