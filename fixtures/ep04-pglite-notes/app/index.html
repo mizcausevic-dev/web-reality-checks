@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local Notes (PGlite)</title>
+<style>
+  :root { color-scheme: dark; --bg:#0b0c10; --panel:#171a21; --line:#2a2e38; --text:#f3ede3; --dim:#9a978f; --cyan:#3dd6f5; --amber:#f5b63d; --red:#f5533d; --green:#5fe08a; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.4 system-ui, sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  .sub { color:var(--dim); font-size:14px; margin-bottom:16px; }
+  .status { display:flex; flex-wrap:wrap; gap:8px 16px; padding:10px 14px; border:1px solid var(--line); border-radius:10px; background:var(--panel); font-family:ui-monospace, monospace; font-size:13px; }
+  .status b { color:var(--cyan); font-weight:600; }
+  .status .warn { color:var(--amber); }
+  .status .bad { color:var(--red); }
+  .status .ok { color:var(--green); }
+  form, .row { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+  input, textarea { flex:1 1 200px; background:#0d0f14; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:10px; font:inherit; }
+  textarea { min-height:60px; flex-basis:100%; }
+  button { background:var(--cyan); color:#0b0c10; border:0; border-radius:8px; padding:10px 16px; font:inherit; font-weight:700; cursor:pointer; }
+  button.secondary { background:transparent; color:var(--text); border:1px solid var(--line); }
+  button.danger { background:transparent; color:var(--red); border:1px solid var(--red); }
+  ul { list-style:none; padding:0; margin:16px 0 0; }
+  li { border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:10px; background:var(--panel); }
+  li h3 { margin:0 0 6px; font-size:16px; }
+  li p { margin:0 0 8px; color:var(--dim); white-space:pre-wrap; }
+  li .meta { font-size:12px; color:var(--dim); font-family:ui-monospace, monospace; }
+  .note { margin-top:18px; padding:12px 14px; border:1px dashed var(--amber); border-radius:10px; color:var(--amber); font-size:14px; }
+  #log { margin-top:14px; font-family:ui-monospace, monospace; font-size:12px; color:var(--dim); white-space:pre-wrap; max-height:180px; overflow:auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Local Notes</h1>
+  <div class="sub">A Postgres database (PGlite, WASM) running inside this page. Data dir: <code>idb://video-notes</code>.</div>
+
+  <div class="status" id="status">
+    <span>engine: <b id="st-engine">starting…</b></span>
+    <span>storage: <b id="st-storage">idb://video-notes</b></span>
+    <span>network: <b id="st-online">—</b></span>
+    <span>service worker: <b id="st-sw">—</b></span>
+    <span>notes: <b id="st-count">—</b></span>
+  </div>
+
+  <form id="create">
+    <input id="title" placeholder="Title" required autocomplete="off">
+    <textarea id="body" placeholder="Body"></textarea>
+    <button type="submit" id="create-btn" disabled>Create note</button>
+  </form>
+
+  <div class="row">
+    <input id="q" placeholder="Search title or body (ILIKE)" autocomplete="off">
+    <button class="secondary" id="clear-q" type="button">Show all</button>
+  </div>
+
+  <ul id="notes"></ul>
+
+  <div class="note">
+    <strong>Persistence is browser-only and local.</strong> <code>idb://</code> stores the database in this browser profile's IndexedDB for this origin only.
+    It is not synced anywhere, not shared with other devices or profiles, and it disappears if you clear this site's data.
+    The Node tests in this fixture use a filesystem directory instead; <code>idb://</code> cannot run under Node.
+  </div>
+  <div id="log"></div>
+</main>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

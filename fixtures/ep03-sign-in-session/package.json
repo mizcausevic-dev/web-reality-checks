@@ -1,0 +1,18 @@
+{
+  "name": "ep03-sign-in-session-fixture",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "EP03 fixture: email/password sign-in with argon2 hashing, express-session server-side sessions, csrf-csrf double-submit tokens. Loopback only. Synthetic users only.",
+  "scripts": {
+    "test": "node --test test.mjs",
+    "demo": "node demo.mjs"
+  },
+  "dependencies": {
+    "argon2": "0.41.1",
+    "cookie-parser": "1.4.7",
+    "csrf-csrf": "3.1.0",
+    "express": "4.21.2",
+    "express-session": "1.18.1"
+  }
+}

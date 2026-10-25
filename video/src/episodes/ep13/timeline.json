@@ -1,0 +1,157 @@
+{
+  "n": 13,
+  "title": "Is that key a leak?",
+  "fullTitle": "That API Key Is in Your JavaScript. Is That Always a Leak?",
+  "slug": "api-key-capability",
+  "hero": {
+    "scene": "inspect_leak",
+    "t": 6
+  },
+  "audio": "ep13/narration.mp3",
+  "duration": 109.6,
+  "scenes": [
+    {
+      "id": "inspect_leak",
+      "start": 0,
+      "end": 9.58
+    },
+    {
+      "id": "ask",
+      "start": 9.58,
+      "end": 21.84
+    },
+    {
+      "id": "public_fail",
+      "start": 21.84,
+      "end": 32.27
+    },
+    {
+      "id": "secret_ok",
+      "start": 32.27,
+      "end": 39.58
+    },
+    {
+      "id": "fix",
+      "start": 39.58,
+      "end": 54.72
+    },
+    {
+      "id": "reject",
+      "start": 54.72,
+      "end": 62.29
+    },
+    {
+      "id": "allow",
+      "start": 62.29,
+      "end": 77.32
+    },
+    {
+      "id": "retest_scan",
+      "start": 77.32,
+      "end": 90.44
+    },
+    {
+      "id": "end",
+      "start": 90.44,
+      "end": 109.6,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.53,
+      "text": "Two credential-shaped strings in the shipped bundle."
+    },
+    {
+      "start": 4.53,
+      "end": 9.58,
+      "text": "Is this a leak? The names cannot tell you."
+    },
+    {
+      "start": 9.58,
+      "end": 13.87,
+      "text": "Ask: what can each value actually do?"
+    },
+    {
+      "start": 13.87,
+      "end": 21.84,
+      "text": "A name is a label. A capability is what the upstream will perform."
+    },
+    {
+      "start": 21.84,
+      "end": 27.26,
+      "text": "Public id as bearer → 403. It names a project; it authorises nothing."
+    },
+    {
+      "start": 27.26,
+      "end": 32.27,
+      "text": "'Public' is a tested fact here, not a promise from the name."
+    },
+    {
+      "start": 32.27,
+      "end": 35.68,
+      "text": "Synthetic secret → 200. The operation runs."
+    },
+    {
+      "start": 35.68,
+      "end": 39.58,
+      "text": "Anyone who downloaded the bundle holds this capability."
+    },
+    {
+      "start": 39.58,
+      "end": 46.16,
+      "text": "Fix: the backend holds the secret in its own config."
+    },
+    {
+      "start": 46.16,
+      "end": 54.72,
+      "text": "A forwarding proxy is the leak with an extra hop: authenticate, authorise, validate."
+    },
+    {
+      "start": 54.72,
+      "end": 59.38,
+      "text": "No session → 401. Viewer role → 403."
+    },
+    {
+      "start": 59.38,
+      "end": 62.29,
+      "text": "Neither request reaches the upstream."
+    },
+    {
+      "start": 62.29,
+      "end": 69.41,
+      "text": "Maintainer → 200. One upstream call, by the backend."
+    },
+    {
+      "start": 69.41,
+      "end": 77.32,
+      "text": "No secret in body or headers. Over-broad operation → 400."
+    },
+    {
+      "start": 77.32,
+      "end": 82.45,
+      "text": "Scan JS, HTML, config payloads, source maps if produced."
+    },
+    {
+      "start": 82.45,
+      "end": 90.44,
+      "text": "0 secret-like, after the scanner proved it finds the planted one. Not zero everywhere."
+    },
+    {
+      "start": 90.44,
+      "end": 95.95,
+      "text": "A public identifier names something. A secret grants capability."
+    },
+    {
+      "start": 95.95,
+      "end": 100.86,
+      "text": "Vendor browser keys differ; CORS is not authorisation."
+    },
+    {
+      "start": 100.86,
+      "end": 107.6,
+      "text": "A leaked production secret must be rotated. Removal revokes no copies."
+    }
+  ]
+}

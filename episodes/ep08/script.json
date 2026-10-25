@@ -1,0 +1,80 @@
+{
+  "n": 8,
+  "slug": "feels-slow",
+  "title": "Why it feels slow",
+  "fullTitle": "Why This Beautiful Website Feels Slow",
+  "scenes": [
+    {
+      "id": "fail",
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT",
+      "narration": "The page looks finished. Then the hero image arrives late, and the first click sits there before anything changes. Two complaints, one word: slow.",
+      "captions": [
+        "The page looks finished. The hero arrives late.",
+        "The first click sits there. Two complaints, one word: slow."
+      ]
+    },
+    {
+      "id": "timelines",
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT",
+      "narration": "These are two different timelines. Loading asks how soon the largest thing on screen is painted. Interaction asks how soon the page responds after you act. Fixing one does nothing for the other.",
+      "captions": [
+        "Loading: how soon is the largest element painted?",
+        "Interaction: how soon does the page respond after you act?"
+      ]
+    },
+    {
+      "id": "hero_request",
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT",
+      "narration": "Follow the hero request. The page asks for a four thousand pixel wide lossless PNG, over twelve megabytes, for a slot sixteen hundred pixels wide. The largest element cannot paint until those bytes arrive and decode.",
+      "captions": [
+        "A 4000 px lossless PNG, over 12 MB, for a 1600 px slot.",
+        "The largest element cannot paint until the bytes arrive and decode."
+      ]
+    },
+    {
+      "id": "handler_work",
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT",
+      "narration": "Now the click. The handler compares each of twenty thousand items against every other, synchronously, on the main thread. In Node that work takes a median of four point two five seconds. Nothing paints until it returns.",
+      "captions": [
+        "The handler compares 20,000 items against every other, synchronously.",
+        "Node CPU time, median of 7 runs: 4253 ms. Not browser INP."
+      ]
+    },
+    {
+      "id": "fix_image",
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT",
+      "narration": "Correct the image. Same picture, sixteen hundred by nine hundred, encoded as WebP: seventeen thousand bytes instead of twelve million. It stays above the fold, not lazy loaded, because it is the element you are waiting for.",
+      "captions": [
+        "Same picture, 1600×900 WebP: 17,004 bytes instead of 12,173,721.",
+        "Still above the fold, still not lazy-loaded."
+      ]
+    },
+    {
+      "id": "fix_handler",
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT",
+      "narration": "Correct the handler. Count each collection once, then look the counts up. Identical result, identical digest, a median of one point four milliseconds in Node. The cost was removed, not hidden.",
+      "captions": [
+        "Count each collection once, then look it up. Identical digest.",
+        "Node CPU median: 1.40 ms. Removed, not hidden."
+      ]
+    },
+    {
+      "id": "results",
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT",
+      "narration": "Measured here: file bytes, and handler CPU time in Node, seven runs each, median reported. Not measured: largest contentful paint and event timing, because no browser lab was available. Those need one browser, one viewport, one throttle, five trials, a median.",
+      "captions": [
+        "Measured here: file bytes; handler CPU time in Node, 7 runs, median.",
+        "Not measured: LCP and Event Timing. No browser lab was available."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "Loading quickly and responding quickly are different tests. Run both, under the same conditions, before calling the page fast.",
+      "captions": [
+        "Loading quickly and responding quickly are different tests.",
+        "Run both, under the same conditions."
+      ]
+    }
+  ]
+}

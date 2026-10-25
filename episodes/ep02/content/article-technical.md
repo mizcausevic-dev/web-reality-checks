@@ -1,5 +1,5 @@
 SEO title (≤60 chars): One Order, Three Purchase Events: Fixing Duplicate Emitters
-Meta description (≤155 chars): One completed order produced three purchase envelopes from three emitters. The fixture, the control test, the one-owner repair, and what GA4 dedup does not cover.
+Meta description (≤155 chars): One order produced three purchase envelopes from three emitters. The fixture, the control test, the one-owner repair, and what GA4 dedup leaves out.
 Slug: duplicate-purchase-events
 Primary keyword: duplicate purchase events   Secondary keywords (3–5): GA4 transaction_id deduplication, event ownership, tag manager duplicate purchase, analytics event duplication, idempotency vs deduplication
 Medium tags (5): Web Analytics, Google Analytics, JavaScript, Software Engineering, Tag Management

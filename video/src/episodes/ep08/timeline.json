@@ -1,0 +1,144 @@
+{
+  "n": 8,
+  "title": "Why it feels slow",
+  "fullTitle": "Why This Beautiful Website Feels Slow",
+  "slug": "feels-slow",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep08/narration.mp3",
+  "duration": 103.35,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 9.82,
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT"
+    },
+    {
+      "id": "timelines",
+      "start": 9.82,
+      "end": 22.51,
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT"
+    },
+    {
+      "id": "hero_request",
+      "start": 22.51,
+      "end": 36.62,
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT"
+    },
+    {
+      "id": "handler_work",
+      "start": 36.62,
+      "end": 51.43,
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT"
+    },
+    {
+      "id": "fix_image",
+      "start": 51.43,
+      "end": 65.08,
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT"
+    },
+    {
+      "id": "fix_handler",
+      "start": 65.08,
+      "end": 77.12,
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT"
+    },
+    {
+      "id": "results",
+      "start": 77.12,
+      "end": 92.94,
+      "sim": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT"
+    },
+    {
+      "id": "end",
+      "start": 92.94,
+      "end": 103.35,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.7,
+      "text": "The page looks finished. The hero arrives late."
+    },
+    {
+      "start": 4.7,
+      "end": 9.82,
+      "text": "The first click sits there. Two complaints, one word: slow."
+    },
+    {
+      "start": 9.82,
+      "end": 15.46,
+      "text": "Loading: how soon is the largest element painted?"
+    },
+    {
+      "start": 15.46,
+      "end": 22.51,
+      "text": "Interaction: how soon does the page respond after you act?"
+    },
+    {
+      "start": 22.51,
+      "end": 30.15,
+      "text": "A 4000 px lossless PNG, over 12 MB, for a 1600 px slot."
+    },
+    {
+      "start": 30.15,
+      "end": 36.62,
+      "text": "The largest element cannot paint until the bytes arrive and decode."
+    },
+    {
+      "start": 36.62,
+      "end": 42.97,
+      "text": "The handler compares 20,000 items against every other, synchronously."
+    },
+    {
+      "start": 42.97,
+      "end": 51.43,
+      "text": "Node CPU time, median of 7 runs: 4253 ms. Not browser INP."
+    },
+    {
+      "start": 51.43,
+      "end": 59.11,
+      "text": "Same picture, 1600×900 WebP: 17,004 bytes instead of 12,173,721."
+    },
+    {
+      "start": 59.11,
+      "end": 65.08,
+      "text": "Still above the fold, still not lazy-loaded."
+    },
+    {
+      "start": 65.08,
+      "end": 71.77,
+      "text": "Count each collection once, then look it up. Identical digest."
+    },
+    {
+      "start": 71.77,
+      "end": 77.12,
+      "text": "Node CPU median: 1.40 ms. Removed, not hidden."
+    },
+    {
+      "start": 77.12,
+      "end": 85.37,
+      "text": "Measured here: file bytes; handler CPU time in Node, 7 runs, median."
+    },
+    {
+      "start": 85.37,
+      "end": 92.94,
+      "text": "Not measured: LCP and Event Timing. No browser lab was available."
+    },
+    {
+      "start": 92.94,
+      "end": 97.75,
+      "text": "Loading quickly and responding quickly are different tests."
+    },
+    {
+      "start": 97.75,
+      "end": 101.35,
+      "text": "Run both, under the same conditions."
+    }
+  ]
+}

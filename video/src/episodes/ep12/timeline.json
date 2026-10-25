@@ -1,0 +1,133 @@
+{
+  "n": 12,
+  "title": "Still the old version?",
+  "fullTitle": "Your Website Updated. Why Am I Still Seeing the Old Version?",
+  "slug": "sw-update",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep12/narration.mp3",
+  "duration": 100.4,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 14.97,
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED"
+    },
+    {
+      "id": "layers",
+      "start": 14.97,
+      "end": 29.81,
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED"
+    },
+    {
+      "id": "waiting",
+      "start": 29.81,
+      "end": 45.39,
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED"
+    },
+    {
+      "id": "notice",
+      "start": 45.39,
+      "end": 61.4,
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED"
+    },
+    {
+      "id": "activate",
+      "start": 61.4,
+      "end": 74.57,
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED"
+    },
+    {
+      "id": "verify",
+      "start": 74.57,
+      "end": 87.87,
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED"
+    },
+    {
+      "id": "end",
+      "start": 87.87,
+      "end": 100.4,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 5.89,
+      "text": "Deployment complete. The server sends Build 2."
+    },
+    {
+      "start": 5.89,
+      "end": 14.97,
+      "text": "The open tab still shows Build 1. One cause, not every cause."
+    },
+    {
+      "start": 14.97,
+      "end": 19.92,
+      "text": "Page, active worker, waiting worker, Cache Storage."
+    },
+    {
+      "start": 19.92,
+      "end": 29.81,
+      "text": "Cache Storage is not the HTTP cache. Each build has its own versioned cache."
+    },
+    {
+      "start": 29.81,
+      "end": 37.23,
+      "text": "Same URL, different bytes: a new worker installs, then waits."
+    },
+    {
+      "start": 37.23,
+      "end": 45.39,
+      "text": "The old worker still controls the page and serves Build 1."
+    },
+    {
+      "start": 45.39,
+      "end": 49.6,
+      "text": "registration.waiting exists: show \"Update available\"."
+    },
+    {
+      "start": 49.6,
+      "end": 58.03,
+      "text": "Explicit approval is this app's policy, not a browser requirement."
+    },
+    {
+      "start": 58.03,
+      "end": 61.4,
+      "text": "Approve → postMessage SKIP_WAITING."
+    },
+    {
+      "start": 61.4,
+      "end": 66.95,
+      "text": "Activate: delete only wrc-ep12-v1, keep wrc-ep12-v2. controllerchange fires."
+    },
+    {
+      "start": 66.95,
+      "end": 74.57,
+      "text": "A guard reloads once. A second event is ignored. No loop."
+    },
+    {
+      "start": 74.57,
+      "end": 81.22,
+      "text": "After one reload: Build 2, green. One cache left."
+    },
+    {
+      "start": 81.22,
+      "end": 87.87,
+      "text": "Browser steps not captured here; see the manual checklist."
+    },
+    {
+      "start": 87.87,
+      "end": 91.56,
+      "text": "Deployment and client activation are different events."
+    },
+    {
+      "start": 91.56,
+      "end": 98.4,
+      "text": "An update affects every tab on the registration. Unsaved work is at risk."
+    }
+  ]
+}

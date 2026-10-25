@@ -1,0 +1,80 @@
+{
+  "n": 7,
+  "slug": "vite-env-localhost",
+  "title": "Why is production broken?",
+  "fullTitle": "It Works Locally. Why Is Production Broken?",
+  "scenes": [
+    {
+      "id": "local_ok",
+      "narration": "On the developer's machine everything works. The page asks the API for slash health and gets two hundred OK. Ship it.",
+      "captions": [
+        "Locally: GET /health → 200 OK."
+      ]
+    },
+    {
+      "id": "remote_fail",
+      "sim": "REMOTE CLIENT · CONCEPTUAL SIMULATION",
+      "narration": "Open the same deployed page from another machine, and the request fails. Not a four oh four, not a CORS message. A TypeError: failed to fetch. Connection refused.",
+      "captions": [
+        "Remote browser: TypeError: Failed to fetch.",
+        "Connection refused — not CORS, not a 404."
+      ]
+    },
+    {
+      "id": "follow_loopback",
+      "sim": "REMOTE CLIENT · CONCEPTUAL SIMULATION",
+      "narration": "Follow the request. The page is asking one two seven dot zero dot zero dot one. On the remote machine that is its own loopback, and nothing there is listening.",
+      "captions": [
+        "127.0.0.1 means the remote machine's OWN loopback.",
+        "Nothing is listening there."
+      ]
+    },
+    {
+      "id": "bundle",
+      "narration": "Where did that address come from? The source reads import dot meta dot env dot VITE API BASE URL. Vite replaces that expression at build time with a string literal. Open the built JavaScript: the localhost address is in it.",
+      "captions": [
+        "Source: import.meta.env.VITE_API_BASE_URL",
+        "Vite replaces it at build time. The bundle holds the literal URL."
+      ]
+    },
+    {
+      "id": "host_env",
+      "narration": "The usual instinct: change the environment variable on the static hosting server. Done. The host process can see the new value.",
+      "captions": [
+        "Set VITE_API_BASE_URL on the static host. The host sees it."
+      ]
+    },
+    {
+      "id": "still_old",
+      "narration": "The bundle cannot. The served file still holds the original localhost address, byte for byte. A static host serves files. It does not run the build.",
+      "captions": [
+        "The served bundle is byte-identical.",
+        "A static host serves files; it does not rebuild them."
+      ]
+    },
+    {
+      "id": "fix",
+      "narration": "The fix is a rebuild with an API address the deployed browser can reach. Set the variable where the build runs; Vite stamps the new value into a new bundle.",
+      "captions": [
+        "Rebuild with a reachable API URL.",
+        "The new bundle contains the new literal."
+      ]
+    },
+    {
+      "id": "retest",
+      "narration": "Serve the new bundle and retest. The embedded address points at the API, CORS allows the static origin, and slash health returns two hundred.",
+      "captions": [
+        "Retest: GET /health → 200 OK."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "Two things to keep. VITE underscore values are public client configuration, shipped to every visitor; never put a secret in one. And a server environment change cannot rewrite an existing bundle. Runtime configuration is an option, but a different design.",
+      "captions": [
+        "VITE_ values are public. Never put a secret in one.",
+        "A server environment change cannot rewrite an existing bundle."
+      ]
+    }
+  ]
+}

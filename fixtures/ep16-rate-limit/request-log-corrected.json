@@ -1,0 +1,351 @@
+{
+  "generatedAt": "2026-10-25T08:27:10.389Z",
+  "clock": {
+    "kind": "scaled",
+    "virtualMsPerRealMs": 10,
+    "note": "all ms values are virtual fixture time; limiter window = 10 000 virtual ms"
+  },
+  "runs": [
+    {
+      "label": "B. corrected client, same scripted typing",
+      "client": "corrected",
+      "script": "postgres (8 keystrokes, 80 ms apart)",
+      "preExhausted": false,
+      "summary": {
+        "clientRequests": 1,
+        "clientRetries": 0,
+        "client429": 0,
+        "serverRequestsSeen": 1,
+        "server200": 1,
+        "server429": 0,
+        "serverAbortsObserved": 0,
+        "droppedStaleResponses": 0,
+        "abortedByClient": 0,
+        "cancelledRetries": 0,
+        "staleRenders": 0,
+        "finalInput": "postgres",
+        "finalResultsFor": "postgres",
+        "finalResults": [
+          "postgres",
+          "postgresql tuning",
+          "postgres replication"
+        ]
+      },
+      "keystrokes": [
+        {
+          "at": 158,
+          "text": "p"
+        },
+        {
+          "at": 245,
+          "text": "po"
+        },
+        {
+          "at": 557,
+          "text": "pos"
+        },
+        {
+          "at": 646,
+          "text": "post"
+        },
+        {
+          "at": 784,
+          "text": "postg"
+        },
+        {
+          "at": 905,
+          "text": "postgr"
+        },
+        {
+          "at": 1086,
+          "text": "postgre"
+        },
+        {
+          "at": 1388,
+          "text": "postgres"
+        }
+      ],
+      "clientLog": [
+        {
+          "n": 1,
+          "at": 1648,
+          "seq": 9,
+          "q": "postgres",
+          "attempt": 0,
+          "status": 200,
+          "doneAt": 1816
+        }
+      ],
+      "serverLog": [
+        {
+          "n": 1,
+          "at": 1656,
+          "identity": "id_tester",
+          "q": "postgres",
+          "status": 200,
+          "remaining": 4,
+          "retryAfter": null,
+          "servedAt": 1807
+        }
+      ]
+    },
+    {
+      "label": "B2. corrected client, paused typing (shows abort + sequence guard)",
+      "client": "corrected",
+      "script": "postgres (8 keystrokes, 80 ms apart, 600 ms pause after \"post\")",
+      "preExhausted": false,
+      "summary": {
+        "clientRequests": 2,
+        "clientRetries": 0,
+        "client429": 0,
+        "serverRequestsSeen": 2,
+        "server200": 2,
+        "server429": 0,
+        "serverAbortsObserved": 1,
+        "droppedStaleResponses": 0,
+        "abortedByClient": 1,
+        "cancelledRetries": 0,
+        "staleRenders": 0,
+        "finalInput": "postgres",
+        "finalResultsFor": "postgres",
+        "finalResults": [
+          "postgres",
+          "postgresql tuning",
+          "postgres replication"
+        ]
+      },
+      "keystrokes": [
+        {
+          "at": 25,
+          "text": "p"
+        },
+        {
+          "at": 98,
+          "text": "po"
+        },
+        {
+          "at": 218,
+          "text": "pos"
+        },
+        {
+          "at": 301,
+          "text": "post"
+        },
+        {
+          "at": 905,
+          "text": "postg"
+        },
+        {
+          "at": 1001,
+          "text": "postgr"
+        },
+        {
+          "at": 1085,
+          "text": "postgre"
+        },
+        {
+          "at": 1218,
+          "text": "postgres"
+        }
+      ],
+      "clientLog": [
+        {
+          "n": 1,
+          "at": 579,
+          "seq": 5,
+          "q": "post",
+          "attempt": 0,
+          "status": "error",
+          "abortedAt": 917,
+          "abortReason": "query changed"
+        },
+        {
+          "n": 2,
+          "at": 1476,
+          "seq": 10,
+          "q": "postgres",
+          "attempt": 0,
+          "status": 200,
+          "doneAt": 1658
+        }
+      ],
+      "serverLog": [
+        {
+          "n": 1,
+          "at": 587,
+          "identity": "id_tester",
+          "q": "post",
+          "status": 200,
+          "remaining": 4,
+          "retryAfter": null,
+          "abortedByClient": true,
+          "abortedAt": 954
+        },
+        {
+          "n": 2,
+          "at": 1482,
+          "identity": "id_tester",
+          "q": "postgres",
+          "status": 200,
+          "remaining": 3,
+          "retryAfter": null,
+          "servedAt": 1639
+        }
+      ]
+    },
+    {
+      "label": "C. corrected client, window already exhausted (shows Retry-After path)",
+      "client": "corrected",
+      "script": "postgres (8 keystrokes, 80 ms apart)",
+      "preExhausted": true,
+      "summary": {
+        "clientRequests": 2,
+        "clientRetries": 1,
+        "client429": 1,
+        "serverRequestsSeen": 7,
+        "server200": 6,
+        "server429": 1,
+        "serverAbortsObserved": 0,
+        "droppedStaleResponses": 0,
+        "abortedByClient": 0,
+        "cancelledRetries": 0,
+        "staleRenders": 0,
+        "finalInput": "postgres",
+        "finalResultsFor": "postgres",
+        "finalResults": [
+          "postgres",
+          "postgresql tuning",
+          "postgres replication"
+        ]
+      },
+      "keystrokes": [
+        {
+          "at": 6719,
+          "text": "p"
+        },
+        {
+          "at": 6802,
+          "text": "po"
+        },
+        {
+          "at": 6884,
+          "text": "pos"
+        },
+        {
+          "at": 6991,
+          "text": "post"
+        },
+        {
+          "at": 7073,
+          "text": "postg"
+        },
+        {
+          "at": 7177,
+          "text": "postgr"
+        },
+        {
+          "at": 7351,
+          "text": "postgre"
+        },
+        {
+          "at": 7434,
+          "text": "postgres"
+        }
+      ],
+      "clientLog": [
+        {
+          "n": 1,
+          "at": 7711,
+          "seq": 9,
+          "q": "postgres",
+          "attempt": 0,
+          "status": 429,
+          "doneAt": 7725,
+          "retryAfter": "3",
+          "scheduledRetryInMs": 3000
+        },
+        {
+          "n": 2,
+          "at": 10889,
+          "seq": 10,
+          "q": "postgres",
+          "attempt": 1,
+          "status": 200,
+          "doneAt": 11050
+        }
+      ],
+      "serverLog": [
+        {
+          "n": 1,
+          "at": 44,
+          "identity": "id_tester",
+          "q": "p",
+          "status": 200,
+          "remaining": 4,
+          "retryAfter": null,
+          "servedAt": 1273
+        },
+        {
+          "n": 2,
+          "at": 1289,
+          "identity": "id_tester",
+          "q": "p",
+          "status": 200,
+          "remaining": 3,
+          "retryAfter": null,
+          "servedAt": 2492
+        },
+        {
+          "n": 3,
+          "at": 2534,
+          "identity": "id_tester",
+          "q": "p",
+          "status": 200,
+          "remaining": 2,
+          "retryAfter": null,
+          "servedAt": 3750
+        },
+        {
+          "n": 4,
+          "at": 4152,
+          "identity": "id_tester",
+          "q": "p",
+          "status": 200,
+          "remaining": 1,
+          "retryAfter": null,
+          "servedAt": 5430
+        },
+        {
+          "n": 5,
+          "at": 5445,
+          "identity": "id_tester",
+          "q": "p",
+          "status": 200,
+          "remaining": 0,
+          "retryAfter": null,
+          "servedAt": 6711
+        },
+        {
+          "n": 6,
+          "at": 7720,
+          "identity": "id_tester",
+          "q": "postgres",
+          "status": 429,
+          "remaining": 0,
+          "retryAfter": 3
+        },
+        {
+          "n": 7,
+          "at": 10896,
+          "identity": "id_tester",
+          "q": "postgres",
+          "status": 200,
+          "remaining": 4,
+          "retryAfter": null,
+          "servedAt": 11041
+        }
+      ],
+      "serverLogIncludesPreExhaust": true
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "n": 12,
+  "slug": "sw-update",
+  "title": "Still the old version?",
+  "fullTitle": "Your Website Updated. Why Am I Still Seeing the Old Version?",
+  "scenes": [
+    {
+      "id": "fail",
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED",
+      "narration": "The deployment finished. The server now sends Build two, green. But the tab that was already open still shows Build one, blue, and a plain reload changes nothing. This is one controlled cause of stale content, not every cause.",
+      "captions": [
+        "Deployment complete. The server sends Build 2.",
+        "The open tab still shows Build 1. One cause, not every cause."
+      ]
+    },
+    {
+      "id": "layers",
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED",
+      "narration": "Four parts are involved: the page, the service worker controlling it, a second worker that may be waiting, and Cache Storage, which is separate from the ordinary HTTP cache. Each build precaches its assets under its own versioned name.",
+      "captions": [
+        "Page, active worker, waiting worker, Cache Storage.",
+        "Cache Storage is not the HTTP cache. Each build has its own versioned cache."
+      ]
+    },
+    {
+      "id": "waiting",
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED",
+      "narration": "The worker script lives at one stable URL. When its bytes change, the browser installs the new worker, but it waits. The old worker keeps controlling the open page and keeps serving Build one from its own cache. Nothing replaced the running page.",
+      "captions": [
+        "Same URL, different bytes: a new worker installs, then waits.",
+        "The old worker still controls the page and serves Build 1."
+      ]
+    },
+    {
+      "id": "notice",
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED",
+      "narration": "The page sees the waiting worker and shows: update available. Asking first is this app's policy, not a browser rule; a worker may take over at once. The user approves, and the page posts skip waiting to the waiting worker.",
+      "captions": [
+        "registration.waiting exists: show \"Update available\".",
+        "Explicit approval is this app's policy, not a browser requirement.",
+        "Approve → postMessage SKIP_WAITING."
+      ]
+    },
+    {
+      "id": "activate",
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED",
+      "narration": "The new worker activates, deletes only this app's old versioned cache, and takes control of every open tab. Controller change fires. A guard reloads the page exactly once; a second event is ignored, so no reload loop.",
+      "captions": [
+        "Activate: delete only wrc-ep12-v1, keep wrc-ep12-v2. controllerchange fires.",
+        "A guard reloads once. A second event is ignored. No loop."
+      ]
+    },
+    {
+      "id": "verify",
+      "sim": "SERVICE WORKER LIFECYCLE · ILLUSTRATIVE, NOT CAPTURED",
+      "narration": "After that single reload the page shows Build two, green, served by the new worker. In the model: one reload, one cache left. The browser steps were not captured here; they live in the manual checklist.",
+      "captions": [
+        "After one reload: Build 2, green. One cache left.",
+        "Browser steps not captured here; see the manual checklist."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "Deployment and client activation are different events. An update touches the whole registration, so other open tabs reload too, and unsaved work can be lost.",
+      "captions": [
+        "Deployment and client activation are different events.",
+        "An update affects every tab on the registration. Unsaved work is at risk."
+      ]
+    }
+  ]
+}

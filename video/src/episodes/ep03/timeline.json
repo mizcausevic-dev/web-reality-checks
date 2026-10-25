@@ -1,0 +1,176 @@
+{
+  "n": 3,
+  "title": "What Sign In does",
+  "fullTitle": "Watch What Happens When You Click 'Sign In'",
+  "slug": "sign-in-session",
+  "hero": {
+    "scene": "cookie",
+    "t": 4
+  },
+  "audio": "ep03/narration.mp3",
+  "duration": 119.52,
+  "scenes": [
+    {
+      "id": "click",
+      "start": 0,
+      "end": 12,
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL"
+    },
+    {
+      "id": "lanes",
+      "start": 12,
+      "end": 21.57,
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL"
+    },
+    {
+      "id": "https",
+      "start": 21.57,
+      "end": 33.38,
+      "sim": "CONCEPTUAL ILLUSTRATION"
+    },
+    {
+      "id": "verify",
+      "start": 33.38,
+      "end": 45.89,
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL"
+    },
+    {
+      "id": "fresh_session",
+      "start": 45.89,
+      "end": 57.29,
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL"
+    },
+    {
+      "id": "cookie",
+      "start": 57.29,
+      "end": 71.91,
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL"
+    },
+    {
+      "id": "request",
+      "start": 71.91,
+      "end": 82.14,
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL"
+    },
+    {
+      "id": "authz",
+      "start": 82.14,
+      "end": 93.36,
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL"
+    },
+    {
+      "id": "logout",
+      "start": 93.36,
+      "end": 109.41,
+      "sim": "LOCAL FIXTURE · TLS LEG CONCEPTUAL"
+    },
+    {
+      "id": "end",
+      "start": 109.41,
+      "end": 119.52,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 7.44,
+      "text": "Wrong password: 401. Right password: 200 and one cookie."
+    },
+    {
+      "start": 7.44,
+      "end": 12,
+      "text": "One implementation, not every sign-in system."
+    },
+    {
+      "start": 12,
+      "end": 17.85,
+      "text": "Browser · HTTPS · server · user database · session store."
+    },
+    {
+      "start": 17.85,
+      "end": 21.57,
+      "text": "Three objects: password, session id, authorisation decision."
+    },
+    {
+      "start": 21.57,
+      "end": 26,
+      "text": "Credentials travel inside the encrypted connection."
+    },
+    {
+      "start": 26,
+      "end": 33.38,
+      "text": "HTTPS protects transit, not a compromised endpoint. Illustrated, not executed."
+    },
+    {
+      "start": 33.38,
+      "end": 40.2,
+      "text": "Stored: a salted argon2id hash, not the password. One way, not reversible."
+    },
+    {
+      "start": 40.2,
+      "end": 45.89,
+      "text": "Observed: two hashes of the same password differ; both verify."
+    },
+    {
+      "start": 45.89,
+      "end": 51.59,
+      "text": "Success: regenerate. Pre-auth id destroyed, fresh id created."
+    },
+    {
+      "start": 51.59,
+      "end": 57.29,
+      "text": "Observed: old id replayed after login → 401."
+    },
+    {
+      "start": 57.29,
+      "end": 63.56,
+      "text": "Set-Cookie: sid=<opaque>; HttpOnly; Secure; SameSite=Lax; Path=/ — no Domain."
+    },
+    {
+      "start": 63.56,
+      "end": 71.91,
+      "text": "HttpOnly limits ordinary JS access. It does not stop every session attack."
+    },
+    {
+      "start": 71.91,
+      "end": 77.29,
+      "text": "GET /me + cookie → store lookup → 200, u_alice."
+    },
+    {
+      "start": 77.29,
+      "end": 82.14,
+      "text": "The cookie identifies a session. It carries no permission."
+    },
+    {
+      "start": 82.14,
+      "end": 86.35,
+      "text": "Two checks: session valid? then permitted?"
+    },
+    {
+      "start": 86.35,
+      "end": 93.36,
+      "text": "Observed: no cookie 401 · member 403 · admin 200."
+    },
+    {
+      "start": 93.36,
+      "end": 99.93,
+      "text": "POST /logout with CSRF token: record destroyed, cookie expired."
+    },
+    {
+      "start": 99.93,
+      "end": 109.41,
+      "text": "Observed: GET /logout 405 · no token 403 · replay after logout 401."
+    },
+    {
+      "start": 109.41,
+      "end": 113.25,
+      "text": "The cookie identifies a session. The server enforces access."
+    },
+    {
+      "start": 113.25,
+      "end": 117.52,
+      "text": "One implementation. Memory store not for production. TLS leg illustrated."
+    }
+  ]
+}

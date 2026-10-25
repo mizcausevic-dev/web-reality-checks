@@ -1,0 +1,144 @@
+{
+  "n": 5,
+  "title": "How many are wrong?",
+  "fullTitle": "Your Directory Has 10,000 Listings. How Many Are Wrong?",
+  "slug": "directory-quality",
+  "hero": {
+    "scene": "fail_timeout",
+    "t": 6
+  },
+  "audio": "ep05/narration.mp3",
+  "duration": 103.67,
+  "scenes": [
+    {
+      "id": "counter",
+      "start": 0,
+      "end": 10.23,
+      "sim": "SYNTHETIC DATASET · SEEDED"
+    },
+    {
+      "id": "overlap",
+      "start": 10.23,
+      "end": 27.59,
+      "sim": "SYNTHETIC DATASET · SEEDED"
+    },
+    {
+      "id": "checks",
+      "start": 27.59,
+      "end": 41.02,
+      "sim": "SYNTHETIC DATASET · SEEDED"
+    },
+    {
+      "id": "counts",
+      "start": 41.02,
+      "end": 55.27,
+      "sim": "SYNTHETIC DATASET · SEEDED"
+    },
+    {
+      "id": "fail_timeout",
+      "start": 55.27,
+      "end": 68.45,
+      "sim": "SYNTHETIC DATASET · SEEDED"
+    },
+    {
+      "id": "queue",
+      "start": 68.45,
+      "end": 78.3,
+      "sim": "SYNTHETIC DATASET · SEEDED"
+    },
+    {
+      "id": "decision",
+      "start": 78.3,
+      "end": 90.77,
+      "sim": "SYNTHETIC DATASET · SEEDED"
+    },
+    {
+      "id": "end",
+      "start": 90.77,
+      "end": 103.67,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 4.45,
+      "text": "10,000 listings. The only number the directory has."
+    },
+    {
+      "start": 4.45,
+      "end": 10.23,
+      "text": "A count says how many rows exist, not how many are right."
+    },
+    {
+      "start": 10.23,
+      "end": 18.4,
+      "text": "Problems overlap: one row can carry several flags."
+    },
+    {
+      "start": 18.4,
+      "end": 27.59,
+      "text": "Synthetic, seeded dataset: we know exactly what was planted."
+    },
+    {
+      "start": 27.59,
+      "end": 35.55,
+      "text": "Five checks on the public rows only. Website checks hit a local mock, not real sites."
+    },
+    {
+      "start": 35.55,
+      "end": 41.02,
+      "text": "Last verified is kept apart from last changed and last checked."
+    },
+    {
+      "start": 41.02,
+      "end": 46.89,
+      "text": "3,875 issue instances. 3,303 distinct flagged listings."
+    },
+    {
+      "start": 46.89,
+      "end": 55.27,
+      "text": "Adding the columns together invents problems that do not exist."
+    },
+    {
+      "start": 55.27,
+      "end": 63.18,
+      "text": "The website timed out. In the ground truth, the business is open."
+    },
+    {
+      "start": 63.18,
+      "end": 68.45,
+      "text": "1,038 failed website checks landed on open businesses."
+    },
+    {
+      "start": 68.45,
+      "end": 73.92,
+      "text": "Uncertain cases go to a review queue, not the bin."
+    },
+    {
+      "start": 73.92,
+      "end": 78.3,
+      "text": "Each card carries every reason it was flagged."
+    },
+    {
+      "start": 78.3,
+      "end": 84.53,
+      "text": "A decision records evidence, timestamp and reviewer."
+    },
+    {
+      "start": 84.53,
+      "end": 90.77,
+      "text": "Last checked moves. Last verified does not."
+    },
+    {
+      "start": 90.77,
+      "end": 96.22,
+      "text": "The checker also missed planted problems. They are reported as missed."
+    },
+    {
+      "start": 96.22,
+      "end": 101.67,
+      "text": "A failed website check is a lead to investigate, not proof."
+    }
+  ]
+}

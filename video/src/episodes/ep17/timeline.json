@@ -1,0 +1,160 @@
+{
+  "n": 17,
+  "title": "Live, ten minutes old",
+  "fullTitle": "Your Dashboard Says 'Live.' Its Data Is Ten Minutes Old.",
+  "slug": "stale-dashboard",
+  "hero": {
+    "scene": "fail",
+    "t": 6
+  },
+  "audio": "ep17/narration.mp3",
+  "duration": 110.56,
+  "scenes": [
+    {
+      "id": "fail",
+      "start": 0,
+      "end": 11.99,
+      "sim": "SIMULATED PIPELINE · COMPRESSED CLOCK"
+    },
+    {
+      "id": "timelines",
+      "start": 11.99,
+      "end": 26.49,
+      "sim": "SIMULATED PIPELINE · COMPRESSED CLOCK"
+    },
+    {
+      "id": "poll_ok",
+      "start": 26.49,
+      "end": 37.68,
+      "sim": "SIMULATED PIPELINE · COMPRESSED CLOCK"
+    },
+    {
+      "id": "compare",
+      "start": 37.68,
+      "end": 46.51,
+      "sim": "SIMULATED PIPELINE · COMPRESSED CLOCK"
+    },
+    {
+      "id": "fix",
+      "start": 46.51,
+      "end": 59.13,
+      "sim": "SIMULATED PIPELINE · COMPRESSED CLOCK"
+    },
+    {
+      "id": "advance",
+      "start": 59.13,
+      "end": 69.48,
+      "sim": "SIMULATED PIPELINE · COMPRESSED CLOCK"
+    },
+    {
+      "id": "age_grows",
+      "start": 69.48,
+      "end": 80.8,
+      "sim": "SIMULATED PIPELINE · COMPRESSED CLOCK"
+    },
+    {
+      "id": "failures",
+      "start": 80.8,
+      "end": 96.89,
+      "sim": "SIMULATED PIPELINE · COMPRESSED CLOCK"
+    },
+    {
+      "id": "end",
+      "start": 96.89,
+      "end": 110.56,
+      "sim": null
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 5.66,
+      "text": "The panel says Live, updated 0 s ago."
+    },
+    {
+      "start": 5.66,
+      "end": 11.99,
+      "text": "The measurement was observed ten minutes ago. Both are true."
+    },
+    {
+      "start": 11.99,
+      "end": 17.43,
+      "text": "Source, collector, API, browser: four timelines."
+    },
+    {
+      "start": 17.43,
+      "end": 26.49,
+      "text": "Collector samples every 10 min. Browser polls every 30 s."
+    },
+    {
+      "start": 26.49,
+      "end": 32.97,
+      "text": "19 polls, 19 × 200 OK, before the collector samples again."
+    },
+    {
+      "start": 32.97,
+      "end": 37.68,
+      "text": "Every response carries the same reading, collectedAt 00:00:00."
+    },
+    {
+      "start": 37.68,
+      "end": 40.62,
+      "text": "Response freshness: served just now."
+    },
+    {
+      "start": 40.62,
+      "end": 46.51,
+      "text": "Measurement freshness: observed at 00:00:00. Live reports only the first."
+    },
+    {
+      "start": 46.51,
+      "end": 53.93,
+      "text": "Fix: measurement age from sourceObservedAt; connection from the last poll."
+    },
+    {
+      "start": 53.93,
+      "end": 59.13,
+      "text": "Connected and stale can both be true."
+    },
+    {
+      "start": 59.13,
+      "end": 65.6,
+      "text": "Advance the shared clock. The source value does not change."
+    },
+    {
+      "start": 65.6,
+      "end": 69.48,
+      "text": "Polls succeed. Nothing resets the age."
+    },
+    {
+      "start": 69.48,
+      "end": 76.61,
+      "text": "30 s, 60 s … 330 s: past this fixture's 300 s stale policy, still 200 OK."
+    },
+    {
+      "start": 76.61,
+      "end": 80.8,
+      "text": "Five minutes is this dashboard's policy, not a universal rule."
+    },
+    {
+      "start": 80.8,
+      "end": 88.11,
+      "text": "Collector down: API still 200, age 1200 s, connection green."
+    },
+    {
+      "start": 88.11,
+      "end": 96.89,
+      "text": "API down: 503. Last value kept with an explicit warning. Nothing invented."
+    },
+    {
+      "start": 96.89,
+      "end": 101.43,
+      "text": "Freshly fetched does not mean freshly observed."
+    },
+    {
+      "start": 101.43,
+      "end": 108.56,
+      "text": "Polling faster or a WebSocket delivers the same old reading sooner."
+    }
+  ]
+}

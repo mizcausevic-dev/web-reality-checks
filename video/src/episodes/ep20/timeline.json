@@ -1,0 +1,150 @@
+{
+  "n": 20,
+  "title": "What HTTPS still shows",
+  "fullTitle": "HTTPS Encrypts Your Request. What Can the Network Still See?",
+  "slug": "https-visibility",
+  "hero": {
+    "scene": "request",
+    "t": 4.5
+  },
+  "audio": "ep20/narration.mp3",
+  "duration": 110.33,
+  "scenes": [
+    {
+      "id": "navigate",
+      "start": 0,
+      "end": 16.11,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    },
+    {
+      "id": "dns",
+      "start": 16.11,
+      "end": 30.65,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    },
+    {
+      "id": "address",
+      "start": 30.65,
+      "end": 42.86,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    },
+    {
+      "id": "sni",
+      "start": 42.86,
+      "end": 49.62,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    },
+    {
+      "id": "serverhello",
+      "start": 49.62,
+      "end": 56.07,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    },
+    {
+      "id": "certificate",
+      "start": 56.07,
+      "end": 66.77,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    },
+    {
+      "id": "request",
+      "start": 66.77,
+      "end": 78.04,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    },
+    {
+      "id": "ends",
+      "start": 78.04,
+      "end": 92.79,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    },
+    {
+      "id": "end",
+      "start": 92.79,
+      "end": 110.33,
+      "sim": "CONCEPTUAL ILLUSTRATION · NO TRAFFIC CAPTURED"
+    }
+  ],
+  "captions": [
+    {
+      "start": 0.6,
+      "end": 3.7,
+      "text": "Navigation to https://example.test/account?tab=billing#history"
+    },
+    {
+      "start": 3.7,
+      "end": 16.11,
+      "text": "A passive observer sits on the network path. Illustration, not a capture."
+    },
+    {
+      "start": 16.11,
+      "end": 23.38,
+      "text": "Plain DNS: the question for example.test is unencrypted."
+    },
+    {
+      "start": 23.38,
+      "end": 30.65,
+      "text": "Visibility depends on DNS transport and observer position."
+    },
+    {
+      "start": 30.65,
+      "end": 36.43,
+      "text": "Destination IP, port 443, timing and volume are visible."
+    },
+    {
+      "start": 36.43,
+      "end": 42.86,
+      "text": "An IP address does not necessarily identify one unique website."
+    },
+    {
+      "start": 42.86,
+      "end": 49.62,
+      "text": "ClientHello is plaintext. No ECH: the SNI names example.test."
+    },
+    {
+      "start": 49.62,
+      "end": 56.07,
+      "text": "ServerHello: keys agreed. The rest of the handshake is encrypted."
+    },
+    {
+      "start": 56.07,
+      "end": 61.7,
+      "text": "TLS 1.3: the server certificate is inside the encrypted handshake."
+    },
+    {
+      "start": 61.7,
+      "end": 66.77,
+      "text": "The observer sees a record length, not the certificate."
+    },
+    {
+      "start": 66.77,
+      "end": 70.53,
+      "text": "GET /account?tab=billing, headers, cookies, body: encrypted."
+    },
+    {
+      "start": 70.53,
+      "end": 78.04,
+      "text": "Record sizes and timing leak, but not the exact content by themselves."
+    },
+    {
+      "start": 78.04,
+      "end": 87.63,
+      "text": "Browser and TLS endpoint both hold the plaintext. The server may log it."
+    },
+    {
+      "start": 87.63,
+      "end": 92.79,
+      "text": "The fragment #history never left the browser."
+    },
+    {
+      "start": 92.79,
+      "end": 98.44,
+      "text": "Encrypted content can still travel with visible metadata."
+    },
+    {
+      "start": 98.44,
+      "end": 108.33,
+      "text": "Encrypted DNS hides the question, not the IP. ECH hides the SNI, not everything."
+    }
+  ]
+}

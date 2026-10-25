@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Synthetic Demo Project (flawed bundle)</title>
+  <!-- FLAWED: build-time env injected into the page. Both values are synthetic. -->
+  <script>
+    window.__ENV__ = {
+      PUBLIC_PROJECT_ID: "proj_pub_7f3a21",
+      SERVER_SECRET_TOKEN: "srv_secret_SYNTHETIC_9c1e4b7d2f60a3"
+    };
+  </script>
+</head>
+<body>
+  <h1>Synthetic Demo Project</h1>
+  <p>Illustrative local fixture. Not a real product.</p>
+  <pre id="project">loading…</pre>
+  <button id="rotate">Rotate webhook</button>
+  <pre id="result"></pre>
+  <script src="app.js"></script>
+</body>
+</html>

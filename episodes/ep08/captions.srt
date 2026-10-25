@@ -1,0 +1,63 @@
+1
+00:00:00,600 --> 00:00:04,700
+The page looks finished. The hero arrives late.
+
+2
+00:00:04,700 --> 00:00:09,820
+The first click sits there. Two complaints, one word: slow.
+
+3
+00:00:09,820 --> 00:00:15,460
+Loading: how soon is the largest element painted?
+
+4
+00:00:15,460 --> 00:00:22,510
+Interaction: how soon does the page respond after you act?
+
+5
+00:00:22,510 --> 00:00:30,150
+A 4000 px lossless PNG, over 12 MB, for a 1600 px slot.
+
+6
+00:00:30,150 --> 00:00:36,620
+The largest element cannot paint until the bytes arrive and decode.
+
+7
+00:00:36,620 --> 00:00:42,970
+The handler compares 20,000 items against every other, synchronously.
+
+8
+00:00:42,970 --> 00:00:51,430
+Node CPU time, median of 7 runs: 4253 ms. Not browser INP.
+
+9
+00:00:51,430 --> 00:00:59,110
+Same picture, 1600×900 WebP: 17,004 bytes instead of 12,173,721.
+
+10
+00:00:59,110 --> 00:01:05,080
+Still above the fold, still not lazy-loaded.
+
+11
+00:01:05,080 --> 00:01:11,770
+Count each collection once, then look it up. Identical digest.
+
+12
+00:01:11,770 --> 00:01:17,120
+Node CPU median: 1.40 ms. Removed, not hidden.
+
+13
+00:01:17,120 --> 00:01:25,370
+Measured here: file bytes; handler CPU time in Node, 7 runs, median.
+
+14
+00:01:25,370 --> 00:01:32,940
+Not measured: LCP and Event Timing. No browser lab was available.
+
+15
+00:01:32,940 --> 00:01:37,750
+Loading quickly and responding quickly are different tests.
+
+16
+00:01:37,750 --> 00:01:41,350
+Run both, under the same conditions.

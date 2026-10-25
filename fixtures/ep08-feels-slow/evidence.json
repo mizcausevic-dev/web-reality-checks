@@ -1,0 +1,98 @@
+{
+  "generatedAt": "2026-10-25T08:20:30.667Z",
+  "simTag": "LOCAL FIXTURE · NO BROWSER LAB MEASUREMENT",
+  "whatWasMeasured": [
+    "hero image file bytes (before PNG vs after WebP), confirmed via the loopback server",
+    "handler CPU time in Node over 7 runs each, median and raw (fixture-measured handler CPU time in Node, NOT browser INP)"
+  ],
+  "whatWasNotMeasured": [
+    "LCP (loading timeline) — requires a browser lab run; see test-conditions.md",
+    "Event Timing / INP (interaction timeline) — requires a browser lab run; see test-conditions.md",
+    "any transfer time, network throttle or CPU throttle result"
+  ],
+  "environment": {
+    "node": "v22.23.4",
+    "platform": "linux x64",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "cpus": 2
+  },
+  "data": {
+    "items": 20000,
+    "collections": 400,
+    "seed": 8
+  },
+  "assets": {
+    "before": {
+      "file": "hero-large.png",
+      "bytes": 12173721,
+      "width": 4000,
+      "height": 2250,
+      "encoding": "PNG, lossless",
+      "served": {
+        "status": 200,
+        "contentLength": 12173721,
+        "contentType": "image/png",
+        "bodyBytes": 12173721
+      }
+    },
+    "after": {
+      "file": "hero-sized.webp",
+      "bytes": 17004,
+      "width": 1600,
+      "height": 900,
+      "encoding": "WebP, quality 80",
+      "served": {
+        "status": 200,
+        "contentLength": 17004,
+        "contentType": "image/webp",
+        "bodyBytes": 17004
+      }
+    },
+    "ratio": 715.93,
+    "label": "file bytes served by the loopback fixture; not a transfer-time or LCP measurement"
+  },
+  "handlers": {
+    "label": "fixture-measured handler CPU time in Node, NOT browser INP",
+    "before": {
+      "label": "before · O(n²) nested scan",
+      "runs": 7,
+      "warmupRunsExcluded": 1,
+      "rawMs": [
+        4299.32,
+        4921.91,
+        4253.02,
+        3555.42,
+        3288.51,
+        3891.63,
+        4488.83
+      ],
+      "medianMs": 4253.02,
+      "minMs": 3288.51,
+      "maxMs": 4921.91,
+      "digest": "ec44c9fd",
+      "first": 63,
+      "last": 68
+    },
+    "after": {
+      "label": "after · O(n) histogram",
+      "runs": 7,
+      "warmupRunsExcluded": 1,
+      "rawMs": [
+        9.24,
+        1.35,
+        1.31,
+        29.84,
+        1.35,
+        1.4,
+        21.4
+      ],
+      "medianMs": 1.4,
+      "minMs": 1.31,
+      "maxMs": 29.84,
+      "digest": "ec44c9fd",
+      "first": 63,
+      "last": 68
+    }
+  },
+  "equalOutputs": true
+}

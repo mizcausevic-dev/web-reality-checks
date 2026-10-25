@@ -1,0 +1,81 @@
+{
+  "n": 16,
+  "slug": "rate-limit",
+  "title": "It's being rate-limited",
+  "fullTitle": "Your App Isn't Broken. It's Being Rate-Limited.",
+  "scenes": [
+    {
+      "id": "fail",
+      "narration": "Type a word into the search box. Eight keystrokes, eight requests. Halfway through, the API answers four twenty-nine. Nothing is broken. The app is being rate-limited.",
+      "captions": [
+        "Eight keystrokes, eight requests. Then 429: Too Many Requests.",
+        "Nothing is broken. The app is being rate-limited."
+      ]
+    },
+    {
+      "id": "window",
+      "narration": "This fixture's limit is a fixed window: five requests per ten seconds, per server-established identity. The sixth is rejected with Retry-After, the whole seconds until the window resets. Rejected requests are not counted here; other APIs differ.",
+      "captions": [
+        "Fixed window: 5 allowed per 10 s, per identity.",
+        "The sixth gets 429 + Retry-After. Rejected requests are not counted here."
+      ]
+    },
+    {
+      "id": "retry_loop",
+      "narration": "The flawed client retries at once. The window has not moved, so it is rejected again, and again. Eight keystrokes became seventeen requests and twelve rejections.",
+      "captions": [
+        "Immediate retry: the window hasn't moved. Rejected again.",
+        "Observed: 8 keystrokes → 17 requests, 12 × 429."
+      ]
+    },
+    {
+      "id": "debounce",
+      "narration": "Same scripted typing, corrected client. First, debounce. A request leaves only after two hundred and fifty milliseconds of silence. Eight keystrokes collapse into one request.",
+      "captions": [
+        "Debounce: send only after 250 ms of no typing.",
+        "Same 8 keystrokes → 1 request."
+      ]
+    },
+    {
+      "id": "stale",
+      "narration": "Second, stale results. Responses can arrive out of order; a short prefix returns slower. Each request carries a sequence number, and a response is applied only if it is still the latest.",
+      "captions": [
+        "Responses can arrive out of order.",
+        "A sequence number: apply a response only if it is still the latest."
+      ]
+    },
+    {
+      "id": "abort",
+      "narration": "Third, abort. When the query changes, the obsolete request is cancelled with AbortController. The fixture server logged the abort. An abort does not prove a real server stopped working.",
+      "captions": [
+        "AbortController cancels the obsolete request.",
+        "An abort does not prove the server stopped processing."
+      ]
+    },
+    {
+      "id": "retry_after",
+      "narration": "Fourth, respect Retry-After. Round the seconds up, wait, then retry the still-current query at most once. If the query changes, cancel the retry. Not every real four twenty-nine sends this header.",
+      "captions": [
+        "Retry-After: round up, wait, retry the current query at most once.",
+        "Query changed? Cancel the retry. Real 429s may omit the header."
+      ]
+    },
+    {
+      "id": "compare",
+      "narration": "Compare the logs from the same typing. Flawed: seventeen requests, twelve rejected, results shown for the letter p. Corrected: one request, none rejected, results for postgres.",
+      "captions": [
+        "Flawed: 17 requests, 12 × 429, results for \"p\".",
+        "Corrected: 1 request, 0 × 429, results for \"postgres\"."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "Coordinate the work. Don't just repeat it faster. Debouncing does not replace server-side limiting, and this retry policy is for reads, not for requests that change state.",
+      "captions": [
+        "Coordinate the work. Don't just repeat it faster.",
+        "Debouncing is not server-side limiting. Don't reuse this retry policy for writes."
+      ]
+    }
+  ]
+}

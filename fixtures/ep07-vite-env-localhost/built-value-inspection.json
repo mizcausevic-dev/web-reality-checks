@@ -1,0 +1,40 @@
+{
+  "phase": "after-rebuild",
+  "before": {
+    "phase": "before-rebuild",
+    "distDir": "/home/claude/wrc/fixtures/ep07-vite-env-localhost/dist",
+    "inspectedAt": "2026-10-25T08:20:29.846Z",
+    "files": [
+      {
+        "file": "assets/index-PKkaHDlY.js",
+        "bytes": 1061,
+        "sha256": "0476b355c143bade0f2bcece4124e872e82306c696b1e5a305a1f1646855bc9f",
+        "embeddedUrls": [
+          "http://127.0.0.1:41073"
+        ],
+        "containsLiteralImportMetaEnv": false
+      }
+    ],
+    "embeddedUrls": [
+      "http://127.0.0.1:41073"
+    ],
+    "distHash": "3d2951419c71e21024ed5aa0954c3a1c06f945636a30d18aa150dbdfc9524fee"
+  },
+  "distDir": "/home/claude/wrc/fixtures/ep07-vite-env-localhost/dist",
+  "inspectedAt": "2026-10-25T08:20:31.629Z",
+  "files": [
+    {
+      "file": "assets/index-BLHWur4n.js",
+      "bytes": 1061,
+      "sha256": "b9390ffb94dd3398675e61817f9afab15330038d02a860cb216a913bab2740be",
+      "embeddedUrls": [
+        "http://127.0.0.1:42741"
+      ],
+      "containsLiteralImportMetaEnv": false
+    }
+  ],
+  "embeddedUrls": [
+    "http://127.0.0.1:42741"
+  ],
+  "distHash": "0a07396f55f65ccd4101547c051d0a47933ea771818d9ded28d216585dc88bd7"
+}

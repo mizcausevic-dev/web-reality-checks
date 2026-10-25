@@ -1,0 +1,15 @@
+{
+  "name": "ep04-pglite-notes",
+  "private": true,
+  "type": "module",
+  "description": "EP04 fixture: a notes app with PGlite (Postgres in WASM) — Node tests over a filesystem data dir; browser app over idb://",
+  "scripts": {
+    "test": "node --test test.mjs",
+    "demo": "node demo.mjs",
+    "build": "node build-vendor.mjs",
+    "serve": "node serve.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.11"
+  }
+}

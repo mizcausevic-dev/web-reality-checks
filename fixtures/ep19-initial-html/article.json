@@ -1,0 +1,34 @@
+{
+  "slug": "article",
+  "title": "Field Notes on the Lantern Harbour Tide Clock",
+  "description": "A synthetic article about a fictional harbour clock, used to compare client-rendered and statically generated HTML.",
+  "robots": "noindex",
+  "sections": [
+    {
+      "heading": "What the clock measures",
+      "paragraphs": [
+        "The Lantern Harbour tide clock does not measure time. It measures the interval between successive high waters at the harbour mouth, which averages twelve hours and twenty-five minutes.",
+        "Because that interval drifts against the solar day, the single hand completes one revolution per tidal cycle rather than per twelve hours. Visitors who read it as an ordinary clock are consistently wrong by a growing margin."
+      ]
+    },
+    {
+      "heading": "How the mechanism stays in step",
+      "paragraphs": [
+        "A brass cam, cut to the local tidal curve, corrects the hand twice a day. The cam was recut in the fictional year the harbour wall was extended, when the curve changed shape.",
+        "The correction is mechanical and visible: the hand jumps a few degrees at each high water. Nothing about the face hides that step, and nothing about the face explains it either."
+      ]
+    },
+    {
+      "heading": "Reading the clock from the quay",
+      "paragraphs": [
+        "From the quay you see one hand and one dial. From inside the tower you see the cam, the weights and the correction. The two views describe the same clock and disagree about what it contains.",
+        "The same distinction applies to a web page: what a browser eventually shows and what a server initially sent are two different artefacts, and only one of them is visible from the quay."
+      ]
+    }
+  ],
+  "links": [
+    {"text": "Harbour tide tables (synthetic guide)", "href": "/guides/tide-tables/"},
+    {"text": "Maintaining a cam-corrected clock (synthetic guide)", "href": "/guides/clock-maintenance/"},
+    {"text": "About this fixture", "href": "/about/"}
+  ]
+}

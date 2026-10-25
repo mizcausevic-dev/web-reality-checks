@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WRC EP12 · Build 2</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body data-build="2">
+  <main class="app">
+    <p class="tag">Simulated local fixture · same-origin · loopback only</p>
+    <h1 id="build-label">Build 2</h1>
+    <p class="sub">Green interface. This page is served and precached by the Build 2 service worker.</p>
+
+    <section class="panel" aria-labelledby="sw-state-h">
+      <h2 id="sw-state-h">Service worker registration</h2>
+      <dl class="state">
+        <dt>controller</dt><dd id="st-controller">—</dd>
+        <dt>installing</dt><dd id="st-installing">—</dd>
+        <dt>waiting</dt><dd id="st-waiting">—</dd>
+        <dt>active</dt><dd id="st-active">—</dd>
+      </dl>
+      <button id="btn-update" type="button">Check for update (registration.update())</button>
+    </section>
+
+    <section class="panel notice" id="update-notice" hidden aria-live="polite">
+      <h2>Update available</h2>
+      <p>A newer build has installed and is <strong>waiting</strong> behind the worker that controls this page. Nothing changes until you approve. Save unsaved work first: approving reloads this tab once.</p>
+      <button id="btn-approve" type="button">Approve and reload</button>
+    </section>
+
+    <section class="panel">
+      <h2>Event log</h2>
+      <ol id="log" class="log"></ol>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-10-25T08:20:31.669Z",
+  "vite": "8.3.5",
+  "node": "v22.23.4",
+  "topology": "all servers on 127.0.0.1, ephemeral ports; no isolated browser was available",
+  "notReproduced": "The remote-browser failure was NOT reproduced in an isolated browser context. Step remote_client_failure_model is a Node fetch to the embedded loopback port with nothing listening.",
+  "log": [
+    {
+      "id": "local_success",
+      "apiBase": "http://127.0.0.1:41073",
+      "staticOrigin": "http://127.0.0.1:39285",
+      "bundleUrl": "http://127.0.0.1:41073",
+      "request": "GET http://127.0.0.1:41073/health",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "service": "ep07-api",
+        "port": 41073
+      },
+      "corsAllowOrigin": "http://127.0.0.1:39285",
+      "note": "developer machine: the embedded localhost URL is reachable because the API runs on the same loopback"
+    },
+    {
+      "id": "remote_client_failure_model",
+      "bundleUrl": "http://127.0.0.1:41073",
+      "request": "GET http://127.0.0.1:41073/health",
+      "errorName": "TypeError",
+      "errorMessage": "fetch failed",
+      "causeCode": "ECONNREFUSED",
+      "browserEquivalent": "TypeError: Failed to fetch (console: net::ERR_CONNECTION_REFUSED). Not a CORS error.",
+      "conceptual": true,
+      "note": "NOT an isolated browser. Node fetch from this machine to the embedded loopback port after the dev API stopped. The remote-browser scene in the video is a labelled conceptual simulation."
+    },
+    {
+      "id": "bundle_inspection",
+      "files": [
+        {
+          "file": "assets/index-PKkaHDlY.js",
+          "bytes": 1061,
+          "sha256": "0476b355c143bade…"
+        }
+      ],
+      "embeddedUrls": [
+        "http://127.0.0.1:41073"
+      ],
+      "containsLiteralImportMetaEnv": false,
+      "vite": "8.3.5",
+      "source": "src/main.js: const base = import.meta.env.VITE_API_BASE_URL;"
+    },
+    {
+      "id": "host_env_change_no_rebuild",
+      "hostProcessEnv": "http://127.0.0.1:42741",
+      "servedAsset": "/assets/index-PKkaHDlY.js",
+      "servedJsContainsOriginalUrl": true,
+      "servedJsContainsHostEnvValue": false,
+      "distHashBefore": "3d2951419c71e210…",
+      "distHashAfter": "3d2951419c71e210…",
+      "distUnchanged": true,
+      "note": "the static host now has VITE_API_BASE_URL in its own process.env; the files it serves are byte-identical"
+    },
+    {
+      "id": "rebuild_and_retest",
+      "newApiBase": "http://127.0.0.1:42741",
+      "staticOrigin": "http://127.0.0.1:44371",
+      "servedAsset": "/assets/index-BLHWur4n.js",
+      "servedJsContainsNewUrl": true,
+      "servedJsContainsOldUrl": false,
+      "request": "GET http://127.0.0.1:42741/health",
+      "status": 200,
+      "body": {
+        "ok": true,
+        "service": "ep07-api",
+        "port": 42741
+      },
+      "corsAllowOrigin": "http://127.0.0.1:44371"
+    }
+  ]
+}

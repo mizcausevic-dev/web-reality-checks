@@ -1,0 +1,138 @@
+{
+  "generatedAt": "2026-10-25T08:27:10.389Z",
+  "base": "http://127.0.0.1:<ephemeral>",
+  "clock": {
+    "kind": "scaled",
+    "virtualMsPerRealMs": 10,
+    "note": "all ms values are virtual fixture time; limiter window = 10 000 virtual ms"
+  },
+  "policy": {
+    "limit": 5,
+    "windowMs": 10000,
+    "rejectedCount": false,
+    "retryAfterFormat": "delta-seconds, integer, rounded up, min 1",
+    "identity": "server-established synthetic test identity (not production auth)"
+  },
+  "flawed": {
+    "label": "A. flawed client, scripted typing",
+    "client": "flawed",
+    "script": "postgres (8 keystrokes, 80 ms apart)",
+    "preExhausted": false,
+    "summary": {
+      "clientRequests": 17,
+      "clientRetries": 9,
+      "client429": 12,
+      "serverRequestsSeen": 17,
+      "server200": 5,
+      "server429": 12,
+      "serverAbortsObserved": 0,
+      "droppedStaleResponses": 0,
+      "abortedByClient": 0,
+      "cancelledRetries": 0,
+      "staleRenders": 5,
+      "finalInput": "postgres",
+      "finalResultsFor": "p",
+      "finalResults": [
+        "postgres",
+        "postgresql tuning",
+        "postgres replication",
+        "postfix",
+        "posix threads",
+        "post-mortem template",
+        "pnpm workspaces",
+        "playwright",
+        "prometheus",
+        "pulumi",
+        "python asyncio",
+        "parquet"
+      ]
+    }
+  },
+  "corrected": {
+    "label": "B. corrected client, same scripted typing",
+    "client": "corrected",
+    "script": "postgres (8 keystrokes, 80 ms apart)",
+    "preExhausted": false,
+    "summary": {
+      "clientRequests": 1,
+      "clientRetries": 0,
+      "client429": 0,
+      "serverRequestsSeen": 1,
+      "server200": 1,
+      "server429": 0,
+      "serverAbortsObserved": 0,
+      "droppedStaleResponses": 0,
+      "abortedByClient": 0,
+      "cancelledRetries": 0,
+      "staleRenders": 0,
+      "finalInput": "postgres",
+      "finalResultsFor": "postgres",
+      "finalResults": [
+        "postgres",
+        "postgresql tuning",
+        "postgres replication"
+      ]
+    }
+  },
+  "correctedAbort": {
+    "label": "B2. corrected client, paused typing (shows abort + sequence guard)",
+    "client": "corrected",
+    "script": "postgres (8 keystrokes, 80 ms apart, 600 ms pause after \"post\")",
+    "preExhausted": false,
+    "summary": {
+      "clientRequests": 2,
+      "clientRetries": 0,
+      "client429": 0,
+      "serverRequestsSeen": 2,
+      "server200": 2,
+      "server429": 0,
+      "serverAbortsObserved": 1,
+      "droppedStaleResponses": 0,
+      "abortedByClient": 1,
+      "cancelledRetries": 0,
+      "staleRenders": 0,
+      "finalInput": "postgres",
+      "finalResultsFor": "postgres",
+      "finalResults": [
+        "postgres",
+        "postgresql tuning",
+        "postgres replication"
+      ]
+    }
+  },
+  "correctedRetry": {
+    "label": "C. corrected client, window already exhausted (shows Retry-After path)",
+    "client": "corrected",
+    "script": "postgres (8 keystrokes, 80 ms apart)",
+    "preExhausted": true,
+    "summary": {
+      "clientRequests": 2,
+      "clientRetries": 1,
+      "client429": 1,
+      "serverRequestsSeen": 7,
+      "server200": 6,
+      "server429": 1,
+      "serverAbortsObserved": 0,
+      "droppedStaleResponses": 0,
+      "abortedByClient": 0,
+      "cancelledRetries": 0,
+      "staleRenders": 0,
+      "finalInput": "postgres",
+      "finalResultsFor": "postgres",
+      "finalResults": [
+        "postgres",
+        "postgresql tuning",
+        "postgres replication"
+      ]
+    },
+    "serverLogIncludesPreExhaust": true,
+    "retryDetail": {
+      "firstStatus": 429,
+      "retryAfterHeader": "3",
+      "scheduledRetryInMs": 3000,
+      "retryAt": 10889,
+      "retryStatus": 200,
+      "firstDoneAt": 7725
+    }
+  }
+}

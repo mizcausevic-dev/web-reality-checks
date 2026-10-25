@@ -1,0 +1,393 @@
+{
+  "generatedAt": "2026-10-25T08:27:10.389Z",
+  "clock": {
+    "kind": "scaled",
+    "virtualMsPerRealMs": 10,
+    "note": "all ms values are virtual fixture time; limiter window = 10 000 virtual ms"
+  },
+  "label": "A. flawed client, scripted typing",
+  "client": "flawed",
+  "script": "postgres (8 keystrokes, 80 ms apart)",
+  "preExhausted": false,
+  "summary": {
+    "clientRequests": 17,
+    "clientRetries": 9,
+    "client429": 12,
+    "serverRequestsSeen": 17,
+    "server200": 5,
+    "server429": 12,
+    "serverAbortsObserved": 0,
+    "droppedStaleResponses": 0,
+    "abortedByClient": 0,
+    "cancelledRetries": 0,
+    "staleRenders": 5,
+    "finalInput": "postgres",
+    "finalResultsFor": "p",
+    "finalResults": [
+      "postgres",
+      "postgresql tuning",
+      "postgres replication",
+      "postfix",
+      "posix threads",
+      "post-mortem template",
+      "pnpm workspaces",
+      "playwright",
+      "prometheus",
+      "pulumi",
+      "python asyncio",
+      "parquet"
+    ]
+  },
+  "keystrokes": [
+    {
+      "at": 1142,
+      "text": "p"
+    },
+    {
+      "at": 1247,
+      "text": "po"
+    },
+    {
+      "at": 1338,
+      "text": "pos"
+    },
+    {
+      "at": 1443,
+      "text": "post"
+    },
+    {
+      "at": 1540,
+      "text": "postg"
+    },
+    {
+      "at": 1632,
+      "text": "postgr"
+    },
+    {
+      "at": 1770,
+      "text": "postgre"
+    },
+    {
+      "at": 2137,
+      "text": "postgres"
+    }
+  ],
+  "clientLog": [
+    {
+      "n": 1,
+      "at": 1143,
+      "q": "p",
+      "attempt": 0,
+      "status": 200,
+      "doneAt": 2993,
+      "stale": true
+    },
+    {
+      "n": 2,
+      "at": 1247,
+      "q": "po",
+      "attempt": 0,
+      "status": 200,
+      "doneAt": 2988,
+      "stale": true
+    },
+    {
+      "n": 3,
+      "at": 1339,
+      "q": "pos",
+      "attempt": 0,
+      "status": 200,
+      "doneAt": 2982,
+      "stale": true
+    },
+    {
+      "n": 4,
+      "at": 1443,
+      "q": "post",
+      "attempt": 0,
+      "status": 200,
+      "doneAt": 2775,
+      "stale": true
+    },
+    {
+      "n": 5,
+      "at": 1540,
+      "q": "postg",
+      "attempt": 0,
+      "status": 200,
+      "doneAt": 2468,
+      "stale": true
+    },
+    {
+      "n": 6,
+      "at": 1632,
+      "q": "postgr",
+      "attempt": 0,
+      "status": 429,
+      "doneAt": 1706,
+      "retryAfter": "9"
+    },
+    {
+      "n": 7,
+      "at": 1707,
+      "q": "postgr",
+      "attempt": 1,
+      "status": 429,
+      "doneAt": 2044,
+      "retryAfter": "9"
+    },
+    {
+      "n": 8,
+      "at": 1770,
+      "q": "postgre",
+      "attempt": 0,
+      "status": 429,
+      "doneAt": 2151,
+      "retryAfter": "8"
+    },
+    {
+      "n": 9,
+      "at": 2044,
+      "q": "postgr",
+      "attempt": 2,
+      "status": 429,
+      "doneAt": 2971,
+      "retryAfter": "8"
+    },
+    {
+      "n": 10,
+      "at": 2137,
+      "q": "postgres",
+      "attempt": 0,
+      "status": 429,
+      "doneAt": 2801,
+      "retryAfter": "8"
+    },
+    {
+      "n": 11,
+      "at": 2151,
+      "q": "postgre",
+      "attempt": 1,
+      "status": 429,
+      "doneAt": 3167,
+      "retryAfter": "8"
+    },
+    {
+      "n": 12,
+      "at": 2801,
+      "q": "postgres",
+      "attempt": 1,
+      "status": 429,
+      "doneAt": 3181,
+      "retryAfter": "7"
+    },
+    {
+      "n": 13,
+      "at": 2971,
+      "q": "postgr",
+      "attempt": 3,
+      "status": 429,
+      "doneAt": 3184,
+      "retryAfter": "7",
+      "gaveUp": true
+    },
+    {
+      "n": 14,
+      "at": 3167,
+      "q": "postgre",
+      "attempt": 2,
+      "status": 429,
+      "doneAt": 3248,
+      "retryAfter": "7"
+    },
+    {
+      "n": 15,
+      "at": 3181,
+      "q": "postgres",
+      "attempt": 2,
+      "status": 429,
+      "doneAt": 3258,
+      "retryAfter": "7"
+    },
+    {
+      "n": 16,
+      "at": 3248,
+      "q": "postgre",
+      "attempt": 3,
+      "status": 429,
+      "doneAt": 3265,
+      "retryAfter": "7",
+      "gaveUp": true
+    },
+    {
+      "n": 17,
+      "at": 3258,
+      "q": "postgres",
+      "attempt": 3,
+      "status": 429,
+      "doneAt": 3268,
+      "retryAfter": "7",
+      "gaveUp": true
+    }
+  ],
+  "serverLog": [
+    {
+      "n": 1,
+      "at": 1177,
+      "identity": "id_tester",
+      "q": "p",
+      "status": 200,
+      "remaining": 4,
+      "retryAfter": null,
+      "servedAt": 2795
+    },
+    {
+      "n": 2,
+      "at": 1263,
+      "identity": "id_tester",
+      "q": "po",
+      "status": 200,
+      "remaining": 3,
+      "retryAfter": null,
+      "servedAt": 2793
+    },
+    {
+      "n": 3,
+      "at": 1408,
+      "identity": "id_tester",
+      "q": "pos",
+      "status": 200,
+      "remaining": 2,
+      "retryAfter": null,
+      "servedAt": 2789
+    },
+    {
+      "n": 4,
+      "at": 1465,
+      "identity": "id_tester",
+      "q": "post",
+      "status": 200,
+      "remaining": 1,
+      "retryAfter": null,
+      "servedAt": 2317
+    },
+    {
+      "n": 5,
+      "at": 1607,
+      "identity": "id_tester",
+      "q": "postg",
+      "status": 200,
+      "remaining": 0,
+      "retryAfter": null,
+      "servedAt": 2288
+    },
+    {
+      "n": 6,
+      "at": 1654,
+      "identity": "id_tester",
+      "q": "postgr",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 9
+    },
+    {
+      "n": 7,
+      "at": 1788,
+      "identity": "id_tester",
+      "q": "postgr",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 9
+    },
+    {
+      "n": 8,
+      "at": 2128,
+      "identity": "id_tester",
+      "q": "postgre",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 8
+    },
+    {
+      "n": 9,
+      "at": 2454,
+      "identity": "id_tester",
+      "q": "postgres",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 8
+    },
+    {
+      "n": 10,
+      "at": 2780,
+      "identity": "id_tester",
+      "q": "postgr",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 8
+    },
+    {
+      "n": 11,
+      "at": 2997,
+      "identity": "id_tester",
+      "q": "postgre",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 8
+    },
+    {
+      "n": 12,
+      "at": 3172,
+      "identity": "id_tester",
+      "q": "postgres",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 7
+    },
+    {
+      "n": 13,
+      "at": 3175,
+      "identity": "id_tester",
+      "q": "postgr",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 7
+    },
+    {
+      "n": 14,
+      "at": 3186,
+      "identity": "id_tester",
+      "q": "postgre",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 7
+    },
+    {
+      "n": 15,
+      "at": 3252,
+      "identity": "id_tester",
+      "q": "postgres",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 7
+    },
+    {
+      "n": 16,
+      "at": 3261,
+      "identity": "id_tester",
+      "q": "postgre",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 7
+    },
+    {
+      "n": 17,
+      "at": 3265,
+      "identity": "id_tester",
+      "q": "postgres",
+      "status": 429,
+      "remaining": 0,
+      "retryAfter": 7
+    }
+  ]
+}

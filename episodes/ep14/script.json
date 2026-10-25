@@ -1,0 +1,16 @@
+{
+  "n": 14,
+  "slug": "upload-stages",
+  "title": "Uploaded, not ready",
+  "fullTitle": "100% Uploaded. Why Isn't My File Ready?",
+  "scenes": [
+    {"id": "fail", "narration": "The bar says one hundred percent. The file is not ready. Nothing is wrong with the bar. It was measuring something else.", "captions": ["The bar says 100%. The file is not ready.", "Nothing is wrong with the bar. It measured something else."]},
+    {"id": "stages", "narration": "An upload is four stages. Transfer: the request body leaves the browser. Acceptance: the server answers with a status. Processing: a worker parses the file. Availability: the result can be fetched. The bar only showed the first.", "captions": ["Four stages: transfer, acceptance, processing, availability.", "The bar only showed the first."]},
+    {"id": "progress", "narration": "Browser upload progress comes from XMLHttpRequest upload events: loaded over total, only when the total is computable. Those bytes are the request body, multipart overhead included. Here an eighty-two byte file travelled as two hundred and thirty-two bytes.", "captions": ["XHR upload events: loaded / total, only if lengthComputable.", "Those are request-body bytes, multipart overhead included.", "An 82-byte file travelled as a 232-byte request body."]},
+    {"id": "accepted", "narration": "After the last byte, the response arrives separately: two oh two, Accepted, with a job ID. Accepted means stored and queued, not processed. Asking for the result now returns four oh nine.", "captions": ["After the last byte, the response arrives separately: 202 Accepted + job ID.", "Accepted means stored and queued, not processed. Result now: 409."]},
+    {"id": "ready", "narration": "Polling the authorised status endpoint, the job moves from accepted to ready. Only then does the result open: three rows, total one hundred and fourteen point seven five. Another user asking for the same job gets four oh four.", "captions": ["Polling the authorised status endpoint: accepted → ready.", "Only then does the result open. Another user gets 404."]},
+    {"id": "fail_rows", "narration": "Same flow, different file. It transfers fully and is accepted, two oh two. Then the worker finds a bad email on line three and a non-numeric amount on line four. The job fails, with a reason. The bar had still said one hundred percent.", "captions": ["Same flow, different file: 100% transferred, 202 Accepted.", "The worker finds bad rows. Job failed, with a reason.", "The bar had still said 100%."]},
+    {"id": "fix", "narration": "So replace the single bar with four statuses. Transfer, from upload events. Accepted, from the HTTP status. Processing, as a plain state with no invented percentage. Available, only when ready. And remember: parsing is not malware scanning.", "captions": ["Replace the single bar with four statuses.", "Processing is a plain state: no invented percentage.", "Parsing is not malware scanning."]},
+    {"id": "end", "sim": null, "narration": "Bytes transferred is not the same as work completed.", "captions": ["Bytes transferred is not the same as work completed."]}
+  ]
+}

@@ -1,0 +1,45 @@
+<!doctype html>
+<!--
+  Episode 14 fixture: illustrative browser uploader.
+  PROVIDED, NOT EXECUTED: this page was not run in a browser as part of this fixture's tests
+  (no browser is available in the build environment). It is served by server.mjs at GET /
+  so it can be opened manually against the loopback fixture after `GET /login/alice`.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EP14 uploader (local fixture)</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #0b0c10; color: #f3ede3; margin: 0; padding: 40px; }
+  .card { max-width: 720px; margin: 0 auto; background: #171a21; border: 2px solid #2a2e38; border-radius: 16px; padding: 28px; }
+  .tag { display: inline-block; border: 2px solid #f5b63d; color: #f5b63d; border-radius: 8px; padding: 4px 10px; font-size: 12px; letter-spacing: 2px; font-weight: 700; }
+  h1 { font-size: 22px; margin: 16px 0 8px; }
+  .stage { display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid #2a2e38; font-size: 16px; }
+  .stage .name { color: #9a978f; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; }
+  .bar { height: 10px; background: #2a2e38; border-radius: 5px; overflow: hidden; margin-top: 6px; }
+  .bar > div { height: 100%; width: 0; background: #3dd6f5; transition: width .1s linear; }
+  .bar.indeterminate > div { width: 30%; animation: slide 1s infinite linear; }
+  @keyframes slide { from { margin-left: -30%; } to { margin-left: 100%; } }
+  .ok { color: #5fe08a; } .warn { color: #f5b63d; } .bad { color: #f5533d; }
+  button { background: #3dd6f5; color: #0b0c10; border: 0; border-radius: 10px; padding: 10px 18px; font-weight: 700; margin-top: 14px; }
+  button[disabled] { background: #5e5c57; }
+  small { color: #9a978f; }
+</style>
+</head>
+<body>
+<div class="card">
+  <span class="tag">SIMULATED LOCAL FIXTURE · PROVIDED, NOT EXECUTED</span>
+  <h1>Upload a CSV</h1>
+  <p><small>Sign in first via <code>/login/alice</code> in this tab so the session cookie exists. Max request body 64 KiB.</small></p>
+  <input id="file" type="file" accept=".csv,text/csv">
+  <button id="send">Send file</button>
+
+  <div class="stage"><div class="name">1 · Transfer</div><div><span id="transfer">idle</span><div class="bar" id="transferBar"><div></div></div>
+    <small>Request-body bytes (multipart overhead included). Shown as a percentage only when <code>lengthComputable</code> is true.</small></div></div>
+  <div class="stage"><div class="name">2 · Accepted</div><div id="accepted">—<br><small>The HTTP status, read after the body finished.</small></div></div>
+  <div class="stage"><div class="name">3 · Processing</div><div id="processing">—<br><small>Polled from <code>GET /jobs/:id</code>. No percentage: the server does not measure one.</small></div></div>
+  <div class="stage"><div class="name">4 · Available</div><div id="available">—<br><small>Result link appears only when status is <code>ready</code>.</small></div></div>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

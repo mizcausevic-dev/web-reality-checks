@@ -1,0 +1,80 @@
+{
+  "n": 5,
+  "slug": "directory-quality",
+  "title": "How many are wrong?",
+  "fullTitle": "Your Directory Has 10,000 Listings. How Many Are Wrong?",
+  "scenes": [
+    {
+      "id": "counter",
+      "sim": "SYNTHETIC DATASET · SEEDED",
+      "narration": "Ten thousand listings. The number the directory is proud of, and the only one it has. A count says how many rows exist, not how many are right.",
+      "captions": [
+        "10,000 listings. The only number the directory has.",
+        "A count says how many rows exist, not how many are right."
+      ]
+    },
+    {
+      "id": "overlap",
+      "sim": "SYNTHETIC DATASET · SEEDED",
+      "narration": "Behind the count sit several kinds of problem, and they overlap. One row can be a duplicate, carry a dead link, and hold an address nobody has confirmed in years. The dataset is synthetic and seeded: we know what was planted.",
+      "captions": [
+        "Problems overlap: one row can carry several flags.",
+        "Synthetic, seeded dataset: we know exactly what was planted."
+      ]
+    },
+    {
+      "id": "checks",
+      "sim": "SYNTHETIC DATASET · SEEDED",
+      "narration": "Five checks run on the public rows only. Completeness. Duplicate candidates. URL syntax. Website availability, against a local mock responder, never real sites. And verification age, kept apart from last changed and last checked.",
+      "captions": [
+        "Five checks on the public rows only. Website checks hit a local mock, not real sites.",
+        "Last verified is kept apart from last changed and last checked."
+      ]
+    },
+    {
+      "id": "counts",
+      "sim": "SYNTHETIC DATASET · SEEDED",
+      "narration": "The actual numbers. Three thousand eight hundred and seventy-five issue instances, but only three thousand three hundred and three distinct listings, because flags overlap. Add the columns together and you invent problems that do not exist.",
+      "captions": [
+        "3,875 issue instances. 3,303 distinct flagged listings.",
+        "Adding the columns together invents problems that do not exist."
+      ]
+    },
+    {
+      "id": "fail_timeout",
+      "sim": "SYNTHETIC DATASET · SEEDED",
+      "narration": "Why a flag is not a verdict: Copper Framing's website timed out. In the ground truth, which the checker never saw, the business is open. Over a thousand failed website checks landed on open businesses.",
+      "captions": [
+        "The website timed out. In the ground truth, the business is open.",
+        "1,038 failed website checks landed on open businesses."
+      ]
+    },
+    {
+      "id": "queue",
+      "sim": "SYNTHETIC DATASET · SEEDED",
+      "narration": "So uncertain cases are not deleted. They move into a review queue, each card carrying every reason it was flagged, ordered by what needs a human first.",
+      "captions": [
+        "Uncertain cases go to a review queue, not the bin.",
+        "Each card carries every reason it was flagged."
+      ]
+    },
+    {
+      "id": "decision",
+      "sim": "SYNTHETIC DATASET · SEEDED",
+      "narration": "A reviewer records a decision with the evidence seen, a timestamp, and a name. Keep the listing, re-check in a week. Last checked moves. Last verified does not, because nothing was verified.",
+      "captions": [
+        "A decision records evidence, timestamp and reviewer.",
+        "Last checked moves. Last verified does not."
+      ]
+    },
+    {
+      "id": "end",
+      "sim": null,
+      "narration": "The checker also missed planted problems: moves with no edit trail, closed businesses whose sites still answer. A failed website check is a lead, not proof.",
+      "captions": [
+        "The checker also missed planted problems. They are reported as missed.",
+        "A failed website check is a lead to investigate, not proof."
+      ]
+    }
+  ]
+}
