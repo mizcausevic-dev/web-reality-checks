@@ -127,7 +127,7 @@ export const FrameBox: React.FC<{cx: number; cy: number; w: number; h: number; k
 );
 
 /** Diverging bar: label on the axis, left bar grows left, right bar grows right. p in [0,1] animates growth. */
-export const Mirror: React.FC<{y: number; label: string; left: {value: number; text: string; color?: string}; right: {value: number; text: string; color?: string}; max: number; half?: number; p?: number; o?: number; bh?: number}> = ({y, label, left, right, max, half = 720, p = 1, o = 1, bh = 56}) => {
+export const Mirror: React.FC<{y: number; label: string; left: {value: number; text: string; color?: string}; right: {value: number; text: string; color?: string}; max: number; half?: number; p?: number; o?: number; bh?: number}> = ({y, label, left, right, max, half = 470, p = 1, o = 1, bh = 56}) => {
   const lw = (left.value / max) * half * p;
   const rw = (right.value / max) * half * p;
   const lc = left.color ?? C.cyan;
