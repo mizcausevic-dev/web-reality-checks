@@ -94,7 +94,7 @@ scenes.forEach((sc, i) => {
 });
 
 const heroDefault = scenes.find((s) => /leak|fail|freeze|dup|stale|wrong|break/.test(s.id)) ?? scenes[1] ?? scenes[0];
-const timeline = {n: script.n, ...(script.series ? {series: script.series} : {}), title: script.title, ...(script.tag ? {tag: script.tag} : {}), ...(script.kicker ? {kicker: script.kicker} : {}), fullTitle: script.fullTitle ?? script.title, slug: script.slug, hero: script.hero ?? {scene: heroDefault.id, t: Math.min(6, Math.max(2, (heroDefault.end - heroDefault.start) - 1))}, audio: hasAudio ? audioRel : null, duration, scenes, captions};
+const timeline = {n: script.n, ...(script.series ? {series: script.series} : {}), ...(script.palette ? {palette: script.palette} : {}), title: script.title, ...(script.tag ? {tag: script.tag} : {}), ...(script.kicker ? {kicker: script.kicker} : {}), fullTitle: script.fullTitle ?? script.title, slug: script.slug, hero: script.hero ?? {scene: heroDefault.id, t: Math.min(6, Math.max(2, (heroDefault.end - heroDefault.start) - 1))}, audio: hasAudio ? audioRel : null, duration, scenes, captions};
 const tlDir = path.join(root, 'video', 'src', 'episodes', ep);
 fs.mkdirSync(tlDir, {recursive: true});
 fs.writeFileSync(path.join(tlDir, 'timeline.json'), JSON.stringify(timeline, null, 2));

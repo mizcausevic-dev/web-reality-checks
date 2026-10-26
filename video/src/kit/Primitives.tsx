@@ -23,7 +23,7 @@ export const Bg: React.FC<Kids> = ({children}) => (
 
 /** Persistent corner tag for simulated / conceptual content. Never remove while the simulated content is visible. */
 export const SimTag: React.FC<{label?: string; color?: string}> = ({label = 'SIMULATED LOCAL FIXTURE', color = C.amber}) => (
-  <div style={{position: 'absolute', right: M, top: MV, padding: '8px 16px', border: `2px solid ${color}`, borderRadius: 8, fontFamily: F.sans, fontSize: 20, fontWeight: 700, letterSpacing: 3, color, background: 'rgba(11,12,16,0.7)'}}>{label}</div>
+  <div style={{position: 'absolute', right: M, top: MV, padding: '8px 16px', border: `2px solid ${color}`, borderRadius: 8, fontFamily: F.sans, fontSize: 20, fontWeight: 700, letterSpacing: 3, color, background: `rgba(${C.bgRgb},0.7)`}}>{label}</div>
 );
 
 /** Bottom caption bar, kept separate from diagram labels. */

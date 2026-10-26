@@ -2,12 +2,14 @@ import React from 'react';
 import {AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {Bg, Caption, EpisodeTag, SimTag} from './Primitives';
 import {prog} from './anim';
+import {applyPalette} from './theme';
 
 export type SceneProps = {t: number; T: number; dur: number};
 export type SceneDef = {id: string; start: number; end: number; sim?: string | null};
 export type Cue = {start: number; end: number; text: string};
 export type Timeline = {
   n: number;
+  palette?: string; // theme palette name; omitted means the original look
   series?: string; // series name shown in the tag and hero; defaults to Web Reality Checks
   title: string;
   tag?: string; // optional tag text replacing the episode number (launch videos)
@@ -20,6 +22,7 @@ export type Timeline = {
 
 export const makeEpisode = (tl: Timeline, scenes: Record<string, React.FC<SceneProps>>, defaultSim: string | null = 'SIMULATED LOCAL FIXTURE'): React.FC => {
   const Comp: React.FC = () => {
+    applyPalette(tl.palette);
     const frame = useCurrentFrame();
     const {fps} = useVideoConfig();
     const T = frame / fps;
