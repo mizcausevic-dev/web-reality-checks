@@ -153,7 +153,7 @@ export const Verdict: React.FC<{y: number; text: string; color?: string; o?: num
 );
 
 /** Row of small cells centered on the axis (frames, packets, steps). `lit` marks cells that take `color`. */
-export const Cells: React.FC<{y: number; n: number; lit?: (i: number) => boolean; color?: string; dim?: string; size?: number; gap?: number; o?: number; perRow?: number}> = ({y, n, lit = () => false, color = C.cyan, dim = C.line, size = 28, gap = 8, o = 1, perRow}) => {
+export const Cells: React.FC<{y: number; cx?: number; n: number; lit?: (i: number) => boolean; color?: string; dim?: string; size?: number; gap?: number; o?: number; perRow?: number}> = ({y, cx = CX, n, lit = () => false, color = C.cyan, dim = C.line, size = 28, gap = 8, o = 1, perRow}) => {
   const per = perRow ?? n;
   const rows = Math.ceil(n / per);
   return (
@@ -164,7 +164,7 @@ export const Cells: React.FC<{y: number; n: number; lit?: (i: number) => boolean
         return Array.from({length: count}, (_, c) => {
           const i = r * per + c;
           const on = lit(i);
-          return <div key={i} style={{position: 'absolute', left: CX - total / 2 + c * (size + gap), top: r * (size + gap), width: size, height: size, borderRadius: 6, background: on ? color : 'transparent', border: `2px solid ${on ? color : dim}`, boxShadow: on ? `0 0 14px ${color}77` : 'none'}} />;
+          return <div key={i} style={{position: 'absolute', left: cx - total / 2 + c * (size + gap), top: r * (size + gap), width: size, height: size, borderRadius: 6, background: on ? color : 'transparent', border: `2px solid ${on ? color : dim}`, boxShadow: on ? `0 0 14px ${color}77` : 'none'}} />;
         });
       })}
     </div>
