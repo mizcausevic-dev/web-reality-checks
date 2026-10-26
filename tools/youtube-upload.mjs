@@ -10,6 +10,7 @@
 //   node tools/youtube-upload.mjs --ids ep01..ep30 --upload --playlist --captions
 //   node tools/youtube-upload.mjs --ids series --upload        the full-series cut (run tools/build-series-cut.mjs first)
 //
+//          --auth --scope analytics [--store-token]   a second, read-only consent for reports (YOUTUBE_ANALYTICS_REFRESH_TOKEN)
 //          --rethumb (send the thumbnail again when the file changed since the last send; use with --upload)
 // Options: --privacy private|unlisted|public (default private; public also needs --confirm-public)
 //          --playlist (create/reuse the series playlist and add each film)  --captions (400 quota units each)
@@ -33,6 +34,8 @@ export function setRoot(dir) { ROOT = path.resolve(dir); }
 // series.json (optional): {name, idPrefix, hashtags, playlistTitle, playlistDescription, channel, category}
 export function seriesConfig() { try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'series.json'), 'utf8')); } catch { return null; } }
 const SCOPES = ['https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtube.force-ssl'];
+// A separate, read-only token for reports (tools/yt-analytics.mjs). It cannot upload or edit anything.
+const ANALYTICS_SCOPES = ['https://www.googleapis.com/auth/yt-analytics.readonly'];
 const AUTH_URL = 'https://accounts.google.com/o/oauth2/v2/auth';
 const LOOPBACK = new Set(['127.0.0.1', 'localhost']);
 
@@ -281,8 +284,10 @@ const loadState = () => { try { return JSON.parse(fs.readFileSync(STATE_FILE(), 
 const saveState = (s) => { const t = `${STATE_FILE()}.tmp`; fs.writeFileSync(t, JSON.stringify(s, null, 2)); fs.renameSync(t, STATE_FILE()); };
 
 // ---------- --auth (installed-app loopback flow with PKCE) ----------
-async function auth(storeToken) {
-  if (storeToken && process.platform !== 'win32') throw new Error('--store-token is Windows only; run --auth without it and set YOUTUBE_REFRESH_TOKEN yourself');
+async function auth(storeToken, analytics = false) {
+  const scopes = analytics ? ANALYTICS_SCOPES : SCOPES;
+  const tokenVar = analytics ? 'YOUTUBE_ANALYTICS_REFRESH_TOKEN' : 'YOUTUBE_REFRESH_TOKEN';
+  if (storeToken && process.platform !== 'win32') throw new Error(`--store-token is Windows only; run --auth without it and set ${tokenVar} yourself`);
   for (const k of ['YOUTUBE_CLIENT_ID', 'YOUTUBE_CLIENT_SECRET']) if (!process.env[k]) throw new Error(`BLOCKED: set environment variable ${k} first`);
   const verifier = crypto.randomBytes(48).toString('base64url');
   const challenge = crypto.createHash('sha256').update(verifier).digest('base64url');
@@ -298,7 +303,7 @@ async function auth(storeToken) {
     }).listen(0, '127.0.0.1', () => {
       port = srv.address().port;
       const redirect = `http://127.0.0.1:${port}`;
-      const url = `${AUTH_URL}?${new URLSearchParams({client_id: process.env.YOUTUBE_CLIENT_ID, redirect_uri: redirect, response_type: 'code', scope: SCOPES.join(' '), access_type: 'offline', prompt: 'consent select_account', code_challenge: challenge, code_challenge_method: 'S256', state})}`;
+      const url = `${AUTH_URL}?${new URLSearchParams({client_id: process.env.YOUTUBE_CLIENT_ID, redirect_uri: redirect, response_type: 'code', scope: scopes.join(' '), access_type: 'offline', prompt: 'consent select_account', code_challenge: challenge, code_challenge_method: 'S256', state})}`;
       console.log(`Open this URL in your browser and approve access:\n\n${url}\n`);
       if (!process.env.YOUTUBE_NO_BROWSER) {
         const [cmd, args] = process.platform === 'win32' ? ['rundll32', ['url.dll,FileProtocolHandler', url]] : process.platform === 'darwin' ? ['open', [url]] : ['xdg-open', [url]];
@@ -313,12 +318,12 @@ async function auth(storeToken) {
   if (!r.ok || !j.refresh_token) throw new Error(`token exchange failed: ${j.error ?? r.status} ${j.error_description ?? ''}`.trim());
   if (storeToken) {
     // Windows only. The token travels in the child's environment, never on a command line, and is never printed.
-    const r = spawnSync('powershell.exe', ['-NoProfile', '-Command', "[Environment]::SetEnvironmentVariable('YOUTUBE_REFRESH_TOKEN', $env:WRC_TMP_TOKEN, 'User')"], {env: {...process.env, WRC_TMP_TOKEN: j.refresh_token}, stdio: 'ignore'});
+    const r = spawnSync('powershell.exe', ['-NoProfile', '-Command', "[Environment]::SetEnvironmentVariable('" + tokenVar + "', $env:WRC_TMP_TOKEN, 'User')"], {env: {...process.env, WRC_TMP_TOKEN: j.refresh_token}, stdio: 'ignore'});
     if (r.status !== 0) throw new Error('could not store the token in the user environment; rerun --auth without --store-token');
-    console.log('SUCCESS. Refresh token stored in the user environment variable YOUTUBE_REFRESH_TOKEN (value not shown). Open a new terminal to use it.');
+    console.log(`SUCCESS. Refresh token stored in the user environment variable ${tokenVar} (value not shown). Open a new terminal to use it.`);
     return;
   }
-  console.log('SUCCESS. Copy the refresh token below into the user environment variable YOUTUBE_REFRESH_TOKEN, then clear this terminal.');
+  console.log(`SUCCESS. Copy the refresh token below into the user environment variable ${tokenVar}, then clear this terminal.`);
   console.log('It is shown once and is not saved anywhere by this tool.\n');
   console.log(j.refresh_token);
 }
@@ -327,10 +332,10 @@ async function auth(storeToken) {
 const fileHash = (file) => crypto.createHash('sha1').update(fs.readFileSync(file)).digest('hex');
 
 export function parseArgs(argv) {
-  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, rethumb: false, publish: false, titleOption: 1, seriesThumb: null, root: null};
+  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, rethumb: false, scope: null, publish: false, titleOption: 1, seriesThumb: null, root: null};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], nx = () => argv[++i];
-    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--title-suffix') o.titleSuffix = nx(); else if (a === '--retitle') o.retitle = true; else if (a === '--rethumb') o.rethumb = true; else if (a === '--publish') o.publish = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
+    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--title-suffix') o.titleSuffix = nx(); else if (a === '--retitle') o.retitle = true; else if (a === '--rethumb') o.rethumb = true; else if (a === '--scope') o.scope = nx(); else if (a === '--publish') o.publish = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
     else if (a === '--synthetic') o.synthetic = true; else if (a === '--confirm-public') o.confirmPublic = true; else if (a === '--ids') o.ids = nx(); else if (a === '--privacy') o.privacy = nx();
     else if (a === '--category') o.category = Number(nx()); else if (a === '--max-units') o.maxUnits = Number(nx()); else if (a === '--title-option') o.titleOption = Number(nx()); else if (a === '--series-thumb') o.seriesThumb = nx(); else if (a === '--root') o.root = nx();
     else throw new Error(`unknown option ${a}`);
@@ -355,7 +360,8 @@ async function main() {
   const cfg = seriesConfig();
   if (cfg) { o.titleSuffix ??= cfg.hashtags ?? null; o.expectChannel ??= cfg.channel ?? null; if (cfg.category && !process.argv.includes('--category')) o.category = cfg.category; }
   API(); TOKEN_URL(); // fail fast if the environment points these at a non-Google, non-loopback host
-  if (o.auth) return auth(o.storeToken);
+  if (o.scope && o.scope !== 'analytics') throw new Error('--scope only accepts analytics (a read-only reports token)');
+  if (o.auth) return auth(o.storeToken, o.scope === 'analytics');
   if (o.whoami) { const c = await currentChannel(); console.log(`This token uploads to: ${c.title} (@${c.handle}) id ${c.id}`); return; }
   if ((o.upload || o.publish) && !o.ids) throw new Error('BLOCKED: --upload needs an explicit --ids (for example --ids ep15)');
   if ((o.upload || o.publish) && !o.expectChannel) throw new Error('BLOCKED: --upload needs --expect-channel @handle (run --whoami to see which channel the token uses)');
