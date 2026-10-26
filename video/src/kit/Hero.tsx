@@ -22,8 +22,8 @@ export const makeHero = (tl: Timeline & {fullTitle?: string; hero?: {scene: stri
         <AbsoluteFill style={{background: `radial-gradient(900px 560px at 30% 25%, ${C.bg2} 0%, ${C.bg} 70%)`, overflow: 'hidden'}}>
           <div style={{position: 'absolute', left: 64 * s, top: 48 * s, fontFamily: F.mono, fontSize: 22 * s, letterSpacing: 4 * s, textTransform: 'uppercase', color: C.cyan, fontWeight: 700}}>{`${tl.series ?? 'FFmpeg Reality Checks'} · ${tl.kicker ?? `Episode ${String(tl.n).padStart(2, '0')}`}`}</div>
           <div style={{position: 'absolute', left: 58 * s, top: 70 * s, fontFamily: F.display, fontWeight: 900, fontSize: nsz, lineHeight: 1, letterSpacing: 0, color: C.text, textShadow: `${10 * s}px ${10 * s}px 0 ${col}8c`, whiteSpace: 'nowrap'}}>{num}</div>
-          <div style={{position: 'absolute', left: 66 * s, top: 70 * s + nsz * 0.98, fontFamily: F.mono, fontSize: 30 * s, letterSpacing: 2 * s, color: col, fontWeight: 700}}>{tl.thumb.label}</div>
-          <div style={{position: 'absolute', left: 64 * s, right: 64 * s, bottom: 84 * s, fontFamily: F.sans, fontWeight: 700, fontSize: 48 * s, lineHeight: 1.12, color: C.text, textWrap: 'balance' as never}}>{title0}</div>
+          <div style={{position: 'absolute', left: 66 * s, top: 70 * s + nsz * (/[gjpqy,;]/.test(num) ? 1.1 : 0.98), fontFamily: F.mono, fontSize: 30 * s, letterSpacing: 2 * s, color: col, fontWeight: 700}}>{tl.thumb.label}</div>
+          <div style={{position: 'absolute', left: 64 * s, right: 64 * s, bottom: 84 * s, fontFamily: F.sans, fontWeight: 700, fontSize: 48 * s, lineHeight: 1.12, color: C.text, textWrap: 'balance' as never}}>{title0.replace(/(\d) (?=[A-Za-z])/g, '$1\u00a0').split(' ').map((w, i) => <React.Fragment key={i}>{i > 0 ? ' ' : ''}<span style={{whiteSpace: 'nowrap'}}>{w}</span></React.Fragment>)}</div>
           <div style={{position: 'absolute', left: 0, right: 0, bottom: 0, height: 56 * s, background: C.text}}>
             {Array.from({length: Math.ceil(W0 / (38 * s))}, (_, i) => (
               <React.Fragment key={i}>

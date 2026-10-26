@@ -177,6 +177,33 @@ test('quota budget stops before the step that would exceed it, and saves progres
   assert.equal(JSON.parse(fs.readFileSync(path.join(tmp, 'state.json'), 'utf8')).films.ep15.videoId, 'vid_TEST1');
 });
 
+test('--rethumb resends a changed thumbnail once and leaves an unchanged one alone', async () => {
+  const sr = fs.mkdtempSync(path.join(os.tmpdir(), 'series-'));
+  try {
+    fs.mkdirSync(path.join(sr, 'episodes', 'ff01', 'content'), {recursive: true});
+    fs.copyFileSync(path.join(ROOT, 'episodes', 'ep15', 'content', 'distribution.md'), path.join(sr, 'episodes', 'ff01', 'content', 'distribution.md'));
+    fs.writeFileSync(path.join(sr, 'episodes', 'ff01', 'ff01.mp4'), Buffer.alloc(2048, 1));
+    const thumb = path.join(sr, 'episodes', 'ff01', 'thumbnail.png');
+    fs.writeFileSync(thumb, Buffer.alloc(256, 2));
+    fs.writeFileSync(path.join(sr, 'episodes', 'ff01', 'captions.srt'), '1\n00:00:00,000 --> 00:00:01,000\nHi\n');
+    fs.writeFileSync(path.join(sr, 'series.json'), JSON.stringify({name: 'FFmpeg Reality Checks', hashtags: '#FFmpeg #video', playlistTitle: 'T', playlistDescription: 'D', channel: '@KGTest', category: 28}));
+    const e = env({YOUTUBE_STATE_FILE: path.join(tmp, 'rethumb-state.json')});
+    const sent = () => log.filter((x) => x.p.includes('thumbnails')).length;
+    log.length = 0;
+    let r = await run(['--root', sr, '--ids', 'ff01', '--upload'], e);
+    assert.equal(r.status, 0, r.stderr + r.stdout); assert.equal(sent(), 1, 'first upload sets the thumbnail');
+    log.length = 0;
+    r = await run(['--root', sr, '--ids', 'ff01', '--upload', '--rethumb'], e);
+    assert.equal(r.status, 0, r.stderr + r.stdout); assert.equal(sent(), 0, 'unchanged file is not sent again');
+    fs.writeFileSync(thumb, Buffer.alloc(256, 3));
+    r = await run(['--root', sr, '--ids', 'ff01', '--upload', '--rethumb'], e);
+    assert.equal(r.status, 0, r.stderr + r.stdout); assert.equal(sent(), 1, 'a changed file is sent once');
+    assert.match(r.stdout, /ff01 thumbnail updated/);
+    r = await run(['--root', sr, '--ids', 'ff01', '--upload', '--rethumb'], e);
+    assert.equal(sent(), 1, 'and not again');
+  } finally { fs.rmSync(sr, {recursive: true, force: true}); }
+});
+
 test('endpoint override to a non-Google, non-loopback host is rejected (token exfiltration guard)', async () => {
   const r = await run(['--ids', 'ep15', '--upload', '--expect-channel', '@kgtest'], env({YOUTUBE_API_BASE: 'https://evil.example.com'}));
   assert.notEqual(r.status, 0);

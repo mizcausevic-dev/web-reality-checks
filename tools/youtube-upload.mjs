@@ -10,6 +10,7 @@
 //   node tools/youtube-upload.mjs --ids ep01..ep30 --upload --playlist --captions
 //   node tools/youtube-upload.mjs --ids series --upload        the full-series cut (run tools/build-series-cut.mjs first)
 //
+//          --rethumb (send the thumbnail again when the file changed since the last send; use with --upload)
 // Options: --privacy private|unlisted|public (default private; public also needs --confirm-public)
 //          --playlist (create/reuse the series playlist and add each film)  --captions (400 quota units each)
 //          --category 28 (YouTube category id, default 28 Science & Technology)  --synthetic (set the altered/synthetic disclosure)
@@ -323,11 +324,13 @@ async function auth(storeToken) {
 }
 
 // ---------- main ----------
+const fileHash = (file) => crypto.createHash('sha1').update(fs.readFileSync(file)).digest('hex');
+
 export function parseArgs(argv) {
-  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, publish: false, titleOption: 1, seriesThumb: null, root: null};
+  const o = {ids: null, upload: false, privacy: 'private', playlist: false, captions: false, category: 28, synthetic: false, maxUnits: 9000, confirmPublic: false, auth: false, storeToken: false, whoami: false, expectChannel: null, titleSuffix: null, retitle: false, rethumb: false, publish: false, titleOption: 1, seriesThumb: null, root: null};
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i], nx = () => argv[++i];
-    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--title-suffix') o.titleSuffix = nx(); else if (a === '--retitle') o.retitle = true; else if (a === '--publish') o.publish = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
+    if (a === '--auth') o.auth = true; else if (a === '--store-token') o.storeToken = true; else if (a === '--whoami') o.whoami = true; else if (a === '--title-suffix') o.titleSuffix = nx(); else if (a === '--retitle') o.retitle = true; else if (a === '--rethumb') o.rethumb = true; else if (a === '--publish') o.publish = true; else if (a === '--expect-channel') o.expectChannel = nx(); else if (a === '--upload') o.upload = true; else if (a === '--playlist') o.playlist = true; else if (a === '--captions') o.captions = true;
     else if (a === '--synthetic') o.synthetic = true; else if (a === '--confirm-public') o.confirmPublic = true; else if (a === '--ids') o.ids = nx(); else if (a === '--privacy') o.privacy = nx();
     else if (a === '--category') o.category = Number(nx()); else if (a === '--max-units') o.maxUnits = Number(nx()); else if (a === '--title-option') o.titleOption = Number(nx()); else if (a === '--series-thumb') o.seriesThumb = nx(); else if (a === '--root') o.root = nx();
     else throw new Error(`unknown option ${a}`);
@@ -392,7 +395,9 @@ async function main() {
     // --retitle also re-sends description, tags and category when they changed since the last upload or update
     // (videos.update replaces the whole snippet). Films recorded before metaHash existed are compared by title only.
     if (o.retitle && (s.title !== f.title || (s.metaHash && s.metaHash !== metaHash(f, o.category)))) { budget(50); await updateSnippet(s.videoId, f, o); s.title = f.title; s.metaHash = metaHash(f, o.category); saveState(state); console.log(`${f.id} metadata updated: ${f.title}`); }
-    if (f.thumb && !s.thumbnail) { budget(50); await setThumbnail(s.videoId, path.join(ROOT, f.thumb)); s.thumbnail = true; saveState(state); }
+    if (f.thumb && !s.thumbnail) { budget(50); await setThumbnail(s.videoId, path.join(ROOT, f.thumb)); s.thumbnail = true; s.thumbHash = fileHash(path.join(ROOT, f.thumb)); saveState(state); }
+    // --rethumb sends the thumbnail again only when the file changed since the last send (a thumbnail costs 50 units)
+    else if (o.rethumb && f.thumb && s.thumbHash !== fileHash(path.join(ROOT, f.thumb))) { budget(50); await setThumbnail(s.videoId, path.join(ROOT, f.thumb)); s.thumbHash = fileHash(path.join(ROOT, f.thumb)); saveState(state); console.log(`${f.id} thumbnail updated`); }
     if (o.playlist && !s.playlistItemId) { budget(50); const pid = await ensurePlaylist(state, o); s.playlistItemId = await addToPlaylist(pid, s.videoId); saveState(state); }
     if (o.publish && !s.published) { budget(50); await setVisibility(s.videoId, 'public', o); s.published = true; saveState(state); console.log(`${f.id} is now PUBLIC: https://youtu.be/${s.videoId}`); }
     if (o.captions && f.captions && !s.captions) { budget(400); await uploadCaptions(s.videoId, path.join(ROOT, f.captions)); s.captions = true; saveState(state); }
