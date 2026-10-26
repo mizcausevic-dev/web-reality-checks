@@ -89,6 +89,25 @@ export function validate(meta) {
   if (!meta.tags.length) v.push('no tags');
   return v;
 }
+// Series footer (series.json "footer": {site, related: {id: [ids]}}): the site link, the series playlist and up to
+// two related films that are already uploaded. Pure given cfg and state; links to films not yet uploaded are skipped.
+export function footerFor(id, cfg = seriesConfig(), state = loadState(), root = ROOT) {
+  const f = cfg?.footer;
+  if (!f) return '';
+  const rel = [];
+  for (const rid of f.related?.[id] ?? []) {
+    const vid = state.films?.[rid]?.videoId;
+    if (!vid) continue;
+    let t = null;
+    try { t = parseDistribution(fs.readFileSync(path.join(root, 'episodes', rid, 'content', 'distribution.md'), 'utf8')).title; } catch { /* title falls back to the id */ }
+    rel.push(`${sanitize(t ?? rid)}: https://youtu.be/${vid}`);
+  }
+  const out = [];
+  if (rel.length) out.push('Related Reality Checks', ...rel);
+  if (state.playlistId) out.push(`Full series: https://www.youtube.com/playlist?list=${state.playlistId}`);
+  if (f.site) out.push(`Kinetic Gain: ${f.site}`);
+  return out.length ? `\n\n${out.join('\n')}` : '';
+}
 export function buildFilm(id, opts = {}) {
   if (id === 'series') {
     const rel = rd('SERIES_RELEASE.md');
@@ -105,7 +124,7 @@ export function buildFilm(id, opts = {}) {
   const dp = `episodes/${id}/content/distribution.md`;
   if (!ex(dp)) throw new Error(`missing ${dp}`);
   const p = parseDistribution(rd(dp), opts.titleOption ?? 1);
-  const meta = {id, kind: 'ep', title: p.title && sanitize(opts.titleSuffix ? `${p.title} ${opts.titleSuffix}` : p.title), description: p.description && sanitize(p.description), tags: p.tags, pinned: p.pinned,
+  const meta = {id, kind: 'ep', title: p.title && sanitize(opts.titleSuffix ? `${p.title} ${opts.titleSuffix}` : p.title), description: p.description && sanitize(`${p.description}${footerFor(id)}`), tags: p.tags, pinned: p.pinned,
     file: `episodes/${id}/${id}.mp4`, thumb: `episodes/${id}/thumbnail.png`, captions: `episodes/${id}/captions.srt`, notes: []};
   return finish(meta);
 }

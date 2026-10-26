@@ -9,7 +9,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {spawn} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {sanitize, tagBudget, fitTags, parseDistribution, validate, buildFilm, expandIds, parseArgs, LIMITS} from './youtube-upload.mjs';
+import {sanitize, tagBudget, fitTags, parseDistribution, validate, buildFilm, footerFor, expandIds, parseArgs, LIMITS} from './youtube-upload.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CLI = path.join(ROOT, 'tools', 'youtube-upload.mjs');
@@ -358,4 +358,16 @@ test('--retitle re-sends the snippet when only the description changed, and only
     await run(base, env({YOUTUBE_STATE_FILE: st}));
     assert.equal(log.filter((l) => l.m === 'PUT' && l.p.startsWith('/youtube/v3/videos')).length, 0);
   } finally { fs.rmSync(sr, {recursive: true, force: true}); }
+});
+
+test('footer: site link, playlist and only already-uploaded related films; none without config', () => {
+  const cfg = {footer: {site: 'https://kineticgain.com', related: {ep15: ['ep01', 'ep02']}}};
+  const state = {playlistId: 'PLX', films: {ep01: {videoId: 'AAAAAAAAAAA'}}};
+  const f = footerFor('ep15', cfg, state);
+  assert.match(f, /Related Reality Checks\n.*: https:\/\/youtu\.be\/AAAAAAAAAAA/);
+  assert.ok(!f.includes('ep02'), 'a film that is not uploaded is skipped');
+  assert.match(f, /Full series: https:\/\/www\.youtube\.com\/playlist\?list=PLX/);
+  assert.match(f, /Kinetic Gain: https:\/\/kineticgain\.com$/);
+  assert.equal(footerFor('ep15', {}, state), '');
+  assert.ok(!/[<>]/.test(f));
 });
