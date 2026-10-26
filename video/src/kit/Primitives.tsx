@@ -1,13 +1,13 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {C, F, W, H, M, MV} from './theme';
+import {C, F, D, W, H, M, MV} from './theme';
 import './fonts';
 
 type Kids = {children?: React.ReactNode};
 
 /* ---------- Text ---------- */
 export const Big: React.FC<{x?: number; y: number; w?: number; color?: string; size?: number; align?: 'left' | 'center'; o?: number; weight?: number} & Kids> = ({x = M, y, w = W - 2 * M, color = C.text, size = 72, align = 'left', o = 1, weight = 700, children}) => (
-  <div style={{position: 'absolute', left: x, top: y, width: w, fontFamily: F.sans, fontSize: size, fontWeight: weight, color, lineHeight: 1.12, letterSpacing: -1.2, textAlign: align, opacity: o}}>{children}</div>
+  <div style={{position: 'absolute', left: x, top: y, width: w, fontFamily: F.display, fontSize: size * D.k, fontWeight: weight, color, lineHeight: 1.12, letterSpacing: D.lsBig, textAlign: align, opacity: o}}>{children}</div>
 );
 export const Txt: React.FC<{x: number; y: number; w?: number; color?: string; size?: number; align?: 'left' | 'center' | 'right'; o?: number; weight?: number; mono?: boolean; lh?: number} & Kids> = ({x, y, w, color = C.dim, size = 30, align = 'left', o = 1, weight = 500, mono = false, lh = 1.3, children}) => (
   <div style={{position: 'absolute', left: x, top: y, width: w, fontFamily: mono ? F.mono : F.sans, fontSize: size, fontWeight: weight, color, lineHeight: lh, textAlign: align, opacity: o, whiteSpace: 'pre-wrap'}}>{children}</div>
@@ -29,7 +29,7 @@ export const SimTag: React.FC<{label?: string; color?: string}> = ({label = 'SIM
 /** Bottom caption bar, kept separate from diagram labels. */
 export const Caption: React.FC<{text: string; o?: number}> = ({text, o = 1}) => (
   <div style={{position: 'absolute', left: 0, right: 0, bottom: MV, display: 'flex', justifyContent: 'center', opacity: o}}>
-    <div style={{maxWidth: W - 2 * M, padding: '14px 28px', background: 'rgba(0,0,0,0.72)', borderRadius: 10, fontFamily: F.sans, fontSize: 34, fontWeight: 600, color: C.text, textAlign: 'center', lineHeight: 1.25}}>{text}</div>
+    <div style={{maxWidth: W - 2 * M, padding: '14px 28px', background: C.capBg, borderRadius: 10, fontFamily: F.sans, fontSize: 34, fontWeight: 600, color: C.capText || C.text, textAlign: 'center', lineHeight: 1.25}}>{text}</div>
   </div>
 );
 
@@ -39,7 +39,7 @@ export const EpisodeTag: React.FC<{n: number; title: string; label?: string; ser
 
 /* ---------- Diagram ---------- */
 export const Box: React.FC<{x: number; y: number; w: number; h: number; title?: string; sub?: string; accent?: string; o?: number; glow?: boolean; dashed?: boolean; fill?: string; titleSize?: number} & Kids> = ({x, y, w, h, title, sub, accent = C.line, o = 1, glow = false, dashed = false, fill = C.panel, titleSize = 30, children}) => (
-  <div style={{position: 'absolute', left: x, top: y, width: w, height: h, opacity: o, borderRadius: 16, background: fill, border: `3px ${dashed ? 'dashed' : 'solid'} ${accent}`, boxShadow: glow ? `0 0 0 6px ${accent}22, 0 0 40px ${accent}55` : 'none', boxSizing: 'border-box', padding: '18px 24px', fontFamily: F.sans, color: C.text}}>
+  <div style={{position: 'absolute', left: x, top: y, width: w, height: h, opacity: o, borderRadius: 16, background: fill, border: `3px ${dashed ? 'dashed' : 'solid'} ${accent}`, boxShadow: glow ? (D.glow ? `0 0 0 6px ${accent}22, 0 0 40px ${accent}55` : `5px 5px 0 ${accent}55`) : 'none', boxSizing: 'border-box', padding: '18px 24px', fontFamily: F.sans, color: C.text}}>
     {title && <div style={{fontSize: titleSize, fontWeight: 700, lineHeight: 1.15}}>{title}</div>}
     {sub && <div style={{fontSize: 24, color: C.dim, marginTop: 6, lineHeight: 1.25}}>{sub}</div>}
     {children}
@@ -121,7 +121,7 @@ export const Gate: React.FC<{x: number; y: number; w?: number; title: string; ch
 
 /** Simple monospace code panel with optional highlighted lines. */
 export const Code: React.FC<{x: number; y: number; w: number; lines: string[]; hi?: number[]; hiColor?: string; o?: number; size?: number; title?: string}> = ({x, y, w, lines, hi = [], hiColor = C.amber, o = 1, size = 26, title}) => (
-  <div style={{position: 'absolute', left: x, top: y, width: w, opacity: o, borderRadius: 14, background: '#0d0f14', border: `2px solid ${C.line}`, padding: '18px 24px', fontFamily: F.mono, fontSize: size, color: C.text, lineHeight: 1.45, boxSizing: 'border-box', whiteSpace: 'pre', overflow: 'hidden'}}>
+  <div style={{position: 'absolute', left: x, top: y, width: w, opacity: o, borderRadius: 14, background: C.codeBg, border: `2px solid ${C.line}`, padding: '18px 24px', fontFamily: F.mono, fontSize: size, color: C.text, lineHeight: 1.45, boxSizing: 'border-box', whiteSpace: 'pre', overflow: 'hidden'}}>
     {title && <div style={{fontFamily: F.sans, fontSize: 18, letterSpacing: 3, color: C.mute, textTransform: 'uppercase', marginBottom: 8}}>{title}</div>}
     {lines.map((l, i) => (
       <div key={i} style={{background: hi.includes(i) ? `${hiColor}33` : 'transparent', borderLeft: hi.includes(i) ? `4px solid ${hiColor}` : '4px solid transparent', paddingLeft: 12, marginLeft: -16}}>{l}</div>
@@ -151,17 +151,36 @@ export const Stages: React.FC<{x: number; y: number; w: number; stages: string[]
 /** Big number readout. */
 export const Readout: React.FC<{x: number; y: number; label: string; value: string | number; color?: string; o?: number; w?: number}> = ({x, y, label, value, color = C.cyan, o = 1, w = 300}) => (
   <div style={{position: 'absolute', left: x, top: y, width: w, opacity: o, fontFamily: F.sans, textAlign: 'center'}}>
-    <div style={{fontSize: 112, fontWeight: 800, color, lineHeight: 1, letterSpacing: -3}}>{value}</div>
+    <div style={{fontFamily: F.display, fontSize: 112 * D.k, fontWeight: 800, color, lineHeight: 1, letterSpacing: D.lsNum * 1.2}}>{value}</div>
     <div style={{fontSize: 24, color: C.dim, marginTop: 10, letterSpacing: 2, textTransform: 'uppercase'}}>{label}</div>
   </div>
 );
 
 /** Terminal-like log lines, revealing up to `shown` lines. */
 export const Log: React.FC<{x: number; y: number; w: number; lines: {t: string; c?: string}[]; shown: number; o?: number; size?: number; title?: string}> = ({x, y, w, lines, shown, o = 1, size = 24, title}) => (
-  <div style={{position: 'absolute', left: x, top: y, width: w, opacity: o, borderRadius: 14, background: '#0d0f14', border: `2px solid ${C.line}`, padding: '16px 22px', fontFamily: F.mono, fontSize: size, lineHeight: 1.5, boxSizing: 'border-box', whiteSpace: 'pre'}}>
+  <div style={{position: 'absolute', left: x, top: y, width: w, opacity: o, borderRadius: 14, background: C.codeBg, border: `2px solid ${C.line}`, padding: '16px 22px', fontFamily: F.mono, fontSize: size, lineHeight: 1.5, boxSizing: 'border-box', whiteSpace: 'pre'}}>
     {title && <div style={{fontFamily: F.sans, fontSize: 18, letterSpacing: 3, color: C.mute, textTransform: 'uppercase', marginBottom: 8}}>{title}</div>}
     {lines.slice(0, Math.max(0, Math.floor(shown))).map((l, i) => (
       <div key={i} style={{color: l.c ?? C.text}}>{l.t}</div>
     ))}
   </div>
 );
+
+/**
+ * End card: reserves the space where YouTube end screen elements go (two video slots and a subscribe circle)
+ * and prints the site as text. The pixels are not clickable; the clickable links live in the description.
+ */
+export const EndCard: React.FC<{o?: number; site?: string}> = ({o = 1, site = 'kineticgain.com'}) => {
+  const slot = (x: number, label: string) => (
+    <div style={{position: 'absolute', left: x, top: 300, width: 640, height: 340, boxSizing: 'border-box', border: `3px dashed ${C.mute}`, borderRadius: 14, display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-start', padding: 20, fontFamily: F.mono, fontSize: 24, letterSpacing: 3, color: C.mute, textTransform: 'uppercase'}}>{label}</div>
+  );
+  return (
+    <div style={{position: 'absolute', inset: 0, opacity: o, background: `radial-gradient(1200px 700px at 50% 30%, ${C.bg2} 0%, ${C.bg} 65%)`}}>
+      <div style={{position: 'absolute', left: 0, top: 118, width: W, textAlign: 'center', fontFamily: F.display, fontWeight: 800, fontSize: 84 * D.k, letterSpacing: D.ls, color: C.text}}>More Reality Checks</div>
+      {slot(W / 2 - 640 - 40, 'Related film')}
+      {slot(W / 2 + 40, 'Next film')}
+      <div style={{position: 'absolute', left: W / 2 - 80, top: 700, width: 160, height: 160, borderRadius: '50%', boxSizing: 'border-box', border: `3px dashed ${C.mute}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F.mono, fontSize: 18, letterSpacing: 2, color: C.mute, textTransform: 'uppercase'}}>Subscribe</div>
+      <div style={{position: 'absolute', left: 0, top: 895, width: W, textAlign: 'center', fontFamily: F.mono, fontWeight: 700, fontSize: 44, letterSpacing: 2, color: C.cyan}}>{site}</div>
+    </div>
+  );
+};

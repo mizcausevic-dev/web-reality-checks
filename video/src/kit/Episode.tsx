@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
-import {Bg, Caption, EpisodeTag, SimTag} from './Primitives';
+import {Bg, Caption, EndCard, EpisodeTag, SimTag} from './Primitives';
 import {prog} from './anim';
 import {applyPalette} from './theme';
 
@@ -14,6 +14,8 @@ export type Timeline = {
   title: string;
   tag?: string; // optional tag text replacing the episode number (launch videos)
   kicker?: string; // optional hero/thumbnail kicker replacing "Episode NN"
+  endCard?: {site: string; seconds: number}; // baked end card over the last `seconds` (end screen elements go on top in Studio)
+  thumb?: {number: string; label: string; color?: 'red' | 'cyan' | 'amber' | 'green'}; // big-number thumbnail and hero
   audio?: string | null; // path under public/, e.g. "ep01/narration.mp3"
   duration: number; // seconds
   scenes: SceneDef[];
@@ -29,7 +31,9 @@ export const makeEpisode = (tl: Timeline, scenes: Record<string, React.FC<SceneP
     const cue = tl.captions.find((c) => T >= c.start && T < c.end);
     const cueO = cue ? Math.min(prog(T, cue.start, cue.start + 0.2), 1 - prog(T, cue.end - 0.15, cue.end)) : 0;
     const cur = tl.scenes.find((s) => T >= s.start && T < s.end);
-    const sim = cur ? (cur.sim === undefined ? defaultSim : cur.sim) : null;
+    const ec = tl.endCard;
+    const ecO = ec ? prog(T, tl.duration - ec.seconds, tl.duration - ec.seconds + 0.5) : 0;
+    const sim = ecO > 0 ? null : cur ? (cur.sim === undefined ? defaultSim : cur.sim) : null;
     return (
       <Bg>
         {tl.scenes.map((s) => {
@@ -45,6 +49,7 @@ export const makeEpisode = (tl: Timeline, scenes: Record<string, React.FC<SceneP
             </Sequence>
           );
         })}
+        {ec && ecO > 0 && <EndCard o={ecO} site={ec.site} />}
         <EpisodeTag n={tl.n} title={tl.title} label={tl.tag} series={tl.series} />
         {sim && <SimTag label={sim} />}
         {cue && <Caption text={cue.text} o={cueO} />}

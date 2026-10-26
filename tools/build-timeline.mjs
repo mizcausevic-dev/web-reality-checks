@@ -25,7 +25,8 @@ const hasAudio = !noAudio && fs.existsSync(audioAbs);
 
 const words = (s) => s.trim().split(/\s+/).filter(Boolean).length;
 const LEAD = 0.6; // seconds of visual lead before narration begins
-const TAIL = 2.0; // hold after narration ends
+// hold after narration ends; an end card (script.endCard) needs room for the end screen elements (5 to 20 s)
+const TAIL = script.endCard ? (script.endCard.seconds ?? 10) + 0.5 : 2.0;
 
 let speechDur;
 let silences = [];
@@ -94,7 +95,7 @@ scenes.forEach((sc, i) => {
 });
 
 const heroDefault = scenes.find((s) => /leak|fail|freeze|dup|stale|wrong|break/.test(s.id)) ?? scenes[1] ?? scenes[0];
-const timeline = {n: script.n, ...(script.series ? {series: script.series} : {}), ...(script.palette ? {palette: script.palette} : {}), title: script.title, ...(script.tag ? {tag: script.tag} : {}), ...(script.kicker ? {kicker: script.kicker} : {}), fullTitle: script.fullTitle ?? script.title, slug: script.slug, hero: script.hero ?? {scene: heroDefault.id, t: Math.min(6, Math.max(2, (heroDefault.end - heroDefault.start) - 1))}, audio: hasAudio ? audioRel : null, duration, scenes, captions};
+const timeline = {n: script.n, ...(script.series ? {series: script.series} : {}), ...(script.palette ? {palette: script.palette} : {}), title: script.title, ...(script.tag ? {tag: script.tag} : {}), ...(script.kicker ? {kicker: script.kicker} : {}), ...(script.endCard ? {endCard: {site: 'kineticgain.com', seconds: 10, ...script.endCard}} : {}), ...(script.thumb ? {thumb: script.thumb} : {}), fullTitle: script.fullTitle ?? script.title, slug: script.slug, hero: script.hero ?? {scene: heroDefault.id, t: Math.min(6, Math.max(2, (heroDefault.end - heroDefault.start) - 1))}, audio: hasAudio ? audioRel : null, duration, scenes, captions};
 const tlDir = path.join(root, 'video', 'src', 'episodes', ep);
 fs.mkdirSync(tlDir, {recursive: true});
 fs.writeFileSync(path.join(tlDir, 'timeline.json'), JSON.stringify(timeline, null, 2));

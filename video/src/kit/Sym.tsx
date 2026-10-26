@@ -1,5 +1,5 @@
 import React from 'react';
-import {C, F, W} from './theme';
+import {C, F, D, W, glowOf} from './theme';
 import './fonts';
 
 /**
@@ -31,7 +31,7 @@ export const Axis: React.FC<{y1: number; y2: number; color?: string; o?: number;
 export const Head: React.FC<{over: string; title?: string; color?: string; o?: number; y?: number; size?: number}> = ({over, title, color = C.cyan, o = 1, y = 118, size = 64}) => (
   <div style={{position: 'absolute', left: 0, top: y, width: W, textAlign: 'center', opacity: o, fontFamily: F.sans}}>
     <div style={{fontSize: 24, fontWeight: 700, letterSpacing: 6, textTransform: 'uppercase', color}}>{over}</div>
-    {title && <div style={{fontSize: size, fontWeight: 800, color: C.text, letterSpacing: -1.5, lineHeight: 1.1, marginTop: 14}}>{title}</div>}
+    {title && <div style={{fontFamily: F.display, fontSize: size * D.k, fontWeight: 800, color: C.text, letterSpacing: D.ls, lineHeight: 1.1, marginTop: 14}}>{title}</div>}
   </div>
 );
 
@@ -43,7 +43,7 @@ export const Mid: React.FC<{y: number; size?: number; color?: string; weight?: n
 /** Centered command in a pill. Shrinks to its text. */
 export const Cmd: React.FC<{y: number; text: string; color?: string; size?: number; o?: number; hi?: string}> = ({y, text, color = C.cyan, size = 34, o = 1, hi}) => (
   <div style={{position: 'absolute', left: 0, top: y, width: W, display: 'flex', justifyContent: 'center', opacity: o}}>
-    <div style={{padding: '18px 36px', borderRadius: 18, background: '#0d0f14', border: `2px solid ${color}`, boxShadow: `0 0 36px ${color}33`, fontFamily: F.mono, fontSize: size, color: C.text, whiteSpace: 'pre'}}>
+    <div style={{padding: '18px 36px', borderRadius: 18, background: C.codeBg, border: `2px solid ${color}`, boxShadow: glowOf(color), fontFamily: F.mono, fontSize: size, color: C.text, whiteSpace: 'pre'}}>
       <span style={{color}}>$ </span>{hi ? text.split(hi).reduce<React.ReactNode[]>((a, part, i, arr) => { a.push(part); if (i < arr.length - 1) a.push(<span key={i} style={{color: C.amber, fontWeight: 700}}>{hi}</span>); return a; }, []) : text}
     </div>
   </div>
@@ -51,7 +51,7 @@ export const Cmd: React.FC<{y: number; text: string; color?: string; size?: numb
 
 /** Circle with a short label (number, sign, vs). */
 export const Medallion: React.FC<{y: number; x?: number; d?: number; text: string; color?: string; o?: number; size?: number; sub?: string}> = ({y, x = CX, d = 104, text, color = C.cyan, o = 1, size = 40, sub}) => (
-  <div style={{position: 'absolute', left: x - d / 2, top: y - d / 2, width: d, height: d, borderRadius: '50%', opacity: o, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: C.bg, border: `3px solid ${color}`, boxShadow: `0 0 0 8px ${color}1a, 0 0 40px ${color}44`, fontFamily: F.sans, color: C.text, fontSize: size, fontWeight: 800, letterSpacing: -1}}>
+  <div style={{position: 'absolute', left: x - d / 2, top: y - d / 2, width: d, height: d, borderRadius: '50%', opacity: o, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: C.bg, border: `3px solid ${color}`, boxShadow: D.glow ? `0 0 0 8px ${color}1a, 0 0 40px ${color}44` : `4px 4px 0 ${color}55`, fontFamily: F.sans, color: C.text, fontSize: size, fontWeight: 800, letterSpacing: -1}}>
     <span style={{lineHeight: 1}}>{text}</span>
     {sub && <span style={{fontSize: 14, letterSpacing: 2, color, textTransform: 'uppercase', marginTop: 4, fontWeight: 700}}>{sub}</span>}
   </div>
@@ -71,7 +71,7 @@ export const Label: React.FC<{color?: string; size?: number} & Kids> = ({color =
   <div style={{fontSize: size, fontWeight: 700, letterSpacing: 4, textTransform: 'uppercase', color, fontFamily: F.sans}}>{children}</div>
 );
 export const Value: React.FC<{color?: string; size?: number} & Kids> = ({color = C.text, size = 96, children}) => (
-  <div style={{fontSize: size, fontWeight: 800, color, letterSpacing: -2.5, lineHeight: 1.02, fontFamily: F.sans, whiteSpace: 'nowrap', margin: '10px 0 6px'}}>{children}</div>
+  <div style={{fontSize: size * D.k, fontWeight: 800, color, letterSpacing: D.lsNum, lineHeight: 1.02, fontFamily: F.display, whiteSpace: 'nowrap', margin: '10px 0 6px'}}>{children}</div>
 );
 export const Sub: React.FC<{color?: string; size?: number} & Kids> = ({color = C.dim, size = 28, children}) => (
   <div style={{fontSize: size, fontWeight: 500, color, lineHeight: 1.3, fontFamily: F.sans, whiteSpace: 'pre-wrap'}}>{children}</div>
@@ -120,7 +120,7 @@ export const Row: React.FC<{y: number; h?: number; items: Stat[]; cw?: number; g
 
 /** A frame drawn at true relative size, centered on (cx, cy). Dimensions are scaled by k. */
 export const FrameBox: React.FC<{cx: number; cy: number; w: number; h: number; k?: number; color?: string; label?: string; sub?: string; o?: number; fill?: string}> = ({cx, cy, w, h, k = 1, color = C.cyan, label, sub, o = 1, fill}) => (
-  <div style={{position: 'absolute', left: cx - (w * k) / 2, top: cy - (h * k) / 2, width: w * k, height: h * k, opacity: o, boxSizing: 'border-box', borderRadius: 14, border: `3px solid ${color}`, background: fill ?? `${color}1f`, boxShadow: `0 0 36px ${color}33`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: F.sans, textAlign: 'center'}}>
+  <div style={{position: 'absolute', left: cx - (w * k) / 2, top: cy - (h * k) / 2, width: w * k, height: h * k, opacity: o, boxSizing: 'border-box', borderRadius: 14, border: `3px solid ${color}`, background: fill ?? `${color}1f`, boxShadow: glowOf(color), display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontFamily: F.sans, textAlign: 'center'}}>
     {label && <div style={{fontSize: 34, fontWeight: 800, color: C.text, letterSpacing: -0.5, whiteSpace: 'nowrap'}}>{label}</div>}
     {sub && <div style={{fontSize: 22, color: C.dim, marginTop: 4, whiteSpace: 'nowrap'}}>{sub}</div>}
   </div>
@@ -164,9 +164,45 @@ export const Cells: React.FC<{y: number; cx?: number; n: number; lit?: (i: numbe
         return Array.from({length: count}, (_, c) => {
           const i = r * per + c;
           const on = lit(i);
-          return <div key={i} style={{position: 'absolute', left: cx - total / 2 + c * (size + gap), top: r * (size + gap), width: size, height: size, borderRadius: 6, background: on ? color : 'transparent', border: `2px solid ${on ? color : dim}`, boxShadow: on ? `0 0 14px ${color}77` : 'none'}} />;
+          return <div key={i} style={{position: 'absolute', left: cx - total / 2 + c * (size + gap), top: r * (size + gap), width: size, height: size, borderRadius: 6, background: on ? color : 'transparent', border: `2px solid ${on ? color : dim}`, boxShadow: on && D.glow ? `0 0 14px ${color}77` : 'none'}} />;
         });
       })}
     </div>
   );
 };
+
+/**
+ * Film strip: a band of numbered frames with sprocket holes top and bottom, centered on the axis.
+ * `cur` marks the frame in focus (takes `color`), `kept` marks frames that are kept (filled), the rest stay outlined.
+ * Print-lab motif for ff26 onward. `label(i)` returns the text printed on frame i.
+ */
+export const FrameStrip: React.FC<{y: number; n: number; cur?: number; kept?: (i: number) => boolean; label?: (i: number) => string; color?: string; fw?: number; fh?: number; gap?: number; o?: number}> = ({y, n, cur = -1, kept = () => false, label = (i) => String(i), color = C.red, fw = 150, fh = 96, gap = 14, o = 1}) => {
+  const total = n * fw + (n - 1) * gap;
+  const x0 = CX - total / 2;
+  const band = fh + 56;
+  return (
+    <div style={{position: 'absolute', left: x0 - 28, top: y, width: total + 56, height: band, opacity: o, background: C.text, borderRadius: 10}}>
+      {Array.from({length: n + 1}, (_, i) => (
+        <React.Fragment key={i}>
+          <div style={{position: 'absolute', left: 14 + i * (fw + gap) - 2, top: 9, width: 14, height: 14, borderRadius: 3, background: C.bg}} />
+          <div style={{position: 'absolute', left: 14 + i * (fw + gap) - 2, top: band - 23, width: 14, height: 14, borderRadius: 3, background: C.bg}} />
+        </React.Fragment>
+      ))}
+      {Array.from({length: n}, (_, i) => {
+        const on = i === cur;
+        const k = kept(i);
+        return (
+          <div key={i} style={{position: 'absolute', left: 28 + i * (fw + gap), top: 28, width: fw, height: fh, boxSizing: 'border-box', borderRadius: 4, background: on ? color : k ? C.amberDim : C.bg2, border: `3px solid ${on ? color : k ? C.amber : C.line}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: F.mono, fontSize: 30, fontWeight: 700, color: on ? C.bg : C.text}}>{label(i)}</div>
+        );
+      })}
+    </div>
+  );
+};
+
+/** Big measured number with a one-line caption under it. The thumbnail motif, reused on screen. */
+export const Figure: React.FC<{y: number; value: string; caption: string; color?: string; size?: number; o?: number}> = ({y, value, caption, color = C.red, size = 220, o = 1}) => (
+  <div style={{position: 'absolute', left: 0, top: y, width: W, textAlign: 'center', opacity: o}}>
+    <div style={{fontFamily: F.display, fontWeight: 900, fontSize: size * D.k, lineHeight: 0.95, letterSpacing: D.lsNum, color: C.text, textShadow: D.glow ? 'none' : `8px 8px 0 ${color}66`, whiteSpace: 'nowrap'}}>{value}</div>
+    <div style={{fontFamily: F.mono, fontSize: 30, letterSpacing: 2, color: C.dim, marginTop: 14}}>{caption}</div>
+  </div>
+);
